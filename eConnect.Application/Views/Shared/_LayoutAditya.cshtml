@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+                @{
+                    string sname = "";
+                    if (@Session["CSPName"] != null)
+                    {
+                        sname = @Session["CSPName"].ToString();
+                    }
+                }
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Login", "Login", "Home")</li>
+                    <li>@Html.ActionLink("Raise Request", "TransactionRequest", "Home")</li>
+                    <li>@Html.ActionLink("Support Request", "TechSupportRequest", "Home")</li>
+                </ul>
+               @if(@Session["CSPName"] != null)
+                {
+                <ul style="list-style-type:none;float: right;background-color: transparent;color: #9d9d9d;padding-top: 15px;display: inline;">
+                    <li style="display: inline;">
+                        @sname
+                    </li>
+                    <li style="display: inline;">
+                        &nbsp; &nbsp; @Session["IPAddress"]
+                    </li>
+                    <li style="display: inline;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <li style="float: right;display: inline;">@Html.ActionLink("Logoff", "Logoff", "Home")</li>
+                </ul>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="container body-content" width="=100%">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
