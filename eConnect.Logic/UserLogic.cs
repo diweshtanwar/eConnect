@@ -16,26 +16,23 @@ namespace eConnect.Logic
 {
     public class UserLogic
     {
-        public tblUser Checkuser(string uname, string pswrd)
+        public tblUser ValidateUserLogin(string userName, string password)
         {
-            tblUser ue = new tblUser();
+            tblUser objtblUser = new tblUser();
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                var dsds = unitOfWork.Userss.GetAllUsersByEmailiID(uname, pswrd);
-                if (dsds != null)
-                {
-                    ue.UserId = dsds.UserId;
-                   // ue.InActive = dsds.InActive;
-                    //ue.CSPName = dsds.CSPName;
-                    //ue.AccountExpiryDate = dsds.AccountExpiryDate;
-                    return ue;
-                }
-                else
-                {
-                    return null;
-                }
-
+                objtblUser = unitOfWork.Userss.GetUsersByUserName(userName);
+              
             }
+            if (objtblUser != null)
+            {
+                if (objtblUser.Password == password)
+                {
+                    return objtblUser;
+                }
+            }
+
+            return null;          
         }
         public tblUser GetUsersInfo()
         {

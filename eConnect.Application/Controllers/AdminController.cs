@@ -49,7 +49,7 @@ namespace eConnect.Application.Controllers
                     fullpath = "~/UploadedFiles//Proofs//" + CommonLogic.DecryptText(id.ToString()) + "//" + filetype + "//" + filename;
                     return File(new FileStream(Server.MapPath(fullpath), FileMode.Open), "application/octetstream", filename);
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
                     return File(new FileStream(Server.MapPath(fullpath), FileMode.Open), "application/octetstream", filename);
 
@@ -72,7 +72,7 @@ namespace eConnect.Application.Controllers
                     fullpath = "~/UploadedFiles//Proofs//" + id.ToString() + "//" + filetype + "//" + filename;
                     return File(new FileStream(Server.MapPath(fullpath), FileMode.Open), "application/octetstream", filename);
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
                     return File(new FileStream(Server.MapPath(fullpath), FileMode.Open), "application/octetstream", filename);
 
@@ -289,7 +289,7 @@ namespace eConnect.Application.Controllers
                     fullpath = "~/UploaderFiles//" + id.ToString() + "//" + year + "//" + month + "//" + filename;
                     return File(new FileStream(Server.MapPath(fullpath), FileMode.Open), "application/octetstream", filename);
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
                     return File(new FileStream(Server.MapPath(fullpath), FileMode.Open), "application/octetstream", filename);
                 }

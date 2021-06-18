@@ -49,9 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CityLogic.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="CommonLogic.cs" />
     <Compile Include="CountryLogic.cs" />
+    <Compile Include="MenuLogic.cs" />
     <Compile Include="OtherLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateLogic.cs" />

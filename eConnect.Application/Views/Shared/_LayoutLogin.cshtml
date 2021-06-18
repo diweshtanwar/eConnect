@@ -1,36 +1,40 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/HTML/scss/custom.css">
+
 </head>
-<body style="background-color: #f4f5f7;">
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+<body id="login">
+    <div id="bg-blue" class="vh-100 w-50 fixed-top d-none d-md-block"></div>
+    <div class="container my-5" id="main-container">
+        <div class="card-deck">
+            <div class="card border-0 m-0 text-white d-flex justify-content-center align-items-center" id="login-left">
+                <div class="p-md-5">
+                    <h2>Welcome</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i ncididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con </p>
+                </div>
             </div>
-
+            <div class="card border-0 m-0 bg-white" id="login-right">
+                <div class="px-5 pt-5 pb-3">
+                    <div class="logo text-center mb-3">
+                        <img src="~/Content/HTML/img/e-gramin-logo.png" alt="" height="70" class="mb-2">
+                    </div>                
+                        @RenderBody()                    
+                </div>
+               
+            </div>
         </div>
-    </div>
-    <div class="container body-content" width="=100%">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My  Application</p>
-        </footer>
+
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+    <script src="~/Content/HTML/js/jquery.min.js"></script>
+    <script src="~/Content/HTML/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

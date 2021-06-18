@@ -245,6 +245,38 @@
           <Property Name="Date" Type="date" />
           <Property Name="Status" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblMenuMain">
+          <Key>
+            <PropertyRef Name="MenuMainId" />
+          </Key>
+          <Property Name="MenuMainId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tittle" Type="varchar" MaxLength="20" />
+          <Property Name="Controller" Type="varchar" MaxLength="30" />
+          <Property Name="Action" Type="varchar" MaxLength="30" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="tblMenuSub">
+          <Key>
+            <PropertyRef Name="MenuSubId" />
+          </Key>
+          <Property Name="MenuSubId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuMainId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="Tittle" Type="varchar" MaxLength="20" />
+          <Property Name="Controller" Type="varchar" MaxLength="30" />
+          <Property Name="Action" Type="varchar" MaxLength="30" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
         <EntityType Name="tblProblemType">
           <Key>
             <PropertyRef Name="ProblemTypeId" />
@@ -273,7 +305,7 @@
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
-          <Property Name="RoleId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblScreen">
@@ -350,8 +382,6 @@
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'eConnectApp.dbo.tblUserDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblUserDetail">
           <Key>
             <PropertyRef Name="UserDetailId" />
@@ -586,6 +616,30 @@ warning 6002: The table/view 'eConnectApp.dbo.tblUserDetail' does not have a pri
             </Principal>
             <Dependent Role="tblFolderImageDetails">
               <PropertyRef Name="FolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblMenuSub_tblMenuMain">
+          <End Role="tblMenuMain" Type="Self.tblMenuMain" Multiplicity="1" />
+          <End Role="tblMenuSub" Type="Self.tblMenuSub" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMenuMain">
+              <PropertyRef Name="MenuMainId" />
+            </Principal>
+            <Dependent Role="tblMenuSub">
+              <PropertyRef Name="MenuMainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblMenuSub_tblRoleMaster">
+          <End Role="tblRoleMaster" Type="Self.tblRoleMaster" Multiplicity="0..1" />
+          <End Role="tblMenuSub" Type="Self.tblMenuSub" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="tblMenuSub">
+              <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -862,6 +916,8 @@ warning 6002: The table/view 'eConnectApp.dbo.tblUserDetail' does not have a pri
           <EntitySet Name="tblFolderDetails" EntityType="Self.tblFolderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFolderImageDetails" EntityType="Self.tblFolderImageDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblHoliday" EntityType="Self.tblHoliday" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMenuMain" EntityType="Self.tblMenuMain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMenuSub" EntityType="Self.tblMenuSub" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProblemType" EntityType="Self.tblProblemType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblReportType" EntityType="Self.tblReportType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRequestType" EntityType="Self.tblRequestType" Schema="dbo" store:Type="Tables" />
@@ -872,32 +928,11 @@ warning 6002: The table/view 'eConnectApp.dbo.tblUserDetail' does not have a pri
           <EntitySet Name="tblStatus" EntityType="Self.tblStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblTechRequest" EntityType="Self.tblTechRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUploader" EntityType="Self.tblUploader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUserDetail" EntityType="Self.tblUserDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUserLoginLog" EntityType="Self.tblUserLoginLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblWebFeedback" EntityType="Self.tblWebFeedback" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblWithdrawalRequest" EntityType="Self.tblWithdrawalRequest" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblUserDetail" EntityType="Self.tblUserDetail" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tblUserDetail].[UserDetailId] AS [UserDetailId], 
-    [tblUserDetail].[Name] AS [Name], 
-    [tblUserDetail].[FatherName] AS [FatherName], 
-    [tblUserDetail].[MotherName] AS [MotherName], 
-    [tblUserDetail].[EmailId] AS [EmailId], 
-    [tblUserDetail].[MobileNumber] AS [MobileNumber], 
-    [tblUserDetail].[CityId] AS [CityId], 
-    [tblUserDetail].[Address] AS [Address], 
-    [tblUserDetail].[EmergencyContactNumber] AS [EmergencyContactNumber], 
-    [tblUserDetail].[DepartmentId] AS [DepartmentId], 
-    [tblUserDetail].[DesignationId] AS [DesignationId], 
-    [tblUserDetail].[Qualification] AS [Qualification], 
-    [tblUserDetail].[ProfilePicSource] AS [ProfilePicSource], 
-    [tblUserDetail].[CreatedDate] AS [CreatedDate], 
-    [tblUserDetail].[CreaterdBy] AS [CreaterdBy], 
-    [tblUserDetail].[UpdatedDate] AS [UpdatedDate], 
-    [tblUserDetail].[UpdatedBy] AS [UpdatedBy], 
-    [tblUserDetail].[UserId] AS [UserId]
-    FROM [dbo].[tblUserDetail] AS [tblUserDetail]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_tblApplicationSettings_tblBusiness" Association="Self.FK_tblApplicationSettings_tblBusiness">
             <End Role="tblBusiness" EntitySet="tblBusiness" />
             <End Role="tblApplicationSettings" EntitySet="tblApplicationSettings" />
@@ -949,6 +984,14 @@ warning 6002: The table/view 'eConnectApp.dbo.tblUserDetail' does not have a pri
           <AssociationSet Name="FK_tblFolderImageDetails_tblFolderDetails" Association="Self.FK_tblFolderImageDetails_tblFolderDetails">
             <End Role="tblFolderDetails" EntitySet="tblFolderDetails" />
             <End Role="tblFolderImageDetails" EntitySet="tblFolderImageDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblMenuSub_tblMenuMain" Association="Self.FK_tblMenuSub_tblMenuMain">
+            <End Role="tblMenuMain" EntitySet="tblMenuMain" />
+            <End Role="tblMenuSub" EntitySet="tblMenuSub" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblMenuSub_tblRoleMaster" Association="Self.FK_tblMenuSub_tblRoleMaster">
+            <End Role="tblRoleMaster" EntitySet="tblRoleMaster" />
+            <End Role="tblMenuSub" EntitySet="tblMenuSub" />
           </AssociationSet>
           <AssociationSet Name="FK_tblState_tblCountry" Association="Self.FK_tblState_tblCountry">
             <End Role="tblCountry" EntitySet="tblCountry" />
@@ -1303,6 +1346,41 @@ warning 6002: The table/view 'eConnectApp.dbo.tblUserDetail' does not have a pri
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Status" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityType Name="tblMenuMain">
+          <Key>
+            <PropertyRef Name="MenuMainId" />
+          </Key>
+          <Property Name="MenuMainId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tittle" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Controller" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Action" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <NavigationProperty Name="tblMenuSubs" Relationship="Self.FK_tblMenuSub_tblMenuMain" FromRole="tblMenuMain" ToRole="tblMenuSub" />
+        </EntityType>
+        <EntityType Name="tblMenuSub">
+          <Key>
+            <PropertyRef Name="MenuSubId" />
+          </Key>
+          <Property Name="MenuSubId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuMainId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="Tittle" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Controller" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Action" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <NavigationProperty Name="tblMenuMain" Relationship="Self.FK_tblMenuSub_tblMenuMain" FromRole="tblMenuSub" ToRole="tblMenuMain" />
+          <NavigationProperty Name="tblRoleMaster" Relationship="Self.FK_tblMenuSub_tblRoleMaster" FromRole="tblMenuSub" ToRole="tblRoleMaster" />
+        </EntityType>
         <EntityType Name="tblProblemType">
           <Key>
             <PropertyRef Name="ProblemTypeId" />
@@ -1333,8 +1411,9 @@ warning 6002: The table/view 'eConnectApp.dbo.tblUserDetail' does not have a pri
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
-          <Property Name="RoleId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblMenuSubs" Relationship="Self.FK_tblMenuSub_tblRoleMaster" FromRole="tblRoleMaster" ToRole="tblMenuSub" />
         </EntityType>
         <EntityType Name="tblScreen">
           <Key>
@@ -1426,6 +1505,33 @@ warning 6002: The table/view 'eConnectApp.dbo.tblUserDetail' does not have a pri
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblUploader_tblUsers" FromRole="tblUploader" ToRole="tblUsers" />
           <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblUploader_tblUsers1" FromRole="tblUploader" ToRole="tblUsers" />
         </EntityType>
+        <EntityType Name="tblUserDetail">
+          <Key>
+            <PropertyRef Name="UserDetailId" />
+          </Key>
+          <Property Name="UserDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="FatherName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MotherName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyContactNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="DesignationId" Type="Int32" />
+          <Property Name="Qualification" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ProfilePicSource" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreaterdBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="tblCity" Relationship="Self.FK_tblUserDetail_tblCity" FromRole="tblUserDetail" ToRole="tblCity" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblUserDetail_tblUsers" FromRole="tblUserDetail" ToRole="tblUsers" />
+          <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblUserDetail_tblUsers1" FromRole="tblUserDetail" ToRole="tblUsers" />
+          <NavigationProperty Name="tblUser2" Relationship="Self.FK_tblUserDetail_tblUsers2" FromRole="tblUserDetail" ToRole="tblUsers" />
+        </EntityType>
         <EntityType Name="tblUserLoginLog">
           <Key>
             <PropertyRef Name="Id" />
@@ -1506,33 +1612,6 @@ warning 6002: The table/view 'eConnectApp.dbo.tblUserDetail' does not have a pri
           <NavigationProperty Name="tblStatu" Relationship="Self.FK_tblWithdrawalRequest_tblStatus" FromRole="tblWithdrawalRequest" ToRole="tblStatus" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblWithdrawalRequest_tblUsers" FromRole="tblWithdrawalRequest" ToRole="tblUsers" />
           <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblWithdrawalRequest_tblUsers1" FromRole="tblWithdrawalRequest" ToRole="tblUsers" />
-        </EntityType>
-        <EntityType Name="tblUserDetail">
-          <Key>
-            <PropertyRef Name="UserDetailId" />
-          </Key>
-          <Property Name="UserDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="FatherName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="MotherName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="EmailId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CityId" Type="Int32" />
-          <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyContactNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="DepartmentId" Type="Int32" />
-          <Property Name="DesignationId" Type="Int32" />
-          <Property Name="Qualification" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ProfilePicSource" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreaterdBy" Type="Int32" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="UserId" Type="Int32" />
-          <NavigationProperty Name="tblCity" Relationship="Self.FK_tblUserDetail_tblCity" FromRole="tblUserDetail" ToRole="tblCity" />
-          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblUserDetail_tblUsers" FromRole="tblUserDetail" ToRole="tblUsers" />
-          <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblUserDetail_tblUsers1" FromRole="tblUserDetail" ToRole="tblUsers" />
-          <NavigationProperty Name="tblUser2" Relationship="Self.FK_tblUserDetail_tblUsers2" FromRole="tblUserDetail" ToRole="tblUsers" />
         </EntityType>
         <Association Name="FK_tblApplicationSettings_tblBusiness">
           <End Role="tblBusiness" Type="Self.tblBusiness" Multiplicity="0..1" />
@@ -1735,6 +1814,30 @@ warning 6002: The table/view 'eConnectApp.dbo.tblUserDetail' does not have a pri
             </Principal>
             <Dependent Role="tblFolderImageDetails">
               <PropertyRef Name="FolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblMenuSub_tblMenuMain">
+          <End Role="tblMenuMain" Type="Self.tblMenuMain" Multiplicity="1" />
+          <End Role="tblMenuSub" Type="Self.tblMenuSub" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMenuMain">
+              <PropertyRef Name="MenuMainId" />
+            </Principal>
+            <Dependent Role="tblMenuSub">
+              <PropertyRef Name="MenuMainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblMenuSub_tblRoleMaster">
+          <End Role="tblRoleMaster" Type="Self.tblRoleMaster" Multiplicity="0..1" />
+          <End Role="tblMenuSub" Type="Self.tblMenuSub" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="tblMenuSub">
+              <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1963,6 +2066,8 @@ warning 6002: The table/view 'eConnectApp.dbo.tblUserDetail' does not have a pri
           <EntitySet Name="tblFolderDetails" EntityType="Self.tblFolderDetail" />
           <EntitySet Name="tblFolderImageDetails" EntityType="Self.tblFolderImageDetail" />
           <EntitySet Name="tblHolidays" EntityType="Self.tblHoliday" />
+          <EntitySet Name="tblMenuMains" EntityType="Self.tblMenuMain" />
+          <EntitySet Name="tblMenuSubs" EntityType="Self.tblMenuSub" />
           <EntitySet Name="tblProblemTypes" EntityType="Self.tblProblemType" />
           <EntitySet Name="tblReportTypes" EntityType="Self.tblReportType" />
           <EntitySet Name="tblRequestTypes" EntityType="Self.tblRequestType" />
@@ -1973,11 +2078,11 @@ warning 6002: The table/view 'eConnectApp.dbo.tblUserDetail' does not have a pri
           <EntitySet Name="tblStatus" EntityType="Self.tblStatu" />
           <EntitySet Name="tblTechRequests" EntityType="Self.tblTechRequest" />
           <EntitySet Name="tblUploaders" EntityType="Self.tblUploader" />
+          <EntitySet Name="tblUserDetails" EntityType="Self.tblUserDetail" />
           <EntitySet Name="tblUserLoginLogs" EntityType="Self.tblUserLoginLog" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
           <EntitySet Name="tblWebFeedbacks" EntityType="Self.tblWebFeedback" />
           <EntitySet Name="tblWithdrawalRequests" EntityType="Self.tblWithdrawalRequest" />
-          <EntitySet Name="tblUserDetails" EntityType="Self.tblUserDetail" />
           <AssociationSet Name="FK_tblApplicationSettings_tblBusiness" Association="Self.FK_tblApplicationSettings_tblBusiness">
             <End Role="tblBusiness" EntitySet="tblBusinesses" />
             <End Role="tblApplicationSettings" EntitySet="tblApplicationSettings" />
@@ -2045,6 +2150,14 @@ warning 6002: The table/view 'eConnectApp.dbo.tblUserDetail' does not have a pri
           <AssociationSet Name="FK_tblFolderImageDetails_tblFolderDetails" Association="Self.FK_tblFolderImageDetails_tblFolderDetails">
             <End Role="tblFolderDetails" EntitySet="tblFolderDetails" />
             <End Role="tblFolderImageDetails" EntitySet="tblFolderImageDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblMenuSub_tblMenuMain" Association="Self.FK_tblMenuSub_tblMenuMain">
+            <End Role="tblMenuMain" EntitySet="tblMenuMains" />
+            <End Role="tblMenuSub" EntitySet="tblMenuSubs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblMenuSub_tblRoleMaster" Association="Self.FK_tblMenuSub_tblRoleMaster">
+            <End Role="tblRoleMaster" EntitySet="tblRoleMasters" />
+            <End Role="tblMenuSub" EntitySet="tblMenuSubs" />
           </AssociationSet>
           <AssociationSet Name="FK_tblTechRequest_tblProblemType" Association="Self.FK_tblTechRequest_tblProblemType">
             <End Role="tblProblemType" EntitySet="tblProblemTypes" />
@@ -2381,6 +2494,40 @@ warning 6002: The table/view 'eConnectApp.dbo.tblUserDetail' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblMenuMains">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblMenuMain">
+              <MappingFragment StoreEntitySet="tblMenuMain">
+                <ScalarProperty Name="MenuMainId" ColumnName="MenuMainId" />
+                <ScalarProperty Name="Tittle" ColumnName="Tittle" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMenuSubs">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblMenuSub">
+              <MappingFragment StoreEntitySet="tblMenuSub">
+                <ScalarProperty Name="MenuSubId" ColumnName="MenuSubId" />
+                <ScalarProperty Name="MenuMainId" ColumnName="MenuMainId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Tittle" ColumnName="Tittle" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblProblemTypes">
             <EntityTypeMapping TypeName="eConnectAppModel.tblProblemType">
               <MappingFragment StoreEntitySet="tblProblemType">
@@ -2495,6 +2642,30 @@ warning 6002: The table/view 'eConnectApp.dbo.tblUserDetail' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblUserDetails">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblUserDetail">
+              <MappingFragment StoreEntitySet="tblUserDetail">
+                <ScalarProperty Name="UserDetailId" ColumnName="UserDetailId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="EmergencyContactNumber" ColumnName="EmergencyContactNumber" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="ProfilePicSource" ColumnName="ProfilePicSource" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreaterdBy" ColumnName="CreaterdBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblUserLoginLogs">
             <EntityTypeMapping TypeName="eConnectAppModel.tblUserLoginLog">
               <MappingFragment StoreEntitySet="tblUserLoginLog">
@@ -2554,30 +2725,6 @@ warning 6002: The table/view 'eConnectApp.dbo.tblUserDetail' does not have a pri
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Account" ColumnName="Account" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblUserDetails">
-            <EntityTypeMapping TypeName="eConnectAppModel.tblUserDetail">
-              <MappingFragment StoreEntitySet="tblUserDetail">
-                <ScalarProperty Name="UserDetailId" ColumnName="UserDetailId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
-                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="EmergencyContactNumber" ColumnName="EmergencyContactNumber" />
-                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
-                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
-                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
-                <ScalarProperty Name="ProfilePicSource" ColumnName="ProfilePicSource" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreaterdBy" ColumnName="CreaterdBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

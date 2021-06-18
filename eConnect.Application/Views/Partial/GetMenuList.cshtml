@@ -1,0 +1,26 @@
+﻿@model IEnumerable<eConnect.DataAccess.tblMenuMain>
+@{
+    Layout = null;
+}
+
+    <ul class="sidebar-menu">
+        @foreach (var itemMain in Model)
+        {
+
+        <li class="nav-item dropdown">
+            <a href="/@itemMain.Controller/@itemMain.Action" class="nav-link has-dropdown" data-toggle="dropdown"><i class="mdi mdi-file-chart-outline"></i><span>@itemMain.Tittle</span></a>
+            @if (itemMain.tblMenuSubs.Count > 0)
+            {
+                <ul class="dropdown-menu">
+                    @foreach (var itemSub in itemMain.tblMenuSubs)
+                    {
+                        <li><a class="nav-link" href="/@itemSub.Controller/@itemSub.Action">@itemSub.Tittle</a></li>
+
+                    }
+                </ul>
+            }
+            </li>
+
+        }
+    </ul>
+            

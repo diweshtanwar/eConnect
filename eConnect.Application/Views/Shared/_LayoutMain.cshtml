@@ -72,57 +72,7 @@
                     <div class="sidebar-brand sidebar-brand-sm">
                         <a href="Dashboard.html"><img src="~/Content/HTML/img/favicon.png" alt=""></a>
                     </div>
-                    <ul class="sidebar-menu">
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="mdi mdi-file-chart-outline"></i><span>Admin</span></a>
-                            <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="account-configuration.html">Account Configuration</a></li>
-                                <li><a class="nav-link" href="#">Link2</a></li>
-                                <li><a class="nav-link" href="#">Link3</a></li>
-
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="mdi mdi-file-chart-outline"></i><span>Manage User</span></a>
-                            <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="#">Link 1</a></li>
-                                <li><a class="nav-link" href="#">Link2</a></li>
-                                <li><a class="nav-link" href="#">Link3</a></li>
-
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown active">
-                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="mdi mdi-file-chart-outline"></i><span>Manage CSP</span></a>
-                            <ul class="dropdown-menu">
-                                <li><a class="nav-link active" href="grid.html">CSP Lisst</a></li>
-                                <li><a class="nav-link" href="form.html">Edit CSP</a></li>
-                                <li><a class="nav-link" href="#">Link3</a></li>
-
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="mdi mdi-file-chart-outline"></i><span>Configuration</span></a>
-                            <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="grid.html">CSP List</a></li>
-                                <li><a class="nav-link" href="#">Link2</a></li>
-                                <li><a class="nav-link" href="#">Link3</a></li>
-
-                            </ul>
-                        </li>
-
-
-
-
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="mdi mdi-file-chart-outline"></i><span>Reports</span></a>
-                            <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="#">Link 1</a></li>
-                                <li><a class="nav-link" href="#">Link2</a></li>
-                                <li><a class="nav-link" href="#">Link3</a></li>
-
-                            </ul>
-                        </li>
-                    </ul>
+                   @{ Html.RenderAction("GetMenuList", "Partial",new { UserTypeId = Session["UserTypeId"] }); }     
 
 
                 </aside>

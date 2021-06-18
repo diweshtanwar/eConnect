@@ -70,6 +70,7 @@
     </Compile>
     <Compile Include="ICityRepository.cs" />
     <Compile Include="ICountryRepository.cs" />
+    <Compile Include="IMenuRepository.cs" />
     <Compile Include="IOthersRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IStateRepository.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="ITechSupportProblemRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IUserRepository.cs" />
+    <Compile Include="MenuRepository.cs" />
     <Compile Include="OthersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
@@ -142,6 +144,12 @@
     <Compile Include="tblHoliday.cs">
       <DependentUpon>eConnectAppModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblMenuMain.cs">
+      <DependentUpon>eConnectAppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMenuSub.cs">
+      <DependentUpon>eConnectAppModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblProblemType.cs">
       <DependentUpon>eConnectAppModel.tt</DependentUpon>
     </Compile>
@@ -193,11 +201,11 @@
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="eConnectAppModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>eConnectAppModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="App.Config" />
     <None Include="eConnectAppModel.edmx.diagram">
       <DependentUpon>eConnectAppModel.edmx</DependentUpon>
     </None>
@@ -205,23 +213,29 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
+    <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\eConnect.Model\eConnect.Model.csproj">
+      <Project>{860603B4-1B14-4D16-B214-9EA2E180E70C}</Project>
+      <Name>eConnect.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="eConnectAppModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>eConnectAppModel.Context.cs</LastGenOutput>
       <DependentUpon>eConnectAppModel.edmx</DependentUpon>
+      <LastGenOutput>eConnectAppModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="eConnectAppModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>eConnectAppModel.edmx</DependentUpon>
       <LastGenOutput>eConnectAppModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\Debug\" />
-    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

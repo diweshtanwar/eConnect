@@ -45,6 +45,8 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblFolderDetail> tblFolderDetails { get; set; }
         public virtual DbSet<tblFolderImageDetail> tblFolderImageDetails { get; set; }
         public virtual DbSet<tblHoliday> tblHolidays { get; set; }
+        public virtual DbSet<tblMenuMain> tblMenuMains { get; set; }
+        public virtual DbSet<tblMenuSub> tblMenuSubs { get; set; }
         public virtual DbSet<tblProblemType> tblProblemTypes { get; set; }
         public virtual DbSet<tblReportType> tblReportTypes { get; set; }
         public virtual DbSet<tblRequestType> tblRequestTypes { get; set; }
@@ -55,10 +57,10 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblStatu> tblStatus { get; set; }
         public virtual DbSet<tblTechRequest> tblTechRequests { get; set; }
         public virtual DbSet<tblUploader> tblUploaders { get; set; }
+        public virtual DbSet<tblUserDetail> tblUserDetails { get; set; }
         public virtual DbSet<tblUserLoginLog> tblUserLoginLogs { get; set; }
         public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblWebFeedback> tblWebFeedbacks { get; set; }
         public virtual DbSet<tblWithdrawalRequest> tblWithdrawalRequests { get; set; }
-        public virtual DbSet<tblUserDetail> tblUserDetails { get; set; }
     }
 }

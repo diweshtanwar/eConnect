@@ -32,6 +32,11 @@ namespace eConnect.DataAccess
             var data = eConnectAppEntities.tblUsers.Where(c => c.UserName == email && c.Password == pswd).SingleOrDefault();
             return data;
         }
+        public tblUser GetUsersByUserName(string userName)
+        {
+            var data = eConnectAppEntities.tblUsers.Where(c => c.UserName == userName).SingleOrDefault();
+            return data;
+        }
 
         public IEnumerable<tblUser> GetAllUsersByStatus(int statusid)
         {

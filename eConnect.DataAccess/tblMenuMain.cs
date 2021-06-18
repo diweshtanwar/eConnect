@@ -12,16 +12,24 @@ namespace eConnect.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class tblRoleMaster
+    public partial class tblMenuMain
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblRoleMaster()
+        public tblMenuMain()
         {
             this.tblMenuSubs = new HashSet<tblMenuSub>();
         }
     
-        public int RoleId { get; set; }
-        public string Name { get; set; }
+        public int MenuMainId { get; set; }
+        public string Tittle { get; set; }
+        public string Controller { get; set; }
+        public string Action { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> Status { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public Nullable<int> UpdatedBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblMenuSub> tblMenuSubs { get; set; }

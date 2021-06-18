@@ -47,7 +47,7 @@ namespace eConnect.Model
     }
     public class RoleMasterModel
     {
-        public byte RoleId { get; set; }
+        public int RoleId { get; set; }
         public string Name { get; set; }
     }
 }

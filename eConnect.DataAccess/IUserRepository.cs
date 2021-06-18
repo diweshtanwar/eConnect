@@ -11,6 +11,7 @@ namespace eConnect.DataAccess
         IEnumerable<tblUser> GetAllUsers();
         IEnumerable<tblUser> GetAllUsersByStateID(int id);
         tblUser GetAllUsersByEmailiID(string email, string pswd);
+        tblUser GetUsersByUserName(string userName);
         IEnumerable<tblUser> GetAllUsersByStatus(int statusid);
         IEnumerable<tblUser> GetAllUsersDetailsByid(long id);
       

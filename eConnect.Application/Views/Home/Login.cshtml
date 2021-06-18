@@ -1,103 +1,32 @@
-﻿@model ApplicationModel.Login
+﻿@model eConnect.Model.Login
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+
 }
 
-<!DOCTYPE html>
+@using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "pl-lg-4 pr-lg-4" }))
+{
+    @Html.AntiForgeryToken();
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserName)
+        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter UserName" } })
+        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password)
+        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Password" } })
+        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        @* <a href="#" class="text-dark float-right mt-2 mb-3"><small> Forgot Password?</small></a>*@
+    </div>
+  
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block py-2">Login</button>
+    </div>
+    <p class="text-center"><span class="text-muted">New User?</span> <a href="#">Sign Up</a></p>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
-    <style type="text/css">
-        body {
-            font-family: Arial;
-            font-size: 10pt;
-        }
+}
 
-        table {
-            border: 1px solid #ccc;
-            border-collapse: collapse;
-        }
 
-            table th {
-                background-color: #F7F7F7;
-                color: #333;
-                font-weight: bold;
-            }
 
-            table th, table td {
-                padding: 5px;
-                border: 1px solid #ccc;
-            }
-
-        .error {
-            color: red;
-        }
-    </style>
-</head>
-<body>
-    @using (Html.BeginForm("Login", "Home", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken();
-        <table border="0" width="50%">
-            <tr>
-                <th colspan="2" style="background-color: lightgray;">
-                    Login
-                </th>
-            </tr>
-            <tr>
-                <td width="12%">
-                    Username
-                </td>
-                <td width="25%">
-                    @Html.TextBox("Username")
-               
-                    @Html.ValidationMessageFor(m => m.Username, "", new { @class = "error" })
-                </td>
-            </tr>
-            <tr>
-                <td width="12%">
-                    Password
-                </td>
-                <td width ="25%">
-                    @Html.TextBox("Password")
-
-                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error" })
-                </td>
-</tr>
-            @*<tr>
-                    <td>
-                        Remember Me
-                    </td>
-                    <td>
-                        @Html.CheckBoxFor(m => m.RememberMe)
-                    </td>
-                    <td>
-                    </td>
-                </tr>*@
-            <tr>
-
-                <td colspan="2" style="text-align:center;">
-                    <input type="submit" value="Submit" id="btnSubmit" name="btnSubmit" />
-                   @* <input type="button" value="Cancel" id="btnCancel" name="btnSubmit" />*@
-
-                    <input type="button" value="Cancel" id="btnCancel"  onclick="location.href='@Url.Action("Login")'" />
-                    @Html.ActionLink("Register", "Register", "Home")
-
-                </td>
-
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align:center;color:red;">
-                    @ViewBag.Message
-                </td>
-            </tr>
-        </table>
-    }
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
- 
-</body>
-</html>

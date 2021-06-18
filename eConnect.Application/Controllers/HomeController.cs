@@ -13,6 +13,8 @@ namespace eConnect.Application.Controllers
     public class HomeController : Controller
     {
         string RootFilePath = System.Web.HttpContext.Current.Server.MapPath(Convert.ToString(ConfigurationManager.AppSettings["RootFilePath"]));
+
+       
         public ActionResult Index()
         {
             return View();
@@ -31,46 +33,33 @@ namespace eConnect.Application.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult Login()
         {
-
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(Login user, string btnSubmit)
+        public ActionResult Login(Login user)
         {
-            if (btnSubmit == "Cancel")
-            {
 
-            }
-            else
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                UserLogic objUserLogic = new UserLogic();
+                var userData = objUserLogic.ValidateUserLogin(user.UserName, user.Password);
+                if ( userData== null)
                 {
-                    UserLogic ul = new UserLogic();
-                    var userDetails = ul.Checkuser(user.Username, user.Password);
-                    if (userDetails == null)
-                    {
-                        ViewBag.Message = "Sorry, your username and password are incorrect - please try again.";
-                    }
-                    //else if (userDetails.AccountExpiryDate < DateTime.Now)
-                    //{
-                    //    ViewBag.Message = "Your account has been expired.Please contact to administrator.";
-                    //}
-                    else
-                    {
-                        //Session["CSPName"] = userDetails.tblCSPDetails.;
-                        //Session["UserName"] = userDetails.Username;
-                        //Session["EMailID"] = userDetails.EMailID;
-                        //Session["UserID"] = userDetails.UserID;
-                        //Session["IPAddress"] = CommonLogic.GetIPAddress();
-                        //ul.InsertUserLoginDetails(userDetails.UserID);
-                        return RedirectToAction("About");
-                    }
+                    ModelState.AddModelError("", "Invalid login attempt , your username and password are incorrect - please try again..");
+                  
+                }           
+                else
+                {
+                    Session["UserTypeId"] = userData.UserType;
+                    return RedirectToAction("About");
                 }
+
             }
             return View();
         }
