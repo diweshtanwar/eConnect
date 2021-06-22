@@ -121,20 +121,7 @@ namespace eConnect.Logic
         }
 
     }
-
-    public class ApplicationSettingLogic
-    {
-
-        public IList<tblApplicationSetting> GetAllApplicationSetting()
-        {
-            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
-            {
-                var AppList = unitOfWork.ApplicationSettings.GetAllApplicationsSetting().ToList();
-                return AppList;
-            }
-        }
-    }
-
+ 
     public class RoleMasterLogic
     {
         public void InsertRoleMaster(RoleMasterModel model)

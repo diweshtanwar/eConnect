@@ -20,10 +20,7 @@ namespace eConnect.DataAccess
     {
         IList<tblUploader> GetAllUploader();
     }
-    public interface IApplicationSettingRepository : IRepository<tblApplicationSetting>
-    {
-        IList<tblApplicationSetting> GetAllApplicationsSetting();
-    }
+
     public interface IBusinessRepository : IRepository<tblBusiness>
     {
         IList<tblBusiness> GetAllBusiness();

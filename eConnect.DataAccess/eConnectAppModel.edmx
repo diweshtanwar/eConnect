@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="eConnectAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="eConnectAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblAnnouncement">
           <Key>
             <PropertyRef Name="AnnouncementId" />
@@ -22,8 +22,13 @@
           <Property Name="SettingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BusinessId" Type="int" />
           <Property Name="ApplicationName" Type="varchar" MaxLength="200" />
-          <Property Name="AutoBackUp" Type="bit" />
+          <Property Name="AutoBackUp" Type="varchar" MaxLength="10" />
           <Property Name="AutoBackUpDuration" Type="varchar" MaxLength="200" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
         </EntityType>
         <EntityType Name="tblBusiness">
           <Key>
@@ -255,6 +260,7 @@
           <Property Name="Action" Type="varchar" MaxLength="30" />
           <Property Name="Description" Type="varchar" MaxLength="50" />
           <Property Name="Status" Type="bit" />
+          <Property Name="Priority" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="UpdatedDate" Type="datetime" />
@@ -272,6 +278,7 @@
           <Property Name="Action" Type="varchar" MaxLength="30" />
           <Property Name="Description" Type="varchar" MaxLength="50" />
           <Property Name="Status" Type="bit" />
+          <Property Name="Priority" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="UpdatedDate" Type="datetime" />
@@ -1078,8 +1085,7 @@
             <End Role="tblTechRequest" EntitySet="tblTechRequest" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="eConnectAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1093,17 +1099,6 @@
           <Property Name="Detail" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="Boolean" />
         </EntityType>
-        <EntityType Name="tblApplicationSetting">
-          <Key>
-            <PropertyRef Name="SettingId" />
-          </Key>
-          <Property Name="SettingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BusinessId" Type="Int32" />
-          <Property Name="ApplicationName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="AutoBackUp" Type="Boolean" />
-          <Property Name="AutoBackUpDuration" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblBusiness" Relationship="Self.FK_tblApplicationSettings_tblBusiness" FromRole="tblApplicationSettings" ToRole="tblBusiness" />
-        </EntityType>
         <EntityType Name="tblBusiness">
           <Key>
             <PropertyRef Name="BusinessId" />
@@ -1113,8 +1108,8 @@
           <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="tblApplicationSettings" Relationship="Self.FK_tblApplicationSettings_tblBusiness" FromRole="tblBusiness" ToRole="tblApplicationSettings" />
           <NavigationProperty Name="tblConfigurations" Relationship="Self.FK_tblConfiguration_tblBusiness" FromRole="tblBusiness" ToRole="tblConfiguration" />
+          <NavigationProperty Name="tblApplicationSettings" Relationship="eConnectAppModel.FK_tblApplicationSettings_tblBusiness" FromRole="tblBusiness" ToRole="tblApplicationSetting" />
         </EntityType>
         <EntityType Name="tblBusinessDetailReport">
           <Key>
@@ -1361,6 +1356,7 @@
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <NavigationProperty Name="tblMenuSubs" Relationship="Self.FK_tblMenuSub_tblMenuMain" FromRole="tblMenuMain" ToRole="tblMenuSub" />
+          <Property Name="Priority" Type="Int32" />
         </EntityType>
         <EntityType Name="tblMenuSub">
           <Key>
@@ -1380,6 +1376,7 @@
           <Property Name="UpdatedBy" Type="Int32" />
           <NavigationProperty Name="tblMenuMain" Relationship="Self.FK_tblMenuSub_tblMenuMain" FromRole="tblMenuSub" ToRole="tblMenuMain" />
           <NavigationProperty Name="tblRoleMaster" Relationship="Self.FK_tblMenuSub_tblRoleMaster" FromRole="tblMenuSub" ToRole="tblRoleMaster" />
+          <Property Name="Priority" Type="Int32" />
         </EntityType>
         <EntityType Name="tblProblemType">
           <Key>
@@ -1613,18 +1610,6 @@
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblWithdrawalRequest_tblUsers" FromRole="tblWithdrawalRequest" ToRole="tblUsers" />
           <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblWithdrawalRequest_tblUsers1" FromRole="tblWithdrawalRequest" ToRole="tblUsers" />
         </EntityType>
-        <Association Name="FK_tblApplicationSettings_tblBusiness">
-          <End Role="tblBusiness" Type="Self.tblBusiness" Multiplicity="0..1" />
-          <End Role="tblApplicationSettings" Type="Self.tblApplicationSetting" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblBusiness">
-              <PropertyRef Name="BusinessId" />
-            </Principal>
-            <Dependent Role="tblApplicationSettings">
-              <PropertyRef Name="BusinessId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblConfiguration_tblBusiness">
           <End Role="tblBusiness" Type="Self.tblBusiness" Multiplicity="0..1" />
           <End Role="tblConfiguration" Type="Self.tblConfiguration" Multiplicity="*" />
@@ -2047,7 +2032,6 @@
         </Association>
         <EntityContainer Name="eConnectAppEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblAnnouncements" EntityType="Self.tblAnnouncement" />
-          <EntitySet Name="tblApplicationSettings" EntityType="Self.tblApplicationSetting" />
           <EntitySet Name="tblBusinesses" EntityType="Self.tblBusiness" />
           <EntitySet Name="tblBusinessDetailReports" EntityType="Self.tblBusinessDetailReport" />
           <EntitySet Name="tblCategories" EntityType="Self.tblCategory" />
@@ -2083,10 +2067,6 @@
           <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
           <EntitySet Name="tblWebFeedbacks" EntityType="Self.tblWebFeedback" />
           <EntitySet Name="tblWithdrawalRequests" EntityType="Self.tblWithdrawalRequest" />
-          <AssociationSet Name="FK_tblApplicationSettings_tblBusiness" Association="Self.FK_tblApplicationSettings_tblBusiness">
-            <End Role="tblBusiness" EntitySet="tblBusinesses" />
-            <End Role="tblApplicationSettings" EntitySet="tblApplicationSettings" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblConfiguration_tblBusiness" Association="Self.FK_tblConfiguration_tblBusiness">
             <End Role="tblBusiness" EntitySet="tblBusinesses" />
             <End Role="tblConfiguration" EntitySet="tblConfigurations" />
@@ -2227,7 +2207,40 @@
             <End Role="tblUsers" EntitySet="tblUsers" />
             <End Role="tblWithdrawalRequest" EntitySet="tblWithdrawalRequests" />
           </AssociationSet>
+          <EntitySet Name="tblApplicationSettings" EntityType="eConnectAppModel.tblApplicationSetting" />
+          <AssociationSet Name="FK_tblApplicationSettings_tblBusiness" Association="eConnectAppModel.FK_tblApplicationSettings_tblBusiness">
+            <End Role="tblBusiness" EntitySet="tblBusinesses" />
+            <End Role="tblApplicationSetting" EntitySet="tblApplicationSettings" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="tblApplicationSetting">
+          <Key>
+            <PropertyRef Name="SettingId" />
+          </Key>
+          <Property Name="SettingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BusinessId" Type="Int32" />
+          <Property Name="ApplicationName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="AutoBackUp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AutoBackUpDuration" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <NavigationProperty Name="tblBusiness" Relationship="eConnectAppModel.FK_tblApplicationSettings_tblBusiness" FromRole="tblApplicationSetting" ToRole="tblBusiness" />
+        </EntityType>
+        <Association Name="FK_tblApplicationSettings_tblBusiness">
+          <End Type="eConnectAppModel.tblBusiness" Role="tblBusiness" Multiplicity="0..1" />
+          <End Type="eConnectAppModel.tblApplicationSetting" Role="tblApplicationSetting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBusiness">
+              <PropertyRef Name="BusinessId" />
+            </Principal>
+            <Dependent Role="tblApplicationSetting">
+              <PropertyRef Name="BusinessId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2242,17 +2255,6 @@
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="Detail" ColumnName="Detail" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblApplicationSettings">
-            <EntityTypeMapping TypeName="eConnectAppModel.tblApplicationSetting">
-              <MappingFragment StoreEntitySet="tblApplicationSettings">
-                <ScalarProperty Name="SettingId" ColumnName="SettingId" />
-                <ScalarProperty Name="BusinessId" ColumnName="BusinessId" />
-                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
-                <ScalarProperty Name="AutoBackUp" ColumnName="AutoBackUp" />
-                <ScalarProperty Name="AutoBackUpDuration" ColumnName="AutoBackUpDuration" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2497,6 +2499,7 @@
           <EntitySetMapping Name="tblMenuMains">
             <EntityTypeMapping TypeName="eConnectAppModel.tblMenuMain">
               <MappingFragment StoreEntitySet="tblMenuMain">
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="MenuMainId" ColumnName="MenuMainId" />
                 <ScalarProperty Name="Tittle" ColumnName="Tittle" />
                 <ScalarProperty Name="Controller" ColumnName="Controller" />
@@ -2513,6 +2516,7 @@
           <EntitySetMapping Name="tblMenuSubs">
             <EntityTypeMapping TypeName="eConnectAppModel.tblMenuSub">
               <MappingFragment StoreEntitySet="tblMenuSub">
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="MenuSubId" ColumnName="MenuSubId" />
                 <ScalarProperty Name="MenuMainId" ColumnName="MenuMainId" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
@@ -2725,6 +2729,22 @@
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Account" ColumnName="Account" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblApplicationSettings">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblApplicationSetting">
+              <MappingFragment StoreEntitySet="tblApplicationSettings">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AutoBackUpDuration" ColumnName="AutoBackUpDuration" />
+                <ScalarProperty Name="AutoBackUp" ColumnName="AutoBackUp" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="BusinessId" ColumnName="BusinessId" />
+                <ScalarProperty Name="SettingId" ColumnName="SettingId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

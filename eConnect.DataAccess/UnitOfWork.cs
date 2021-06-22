@@ -15,7 +15,7 @@ namespace eConnect.DataAccess
         public IUserRepository Userss { get; private set; }
         public ICountryRepository Countriess { get; private set; }
         public IStateRepository Statess { get; private set; }
-        public IUserLoginDetails UserLoginDetailss { get; private set; }
+        public IUserLoginLogRepository UserLoginLogs { get; private set; }
         public ICityRepository Cityess { get; private set; }
         public ITechSupportProblemRepository TechSupportProblemss { get; private set; }
         public ITechSupportRequestRepository TechSupportRequestss { get; private set; }
@@ -39,7 +39,7 @@ namespace eConnect.DataAccess
             Countriess = new CountryRepository(_context);
             Statess = new StateRepository(_context);
             Cityess = new CityRepository(_context);
-            UserLoginDetailss = new UserLoginDetailsRepository(_context);
+            UserLoginLogs = new UserLoginLogRepository(_context);
             TechSupportProblemss = new TechSupportProblemRepository(_context);
             TechSupportRequestss = new TechSupportRequestRepository(_context);
             Statuss = new StatusRepository(_context);

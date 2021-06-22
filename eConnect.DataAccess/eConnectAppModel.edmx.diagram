@@ -6,7 +6,6 @@
     <edmx:Diagrams>
       <Diagram DiagramId="b706cee555bc475dae9dfe9e99c254e8" Name="Diagram1">
         <EntityTypeShape EntityType="eConnectAppModel.tblAnnouncement" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblApplicationSetting" Width="1.5" PointX="8" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblBusiness" Width="1.5" PointX="5.75" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblBusinessDetailReport" Width="1.5" PointX="7.5" PointY="25.875" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblCategory" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
@@ -42,7 +41,6 @@
         <EntityTypeShape EntityType="eConnectAppModel.tblUser" Width="1.5" PointX="3" PointY="18" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblWebFeedback" Width="1.5" PointX="14.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblWithdrawalRequest" Width="1.5" PointX="10.5" PointY="12.625" IsExpanded="true" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblApplicationSettings_tblBusiness" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblConfiguration_tblBusiness" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblBusinessDetailReport_tblUploader" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblCity_tblState" ManuallyRouted="false" />
@@ -78,6 +76,8 @@
         <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblUsers1" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblApplicationSetting" Width="1.5" PointX="8" PointY="0.75" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblApplicationSettings_tblBusiness" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

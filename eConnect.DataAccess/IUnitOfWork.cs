@@ -13,7 +13,7 @@ namespace eConnect.DataAccess
         ICountryRepository Countriess { get; }
         IStateRepository Statess { get; }
         ICityRepository Cityess { get; }
-        IUserLoginDetails UserLoginDetailss { get; }
+        IUserLoginLogRepository UserLoginLogs { get; }
         ITechSupportProblemRepository TechSupportProblemss { get; }
         ITechSupportRequestRepository TechSupportRequestss { get; }
         IStatusRepository Statuss { get; }

@@ -173,9 +173,6 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PartialController.cs" />
     <Compile Include="Controllers\SAdminController.cs" />
-    <Compile Include="Controllers\tblMenuSubsController.cs" />
-    <Compile Include="Controllers\tblUsersController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -514,17 +511,8 @@
     <Content Include="Views\Home\TechSupportRequest.cshtml" />
     <Content Include="Views\Home\TransactionRequest.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
-    <Content Include="Views\tblUsers\Create.cshtml" />
-    <Content Include="Views\tblUsers\Delete.cshtml" />
-    <Content Include="Views\tblUsers\Details.cshtml" />
-    <Content Include="Views\tblUsers\Edit.cshtml" />
-    <Content Include="Views\tblUsers\Index.cshtml" />
-    <Content Include="Views\Partial\GetMenuList.cshtml" />
-    <Content Include="Views\tblMenuSubs\Create.cshtml" />
-    <Content Include="Views\tblMenuSubs\Delete.cshtml" />
-    <Content Include="Views\tblMenuSubs\Details.cshtml" />
-    <Content Include="Views\tblMenuSubs\Edit.cshtml" />
-    <Content Include="Views\tblMenuSubs\Index.cshtml" />
+    <Content Include="Views\Partial\_GetAppMenu.cshtml" />
+    <Content Include="Views\Admin\_EditApplicationSetting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

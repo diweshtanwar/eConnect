@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationSettingLogic.cs" />
     <Compile Include="CityLogic.cs" />
     <Compile Include="CommonLogic.cs" />
     <Compile Include="CountryLogic.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="StatusLogic.cs" />
     <Compile Include="TechSupportProblemLogic.cs" />
     <Compile Include="UserLogic.cs" />
+    <Compile Include="UserLoginLogLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />

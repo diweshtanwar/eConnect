@@ -26,7 +26,7 @@ namespace eConnect.DataAccess
         public IEnumerable<tblMenuMain> GetAllMenuMainWithSubMenu(int userTypeId)
         {        
             var data1 = eConnectAppEntities.tblMenuSubs.Where(d => d.RoleId == userTypeId).Select(d=>d.MenuMainId).ToList();
-            var data = eConnectAppEntities.tblMenuMains.Include("tblMenuSubs").Where(d=>data1.Contains(d.MenuMainId)).ToList();
+            var data = eConnectAppEntities.tblMenuMains.Include("tblMenuSubs").Where(d=>data1.Contains(d.MenuMainId)).OrderBy(d=>d.Priority).ToList();
             return data;
         }   
         public IEnumerable<tblMenuMain> GetMenuMainByID(long Id)

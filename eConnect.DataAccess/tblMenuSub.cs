@@ -26,6 +26,7 @@ namespace eConnect.DataAccess
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
+        public Nullable<int> Priority { get; set; }
     
         public virtual tblMenuMain tblMenuMain { get; set; }
         public virtual tblRoleMaster tblRoleMaster { get; set; }

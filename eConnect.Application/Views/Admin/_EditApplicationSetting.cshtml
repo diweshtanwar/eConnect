@@ -1,0 +1,71 @@
+﻿@model eConnect.DataAccess.tblApplicationSetting
+@{
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+    <section class="section">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="text-primary mb-3"> Application Setting</h6>
+                    @Html.HiddenFor(model => model.SettingId)
+                    @Html.HiddenFor(model => model.BusinessId)
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="required-field">Application Name</label>
+                            @Html.EditorFor(model => model.ApplicationName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" , @readonly = "readonly" } })
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Auto Backup</label>
+                            @Html.DropDownListFor(x => x.AutoBackUp,
+            new List<SelectListItem>
+            {
+                               new SelectListItem{Text="Select",Value="Select"},
+                               new SelectListItem{Text="Yes",Value="Yes"},
+                               new SelectListItem{Text="No",Value="No"},
+            }, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Auto Backup Duration</label>
+                            @Html.DropDownListFor(x => x.AutoBackUpDuration,
+          new List<SelectListItem>
+          {
+                             new SelectListItem{Text="Select",Value="Select"},
+                             new SelectListItem{Text="Every 12 Hours",Value="Every 12 Hours"},
+                             new SelectListItem{Text="Daily",Value="Daily"},
+                               new SelectListItem{Text="Weekly",Value="Weekly"},
+                             new SelectListItem{Text="Monthly",Value="Monthly"},
+          }, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="required-field">Data Retention Policy(In Days)</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="required-field">Status</label>
+                            @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                </div>
+
+                    <div class="my-4 text-right">
+                        <button class="btn btn-dark mr-2 px-4">Cancel</button>
+                        <button class="btn btn-primary px-4" type="submit">Save</button>
+                    </div>
+                </div>
+            </div>
+        }
+        </section>

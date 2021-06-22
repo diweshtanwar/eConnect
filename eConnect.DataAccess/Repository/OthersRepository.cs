@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,21 +56,7 @@ namespace eConnect.DataAccess
         }
     }
 
-    public class ApplicationSettingRepository : Repository<tblApplicationSetting>, IApplicationSettingRepository
-    {
-        public ApplicationSettingRepository(eConnectAppEntities appcontext) : base(appcontext)
-        {
-        }
-        public eConnectAppEntities eConnectAppEntities
-        {
-            get { return Context as eConnectAppEntities; }
-        }
-
-        public IList<tblApplicationSetting> GetAllApplicationsSetting()
-        {
-            return eConnectAppEntities.tblApplicationSettings.ToList();
-        }
-    }
+  
     public class BusinessRepository : Repository<tblBusiness>, IBusinessRepository
     {
         public BusinessRepository(eConnectAppEntities appcontext) : base(appcontext)

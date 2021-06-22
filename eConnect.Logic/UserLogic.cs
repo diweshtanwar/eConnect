@@ -43,8 +43,6 @@ namespace eConnect.Logic
                 return ue;
             }
         }
-
-
         public long InsertUserDetails(UsersModel item)
         {
             try
@@ -116,18 +114,7 @@ namespace eConnect.Logic
             //    throw;
             //}
         }
-            public void InsertUserLoginDetails(long userid)
-        {
-            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
-            {
-                string uip = CommonLogic.GetIPAddress();
-                tblUserLoginLog ue = new tblUserLoginLog();
-                //ue.IPAddress = uip;
-                //ue.LogInTime = DateTime.Now;
-                //ue.UserID = userid;
-                unitOfWork.UserLoginDetailss.Add(ue);
-            }
-        }
+  
 
 
         public IEnumerable<tblUser> GetUsersInfoByStatus(int id)

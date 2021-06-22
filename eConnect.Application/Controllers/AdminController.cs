@@ -8,6 +8,9 @@ using eConnect.Logic;
 using System.IO;
 using System.Configuration;
 using System.Globalization;
+using eConnect.DataAccess;
+using System.Data;
+using System.Data.Entity;
 
 namespace eConnect.Application.Controllers
 {
@@ -17,6 +20,7 @@ namespace eConnect.Application.Controllers
         string UploaderFilePath = System.Web.HttpContext.Current.Server.MapPath(Convert.ToString(ConfigurationManager.AppSettings["UploaderFiles"]));
         List<SelectListItem> ddlMonths = new List<SelectListItem>();
         List<SelectListItem> ddlYears = new List<SelectListItem>();
+        private eConnectAppEntities db = new eConnectAppEntities();
         public ActionResult ApproveCSP()
         {
             UserLogic ul = new UserLogic();
@@ -388,6 +392,48 @@ namespace eConnect.Application.Controllers
                 var aconfig = cl.GetAccountConfigurationById(id);
                 return PartialView("_EditAccountConfiguration", aconfig);
             }
+        }
+
+        //[HttpGet]
+        //public ActionResult _EditApplicationSetting()
+        //{
+        //    return PartialView();
+        //}
+
+        [HttpGet]   
+        public ActionResult _EditApplicationSetting(int? id)
+            {
+            if (id is null)
+            {
+                id = 1;
+            }
+            ApplicationSettingLogic objApplicationSettingLogic = new ApplicationSettingLogic();
+            return PartialView("_EditApplicationSetting", objApplicationSettingLogic.GetApplicationSettingByID((int)id));
+        }
+        [HttpPost]
+        public ActionResult _EditApplicationSetting([Bind(Include = "SettingId,BusinessId,ApplicationName,AutoBackUp,AutoBackUpDuration")]tblApplicationSetting tblApplicationSetting)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    ApplicationSettingLogic objApplicationSettingLogic = new ApplicationSettingLogic();                 
+                    //tblApplicationSetting.UpdatedBy =(int) System.Web.HttpContext.Current.Session["UserTypeId"];
+                    tblApplicationSetting.UpdatedDate = DateTime.UtcNow;
+
+                    //db.Entry(tblApplicationSetting).State = EntityState.Modified;
+                    //db.SaveChanges();
+                    objApplicationSettingLogic.UpdateApplicationSetting(tblApplicationSetting);
+                    objApplicationSettingLogic.Save();
+                    return PartialView("_EditApplicationSetting", objApplicationSettingLogic.GetApplicationSettingByID((int)tblApplicationSetting.SettingId));
+                }
+            }
+            catch (DataException /* dex */)
+            {
+                //Log the error (uncomment dex variable name after DataException and add a line here to write a log.
+                ModelState.AddModelError(string.Empty, "Unable to save changes. Try again, and if the problem persists contact your system administrator.");
+            }
+            return View(tblApplicationSetting);
         }
 
     }

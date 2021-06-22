@@ -26,7 +26,6 @@ namespace eConnect.DataAccess
         }
     
         public virtual DbSet<tblAnnouncement> tblAnnouncements { get; set; }
-        public virtual DbSet<tblApplicationSetting> tblApplicationSettings { get; set; }
         public virtual DbSet<tblBusiness> tblBusinesses { get; set; }
         public virtual DbSet<tblBusinessDetailReport> tblBusinessDetailReports { get; set; }
         public virtual DbSet<tblCategory> tblCategories { get; set; }
@@ -62,5 +61,6 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblWebFeedback> tblWebFeedbacks { get; set; }
         public virtual DbSet<tblWithdrawalRequest> tblWithdrawalRequests { get; set; }
+        public virtual DbSet<tblApplicationSetting> tblApplicationSettings { get; set; }
     }
 }

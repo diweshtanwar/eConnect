@@ -7,14 +7,16 @@ using eConnect.Model;
 using eConnect.Logic;
 using System.IO;
 using System.Configuration;
+using eConnect.DataAccess;
+using System.Net;
 
 namespace eConnect.Application.Controllers
 {
     public class HomeController : Controller
     {
         string RootFilePath = System.Web.HttpContext.Current.Server.MapPath(Convert.ToString(ConfigurationManager.AppSettings["RootFilePath"]));
+        private eConnectAppEntities db = new eConnectAppEntities();
 
-       
         public ActionResult Index()
         {
             return View();
@@ -56,12 +58,35 @@ namespace eConnect.Application.Controllers
                 }           
                 else
                 {
-                    Session["UserTypeId"] = userData.UserType;
+                    UserLoginLogLogic objUserLoginLogLogic = new UserLoginLogLogic();
+                    objUserLoginLogLogic.GetLastLoginDetailsByUserID(userData.UserId);
+                   Session["LastLoginDetails"] = objUserLoginLogLogic.GetLastLoginDetailsByUserID(userData.UserId);              
+                   Session["UserTypeId"] = userData.UserType;
+                    Session["UserName"] = userData.UserName;
+                    tblUserLoginLog objtblUserLoginLog = new tblUserLoginLog();
+                    objtblUserLoginLog.UserId = userData.UserId;
+                    objtblUserLoginLog.LoginTimeStamp = DateTime.Now;
+                    objtblUserLoginLog.HostName = Dns.GetHostName();
+                    objtblUserLoginLog.IpAddress= Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString();                  
+                    objUserLoginLogLogic.InsertUserLoginLog(objtblUserLoginLog);
+                    objUserLoginLogLogic.Save();
+                    db.tblUserLoginLogs.Add(objtblUserLoginLog);
+                    db.SaveChanges();
                     return RedirectToAction("About");
                 }
 
             }
             return View();
+        }
+
+        public ActionResult Logout()
+        {
+            //Session["CSPName"] = null;
+            //Session["UserName"] = null;
+            //Session["EMailID"] = null;
+            //Session["UserID"] = null;
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
         }
         public ActionResult Test()
         {
@@ -185,14 +210,7 @@ namespace eConnect.Application.Controllers
                 return RedirectToAction("TechSupportRequest");
             }
         }
-        public ActionResult Logoff()
-        {
-            Session["CSPName"] = null;
-            Session["UserName"] = null;
-            Session["EMailID"] = null;
-            Session["UserID"] = null;
-            return RedirectToAction("Index");
-        }
+    
         [HttpPost]
         public ActionResult AddDepositDetails(Deposit deposit) //Added by Aditya//
         {

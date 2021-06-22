@@ -29,7 +29,7 @@
                 </ul>
                 <div class="d-flex mr-3">
                     <h5 class="mr-3">
-                        CSP List
+                       
                     </h5>
                     <div class="notification">
                         <marquee behavior="scroll" scrollamount="5" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
@@ -46,18 +46,18 @@
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user ml-3">
                             <img alt="image" src="~/Content/HTML/img/avatar-1.png" class="rounded-circle mr-1">
-                            <div class="d-sm-none d-lg-inline-block">John Doe</div>
+                            <div class="d-sm-none d-lg-inline-block">@Session["UserName"]</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <div class="dropdown-title">Logged in 5 min ago</div>
+                            <div class="dropdown-title">
+                                Last Login at :
+                                @Session["LastLoginDetails"]
+                            </div>
                             <a href="#" class="dropdown-item has-icon">
                                 <i class="mdi mdi-account-outline"></i> Profile
-                            </a>
-                            <a href="#" class="dropdown-item has-icon">
-                                <i class="mdi mdi-settings-outline "></i> Settings
-                            </a>
+                            </a>                         
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item has-icon text-danger">
+                            <a href="@Url.Action("Logout", "Home")" class="dropdown-item has-icon text-danger">
                                 <i class="mdi mdi-logout"></i> Logout
                             </a>
                         </div>
@@ -72,7 +72,7 @@
                     <div class="sidebar-brand sidebar-brand-sm">
                         <a href="Dashboard.html"><img src="~/Content/HTML/img/favicon.png" alt=""></a>
                     </div>
-                   @{ Html.RenderAction("GetMenuList", "Partial",new { UserTypeId = Session["UserTypeId"] }); }     
+                   @{ Html.RenderAction("_GetAppMenu", "Partial",new { UserTypeId = Session["UserTypeId"] }); }     
 
 
                 </aside>

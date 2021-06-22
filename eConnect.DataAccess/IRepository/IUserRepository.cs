@@ -14,11 +14,7 @@ namespace eConnect.DataAccess
         tblUser GetUsersByUserName(string userName);
         IEnumerable<tblUser> GetAllUsersByStatus(int statusid);
         IEnumerable<tblUser> GetAllUsersDetailsByid(long id);
-      
+        
     }
-    public interface IUserLoginDetails : IRepository<tblUserLoginLog>
-    {
-        IEnumerable<tblUserLoginLog> GetAllUserLoginDetails();
-        IEnumerable<tblUserLoginLog> GetAllUserLoginDetailsByUserID(long userid);
-    }
+  
 }

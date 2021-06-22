@@ -13,11 +13,12 @@ namespace eConnect.Application.Controllers
         private eConnectAppEntities db = new eConnectAppEntities();
         // GET: Partial
         [ChildActionOnly]
-        public ActionResult GetMenuList(int UserTypeId)
+        public ActionResult _GetAppMenu(int UserTypeId)
         {
             MenuLogic objMenuLogic = new MenuLogic();
             return View(objMenuLogic.GetAllMenuMainWithSubMenuByRoleId(UserTypeId));
         }
+    
         // GET: Partial
         public ActionResult Index()
         {

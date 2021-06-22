@@ -44,6 +44,8 @@ namespace eConnect.DataAccess
             return userDetails;
         }
 
+      
+
         public IEnumerable<tblUser> GetAllUsersDetailsByid(long id)
         {
             var userDetails = eConnectAppEntities.tblUsers.Where(c => c.UserId == id);
@@ -73,45 +75,7 @@ namespace eConnect.DataAccess
 
 
 
-    public class UserLoginDetailsRepository : Repository<tblUserLoginLog>, IUserLoginDetails
-    {
-        public UserLoginDetailsRepository(eConnectAppEntities appcontext) : base(appcontext)
-        {
-        }
-        public eConnectAppEntities ApplicationEntities
-        {
-            get { return Context as eConnectAppEntities; }
-        }
-        public IEnumerable<tblUserLoginLog> GetAllUserLoginDetails()
-        {
-            return ApplicationEntities.tblUserLoginLogs.ToList();
-        }
-        public IEnumerable<tblUserLoginLog> GetAllUserLoginDetailsByUserID(long uid)
-        {
-            var data = ApplicationEntities.tblUserLoginLogs.Where(c => c.UserId == uid);
-            return data;
-        }
-
-        private bool disposed = false;
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    ApplicationEntities.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-    }
+  
 
 
 

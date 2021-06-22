@@ -26,7 +26,7 @@ namespace eConnect.Model
         public int SettingId { get; set; }
         public Nullable<int> BusinessId { get; set; }
         public string ApplicationName { get; set; }
-        public Nullable<bool> AutoBackUp { get; set; }
+        public string AutoBackUp { get; set; }
         public string AutoBackUpDuration { get; set; }
 
     }
