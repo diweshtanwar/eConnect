@@ -24,6 +24,7 @@
           <Property Name="ApplicationName" Type="varchar" MaxLength="200" />
           <Property Name="AutoBackUp" Type="varchar" MaxLength="10" />
           <Property Name="AutoBackUpDuration" Type="varchar" MaxLength="200" />
+          <Property Name="DataRetention" Type="int" />
           <Property Name="Status" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
@@ -2222,6 +2223,7 @@
           <Property Name="ApplicationName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="AutoBackUp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="AutoBackUpDuration" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DataRetention" Type="Int32" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" />
@@ -2740,6 +2742,7 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DataRetention" ColumnName="DataRetention" />
                 <ScalarProperty Name="AutoBackUpDuration" ColumnName="AutoBackUpDuration" />
                 <ScalarProperty Name="AutoBackUp" ColumnName="AutoBackUp" />
                 <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />

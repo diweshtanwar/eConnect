@@ -212,7 +212,6 @@
     <None Include="eConnectAppModel.edmx.diagram">
       <DependentUpon>eConnectAppModel.edmx</DependentUpon>
     </None>
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -220,7 +219,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\" />
-    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\eConnect.Model\eConnect.Model.csproj">

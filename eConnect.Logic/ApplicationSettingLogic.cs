@@ -5,8 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eConnect.Model;
-
-
+using System.Web;
 
 namespace eConnect.Logic
 {
@@ -29,12 +28,22 @@ namespace eConnect.Logic
                 
             }
         }
-        public void UpdateApplicationSetting(tblApplicationSetting tblApplicationSetting)
+        public void UpdateApplicationSetting(tblApplicationSetting model)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                unitOfWork.ApplicationSettings.UpdateApplicationSetting(tblApplicationSetting);
-               
+                var data = unitOfWork.ApplicationSettings.Find(x => x.SettingId == model.SettingId).FirstOrDefault();
+                data.BusinessId = (int)model.BusinessId;
+                data.ApplicationName = model.ApplicationName;
+                data.AutoBackUp = model.AutoBackUp;
+                data.AutoBackUpDuration = model.AutoBackUpDuration;
+                data.DataRetention = model.DataRetention;
+                data.Status = model.Status;
+                data.UpdatedDate = DateTime.Now;
+                data.UpdatedBy =(int)HttpContext.Current.Session["UserId"];
+                unitOfWork.ApplicationSettings.Update(data);
+                unitOfWork.ApplicationSettings.Save();
+
             }
         }
         public void Save()

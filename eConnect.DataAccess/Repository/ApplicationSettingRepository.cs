@@ -14,10 +14,11 @@ namespace eConnect.DataAccess
         {
 
         }
-        public eConnectAppEntities eConnectAppEntities
-        {
-            get { return new eConnectAppEntities(); }
-        }
+        private eConnectAppEntities eConnectAppEntities = new eConnectAppEntities();
+        //public eConnectAppEntities eConnectAppEntities
+        //{
+        //    get { return new eConnectAppEntities(); }
+        //}
 
         public IList<tblApplicationSetting> GetAllApplicationsSetting()
         {

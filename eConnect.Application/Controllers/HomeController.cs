@@ -63,15 +63,13 @@ namespace eConnect.Application.Controllers
                    Session["LastLoginDetails"] = objUserLoginLogLogic.GetLastLoginDetailsByUserID(userData.UserId);              
                    Session["UserTypeId"] = userData.UserType;
                     Session["UserName"] = userData.UserName;
+                    Session["UserId"] = userData.UserId;
                     tblUserLoginLog objtblUserLoginLog = new tblUserLoginLog();
                     objtblUserLoginLog.UserId = userData.UserId;
                     objtblUserLoginLog.LoginTimeStamp = DateTime.Now;
                     objtblUserLoginLog.HostName = Dns.GetHostName();
                     objtblUserLoginLog.IpAddress= Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString();                  
-                    objUserLoginLogLogic.InsertUserLoginLog(objtblUserLoginLog);
-                    objUserLoginLogLogic.Save();
-                    db.tblUserLoginLogs.Add(objtblUserLoginLog);
-                    db.SaveChanges();
+                    objUserLoginLogLogic.InsertUserLoginLog(objtblUserLoginLog);                   
                     return RedirectToAction("About");
                 }
 

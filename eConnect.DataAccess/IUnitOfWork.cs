@@ -23,8 +23,7 @@ namespace eConnect.DataAccess
         IApplicationSettingRepository ApplicationSettings { get; }
         IAccountConfigurationRepository Configurations { get; }
         IBusinessRepository Businesss { get; }
-        IRoleMasterRepository RoleMasters { get; }
-
+        IRoleMasterRepository RoleMasters { get; }      
         int Complete();
     }
 }

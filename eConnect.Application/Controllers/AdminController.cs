@@ -408,23 +408,20 @@ namespace eConnect.Application.Controllers
                 id = 1;
             }
             ApplicationSettingLogic objApplicationSettingLogic = new ApplicationSettingLogic();
+            ViewBag.SuccessMsg = "";
             return PartialView("_EditApplicationSetting", objApplicationSettingLogic.GetApplicationSettingByID((int)id));
         }
         [HttpPost]
-        public ActionResult _EditApplicationSetting([Bind(Include = "SettingId,BusinessId,ApplicationName,AutoBackUp,AutoBackUpDuration")]tblApplicationSetting tblApplicationSetting)
+        public ActionResult _EditApplicationSetting(tblApplicationSetting tblApplicationSetting)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     ApplicationSettingLogic objApplicationSettingLogic = new ApplicationSettingLogic();                 
-                    //tblApplicationSetting.UpdatedBy =(int) System.Web.HttpContext.Current.Session["UserTypeId"];
-                    tblApplicationSetting.UpdatedDate = DateTime.UtcNow;
-
-                    //db.Entry(tblApplicationSetting).State = EntityState.Modified;
-                    //db.SaveChanges();
+                   
                     objApplicationSettingLogic.UpdateApplicationSetting(tblApplicationSetting);
-                    objApplicationSettingLogic.Save();
+                    ViewBag.SuccessMsg = "Record Updated Successfully!";
                     return PartialView("_EditApplicationSetting", objApplicationSettingLogic.GetApplicationSettingByID((int)tblApplicationSetting.SettingId));
                 }
             }

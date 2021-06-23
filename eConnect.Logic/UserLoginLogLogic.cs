@@ -13,7 +13,8 @@ namespace eConnect.Logic
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                unitOfWork.UserLoginLogs.InsertUserLoginLog(tblUserLoginLog);               
+                unitOfWork.UserLoginLogs.Add(tblUserLoginLog);
+                unitOfWork.UserLoginLogs.Save();
             }
         }
 

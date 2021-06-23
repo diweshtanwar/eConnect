@@ -378,6 +378,12 @@
                 maxYear: parseInt(moment().format('YYYY'), 10)
             });
         });
+
+        $(document).ready(function () {
+            setTimeout(function () {
+                $("#SuccessMsg").fadeOut();
+            }, 10000);
+        });
     </script>
     <script src="~/Content/HTML/js/jquery.growl.js"></script>
     <script src="~/Content/HTML/js/fileup.js"></script>

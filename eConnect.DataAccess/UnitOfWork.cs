@@ -30,7 +30,7 @@ namespace eConnect.DataAccess
         public DepositRequest DepositRequests { get; private set; }
         public WithdrawalRequest WithdrawRequests { get; private set; }
         public CSPDetail AddCSPDetail { get; private set; }
-        public IMenuRepository Menus { get; private set; }
+        public IMenuRepository Menus { get; private set; }          
 
         public UnitOfWork(eConnectAppEntities context)
         {
@@ -53,7 +53,7 @@ namespace eConnect.DataAccess
             AddCSPDetail = new CSPDetail(_context);
             DepositRequests = new DepositRequest(_context);
             WithdrawRequests = new WithdrawalRequest(_context);
-            Menus = new MenuRepository(_context);
+            Menus = new MenuRepository(_context);         
         }
 
         public int Complete()

@@ -3,26 +3,26 @@
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-    <section class="section">
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-            <div class="card">
-                <div class="card-body">
-                    <h6 class="text-primary mb-3"> Application Setting</h6>
-                    @Html.HiddenFor(model => model.SettingId)
-                    @Html.HiddenFor(model => model.BusinessId)
+<section class="section">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-primary mb-3"> Application Setting</h6>
+                @Html.HiddenFor(model => model.SettingId)
+                @Html.HiddenFor(model => model.BusinessId)
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="required-field">Application Name</label>
-                            @Html.EditorFor(model => model.ApplicationName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" , @readonly = "readonly" } })
+                            @Html.EditorFor(model => model.ApplicationName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Auto Backup</label>
+                            <label class="required-field">Auto Backup</label>
                             @Html.DropDownListFor(x => x.AutoBackUp,
             new List<SelectListItem>
             {
@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Auto Backup Duration</label>
+                            <label class="required-field">Auto Backup Duration</label>
                             @Html.DropDownListFor(x => x.AutoBackUpDuration,
           new List<SelectListItem>
           {
@@ -48,24 +48,27 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="required-field">Data Retention Policy(In Days)</label>
-                            <input type="text" class="form-control">
+                            <label class="required-field">Data Retention Policy (In Days)</label>
+                            @Html.EditorFor(model => model.DataRetention, new { htmlAttributes = new { @class = "form-control" } })
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 notification">
                         <div class="form-group">
                             <label class="required-field">Status</label>
                             @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
                         </div>
                     </div>
 
-                </div>
 
-                    <div class="my-4 text-right">
-                        <button class="btn btn-dark mr-2 px-4">Cancel</button>
-                        <button class="btn btn-primary px-4" type="submit">Save</button>
-                    </div>
+                </div>
+                <div class="my-4 text-left">
+                    <h5 id="SuccessMsg"><b>@ViewBag.SuccessMsg</b></h5>               
+                </div>
+                <div class="my-4 text-right">
+                    @*<button class="btn btn-dark mr-2 px-4">Cancel</button>*@
+                    <button class="btn btn-primary px-4" type="submit">Save</button>
                 </div>
             </div>
-        }
-        </section>
+        </div>
+    }
+</section>

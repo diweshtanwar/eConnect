@@ -19,6 +19,7 @@ namespace eConnect.DataAccess
         public string ApplicationName { get; set; }
         public string AutoBackUp { get; set; }
         public string AutoBackUpDuration { get; set; }
+        public Nullable<int> DataRetention { get; set; }
         public Nullable<bool> Status { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
