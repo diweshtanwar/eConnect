@@ -284,7 +284,100 @@ namespace eConnect.Application.Controllers
             {
                 return null;
             }
-        }      
+        }
+
+        // GET: CSP/Edit/5
+        public ActionResult EditCSPProfile(int? id)
+        {
+            if (id == null)
+            {
+                id = (int)HttpContext.Session["UserSourceId"]; 
+            }
+            UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+            UserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID((int)id);
+            if (UserCSPDetail == null)
+            {
+                return HttpNotFound();
+            }
+            StatusLogic objStatusLogic = new StatusLogic();
+            CityLogic objCityLogic = new CityLogic();
+            CountryLogic objCountryLogic = new CountryLogic();
+            StateLogic objStateLogic = new StateLogic();
+
+            ViewBag.Status = new SelectList(objStatusLogic.GetStatus(), "StatusId", "Name", UserCSPDetail.Status);
+            ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
+            ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
+            ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
+            ViewBag.SuccessMsg = "";
+            return PartialView("EditCSPProfile", UserCSPDetail);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCSPProfile(UserCSPDetail UserCSPDetail)
+        {
+
+            StatusLogic objStatusLogic = new StatusLogic();
+            CityLogic objCityLogic = new CityLogic();
+            CountryLogic objCountryLogic = new CountryLogic();
+            StateLogic objStateLogic = new StateLogic();
+
+            if (ModelState.IsValid)
+            {
+                string fpath = string.Empty;
+                UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+                objUserCSPDetailLogic.UpdateUserCSPDetail(UserCSPDetail);
+                string path = Path.Combine(CSPFilePath, UserCSPDetail.CSPId.ToString());
+                if (UserCSPDetail.PassportSizePhoto != null)
+                {
+                    fpath = CheckDirectory(path, "PassportSizePhoto", UserCSPDetail.PassportSizePhoto);
+                    UserCSPDetail.PassportSizePhoto.SaveAs(fpath);
+                }
+                if (UserCSPDetail.PANImage != null)
+                {
+                    fpath = CheckDirectory(path, "PANImage", UserCSPDetail.PANImage);
+                    UserCSPDetail.PANImage.SaveAs(fpath);
+                }
+                if (UserCSPDetail.VoterIdImage != null)
+                {
+                    fpath = CheckDirectory(path, "VoterIdImage", UserCSPDetail.VoterIdImage);
+                    UserCSPDetail.VoterIdImage.SaveAs(fpath);
+                }
+                if (UserCSPDetail.AadharImage != null)
+                {
+                    fpath = CheckDirectory(path, "AadharImage", UserCSPDetail.AadharImage);
+                    UserCSPDetail.AadharImage.SaveAs(fpath);
+                }
+                if (UserCSPDetail.LatestEducationProofImage != null)
+                {
+                    fpath = CheckDirectory(path, "LatestEducationProofImage", UserCSPDetail.LatestEducationProofImage);
+                    UserCSPDetail.LatestEducationProofImage.SaveAs(fpath);
+                }
+                if (UserCSPDetail.IIBFCertificationImage != null)
+                {
+                    fpath = CheckDirectory(path, "IIBFCertificationImage", UserCSPDetail.IIBFCertificationImage);
+                    UserCSPDetail.IIBFCertificationImage.SaveAs(fpath);
+                }
+              
+
+                ViewBag.Status = new SelectList(objStatusLogic.GetStatus(), "StatusId", "Name", UserCSPDetail.Status);
+                ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
+                ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
+                ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
+                
+                UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID((int)UserCSPDetail.CSPId);
+                ViewBag.SuccessMsg = "Record Updated Successfully!";
+                return PartialView("EditCSPProfile", UserCSPDetail);
+            }
+
+
+            ViewBag.Status = new SelectList(objStatusLogic.GetStatus(), "StatusId", "Name", UserCSPDetail.Status);
+            ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
+            ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
+            ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
+            return View(UserCSPDetail);
+        }
+
         public string CheckDirectory(string path, string filetype, HttpPostedFileBase postedfile)
         {
             string fullpath = string.Empty;

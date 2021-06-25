@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,9 @@ namespace eConnect.Model
         public string CSPName { get; set; }
         public string CSPCode { get; set; }
         public string BranchCode { get; set; }
+
+        //[DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> ExpiryDate { get; set; }
         public string BankName { get; set; }
         public string BankAccount { get; set; }

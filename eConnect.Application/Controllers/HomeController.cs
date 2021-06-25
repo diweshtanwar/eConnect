@@ -64,6 +64,7 @@ namespace eConnect.Application.Controllers
                    Session["UserTypeId"] = userData.UserType;
                     Session["UserName"] = userData.UserName;
                     Session["UserId"] = userData.UserId;
+                    Session["UserSourceId"] = userData.UserSourceId;
                     tblUserLoginLog objtblUserLoginLog = new tblUserLoginLog();
                     objtblUserLoginLog.UserId = userData.UserId;
                     objtblUserLoginLog.LoginTimeStamp = DateTime.Now;
