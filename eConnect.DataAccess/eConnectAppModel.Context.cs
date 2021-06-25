@@ -34,7 +34,6 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblCommissionReportTransactionType> tblCommissionReportTransactionTypes { get; set; }
         public virtual DbSet<tblConfiguration> tblConfigurations { get; set; }
         public virtual DbSet<tblCountry> tblCountries { get; set; }
-        public virtual DbSet<tblCSPDetail> tblCSPDetails { get; set; }
         public virtual DbSet<tblDepartment> tblDepartments { get; set; }
         public virtual DbSet<tblDepositRequest> tblDepositRequests { get; set; }
         public virtual DbSet<tblDesignation> tblDesignations { get; set; }
@@ -62,5 +61,6 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblWebFeedback> tblWebFeedbacks { get; set; }
         public virtual DbSet<tblWithdrawalRequest> tblWithdrawalRequests { get; set; }
         public virtual DbSet<tblApplicationSetting> tblApplicationSettings { get; set; }
+        public virtual DbSet<tblUserCSPDetail> tblUserCSPDetails { get; set; }
     }
 }

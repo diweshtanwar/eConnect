@@ -50,8 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CityRepository.cs" />
-    <Compile Include="CountryRepository.cs" />
+    <Compile Include="Repository\CityRepository.cs" />
+    <Compile Include="Repository\CountryRepository.cs" />
     <Compile Include="eConnectAppModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -76,6 +76,7 @@
     <Compile Include="IRepository\IStateRepository.cs" />
     <Compile Include="IRepository\IStatusRepository.cs" />
     <Compile Include="IRepository\ITechSupportProblemRepository.cs" />
+    <Compile Include="IRepository\IUserCSPDetailRepository.cs" />
     <Compile Include="IRepository\IUserLoginLogRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IRepository\IUserRepository.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Repository\ApplicationSettingRepository.cs" />
     <Compile Include="Repository\StateRepository.cs" />
     <Compile Include="Repository\StatusRepository.cs" />
+    <Compile Include="Repository\UserCSPDetailRepository.cs" />
     <Compile Include="Repository\UserLoginLogRepository.cs" />
     <Compile Include="tblAnnouncement.cs">
       <DependentUpon>eConnectAppModel.tt</DependentUpon>
@@ -115,9 +117,6 @@
       <DependentUpon>eConnectAppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblCountry.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblCSPDetail.cs">
       <DependentUpon>eConnectAppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblDepartment.cs">
@@ -184,6 +183,9 @@
       <DependentUpon>eConnectAppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblUser.cs">
+      <DependentUpon>eConnectAppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserCSPDetail.cs">
       <DependentUpon>eConnectAppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblUserDetail.cs">

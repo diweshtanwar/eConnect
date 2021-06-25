@@ -169,10 +169,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CSPController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PartialController.cs" />
     <Compile Include="Controllers\SAdminController.cs" />
+    <Compile Include="Controllers\tblUserCSPDetailsController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -513,9 +516,20 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Partial\_GetAppMenu.cshtml" />
     <Content Include="Views\Admin\_EditApplicationSetting.cshtml" />
+    <Content Include="Views\CSP\Create.cshtml" />
+    <Content Include="Views\CSP\Delete.cshtml" />
+    <Content Include="Views\CSP\Details.cshtml" />
+    <Content Include="Views\CSP\Edit.cshtml" />
+    <Content Include="Views\CSP\Index.cshtml" />
+    <Content Include="Views\tblUserCSPDetails\Create.cshtml" />
+    <Content Include="Views\tblUserCSPDetails\Delete.cshtml" />
+    <Content Include="Views\tblUserCSPDetails\Details.cshtml" />
+    <Content Include="Views\tblUserCSPDetails\Edit.cshtml" />
+    <Content Include="Views\tblUserCSPDetails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\CSP\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

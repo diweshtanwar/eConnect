@@ -58,6 +58,7 @@
     <Compile Include="StateLogic.cs" />
     <Compile Include="StatusLogic.cs" />
     <Compile Include="TechSupportProblemLogic.cs" />
+    <Compile Include="UserCSPDetailLogic.cs" />
     <Compile Include="UserLogic.cs" />
     <Compile Include="UserLoginLogLogic.cs" />
   </ItemGroup>

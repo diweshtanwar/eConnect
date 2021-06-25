@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,5 +22,10 @@ namespace eConnect.DataAccess
         {
             return eConnectAppEntities.tblStatus.ToList();
         }
+
+        public List<tblStatu> GetStatus()
+        {
+            return eConnectAppEntities.tblStatus.ToList(); ;
         }
+    }
     }

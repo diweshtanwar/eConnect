@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,8 +15,17 @@ namespace eConnect.Logic
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                var dsds = unitOfWork.Statuss.GetAllStatus().ToList();
-                return dsds;
+                var data = unitOfWork.Statuss.GetAllStatus().ToList();
+                return data;
+            }
+        }
+
+        public List<tblStatu> GetStatus()
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var data = unitOfWork.Statuss.GetStatus();
+                 return data;
             }
         }
     }

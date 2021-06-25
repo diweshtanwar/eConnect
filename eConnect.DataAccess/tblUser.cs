@@ -17,8 +17,6 @@ namespace eConnect.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblUser()
         {
-            this.tblCSPDetails = new HashSet<tblCSPDetail>();
-            this.tblCSPDetails1 = new HashSet<tblCSPDetail>();
             this.tblDepositRequests = new HashSet<tblDepositRequest>();
             this.tblDepositRequests1 = new HashSet<tblDepositRequest>();
             this.tblTechRequests = new HashSet<tblTechRequest>();
@@ -46,10 +44,6 @@ namespace eConnect.DataAccess
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblCSPDetail> tblCSPDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblCSPDetail> tblCSPDetails1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblDepositRequest> tblDepositRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

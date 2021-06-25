@@ -4,5 +4,142 @@
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-<h2>Index</h2>
+<!-- Main Content -->
+
+    <section class="section">
+
+
+        <div class="card">
+            <div class="card-header">
+                <h4><span class="toggle-collapse" data-toggle="collapse" href="#filter" role="button" aria-expanded="true" aria-controls="filter"></span> Filter</h4>
+            </div>
+            <div class="card-body collapse show" id="filter">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>CSP Code</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Branch Code</label>
+                            <select class="form-control">
+                                <option>Select</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Status</label>
+                          
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Certificate Status</label>
+                            <select class="form-control">
+                                <option>Select</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mt-md-4 pt-1">
+                        <button class="btn btn-dark px-4 mr-2">Cancel</button>
+                        <button class="btn btn-primary px-4">Search</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card">
+
+            <div class="card-body">
+
+
+                <div class="table-responsive">
+                    <div class="table-actions">
+                        <a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>
+                    </div>
+                    <table class="table table-striped" id="table-2">
+                        <thead>
+                            <tr>
+                                <th>Sr.No</th>
+                                <th>CSP Code</th>
+                                <th>Name</th>
+                                <th>Detail</th>
+                                <th>Branch Code</th>
+                                <th>Status</th>
+                                <th>Blocked</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>101</td>
+                                <td>AB</td>
+                                <td>AB</td>
+                                <td>101</td>
+                                <td>
+                                    <div class="badge badge-success">Verified</div>
+                                </td>
+                                <td>
+                                    <div class="custom-checkbox custom-control">
+                                        <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
+                                        <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
+                                    </div>
+                                </td>
+                                <td><a href="#" data-toggle="modal" data-target="#editFields" class="btn btn-sm btn-link">Edit</a></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>101</td>
+                                <td>AB</td>
+                                <td>AB</td>
+                                <td>101</td>
+                                <td>
+                                    <div class="badge badge-danger">Blocked</div>
+                                </td>
+                                <td>
+                                    <div class="custom-checkbox custom-control">
+                                        <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-2">
+                                        <label for="checkbox-2" class="custom-control-label">&nbsp;</label>
+                                    </div>
+                                </td>
+                                <td><a href="#" data-toggle="modal" data-target="#editFields" class="btn btn-sm btn-link">Edit</a></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>101</td>
+                                <td>AB</td>
+                                <td>AB</td>
+                                <td>101</td>
+                                <td>
+                                    <div class="badge badge-success">Verified</div>
+                                </td>
+                                <td>
+                                    <div class="custom-checkbox custom-control">
+                                        <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-3">
+                                        <label for="checkbox-3" class="custom-control-label">&nbsp;</label>
+                                    </div>
+                                </td>
+                                <td><a href="#" data-toggle="modal" data-target="#editFields" class="btn btn-sm btn-link">Edit</a></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
 

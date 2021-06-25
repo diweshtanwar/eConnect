@@ -80,7 +80,7 @@ namespace eConnect.DataAccess
 
 
 
-    public class CSPDetail : Repository<tblCSPDetail>
+    public class CSPDetail : Repository<tblUserCSPDetail>
     {
         public CSPDetail(eConnectAppEntities appcontext) : base(appcontext)
         {

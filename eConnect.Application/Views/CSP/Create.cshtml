@@ -1,0 +1,257 @@
+﻿@model eConnect.Model.UserCSPDetail
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "CSP", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+<section class="section">
+    <div class="card">
+        <div class="card-body">
+            <h6 class="text-primary mb-3"> Account Detail</h6>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CSPName, htmlAttributes: new { @class = "required-field" })
+                        @Html.EditorFor(model => model.CSPName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CSPName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CSPCode, htmlAttributes: new { @class = "required-field" })
+                        @Html.EditorFor(model => model.CSPCode, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CSPCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BranchCode, htmlAttributes: new { @class = "required-field" })
+                        @Html.EditorFor(model => model.BranchCode, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BranchCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "required-field" })
+                        <div class="input-group ">
+                            @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control expiry-date" } })
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="mdi mdi-calendar"></i>
+                                </span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.BankAccount, htmlAttributes: new { @class = "required-field" })
+                    @Html.EditorFor(model => model.BankAccount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BankAccount, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IFSC, htmlAttributes: new { @class = "required-field" })
+                        @Html.EditorFor(model => model.IFSC, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.IFSC, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CertificateStatus, htmlAttributes: new { @class = "required-field" })
+                        @Html.EditorFor(model => model.CertificateStatus, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CertificateStatus, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "required-field" })
+                        @Html.DropDownList("Status", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <h6 class="text-primary mb-3"> Personal Detail</h6>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FatherName, htmlAttributes: new { @class = "required-field" })
+
+                        @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MotherName, htmlAttributes: new { @class = "required-field" })
+
+                        @Html.EditorFor(model => model.MotherName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MotherName, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "required-field" })
+
+                        @Html.DropDownList("Country", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "required-field" })
+
+                        @Html.DropDownList("State", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "required-field" })
+
+                        @Html.DropDownList("City", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PAN, htmlAttributes: new { @class = "required-field" })
+
+                        @Html.EditorFor(model => model.PAN, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PAN, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VoterId, htmlAttributes: new { @class = "required-field" })
+
+                        @Html.EditorFor(model => model.VoterId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.VoterId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AadharNo, htmlAttributes: new { @class = "required-field" })
+
+                        @Html.EditorFor(model => model.AadharNo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AadharNo, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Education, htmlAttributes: new { @class = "required-field" })
+
+                        @Html.EditorFor(model => model.Education, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Education, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "required-field" })
+
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "required-field" })
+
+                        @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmergencyContactNumber, htmlAttributes: new { @class = "required-field" })
+
+                        @Html.EditorFor(model => model.EmergencyContactNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EmergencyContactNumber, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+            </div>
+
+            <h6 class="text-primary mb-3"> Upload</h6>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PassportSizePhoto, htmlAttributes: new { @class = "required-field" })
+                        <input type="file" id="PassportSizePhoto" name="PassportSizePhoto" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
+                        @Html.ValidationMessageFor(model => model.PassportSizePhoto, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VoterIdImage, htmlAttributes: new { @class = "required-field" })
+                        <input type="file" id="VoterIdImage" name="VoterIdImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
+
+                        @Html.ValidationMessageFor(model => model.VoterIdImage, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PANImage, htmlAttributes: new { @class = "required-field" })
+                        <input type="file" id="PANImage" name="PANImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
+
+                        @Html.ValidationMessageFor(model => model.PANImage, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AadharImage, htmlAttributes: new { @class = "required-field" })
+                        <input type="file" id="AadharImage" name="AadharImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
+
+                        @Html.ValidationMessageFor(model => model.AadharImage, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LatestEducationProofImage, htmlAttributes: new { @class = "required-field" })
+                        <input type="file" id="LatestEducationProofImage" name="LatestEducationProofImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
+                        @Html.ValidationMessageFor(model => model.LatestEducationProofImage, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "required-field" })
+                        <input type="file" id="IIBFCertificationImage" name="IIBFCertificationImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
+
+                        @Html.ValidationMessageFor(model => model.IIBFCertificationImage, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="my-4 text-right">               
+                <button class="btn btn-primary px-4" type="submit">Save</button>
+            </div>
+        </div>    
+    </div>
+</section>
+}
+<div>
+    @Html.ActionLink("Cancel", "Index")
+</div>

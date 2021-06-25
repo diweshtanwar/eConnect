@@ -13,16 +13,16 @@ namespace eConnect.Logic
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                var dsds = unitOfWork.Cityess.GetAllCity().ToList();
-                return dsds;
+                var data = unitOfWork.Cityess.GetAllCity().ToList();
+                return data;
             }
         }
         public IEnumerable<tblCity> GetAllCitiesByStateID(long id)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                var dsds = unitOfWork.Cityess.GetAllCitiesByStateID(id).ToList();
-                return dsds;
+                var data = unitOfWork.Cityess.GetAllCitiesByStateID(id).ToList();
+                return data;
             }
         }
     }

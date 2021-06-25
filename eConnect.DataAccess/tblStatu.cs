@@ -21,6 +21,7 @@ namespace eConnect.DataAccess
             this.tblUsers = new HashSet<tblUser>();
             this.tblWithdrawalRequests = new HashSet<tblWithdrawalRequest>();
             this.tblTechRequests = new HashSet<tblTechRequest>();
+            this.tblUserCSPDetails = new HashSet<tblUserCSPDetail>();
         }
     
         public byte StatusId { get; set; }
@@ -35,5 +36,7 @@ namespace eConnect.DataAccess
         public virtual ICollection<tblWithdrawalRequest> tblWithdrawalRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblTechRequest> tblTechRequests { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblUserCSPDetail> tblUserCSPDetails { get; set; }
     }
 }

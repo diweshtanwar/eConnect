@@ -338,3 +338,7 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/eConnect.Application/UploadedFiles/CSP/1/PassportSizePhoto/avatar-1.png
+/eConnect.Application/Controllers/TestController.cs
+/eConnect.Application/Controllers/tblUserCSPDetailsController.cs
+/eConnect.Application/Views/tblUserCSPDetails

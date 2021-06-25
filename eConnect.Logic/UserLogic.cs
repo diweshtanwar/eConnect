@@ -50,17 +50,17 @@ namespace eConnect.Logic
                 using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
                 {
 
-                    tblCSPDetail um = new tblCSPDetail();
+                    tblUserCSPDetail um = new tblUserCSPDetail();
                     um.FatherName = item.FatherName;
                     um.MotherName = item.MotherName;
                     um.EmergencyContactNumber = item.Mobile.ToString();
-                    um.EmailId = item.EMailID;
+                    um.Email = item.EMailID;
                     // um.StateID = item.StateID;
-                    um.CityId = item.CityID;
+                    //um.CityId = item.CityID;
                     //um.CountryID = item.CountryID;
                     //um.InActive = item.InActive;
                     //um.Address1 = item.Address1;
-                    um.Name = item.CSPName;
+                    um.CSPName = item.CSPName;
                     um.CSPCode = item.CSPCode;
                     //um.Password = item.Password;
                     um.BranchCode = item.BranchCode;
@@ -69,23 +69,23 @@ namespace eConnect.Logic
                     um.AadharNo = item.AdharCardNo;
                     um.Education = item.Education;
                     um.BankName = item.BankAccountName;
-                    um.BankAccountNumber = item.BankAccountName;
+                    um.BankAccount = item.BankAccountName;
                     um.IFSC = item.FatherName;
                     um.ExpiryDate = Convert.ToDateTime(item.AccountExpiryDate);
                     //um.BankName = item.BankAccountDetail;
                     //um.CertificateStatus = item.CertificateStatus;
-                    um.ProfilePicSource = item.PassportPic != null
+                    um.PassportSizePhoto = item.PassportPic != null
                                 ? Path.GetFileName(item.PassportPic.FileName).ToString() : null;
-                    um.VoterIdSource = item.VoterIDPic != null
+                    um.VoterIdImage = item.VoterIDPic != null
                                 ? Path.GetFileName(item.VoterIDPic.FileName).ToString() : null;
-                    um.PANSource = item.PANCardPic != null
+                    um.PANImage = item.PANCardPic != null
                                 ? Path.GetFileName(item.PANCardPic.FileName).ToString() : null;
-                    um.AadharCardSource = item.AAdharCardPic != null
+                    um.AadharImage = item.AAdharCardPic != null
                                ? Path.GetFileName(item.AAdharCardPic.FileName).ToString() : null;
-                    um.IIBFCertificationSource = item.IIBFCertificatePic != null
+                    um.IIBFCertificationImage = item.IIBFCertificatePic != null
                              ? Path.GetFileName(item.IIBFCertificatePic.FileName).ToString() : null;
                     //um.Status = 1;
-                    um.EducationProofSource = "";
+                    um.LatestEducationProofImage = "";
                     um.CreatedDate = DateTime.Now;
                     um.UpdatedDate = DateTime.Now;
                     um.CreatedBy = 0;
@@ -114,7 +114,63 @@ namespace eConnect.Logic
             //    throw;
             //}
         }
-  
+        public long InsertUserCSPDetails(UserCSPDetail UserCSPDetail)
+        {
+            try
+            {
+                using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+                {
+                    tblUserCSPDetail tblUserCSPDetail = new tblUserCSPDetail();
+                    tblUserCSPDetail.CSPName = UserCSPDetail.CSPName;
+                    tblUserCSPDetail.CSPCode = UserCSPDetail.CSPCode;
+                    tblUserCSPDetail.BranchCode = UserCSPDetail.BranchCode;
+                    tblUserCSPDetail.BankName = UserCSPDetail.BankName;
+                    tblUserCSPDetail.BankAccount = UserCSPDetail.BankAccount;
+                    tblUserCSPDetail.IFSC = UserCSPDetail.IFSC;
+                    tblUserCSPDetail.CertificateStatus = UserCSPDetail.CertificateStatus;
+                    tblUserCSPDetail.Status = UserCSPDetail.Status;
+                    tblUserCSPDetail.FatherName = UserCSPDetail.FatherName;
+                    tblUserCSPDetail.MotherName = UserCSPDetail.MotherName;
+                    tblUserCSPDetail.Country = UserCSPDetail.Country;
+                    tblUserCSPDetail.State = UserCSPDetail.State;
+                    tblUserCSPDetail.City = UserCSPDetail.City;
+                    tblUserCSPDetail.PAN = UserCSPDetail.PAN;
+                    tblUserCSPDetail.VoterId = UserCSPDetail.VoterId;
+                    tblUserCSPDetail.AadharNo = UserCSPDetail.AadharNo;
+                    tblUserCSPDetail.Education = UserCSPDetail.Education;
+                    tblUserCSPDetail.Email = UserCSPDetail.Email;
+                    tblUserCSPDetail.Mobile = UserCSPDetail.Mobile;
+                    tblUserCSPDetail.EmergencyContactNumber = UserCSPDetail.EmergencyContactNumber;
+                    tblUserCSPDetail.ExpiryDate = Convert.ToDateTime(UserCSPDetail.ExpiryDate);                
+                    tblUserCSPDetail.PassportSizePhoto = UserCSPDetail.PassportSizePhoto != null
+                                ? Path.GetFileName(UserCSPDetail.PassportSizePhoto.FileName).ToString() : null;
+                    tblUserCSPDetail.VoterIdImage = UserCSPDetail.VoterIdImage != null
+                                ? Path.GetFileName(UserCSPDetail.VoterIdImage.FileName).ToString() : null;
+                    tblUserCSPDetail.PANImage = UserCSPDetail.PANImage != null
+                                ? Path.GetFileName(UserCSPDetail.PANImage.FileName).ToString() : null;
+                    tblUserCSPDetail.AadharImage = UserCSPDetail.AadharImage != null
+                               ? Path.GetFileName(UserCSPDetail.AadharImage.FileName).ToString() : null;
+                    tblUserCSPDetail.LatestEducationProofImage = UserCSPDetail.LatestEducationProofImage != null
+                               ? Path.GetFileName(UserCSPDetail.LatestEducationProofImage.FileName).ToString() : null;
+                    tblUserCSPDetail.IIBFCertificationImage = UserCSPDetail.IIBFCertificationImage != null
+                             ? Path.GetFileName(UserCSPDetail.IIBFCertificationImage.FileName).ToString() : null;
+                                     
+                    tblUserCSPDetail.CreatedDate = DateTime.Now;
+                    tblUserCSPDetail.UpdatedDate = DateTime.Now;
+                    tblUserCSPDetail.CreatedBy = 0;
+                    unitOfWork.AddCSPDetail.Add(tblUserCSPDetail);
+                    long id = tblUserCSPDetail.CSPId;  //gives the newly generated 
+                    return id;
+                }
+            }
+
+            catch (Exception)
+            {
+                return 0;
+            }
+            
+        }
+
 
 
         public IEnumerable<tblUser> GetUsersInfoByStatus(int id)
