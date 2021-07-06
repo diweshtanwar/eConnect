@@ -37,6 +37,7 @@ namespace eConnect.Model
         public string EmergencyContactNumber { get; set; }
         public HttpPostedFileBase PassportSizePhoto { get; set; }
         public string PassportSizePhotoName { get; set; }
+
         public HttpPostedFileBase VoterIdImage { get; set; }
         public string VoterIdImageName { get; set; }
         public HttpPostedFileBase PANImage { get; set; }

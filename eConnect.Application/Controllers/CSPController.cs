@@ -15,8 +15,7 @@ using System.Configuration;
 namespace eConnect.Application.Controllers
 {
     public class CSPController : Controller
-    {
-     
+    {     
         string CSPFilePath = System.Web.HttpContext.Current.Server.MapPath(Convert.ToString(ConfigurationManager.AppSettings["CSPFilePath"]));
         List<SelectListItem> CertificateStatusList = new List<SelectListItem>()
             {
@@ -25,6 +24,11 @@ namespace eConnect.Application.Controllers
 
             };
         // GET: CSP
+
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
         public ActionResult Index()
         {
             UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();

@@ -21,6 +21,11 @@ namespace eConnect.Application.Controllers
         List<SelectListItem> ddlMonths = new List<SelectListItem>();
         List<SelectListItem> ddlYears = new List<SelectListItem>();
         private eConnectAppEntities db = new eConnectAppEntities();
+
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
         public ActionResult ApproveCSP()
         {
             UserLogic ul = new UserLogic();
@@ -433,5 +438,6 @@ namespace eConnect.Application.Controllers
             return View(tblApplicationSetting);
         }
 
+    
     }
 }

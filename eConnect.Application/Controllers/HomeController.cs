@@ -70,8 +70,29 @@ namespace eConnect.Application.Controllers
                     objtblUserLoginLog.LoginTimeStamp = DateTime.Now;
                     objtblUserLoginLog.HostName = Dns.GetHostName();
                     objtblUserLoginLog.IpAddress= Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString();                  
-                    objUserLoginLogLogic.InsertUserLoginLog(objtblUserLoginLog);                   
-                    return RedirectToAction("About");
+                    objUserLoginLogLogic.InsertUserLoginLog(objtblUserLoginLog);
+                    //Super Admin
+                    if (userData.UserId==1)
+                    {
+                        return RedirectToAction("About");
+                    }
+                    //Admin
+                    else if (userData.UserId == 2)
+                    {
+                        return RedirectToAction("Dashboard","Admin");
+                    }
+                    //CSP
+                    else if (userData.UserId == 3)
+                    {
+                        return RedirectToAction("Dashboard","CSP");
+                    }
+                    //User
+                    else if (userData.UserId == 4)
+                    {
+                        return RedirectToAction("About");
+                    }
+
+                
                 }
 
             }
