@@ -80,6 +80,7 @@
           </Key>
           <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Code" Type="nchar" MaxLength="10" />
           <Property Name="StateId" Type="int" />
           <Property Name="Status" Type="bit" />
         </EntityType>
@@ -1146,6 +1147,7 @@
           <NavigationProperty Name="tblState" Relationship="Self.FK_tblCity_tblState" FromRole="tblCity" ToRole="tblState" />
           <NavigationProperty Name="tblUserDetails" Relationship="Self.FK_tblUserDetail_tblCity" FromRole="tblCity" ToRole="tblUserDetail" />
           <NavigationProperty Name="tblUserCSPDetails" Relationship="eConnectAppModel.FK_tblUserCSPDetail_tblCity" FromRole="tblCity" ToRole="tblUserCSPDetail" />
+          <Property Name="Code" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="tblCommissionReport">
           <Key>
@@ -2303,6 +2305,7 @@
           <EntitySetMapping Name="tblCities">
             <EntityTypeMapping TypeName="eConnectAppModel.tblCity">
               <MappingFragment StoreEntitySet="tblCity">
+                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="CityId" ColumnName="CityId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />

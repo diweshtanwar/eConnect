@@ -68,7 +68,8 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(model => model.CertificateStatus, htmlAttributes: new { @class = "required-field" })
-                        @Html.EditorFor(model => model.CertificateStatus, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.DropDownList("CertificateStatus", ViewBag.CertificateStatus as SelectList, htmlAttributes: new { @class = "form-control" })
+                        @*@Html.EditorFor(model => model.CertificateStatus, new { htmlAttributes = new { @class = "form-control" } })*@
                         @Html.ValidationMessageFor(model => model.CertificateStatus, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -194,7 +195,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        @Html.LabelFor(model => model.PassportSizePhoto, htmlAttributes: new { @class = "required-field" })
+                        @Html.LabelFor(model => model.PassportSizePhoto, htmlAttributes: new { @class = "" })
                         <input type="file" id="PassportSizePhoto" name="PassportSizePhoto" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
                         @Html.ValidationMessageFor(model => model.PassportSizePhoto, "", new { @class = "text-danger" })
 
@@ -202,7 +203,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        @Html.LabelFor(model => model.VoterIdImage, htmlAttributes: new { @class = "required-field" })
+                        @Html.LabelFor(model => model.VoterIdImage, htmlAttributes: new { @class = "" })
                         <input type="file" id="VoterIdImage" name="VoterIdImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
 
                         @Html.ValidationMessageFor(model => model.VoterIdImage, "", new { @class = "text-danger" })
@@ -211,7 +212,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        @Html.LabelFor(model => model.PANImage, htmlAttributes: new { @class = "required-field" })
+                        @Html.LabelFor(model => model.PANImage, htmlAttributes: new { @class = "" })
                         <input type="file" id="PANImage" name="PANImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
 
                         @Html.ValidationMessageFor(model => model.PANImage, "", new { @class = "text-danger" })
@@ -220,7 +221,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        @Html.LabelFor(model => model.AadharImage, htmlAttributes: new { @class = "required-field" })
+                        @Html.LabelFor(model => model.AadharImage, htmlAttributes: new { @class = "" })
                         <input type="file" id="AadharImage" name="AadharImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
 
                         @Html.ValidationMessageFor(model => model.AadharImage, "", new { @class = "text-danger" })
@@ -229,7 +230,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        @Html.LabelFor(model => model.LatestEducationProofImage, htmlAttributes: new { @class = "required-field" })
+                        @Html.LabelFor(model => model.LatestEducationProofImage, htmlAttributes: new { @class = "" })
                         <input type="file" id="LatestEducationProofImage" name="LatestEducationProofImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
                         @Html.ValidationMessageFor(model => model.LatestEducationProofImage, "", new { @class = "text-danger" })
 
@@ -237,7 +238,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "required-field" })
+                        @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "" })
                         <input type="file" id="IIBFCertificationImage" name="IIBFCertificationImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
 
                         @Html.ValidationMessageFor(model => model.IIBFCertificationImage, "", new { @class = "text-danger" })

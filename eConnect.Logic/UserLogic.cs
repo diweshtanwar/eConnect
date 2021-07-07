@@ -170,9 +170,6 @@ namespace eConnect.Logic
             }
             
         }
-
-
-
         public IEnumerable<tblUser> GetUsersInfoByStatus(int id)
         {
             UsersModel um = new UsersModel();
@@ -314,6 +311,7 @@ namespace eConnect.Logic
                 throw;
             }
         }
+
     }
 }
 

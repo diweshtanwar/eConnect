@@ -51,6 +51,12 @@ namespace eConnect.DataAccess
             var userDetails = eConnectAppEntities.tblUsers.Where(c => c.UserId == id);
             return userDetails;
         }
+
+        public void InsertUser(tblUser tblUser)
+        {
+            eConnectAppEntities.tblUsers.Add(tblUser);
+        }
+
         private bool disposed = false;
         protected virtual void Dispose(bool disposing)
         {

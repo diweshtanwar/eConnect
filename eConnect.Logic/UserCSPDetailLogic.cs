@@ -138,6 +138,15 @@ namespace eConnect.Logic
                     tblUserCSPDetail.CreatedBy = 0;
                     unitOfWork.AddCSPDetail.Add(tblUserCSPDetail);
                     long id = tblUserCSPDetail.CSPId;  //gives the newly generated 
+
+                    //Insert User Login data
+                    tblUser tblUser = new tblUser();
+                    tblUser.UserName = UserCSPDetail.CSPCode;
+                    tblUser.Password = "eConnect@" + UserCSPDetail.CSPCode;
+                    tblUser.UserSourceId = (int?)id;
+                    tblUser.UserType = 3;
+                    tblUser.Status = 1;
+                    unitOfWork.Userss.Add(tblUser);
                     return id;
                 }
             }
