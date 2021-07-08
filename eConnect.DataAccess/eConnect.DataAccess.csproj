@@ -192,6 +192,9 @@
     <Compile Include="tblStatu.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblStatusold.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblTechRequest.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>

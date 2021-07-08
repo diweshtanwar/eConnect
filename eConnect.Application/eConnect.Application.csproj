@@ -246,7 +246,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Admin\AccountConfiguration.cshtml" />
     <Content Include="Views\Admin\ApplicationSetting.cshtml" />
     <Content Include="Views\Admin\ApproveCSP.cshtml" />
     <Content Include="Views\Admin\ShowFolderImages.cshtml" />
@@ -254,11 +253,8 @@
     <Content Include="Views\Admin\UploaderDetails.cshtml" />
     <Content Include="Views\Admin\UploadFolderImages.cshtml" />
     <Content Include="Views\Admin\ViewCSPProfile.cshtml" />
-    <Content Include="Views\Admin\_AccountConfigurationDetails.cshtml" />
-    <Content Include="Views\Admin\_AddAccountConfiguration.cshtml" />
     <Content Include="Views\Admin\_AddApplicationSetting.cshtml" />
     <Content Include="Views\Admin\_ApplicationSetting.cshtml" />
-    <Content Include="Views\Admin\_EditAccountConfiguration.cshtml" />
     <Content Include="Views\Admin\_UploaderList.cshtml" />
     <Content Include="Views\SAdmin\CreateRole.cshtml" />
     <Content Include="Views\SAdmin\ManageUser.cshtml" />
@@ -302,6 +298,10 @@
     <Content Include="Views\tblUsers\Edit.cshtml" />
     <Content Include="Views\tblUsers\Index.cshtml" />
     <Content Include="Views\Users\UpdateAccount.cshtml" />
+    <Content Include="Views\Admin\AccountConfiguration.cshtml" />
+    <Content Include="Views\Admin\_AccountConfigurationDetails.cshtml" />
+    <Content Include="Views\Admin\EditAccountConfiguration.cshtml" />
+    <Content Include="Views\Admin\AddAccountConfiguration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

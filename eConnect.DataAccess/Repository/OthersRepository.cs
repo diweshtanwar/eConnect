@@ -93,6 +93,12 @@ namespace eConnect.DataAccess
         {
             return eConnectAppEntities.tblConfigurations.ToList();
         }
+        public void DeleteRecord(int id)
+        {
+            var rec = eConnectAppEntities.tblConfigurations.Where(x => x.ConfigurationId == id).SingleOrDefault();
+            eConnectAppEntities.tblConfigurations.Remove(rec);
+            eConnectAppEntities.SaveChanges();
+        }
     }
 
 

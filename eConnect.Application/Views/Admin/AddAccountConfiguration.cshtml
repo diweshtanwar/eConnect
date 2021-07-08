@@ -1,0 +1,132 @@
+﻿@model eConnect.Model.AccountConfigurationModel
+
+@{
+    ViewBag.Title = "AccountConfiguration";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>Upload Report</h2>
+
+@using (Html.BeginForm("AddAccountConfiguration", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <style type="text/css">
+        .ajax-loader {
+            visibility: hidden;
+            background-color: rgba(255,255,255,0.7);
+            position: absolute;
+            z-index: +100 !important;
+            width: 100%;
+            height: 100%;
+        }
+
+            .ajax-loader img {
+                position: relative;
+                top: 50%;
+                left: 50%;
+            }
+    </style>
+    @Html.AntiForgeryToken()
+    <section class="section">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-primary mb-3"> Create Account Configuration </h6>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BusinessId, htmlAttributes: new { @class = "required-field" })
+                            @Html.DropDownListFor(o => o.BusinessId, new SelectList(ViewBag.BusinessList, "BusinessId", "Name"), "Select Type", new { id = "BusinessId", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.BusinessId, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DeactiveAccountDaysForInvalidPwd, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.DeactiveAccountDaysForInvalidPwd, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DeactiveAccountDaysForInvalidPwd, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LockAccountDaysForInvalidPwd, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.LockAccountDaysForInvalidPwd, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LockAccountDaysForInvalidPwd, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AutoUnlockAccountMinutes, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.AutoUnlockAccountMinutes, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AutoUnlockAccountMinutes, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PasswordAutoExpireInDays, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.PasswordAutoExpireInDays, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PasswordAutoExpireInDays, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IsPasswordNeverExpired, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.IsPasswordNeverExpired, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.IsPasswordNeverExpired, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ChangedPwdOnNextLogin, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.ChangedPwdOnNextLogin, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.IsPasswordNeverExpired, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PasswordLength, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.PasswordLength, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PasswordLength, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NotifiedToCSP, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.NotifiedToCSP, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NotifiedToCSP, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="my-4 text-right">
+                    <button class="btn btn-primary px-4" type="Submit">Submit</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="ajax-loader">
+            <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
+        </div>
+    </section>
+}
+<div>
+    @Html.ActionLink("Cancel", "Uploader")
+
+</div>
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+                $(function () {
+                    alert("@TempData["Message"]")
+                });
+    </script>
+}

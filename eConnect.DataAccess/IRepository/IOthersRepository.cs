@@ -30,6 +30,7 @@ namespace eConnect.DataAccess
     public interface IAccountConfigurationRepository : IRepository<tblConfiguration>
     {
         IList<tblConfiguration> GetAllConfiguration();
+        void DeleteRecord(int id);
     }
 
     public interface IRoleMasterRepository : IRepository<tblRoleMaster>
