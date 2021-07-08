@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace eConnect.DataAccess
 {
-        public class FolderDetailsRepository : Repository<tblFolderDetail>, IFolderDetailsRepository
+    public class FolderDetailsRepository : Repository<tblFolderDetail>, IFolderDetailsRepository
     {
         public FolderDetailsRepository(eConnectAppEntities appcontext) : base(appcontext)
         {
@@ -54,9 +54,15 @@ namespace eConnect.DataAccess
         {
             return eConnectAppEntities.tblUploaders.ToList();
         }
+        public void DeleteRecord(int id)
+        {
+            var rec = eConnectAppEntities.tblUploaders.Where(x => x.UploaderId == id).SingleOrDefault();
+            eConnectAppEntities.tblUploaders.Remove(rec);
+            eConnectAppEntities.SaveChanges();
+        }
     }
 
-  
+
     public class BusinessRepository : Repository<tblBusiness>, IBusinessRepository
     {
         public BusinessRepository(eConnectAppEntities appcontext) : base(appcontext)

@@ -17,8 +17,8 @@ namespace eConnect.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblBusiness()
         {
-            this.tblConfigurations = new HashSet<tblConfiguration>();
             this.tblApplicationSettings = new HashSet<tblApplicationSetting>();
+            this.tblConfigurations = new HashSet<tblConfiguration>();
         }
     
         public int BusinessId { get; set; }
@@ -28,8 +28,8 @@ namespace eConnect.DataAccess
         public byte Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblConfiguration> tblConfigurations { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblApplicationSetting> tblApplicationSettings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblConfiguration> tblConfigurations { get; set; }
     }
 }

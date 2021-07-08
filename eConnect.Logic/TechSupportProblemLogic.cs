@@ -146,7 +146,7 @@ namespace eConnect.Logic
                     sr.MobileNo = model.MobileNo;
                     //sr.DeskDetail = model.DeskDetail;
                     //sr.RaisedByName = model.tblUserCSPDetail.CSPCode;
-                    sr.StatusName = model.tblStatu.Name;
+            ////        sr.StatusName = model.tblStatu.Name;
                    // sr.RaisedByName = model.tblUser.UserName;
                     //  sr.UserName = model.User.CSPName;
                     sr.TechProbName = model.tblProblemType.Name;
@@ -172,7 +172,7 @@ namespace eConnect.Logic
                         sr.MobileNo = model.MobileNo;
                         //sr.DeskDetail = model.DeskDetail;
                         //sr.RaisedByName = model.tblUserCSPDetail.CSPCode;
-                        sr.StatusName = model.tblStatu.Name;
+                     ////   sr.StatusName = model.tblStatu.Name;
                         // sr.RaisedByName = model.tblUser.UserName;
                         //  sr.UserName = model.User.CSPName;
                         sr.TechProbName = model.tblProblemType.Name;

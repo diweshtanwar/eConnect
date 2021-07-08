@@ -17,20 +17,19 @@ namespace eConnect.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblCity()
         {
+            this.tblCSPDetails = new HashSet<tblCSPDetail>();
             this.tblUserDetails = new HashSet<tblUserDetail>();
-            this.tblUserCSPDetails = new HashSet<tblUserCSPDetail>();
         }
     
         public int CityId { get; set; }
         public string Name { get; set; }
         public Nullable<int> StateId { get; set; }
         public Nullable<bool> Status { get; set; }
-        public string Code { get; set; }
     
         public virtual tblState tblState { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblUserDetail> tblUserDetails { get; set; }
+        public virtual ICollection<tblCSPDetail> tblCSPDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblUserCSPDetail> tblUserCSPDetails { get; set; }
+        public virtual ICollection<tblUserDetail> tblUserDetails { get; set; }
     }
 }

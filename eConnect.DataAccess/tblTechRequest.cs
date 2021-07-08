@@ -32,8 +32,8 @@ namespace eConnect.DataAccess
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
     
+        public virtual tblCSPDetail tblCSPDetail { get; set; }
         public virtual tblProblemType tblProblemType { get; set; }
-        public virtual tblStatu tblStatu { get; set; }
         public virtual tblUser tblUser { get; set; }
         public virtual tblUser tblUser1 { get; set; }
         public virtual tblUser tblUser2 { get; set; }
