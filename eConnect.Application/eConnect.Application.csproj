@@ -110,9 +110,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="WinSCPnet, Version=1.8.3.11552, Culture=neutral, PublicKeyToken=2271ec4a3c56d0bf, processorArchitecture=MSIL">
-      <HintPath>..\packages\WinSCP.5.19.1\lib\net40\WinSCPnet.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
@@ -177,6 +174,8 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PartialController.cs" />
     <Compile Include="Controllers\SAdminController.cs" />
+    <Compile Include="Controllers\tblUsersController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -504,7 +503,6 @@
     <Content Include="Views\SAdmin\_BindRoles.cshtml" />
     <Content Include="Views\SAdmin\_EditRequest.cshtml" />
     <Content Include="Views\SAdmin\_TecRequestHistory.cshtml" />
-    <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Shared\_BindSupportRequest.cshtml" />
     <Content Include="Views\Shared\_LayoutAditya.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
@@ -528,7 +526,12 @@
     <Content Include="Views\CSP\EditCSPProfile.cshtml" />
     <Content Include="Views\Admin\Dashboard.cshtml" />
     <Content Include="Views\CSP\Dashboard.cshtml" />
-    <Content Include="Views\Test\IndexImage.cshtml" />
+    <Content Include="Views\tblUsers\Create.cshtml" />
+    <Content Include="Views\tblUsers\Delete.cshtml" />
+    <Content Include="Views\tblUsers\Details.cshtml" />
+    <Content Include="Views\tblUsers\Edit.cshtml" />
+    <Content Include="Views\tblUsers\Index.cshtml" />
+    <Content Include="Views\Users\UpdateAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -594,9 +597,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-    <Error Condition="!Exists('..\packages\WinSCP.5.19.1\build\WinSCP.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WinSCP.5.19.1\build\WinSCP.targets'))" />
   </Target>
-  <Import Project="..\packages\WinSCP.5.19.1\build\WinSCP.targets" Condition="Exists('..\packages\WinSCP.5.19.1\build\WinSCP.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

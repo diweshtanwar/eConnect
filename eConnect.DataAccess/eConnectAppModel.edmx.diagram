@@ -58,11 +58,11 @@
         <AssociationConnector Association="eConnectAppModel.FK_tblUserCSPDetail_tblCountry" />
         <AssociationConnector Association="eConnectAppModel.FK_tblUserCSPDetail_tblState" />
         <AssociationConnector Association="eConnectAppModel.FK_tblUserCSPDetail_tblStatus" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblRoleMaster" Width="1.5" PointX="0.5" PointY="2.25" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblUser" Width="1.5" PointX="5.75" PointY="17.625" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblRoleMaster" Width="1.5" PointX="0.875" PointY="5" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblMenuSub_tblRoleMaster" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblUser" Width="1.5" PointX="8.125" PointY="17.875" />
         <AssociationConnector Association="eConnectAppModel.FK_tblDepositRequest_tblUsers" />
         <AssociationConnector Association="eConnectAppModel.FK_tblDepositRequest_tblUsers1" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblMenuSub_tblRoleMaster" />
         <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblRoleMaster" />
         <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblStatus" />
         <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers1" />

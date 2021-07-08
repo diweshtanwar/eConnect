@@ -27,6 +27,7 @@ namespace eConnect.Application.Controllers
 
         public ActionResult Dashboard()
         {
+            ViewBag.ActiveUsers = 350;
             return View();
         }
         public ActionResult Index()
@@ -108,32 +109,32 @@ namespace eConnect.Application.Controllers
                 string path = Path.Combine(CSPFilePath, CSPUserID.ToString());
                 if (UserCSPDetail.PassportSizePhoto != null)
                 {
-                    fpath = CheckDirectory(path, "PassportSizePhoto", UserCSPDetail.PassportSizePhoto);
+                    fpath = CheckDirectory(CSPUserID.ToString(),path, "PassportSizePhoto", UserCSPDetail.PassportSizePhoto);
                     UserCSPDetail.PassportSizePhoto.SaveAs(fpath);
                 }
                 if (UserCSPDetail.PANImage != null)
                 {
-                    fpath = CheckDirectory(path, "PANImage", UserCSPDetail.PANImage);
+                    fpath = CheckDirectory(CSPUserID.ToString(),path, "PANImage", UserCSPDetail.PANImage);
                     UserCSPDetail.PANImage.SaveAs(fpath);
                 }
                 if (UserCSPDetail.VoterIdImage != null)
                 {
-                    fpath = CheckDirectory(path, "VoterIdImage", UserCSPDetail.VoterIdImage);
+                    fpath = CheckDirectory(CSPUserID.ToString(),path, "VoterIdImage", UserCSPDetail.VoterIdImage);
                     UserCSPDetail.VoterIdImage.SaveAs(fpath);
                 }
                 if (UserCSPDetail.AadharImage != null)
                 {
-                    fpath = CheckDirectory(path, "AadharImage", UserCSPDetail.AadharImage);
+                    fpath = CheckDirectory(CSPUserID.ToString(),path, "AadharImage", UserCSPDetail.AadharImage);
                     UserCSPDetail.AadharImage.SaveAs(fpath);
                 }
                 if (UserCSPDetail.LatestEducationProofImage != null)
                 {
-                    fpath = CheckDirectory(path, "LatestEducationProofImage", UserCSPDetail.LatestEducationProofImage);
+                    fpath = CheckDirectory(CSPUserID.ToString(),path, "LatestEducationProofImage", UserCSPDetail.LatestEducationProofImage);
                     UserCSPDetail.LatestEducationProofImage.SaveAs(fpath);
                 }
                 if (UserCSPDetail.IIBFCertificationImage != null)
                 {
-                    fpath = CheckDirectory(path, "IIBFCertificationImage", UserCSPDetail.IIBFCertificationImage);
+                    fpath = CheckDirectory(CSPUserID.ToString(),path, "IIBFCertificationImage", UserCSPDetail.IIBFCertificationImage);
                     UserCSPDetail.IIBFCertificationImage.SaveAs(fpath);
                 }
                 return RedirectToAction("Index");
@@ -191,32 +192,32 @@ namespace eConnect.Application.Controllers
                 string path = Path.Combine(CSPFilePath, UserCSPDetail.CSPId.ToString());
                 if (UserCSPDetail.PassportSizePhoto != null)
                 {
-                    fpath = CheckDirectory(path, "PassportSizePhoto", UserCSPDetail.PassportSizePhoto);
+                    fpath = CheckDirectory(UserCSPDetail.CSPId.ToString(), path, "PassportSizePhoto", UserCSPDetail.PassportSizePhoto);
                     UserCSPDetail.PassportSizePhoto.SaveAs(fpath);
                 }
                 if (UserCSPDetail.PANImage != null)
                 {
-                    fpath = CheckDirectory(path, "PANImage", UserCSPDetail.PANImage);
+                    fpath = CheckDirectory(UserCSPDetail.CSPId.ToString(), path, "PANImage", UserCSPDetail.PANImage);
                     UserCSPDetail.PANImage.SaveAs(fpath);
                 }
                 if (UserCSPDetail.VoterIdImage != null)
                 {
-                    fpath = CheckDirectory(path, "VoterIdImage", UserCSPDetail.VoterIdImage);
+                    fpath = CheckDirectory(UserCSPDetail.CSPId.ToString(),path, "VoterIdImage", UserCSPDetail.VoterIdImage);
                     UserCSPDetail.VoterIdImage.SaveAs(fpath);
                 }
                 if (UserCSPDetail.AadharImage != null)
                 {
-                    fpath = CheckDirectory(path, "AadharImage", UserCSPDetail.AadharImage);
+                    fpath = CheckDirectory(UserCSPDetail.CSPId.ToString(),path, "AadharImage", UserCSPDetail.AadharImage);
                     UserCSPDetail.AadharImage.SaveAs(fpath);
                 }
                 if (UserCSPDetail.LatestEducationProofImage != null)
                 {
-                    fpath = CheckDirectory(path, "LatestEducationProofImage", UserCSPDetail.LatestEducationProofImage);
+                    fpath = CheckDirectory(UserCSPDetail.CSPId.ToString(),path, "LatestEducationProofImage", UserCSPDetail.LatestEducationProofImage);
                     UserCSPDetail.LatestEducationProofImage.SaveAs(fpath);
                 }
                 if (UserCSPDetail.IIBFCertificationImage != null)
                 {
-                    fpath = CheckDirectory(path, "IIBFCertificationImage", UserCSPDetail.IIBFCertificationImage);
+                    fpath = CheckDirectory(UserCSPDetail.CSPId.ToString(),path, "IIBFCertificationImage", UserCSPDetail.IIBFCertificationImage);
                     UserCSPDetail.IIBFCertificationImage.SaveAs(fpath);
                 }
                 return RedirectToAction("Index");
@@ -339,32 +340,32 @@ namespace eConnect.Application.Controllers
                 string path = Path.Combine(CSPFilePath, UserCSPDetail.CSPId.ToString());
                 if (UserCSPDetail.PassportSizePhoto != null)
                 {
-                    fpath = CheckDirectory(path, "PassportSizePhoto", UserCSPDetail.PassportSizePhoto);
+                    fpath = CheckDirectory(UserCSPDetail.CSPId.ToString(),path, "PassportSizePhoto", UserCSPDetail.PassportSizePhoto);
                     UserCSPDetail.PassportSizePhoto.SaveAs(fpath);
                 }
                 if (UserCSPDetail.PANImage != null)
                 {
-                    fpath = CheckDirectory(path, "PANImage", UserCSPDetail.PANImage);
+                    fpath = CheckDirectory(UserCSPDetail.CSPId.ToString(),path, "PANImage", UserCSPDetail.PANImage);
                     UserCSPDetail.PANImage.SaveAs(fpath);
                 }
                 if (UserCSPDetail.VoterIdImage != null)
                 {
-                    fpath = CheckDirectory(path, "VoterIdImage", UserCSPDetail.VoterIdImage);
+                    fpath = CheckDirectory(UserCSPDetail.CSPId.ToString(),path, "VoterIdImage", UserCSPDetail.VoterIdImage);
                     UserCSPDetail.VoterIdImage.SaveAs(fpath);
                 }
                 if (UserCSPDetail.AadharImage != null)
                 {
-                    fpath = CheckDirectory(path, "AadharImage", UserCSPDetail.AadharImage);
+                    fpath = CheckDirectory(UserCSPDetail.CSPId.ToString(),path, "AadharImage", UserCSPDetail.AadharImage);
                     UserCSPDetail.AadharImage.SaveAs(fpath);
                 }
                 if (UserCSPDetail.LatestEducationProofImage != null)
                 {
-                    fpath = CheckDirectory(path, "LatestEducationProofImage", UserCSPDetail.LatestEducationProofImage);
+                    fpath = CheckDirectory(UserCSPDetail.CSPId.ToString(),path, "LatestEducationProofImage", UserCSPDetail.LatestEducationProofImage);
                     UserCSPDetail.LatestEducationProofImage.SaveAs(fpath);
                 }
                 if (UserCSPDetail.IIBFCertificationImage != null)
                 {
-                    fpath = CheckDirectory(path, "IIBFCertificationImage", UserCSPDetail.IIBFCertificationImage);
+                    fpath = CheckDirectory(UserCSPDetail.CSPId.ToString(),path, "IIBFCertificationImage", UserCSPDetail.IIBFCertificationImage);
                     UserCSPDetail.IIBFCertificationImage.SaveAs(fpath);
                 }              
 
@@ -387,7 +388,7 @@ namespace eConnect.Application.Controllers
             return View(UserCSPDetail);
         }
 
-        public string CheckDirectory(string path, string filetype, HttpPostedFileBase postedfile)
+        public string CheckDirectory(string CSPUserID, string path, string filetype, HttpPostedFileBase postedfile)
         {
             string fullpath = string.Empty;
             fullpath = Path.Combine(path, filetype);
@@ -395,7 +396,11 @@ namespace eConnect.Application.Controllers
             {
                 Directory.CreateDirectory(fullpath);
             }
-            fullpath = fullpath + "\\" + Path.GetFileName(postedfile.FileName);
+            fullpath = fullpath + "\\"+CSPUserID+"-" + Path.GetFileName(postedfile.FileName);
+            if (System.IO.File.Exists(fullpath))
+            {
+                System.IO.File.Delete(fullpath);
+            }
             return fullpath;
         }
     }

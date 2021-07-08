@@ -439,6 +439,7 @@
           <Property Name="UserType" Type="int" />
           <Property Name="UserSourceId" Type="int" />
           <Property Name="Status" Type="tinyint" />
+          <Property Name="IsPasswordReset" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="UpdatedDate" Type="datetime" />
@@ -1787,6 +1788,10 @@
             <End Role="tblUserCSPDetail" EntitySet="tblUserCSPDetails" />
           </AssociationSet>
           <EntitySet Name="tblRoleMasters" EntityType="eConnectAppModel.tblRoleMaster" />
+          <AssociationSet Name="FK_tblMenuSub_tblRoleMaster" Association="eConnectAppModel.FK_tblMenuSub_tblRoleMaster">
+            <End Role="tblRoleMaster" EntitySet="tblRoleMasters" />
+            <End Role="tblMenuSub" EntitySet="tblMenuSubs" />
+          </AssociationSet>
           <EntitySet Name="tblUsers" EntityType="eConnectAppModel.tblUser" />
           <AssociationSet Name="FK_tblDepositRequest_tblUsers" Association="eConnectAppModel.FK_tblDepositRequest_tblUsers">
             <End Role="tblUser" EntitySet="tblUsers" />
@@ -1795,10 +1800,6 @@
           <AssociationSet Name="FK_tblDepositRequest_tblUsers1" Association="eConnectAppModel.FK_tblDepositRequest_tblUsers1">
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblDepositRequest" EntitySet="tblDepositRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblMenuSub_tblRoleMaster" Association="eConnectAppModel.FK_tblMenuSub_tblRoleMaster">
-            <End Role="tblRoleMaster" EntitySet="tblRoleMasters" />
-            <End Role="tblMenuSub" EntitySet="tblMenuSubs" />
           </AssociationSet>
           <AssociationSet Name="FK_tblUsers_tblRoleMaster" Association="eConnectAppModel.FK_tblUsers_tblRoleMaster">
             <End Role="tblRoleMaster" EntitySet="tblRoleMasters" />
@@ -1860,7 +1861,7 @@
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblWithdrawalRequest" EntitySet="tblWithdrawalRequests" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="tblApplicationSetting">
           <Key>
             <PropertyRef Name="SettingId" />
@@ -1988,6 +1989,18 @@
           <NavigationProperty Name="tblMenuSubs" Relationship="eConnectAppModel.FK_tblMenuSub_tblRoleMaster" FromRole="tblRoleMaster" ToRole="tblMenuSub" />
           <NavigationProperty Name="tblUsers" Relationship="eConnectAppModel.FK_tblUsers_tblRoleMaster" FromRole="tblRoleMaster" ToRole="tblUser" />
         </EntityType>
+        <Association Name="FK_tblMenuSub_tblRoleMaster">
+          <End Type="eConnectAppModel.tblRoleMaster" Role="tblRoleMaster" Multiplicity="0..1" />
+          <End Type="eConnectAppModel.tblMenuSub" Role="tblMenuSub" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="tblMenuSub">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="tblUser">
           <Key>
             <PropertyRef Name="UserId" />
@@ -2022,6 +2035,7 @@
           <NavigationProperty Name="tblUser3" Relationship="eConnectAppModel.FK_tblUsers_tblUsers2" FromRole="tblUser1" ToRole="tblUser" />
           <NavigationProperty Name="tblWithdrawalRequests" Relationship="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers" FromRole="tblUser" ToRole="tblWithdrawalRequest" />
           <NavigationProperty Name="tblWithdrawalRequests1" Relationship="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers1" FromRole="tblUser" ToRole="tblWithdrawalRequest" />
+          <Property Name="IsPasswordReset" Type="Boolean" />
         </EntityType>
         <Association Name="FK_tblDepositRequest_tblUsers">
           <End Type="eConnectAppModel.tblUser" Role="tblUser" Multiplicity="0..1" />
@@ -2044,18 +2058,6 @@
             </Principal>
             <Dependent Role="tblDepositRequest">
               <PropertyRef Name="UpdatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblMenuSub_tblRoleMaster">
-          <End Type="eConnectAppModel.tblRoleMaster" Role="tblRoleMaster" Multiplicity="0..1" />
-          <End Type="eConnectAppModel.tblMenuSub" Role="tblMenuSub" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblRoleMaster">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="tblMenuSub">
-              <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2239,7 +2241,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -2740,6 +2742,7 @@
           <EntitySetMapping Name="tblUsers">
             <EntityTypeMapping TypeName="eConnectAppModel.tblUser">
               <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="IsPasswordReset" ColumnName="IsPasswordReset" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />

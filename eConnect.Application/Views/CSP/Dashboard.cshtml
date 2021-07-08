@@ -149,7 +149,7 @@
                     <h4>
                         CSP Count
                     </h4>
-                    <div class="btn-group btn-group-toggle ml-auto" data-toggle="buttons">
+                    @*<div class="btn-group btn-group-toggle ml-auto" data-toggle="buttons">
                         <label class="btn btn-secondary active">
                             <input type="radio" name="options" id="option1" autocomplete="off" checked> Day
                         </label>
@@ -162,7 +162,7 @@
                         <label class="btn btn-secondary">
                             <input type="radio" name="options" id="option3" autocomplete="off"> Year
                         </label>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="card-body">
                     <div class="chart">
@@ -225,7 +225,7 @@
                 labels: ['Active', 'Inactive', 'Blocked'],
                 datasets: [{
                     label: '# of CSP Counts',
-                    data: [1240, 390, 190],
+                    data: [@ViewBag.ActiveUsers, 390, 190],
                     barPercentage: 0.5,
                     barThickness: 50,
                     maxBarThickness: 60,
