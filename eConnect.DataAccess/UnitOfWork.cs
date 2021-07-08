@@ -32,6 +32,7 @@ namespace eConnect.DataAccess
         public CSPDetail AddCSPDetail { get; private set; }
         public IMenuRepository Menus { get; private set; }
         public IUserCSPDetailRepository UserCSPDetail { get; private set; }
+        public ICommissionReportNewRepository CommissionReportNews { get; private set; }
         public UnitOfWork(eConnectAppEntities context)
         {
             _context = context;
@@ -55,6 +56,7 @@ namespace eConnect.DataAccess
             WithdrawRequests = new WithdrawalRequest(_context);
             Menus = new MenuRepository(_context);
             UserCSPDetail = new UserCSPDetailRepository(_context);
+            CommissionReportNews = new CommissionReportNewRepository(_context);
         }
 
         public int Complete()

@@ -19,6 +19,7 @@ namespace eConnect.DataAccess
     public interface IUploaderRepository : IRepository<tblUploader>
     {
         IList<tblUploader> GetAllUploader();
+        void DeleteRecord(int id);
     }
 
     public interface IBusinessRepository : IRepository<tblBusiness>

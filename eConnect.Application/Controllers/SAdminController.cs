@@ -74,7 +74,7 @@ namespace eConnect.Application.Controllers
                                    RequestDate = item.RequestedDate.ToString(),
                                    //Status = (int)item.Status,
                                    Status = item.Status,
-                                   StatusName = item.tblStatu.Name
+                             ////      StatusName = item.tblStatu.Name
                                });
             }
             return PartialView("_BindSupportRequest", products);

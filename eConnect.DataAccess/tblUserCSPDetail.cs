@@ -46,10 +46,5 @@ namespace eConnect.DataAccess
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
-    
-        public virtual tblCity tblCity { get; set; }
-        public virtual tblCountry tblCountry { get; set; }
-        public virtual tblState tblState { get; set; }
-        public virtual tblStatu tblStatu { get; set; }
     }
 }

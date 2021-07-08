@@ -1,0 +1,89 @@
+﻿@model eConnect.Model.TransactionCommissionModel
+@{
+    ViewBag.Title = "EditCommissionRecord";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+@using (Html.BeginForm("EditCommissionRecord", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+
+
+    <section class="section">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-primary mb-3"> Edit Record</h6>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Circle, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.Circle, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Circle, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CircleName, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.CircleName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CircleName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BCBF_Code, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.BCBF_Code, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BCBF_Code, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CSPCode, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.CSPCode, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CSPCode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.CSPName, htmlAttributes: new { @class = "required-field" })
+                        @Html.EditorFor(model => model.CSPName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CSPName, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TransactionType, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.TransactionType, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TransactionType, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NoOfTransactions, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.NoOfTransactions, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NoOfTransactions, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Commission, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.Commission, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Commission, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="my-4 text-right">
+                    <button class="btn btn-primary px-4" type="submit">Update</button>
+                    @Html.HiddenFor(model => model.TransactionCommissionId)
+                    @Html.HiddenFor(model => model.UploaderId)
+                </div>
+                <div class="text-left">
+                    @Html.ActionLink("Cancel", "ViewUnPublishedRecords", new {id=Model.UploaderId })
+                </div>
+            </div>
+
+        </div>
+    </section>
+}

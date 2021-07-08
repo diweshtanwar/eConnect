@@ -50,23 +50,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="eConnectAppEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>eConnectAppEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="eConnectAppEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="eConnectAppEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>eConnectAppEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="IRepository\IReportsRepository.cs" />
     <Compile Include="Repository\CityRepository.cs" />
     <Compile Include="Repository\CountryRepository.cs" />
-    <Compile Include="eConnectAppModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>eConnectAppModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="eConnectAppModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="eConnectAppModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>eConnectAppModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="IRepository\ICityRepository.cs" />
     <Compile Include="IRepository\ICountryRepository.cs" />
     <Compile Include="IRepository\IMenuRepository.cs" />
@@ -83,136 +84,152 @@
     <Compile Include="Repository\MenuRepository.cs" />
     <Compile Include="Repository\OthersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ReportsRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Repository\ApplicationSettingRepository.cs" />
     <Compile Include="Repository\StateRepository.cs" />
     <Compile Include="Repository\StatusRepository.cs" />
     <Compile Include="Repository\UserCSPDetailRepository.cs" />
     <Compile Include="Repository\UserLoginLogRepository.cs" />
-    <Compile Include="tblAnnouncement.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblApplicationSetting.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblBusiness.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblBusinessDetailReport.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblCategory.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblCity.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblCommissionReport.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblCommissionReportTransactionType.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblConfiguration.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblCountry.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblDepartment.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblDepositRequest.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblDesignation.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblDocument.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblEducation.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblErrorLog.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblFolderDetail.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblFolderImageDetail.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblHoliday.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblMenuMain.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblMenuSub.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblProblemType.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblReportType.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblRequestType.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblRoleMaster.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblScreen.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblScreenRole.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblState.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblStatu.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblTechRequest.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblUploader.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblUser.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblUserCSPDetail.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblUserDetail.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblUserLoginLog.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblWebFeedback.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblWithdrawalRequest.cs">
-      <DependentUpon>eConnectAppModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Repository\TechSupportProblemRepository.cs" />
     <Compile Include="Repository\TransactionsRequest.cs" />
+    <Compile Include="sp_GetCommissionReportByYearMonthandCSPName_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAnnouncement.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblApplicationSetting.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblBusiness.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblBusinessDetailReport.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCategory.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCity.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCommissionReport.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCommissionReportMain.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCommissionReportNew.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCommissionReportTransactionType.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblConfiguration.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCountry.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCSPDetail.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDepartment.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDepositRequest.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDesignation.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDocument.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEducation.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblErrorLog.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblFolderDetail.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblFolderImageDetail.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblHoliday.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMenuMain.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMenuSub.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblProblemType.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblReportType.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblRequestType.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblRoleMaster.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblScreen.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblScreenRole.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblState.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblStatu.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblTechRequest.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUploader.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUser.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserCSPDetail.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserDetail.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserLoginLog.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblWebFeedback.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblWithdrawalRequest.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="test.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="eConnectAppModel.edmx">
+    <EntityDeploy Include="eConnectAppEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>eConnectAppModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>eConnectAppEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="eConnectAppModel.edmx.diagram">
-      <DependentUpon>eConnectAppModel.edmx</DependentUpon>
+    <None Include="eConnectAppEntities.edmx.diagram">
+      <DependentUpon>eConnectAppEntities.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -229,15 +246,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="eConnectAppModel.Context.tt">
+    <Content Include="eConnectAppEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>eConnectAppModel.edmx</DependentUpon>
-      <LastGenOutput>eConnectAppModel.Context.cs</LastGenOutput>
+      <DependentUpon>eConnectAppEntities.edmx</DependentUpon>
+      <LastGenOutput>eConnectAppEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="eConnectAppModel.tt">
+    <Content Include="eConnectAppEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>eConnectAppModel.edmx</DependentUpon>
-      <LastGenOutput>eConnectAppModel.cs</LastGenOutput>
+      <DependentUpon>eConnectAppEntities.edmx</DependentUpon>
+      <LastGenOutput>eConnectAppEntities.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

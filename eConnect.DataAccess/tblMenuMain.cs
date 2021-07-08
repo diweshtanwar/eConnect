@@ -26,11 +26,11 @@ namespace eConnect.DataAccess
         public string Action { get; set; }
         public string Description { get; set; }
         public Nullable<bool> Status { get; set; }
+        public Nullable<int> Priority { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
-        public Nullable<int> Priority { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblMenuSub> tblMenuSubs { get; set; }

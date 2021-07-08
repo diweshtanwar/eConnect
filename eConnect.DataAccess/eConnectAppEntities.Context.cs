@@ -12,6 +12,8 @@ namespace eConnect.DataAccess
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class eConnectAppEntities : DbContext
     {
@@ -26,14 +28,18 @@ namespace eConnect.DataAccess
         }
     
         public virtual DbSet<tblAnnouncement> tblAnnouncements { get; set; }
+        public virtual DbSet<tblApplicationSetting> tblApplicationSettings { get; set; }
         public virtual DbSet<tblBusiness> tblBusinesses { get; set; }
         public virtual DbSet<tblBusinessDetailReport> tblBusinessDetailReports { get; set; }
         public virtual DbSet<tblCategory> tblCategories { get; set; }
         public virtual DbSet<tblCity> tblCities { get; set; }
         public virtual DbSet<tblCommissionReport> tblCommissionReports { get; set; }
+        public virtual DbSet<tblCommissionReportMain> tblCommissionReportMains { get; set; }
+        public virtual DbSet<tblCommissionReportNew> tblCommissionReportNews { get; set; }
         public virtual DbSet<tblCommissionReportTransactionType> tblCommissionReportTransactionTypes { get; set; }
         public virtual DbSet<tblConfiguration> tblConfigurations { get; set; }
         public virtual DbSet<tblCountry> tblCountries { get; set; }
+        public virtual DbSet<tblCSPDetail> tblCSPDetails { get; set; }
         public virtual DbSet<tblDepartment> tblDepartments { get; set; }
         public virtual DbSet<tblDepositRequest> tblDepositRequests { get; set; }
         public virtual DbSet<tblDesignation> tblDesignations { get; set; }
@@ -48,19 +54,45 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblProblemType> tblProblemTypes { get; set; }
         public virtual DbSet<tblReportType> tblReportTypes { get; set; }
         public virtual DbSet<tblRequestType> tblRequestTypes { get; set; }
+        public virtual DbSet<tblRoleMaster> tblRoleMasters { get; set; }
         public virtual DbSet<tblScreen> tblScreens { get; set; }
         public virtual DbSet<tblScreenRole> tblScreenRoles { get; set; }
         public virtual DbSet<tblState> tblStates { get; set; }
         public virtual DbSet<tblStatu> tblStatus { get; set; }
         public virtual DbSet<tblTechRequest> tblTechRequests { get; set; }
         public virtual DbSet<tblUploader> tblUploaders { get; set; }
+        public virtual DbSet<tblUserCSPDetail> tblUserCSPDetails { get; set; }
         public virtual DbSet<tblUserDetail> tblUserDetails { get; set; }
         public virtual DbSet<tblUserLoginLog> tblUserLoginLogs { get; set; }
+        public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblWebFeedback> tblWebFeedbacks { get; set; }
         public virtual DbSet<tblWithdrawalRequest> tblWithdrawalRequests { get; set; }
-        public virtual DbSet<tblApplicationSetting> tblApplicationSettings { get; set; }
-        public virtual DbSet<tblUserCSPDetail> tblUserCSPDetails { get; set; }
-        public virtual DbSet<tblRoleMaster> tblRoleMasters { get; set; }
-        public virtual DbSet<tblUser> tblUsers { get; set; }
+        public virtual DbSet<test> tests { get; set; }
+    
+        public virtual ObjectResult<sp_GetCommissionReportByYearMonthandCSPName_Result> sp_GetCommissionReportByYearMonthandCSPName(Nullable<int> year, Nullable<int> month, string cSPCode)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            var cSPCodeParameter = cSPCode != null ?
+                new ObjectParameter("CSPCode", cSPCode) :
+                new ObjectParameter("CSPCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetCommissionReportByYearMonthandCSPName_Result>("sp_GetCommissionReportByYearMonthandCSPName", yearParameter, monthParameter, cSPCodeParameter);
+        }
+    
+        public virtual int sp_PublishCommissionReport(Nullable<int> uploaderId)
+        {
+            var uploaderIdParameter = uploaderId.HasValue ?
+                new ObjectParameter("UploaderId", uploaderId) :
+                new ObjectParameter("UploaderId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_PublishCommissionReport", uploaderIdParameter);
+        }
     }
 }

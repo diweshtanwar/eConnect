@@ -18,6 +18,8 @@ namespace eConnect.DataAccess
         public tblUploader()
         {
             this.tblBusinessDetailReports = new HashSet<tblBusinessDetailReport>();
+            this.tblCommissionReportMains = new HashSet<tblCommissionReportMain>();
+            this.tblCommissionReportNews = new HashSet<tblCommissionReportNew>();
         }
     
         public int UploaderId { get; set; }
@@ -31,10 +33,17 @@ namespace eConnect.DataAccess
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
+        public bool InActive { get; set; }
+        public Nullable<int> StatusID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblBusinessDetailReport> tblBusinessDetailReports { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblCommissionReportMain> tblCommissionReportMains { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblCommissionReportNew> tblCommissionReportNews { get; set; }
         public virtual tblReportType tblReportType { get; set; }
+        public virtual tblStatu tblStatu { get; set; }
         public virtual tblUser tblUser { get; set; }
         public virtual tblUser tblUser1 { get; set; }
     }
