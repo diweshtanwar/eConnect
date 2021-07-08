@@ -168,5 +168,33 @@ namespace eConnect.Application.Controllers
             return PartialView("_BindRoles", roles);
         }
 
+        public JsonResult DeleteRole(int roleid)
+        {
+            RoleMasterLogic rl = new RoleMasterLogic();
+            rl.DeleteRole(roleid);
+            TempData["Message"] = "Record Deleted successfully.";
+            return Json("Record Deleted successfully", JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult EditRole(int id)
+        {
+            RoleMasterModel Rolemodel = new RoleMasterModel();
+            RoleMasterLogic roledetail = new RoleMasterLogic();
+            var item = roledetail.GetAllRoles().Where(x => x.RoleId == id).FirstOrDefault();
+            Rolemodel.RoleId = item.RoleId;
+            Rolemodel.Name = item.Name;
+            return View(Rolemodel);
+           
+        }
+
+        [HttpPost]
+        public ActionResult EditRole(RoleMasterModel model)
+        {
+            RoleMasterLogic cl = new RoleMasterLogic();
+            cl.UpdateRole(model);
+            TempData["Message"] = "Record Updated successfully.";
+            return RedirectToAction("RoleDetails");
+
+        }
+
     }
 }

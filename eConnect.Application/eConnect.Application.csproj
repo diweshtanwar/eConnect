@@ -261,11 +261,8 @@
     <Content Include="Views\Admin\_ApplicationSetting.cshtml" />
     <Content Include="Views\Admin\_EditAccountConfiguration.cshtml" />
     <Content Include="Views\Admin\_UploaderList.cshtml" />
-    <Content Include="Views\SAdmin\CreateRole.cshtml" />
     <Content Include="Views\SAdmin\ManageUser.cshtml" />
-    <Content Include="Views\SAdmin\RoleDetails.cshtml" />
     <Content Include="Views\SAdmin\TechSupportReqDetails.cshtml" />
-    <Content Include="Views\SAdmin\_BindRoles.cshtml" />
     <Content Include="Views\SAdmin\_EditRequest.cshtml" />
     <Content Include="Views\SAdmin\_TecRequestHistory.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
@@ -298,6 +295,10 @@
     <Content Include="Views\Admin\EditCommissionRecord.cshtml" />
     <Content Include="Views\Admin\ViewUnPublishedRecords.cshtml" />
     <Content Include="Views\Admin\_UploaderDetailsTemp.cshtml" />
+    <Content Include="Views\SAdmin\CreateRole.cshtml" />
+    <Content Include="Views\SAdmin\RoleDetails.cshtml" />
+    <Content Include="Views\SAdmin\_BindRoles.cshtml" />
+    <Content Include="Views\SAdmin\EditRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

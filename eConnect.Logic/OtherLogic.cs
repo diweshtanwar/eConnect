@@ -237,6 +237,27 @@ public class RoleMasterLogic
             return AppList;
         }
     }
+
+    public void DeleteRole(int id)
+    {
+        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+        {
+            unitOfWork.RoleMasters.DeleteRecord(id);
+
+        }
+    }
+
+    public void UpdateRole(RoleMasterModel model)
+    {
+
+        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+        {
+            var sr = unitOfWork.RoleMasters.Find(x => x.RoleId == model.RoleId).FirstOrDefault();
+            sr.RoleId = (int)model.RoleId;
+            sr.Name = model.Name;
+            unitOfWork.RoleMasters.Update(sr);
+        }
+    }
 }
 public class AccountConfigurationLogic
 {
