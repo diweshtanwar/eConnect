@@ -502,6 +502,7 @@
           <Property Name="UserType" Type="tinyint" />
           <Property Name="UserSourceId" Type="int" />
           <Property Name="Status" Type="tinyint" />
+          <Property Name="IsPasswordReset" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="UpdatedDate" Type="datetime" />
@@ -1987,9 +1988,209 @@ warning 6013: The table/view 'eConnectApp.dbo.test1' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblWithdrawalRequest_tblCSPDetail">
-          <End Role="tblCSPDetail" Type="Self.tblCSPDetail" Multiplicity="0..1" />
-          <End Role="tblWithdrawalRequest" Type="Self.tblWithdrawalRequest" Multiplicity="*" />
+        <EntityContainer Name="eConnectAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblAnnouncements" EntityType="Self.tblAnnouncement" />
+          <EntitySet Name="tblBusinesses" EntityType="Self.tblBusiness" />
+          <EntitySet Name="tblBusinessDetailReports" EntityType="Self.tblBusinessDetailReport" />
+          <EntitySet Name="tblCategories" EntityType="Self.tblCategory" />
+          <EntitySet Name="tblCities" EntityType="Self.tblCity" />
+          <EntitySet Name="tblCommissionReports" EntityType="Self.tblCommissionReport" />
+          <EntitySet Name="tblCommissionReportTransactionTypes" EntityType="Self.tblCommissionReportTransactionType" />
+          <EntitySet Name="tblConfigurations" EntityType="Self.tblConfiguration" />
+          <EntitySet Name="tblCountries" EntityType="Self.tblCountry" />
+          <EntitySet Name="tblDepartments" EntityType="Self.tblDepartment" />
+          <EntitySet Name="tblDepositRequests" EntityType="Self.tblDepositRequest" />
+          <EntitySet Name="tblDesignations" EntityType="Self.tblDesignation" />
+          <EntitySet Name="tblDocuments" EntityType="Self.tblDocument" />
+          <EntitySet Name="tblEducations" EntityType="Self.tblEducation" />
+          <EntitySet Name="tblErrorLogs" EntityType="Self.tblErrorLog" />
+          <EntitySet Name="tblFolderDetails" EntityType="Self.tblFolderDetail" />
+          <EntitySet Name="tblFolderImageDetails" EntityType="Self.tblFolderImageDetail" />
+          <EntitySet Name="tblHolidays" EntityType="Self.tblHoliday" />
+          <EntitySet Name="tblMenuMains" EntityType="Self.tblMenuMain" />
+          <EntitySet Name="tblMenuSubs" EntityType="Self.tblMenuSub" />
+          <EntitySet Name="tblProblemTypes" EntityType="Self.tblProblemType" />
+          <EntitySet Name="tblReportTypes" EntityType="Self.tblReportType" />
+          <EntitySet Name="tblRequestTypes" EntityType="Self.tblRequestType" />
+          <EntitySet Name="tblScreens" EntityType="Self.tblScreen" />
+          <EntitySet Name="tblScreenRoles" EntityType="Self.tblScreenRole" />
+          <EntitySet Name="tblStates" EntityType="Self.tblState" />
+          <EntitySet Name="tblStatus" EntityType="Self.tblStatu" />
+          <EntitySet Name="tblTechRequests" EntityType="Self.tblTechRequest" />
+          <EntitySet Name="tblUploaders" EntityType="Self.tblUploader" />
+          <EntitySet Name="tblUserDetails" EntityType="Self.tblUserDetail" />
+          <EntitySet Name="tblUserLoginLogs" EntityType="Self.tblUserLoginLog" />
+          <EntitySet Name="tblWebFeedbacks" EntityType="Self.tblWebFeedback" />
+          <EntitySet Name="tblWithdrawalRequests" EntityType="Self.tblWithdrawalRequest" />
+          <AssociationSet Name="FK_tblConfiguration_tblBusiness" Association="Self.FK_tblConfiguration_tblBusiness">
+            <End Role="tblBusiness" EntitySet="tblBusinesses" />
+            <End Role="tblConfiguration" EntitySet="tblConfigurations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBusinessDetailReport_tblUploader" Association="Self.FK_tblBusinessDetailReport_tblUploader">
+            <End Role="tblUploader" EntitySet="tblUploaders" />
+            <End Role="tblBusinessDetailReport" EntitySet="tblBusinessDetailReports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCity_tblState" Association="Self.FK_tblCity_tblState">
+            <End Role="tblState" EntitySet="tblStates" />
+            <End Role="tblCity" EntitySet="tblCities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUserDetail_tblCity" Association="Self.FK_tblUserDetail_tblCity">
+            <End Role="tblCity" EntitySet="tblCities" />
+            <End Role="tblUserDetail" EntitySet="tblUserDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCommissionReport_tblCommissionReportTransactionType" Association="Self.FK_tblCommissionReport_tblCommissionReportTransactionType">
+            <End Role="tblCommissionReportTransactionType" EntitySet="tblCommissionReportTransactionTypes" />
+            <End Role="tblCommissionReport" EntitySet="tblCommissionReports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblState_tblCountry" Association="Self.FK_tblState_tblCountry">
+            <End Role="tblCountry" EntitySet="tblCountries" />
+            <End Role="tblState" EntitySet="tblStates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDepositRequest_tblStatus" Association="Self.FK_tblDepositRequest_tblStatus">
+            <End Role="tblStatus" EntitySet="tblStatus" />
+            <End Role="tblDepositRequest" EntitySet="tblDepositRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFolderImageDetails_tblFolderDetails" Association="Self.FK_tblFolderImageDetails_tblFolderDetails">
+            <End Role="tblFolderDetails" EntitySet="tblFolderDetails" />
+            <End Role="tblFolderImageDetails" EntitySet="tblFolderImageDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblMenuSub_tblMenuMain" Association="Self.FK_tblMenuSub_tblMenuMain">
+            <End Role="tblMenuMain" EntitySet="tblMenuMains" />
+            <End Role="tblMenuSub" EntitySet="tblMenuSubs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTechRequest_tblProblemType" Association="Self.FK_tblTechRequest_tblProblemType">
+            <End Role="tblProblemType" EntitySet="tblProblemTypes" />
+            <End Role="tblTechRequest" EntitySet="tblTechRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUploader_tblReportType" Association="Self.FK_tblUploader_tblReportType">
+            <End Role="tblReportType" EntitySet="tblReportTypes" />
+            <End Role="tblUploader" EntitySet="tblUploaders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblWithdrawalRequest_tblStatus" Association="Self.FK_tblWithdrawalRequest_tblStatus">
+            <End Role="tblStatus" EntitySet="tblStatus" />
+            <End Role="tblWithdrawalRequest" EntitySet="tblWithdrawalRequests" />
+          </AssociationSet>
+          <AssociationSet Name="fkey_Status_Detail" Association="Self.fkey_Status_Detail">
+            <End Role="tblStatus" EntitySet="tblStatus" />
+            <End Role="tblTechRequest" EntitySet="tblTechRequests" />
+          </AssociationSet>
+          <EntitySet Name="tblApplicationSettings" EntityType="eConnectAppModel.tblApplicationSetting" />
+          <AssociationSet Name="FK_tblApplicationSettings_tblBusiness" Association="eConnectAppModel.FK_tblApplicationSettings_tblBusiness">
+            <End Role="tblBusiness" EntitySet="tblBusinesses" />
+            <End Role="tblApplicationSetting" EntitySet="tblApplicationSettings" />
+          </AssociationSet>
+          <EntitySet Name="tblUserCSPDetails" EntityType="eConnectAppModel.tblUserCSPDetail" />
+          <AssociationSet Name="FK_tblUserCSPDetail_tblCity" Association="eConnectAppModel.FK_tblUserCSPDetail_tblCity">
+            <End Role="tblCity" EntitySet="tblCities" />
+            <End Role="tblUserCSPDetail" EntitySet="tblUserCSPDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUserCSPDetail_tblCountry" Association="eConnectAppModel.FK_tblUserCSPDetail_tblCountry">
+            <End Role="tblCountry" EntitySet="tblCountries" />
+            <End Role="tblUserCSPDetail" EntitySet="tblUserCSPDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUserCSPDetail_tblState" Association="eConnectAppModel.FK_tblUserCSPDetail_tblState">
+            <End Role="tblState" EntitySet="tblStates" />
+            <End Role="tblUserCSPDetail" EntitySet="tblUserCSPDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUserCSPDetail_tblStatus" Association="eConnectAppModel.FK_tblUserCSPDetail_tblStatus">
+            <End Role="tblStatu" EntitySet="tblStatus" />
+            <End Role="tblUserCSPDetail" EntitySet="tblUserCSPDetails" />
+          </AssociationSet>
+          <EntitySet Name="tblRoleMasters" EntityType="eConnectAppModel.tblRoleMaster" />
+          <AssociationSet Name="FK_tblMenuSub_tblRoleMaster" Association="eConnectAppModel.FK_tblMenuSub_tblRoleMaster">
+            <End Role="tblRoleMaster" EntitySet="tblRoleMasters" />
+            <End Role="tblMenuSub" EntitySet="tblMenuSubs" />
+          </AssociationSet>
+          <EntitySet Name="tblUsers" EntityType="eConnectAppModel.tblUser" />
+          <AssociationSet Name="FK_tblDepositRequest_tblUsers" Association="eConnectAppModel.FK_tblDepositRequest_tblUsers">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblDepositRequest" EntitySet="tblDepositRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDepositRequest_tblUsers1" Association="eConnectAppModel.FK_tblDepositRequest_tblUsers1">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblDepositRequest" EntitySet="tblDepositRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUsers_tblRoleMaster" Association="eConnectAppModel.FK_tblUsers_tblRoleMaster">
+            <End Role="tblRoleMaster" EntitySet="tblRoleMasters" />
+            <End Role="tblUser" EntitySet="tblUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUsers_tblStatus" Association="eConnectAppModel.FK_tblUsers_tblStatus">
+            <End Role="tblStatu" EntitySet="tblStatus" />
+            <End Role="tblUser" EntitySet="tblUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTechRequest_tblUsers1" Association="eConnectAppModel.FK_tblTechRequest_tblUsers1">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblTechRequest" EntitySet="tblTechRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTechRequest_tblUsers2" Association="eConnectAppModel.FK_tblTechRequest_tblUsers2">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblTechRequest" EntitySet="tblTechRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTechRequest_tblUsers3" Association="eConnectAppModel.FK_tblTechRequest_tblUsers3">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblTechRequest" EntitySet="tblTechRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUploader_tblUsers" Association="eConnectAppModel.FK_tblUploader_tblUsers">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblUploader" EntitySet="tblUploaders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUploader_tblUsers1" Association="eConnectAppModel.FK_tblUploader_tblUsers1">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblUploader" EntitySet="tblUploaders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUserDetail_tblUsers" Association="eConnectAppModel.FK_tblUserDetail_tblUsers">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblUserDetail" EntitySet="tblUserDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUserDetail_tblUsers1" Association="eConnectAppModel.FK_tblUserDetail_tblUsers1">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblUserDetail" EntitySet="tblUserDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUserDetail_tblUsers2" Association="eConnectAppModel.FK_tblUserDetail_tblUsers2">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblUserDetail" EntitySet="tblUserDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUsers_tblUsers" Association="eConnectAppModel.FK_tblUsers_tblUsers">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblUser1" EntitySet="tblUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUsers_tblUsers1" Association="eConnectAppModel.FK_tblUsers_tblUsers1">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblUser1" EntitySet="tblUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUsers_tblUsers2" Association="eConnectAppModel.FK_tblUsers_tblUsers2">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblUser1" EntitySet="tblUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblWithdrawalRequest_tblUsers" Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblWithdrawalRequest" EntitySet="tblWithdrawalRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblWithdrawalRequest_tblUsers1" Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers1">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblWithdrawalRequest" EntitySet="tblWithdrawalRequests" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="tblApplicationSetting">
+          <Key>
+            <PropertyRef Name="SettingId" />
+          </Key>
+          <Property Name="SettingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BusinessId" Type="Int32" />
+          <Property Name="ApplicationName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="AutoBackUp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AutoBackUpDuration" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DataRetention" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <NavigationProperty Name="tblBusiness" Relationship="eConnectAppModel.FK_tblApplicationSettings_tblBusiness" FromRole="tblApplicationSetting" ToRole="tblBusiness" />
+        </EntityType>
+        <Association Name="FK_tblApplicationSettings_tblBusiness">
+          <End Type="eConnectAppModel.tblBusiness" Role="tblBusiness" Multiplicity="0..1" />
+          <End Type="eConnectAppModel.tblApplicationSetting" Role="tblApplicationSetting" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblCSPDetail">
               <PropertyRef Name="CSPId" />
@@ -2023,9 +2224,53 @@ warning 6013: The table/view 'eConnectApp.dbo.test1' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblFolderImageDetails_tblFolderDetails">
-          <End Role="tblFolderDetails" Type="Self.tblFolderDetail" Multiplicity="1" />
-          <End Role="tblFolderImageDetails" Type="Self.tblFolderImageDetail" Multiplicity="*" />
+        <EntityType Name="tblRoleMaster">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblMenuSubs" Relationship="eConnectAppModel.FK_tblMenuSub_tblRoleMaster" FromRole="tblRoleMaster" ToRole="tblMenuSub" />
+          <NavigationProperty Name="tblUsers" Relationship="eConnectAppModel.FK_tblUsers_tblRoleMaster" FromRole="tblRoleMaster" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserType" Type="Int32" />
+          <Property Name="UserSourceId" Type="Int32" />
+          <Property Name="Status" Type="Byte" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <NavigationProperty Name="tblDepositRequests" Relationship="eConnectAppModel.FK_tblDepositRequest_tblUsers" FromRole="tblUser" ToRole="tblDepositRequest" />
+          <NavigationProperty Name="tblDepositRequests1" Relationship="eConnectAppModel.FK_tblDepositRequest_tblUsers1" FromRole="tblUser" ToRole="tblDepositRequest" />
+          <NavigationProperty Name="tblRoleMaster" Relationship="eConnectAppModel.FK_tblUsers_tblRoleMaster" FromRole="tblUser" ToRole="tblRoleMaster" />
+          <NavigationProperty Name="tblStatu" Relationship="eConnectAppModel.FK_tblUsers_tblStatus" FromRole="tblUser" ToRole="tblStatu" />
+          <NavigationProperty Name="tblTechRequests" Relationship="eConnectAppModel.FK_tblTechRequest_tblUsers1" FromRole="tblUser" ToRole="tblTechRequest" />
+          <NavigationProperty Name="tblTechRequests1" Relationship="eConnectAppModel.FK_tblTechRequest_tblUsers2" FromRole="tblUser" ToRole="tblTechRequest" />
+          <NavigationProperty Name="tblTechRequests2" Relationship="eConnectAppModel.FK_tblTechRequest_tblUsers3" FromRole="tblUser" ToRole="tblTechRequest" />
+          <NavigationProperty Name="tblUploaders" Relationship="eConnectAppModel.FK_tblUploader_tblUsers" FromRole="tblUser" ToRole="tblUploader" />
+          <NavigationProperty Name="tblUploaders1" Relationship="eConnectAppModel.FK_tblUploader_tblUsers1" FromRole="tblUser" ToRole="tblUploader" />
+          <NavigationProperty Name="tblUserDetails" Relationship="eConnectAppModel.FK_tblUserDetail_tblUsers" FromRole="tblUser" ToRole="tblUserDetail" />
+          <NavigationProperty Name="tblUserDetails1" Relationship="eConnectAppModel.FK_tblUserDetail_tblUsers1" FromRole="tblUser" ToRole="tblUserDetail" />
+          <NavigationProperty Name="tblUserDetails2" Relationship="eConnectAppModel.FK_tblUserDetail_tblUsers2" FromRole="tblUser" ToRole="tblUserDetail" />
+          <NavigationProperty Name="tblUsers1" Relationship="eConnectAppModel.FK_tblUsers_tblUsers" FromRole="tblUser" ToRole="tblUser1" />
+          <NavigationProperty Name="tblUser1" Relationship="eConnectAppModel.FK_tblUsers_tblUsers" FromRole="tblUser1" ToRole="tblUser" />
+          <NavigationProperty Name="tblUsers11" Relationship="eConnectAppModel.FK_tblUsers_tblUsers1" FromRole="tblUser" ToRole="tblUser1" />
+          <NavigationProperty Name="tblUser2" Relationship="eConnectAppModel.FK_tblUsers_tblUsers1" FromRole="tblUser1" ToRole="tblUser" />
+          <NavigationProperty Name="tblUsers12" Relationship="eConnectAppModel.FK_tblUsers_tblUsers2" FromRole="tblUser" ToRole="tblUser1" />
+          <NavigationProperty Name="tblUser3" Relationship="eConnectAppModel.FK_tblUsers_tblUsers2" FromRole="tblUser1" ToRole="tblUser" />
+          <NavigationProperty Name="tblWithdrawalRequests" Relationship="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers" FromRole="tblUser" ToRole="tblWithdrawalRequest" />
+          <NavigationProperty Name="tblWithdrawalRequests1" Relationship="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers1" FromRole="tblUser" ToRole="tblWithdrawalRequest" />
+        </EntityType>
+        <Association Name="FK_tblDepositRequest_tblUsers">
+          <End Type="eConnectAppModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+          <End Type="eConnectAppModel.tblDepositRequest" Role="tblDepositRequest" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblFolderDetails">
               <PropertyRef Name="FolderId" />
@@ -2048,8 +2293,8 @@ warning 6013: The table/view 'eConnectApp.dbo.test1' does not have a primary key
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblMenuSub_tblRoleMaster">
-          <End Role="tblRoleMaster" Type="Self.tblRoleMaster" Multiplicity="0..1" />
-          <End Role="tblMenuSub" Type="Self.tblMenuSub" Multiplicity="*" />
+          <End Type="eConnectAppModel.tblRoleMaster" Role="tblRoleMaster" Multiplicity="0..1" />
+          <End Type="eConnectAppModel.tblMenuSub" Role="tblMenuSub" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblRoleMaster">
               <PropertyRef Name="RoleId" />
@@ -2059,21 +2304,9 @@ warning 6013: The table/view 'eConnectApp.dbo.test1' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblTechRequest_tblProblemType">
-          <End Role="tblProblemType" Type="Self.tblProblemType" Multiplicity="0..1" />
-          <End Role="tblTechRequest" Type="Self.tblTechRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblProblemType">
-              <PropertyRef Name="ProblemTypeId" />
-            </Principal>
-            <Dependent Role="tblTechRequest">
-              <PropertyRef Name="ProblemType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblUploader_tblReportType">
-          <End Role="tblReportType" Type="Self.tblReportType" Multiplicity="0..1" />
-          <End Role="tblUploader" Type="Self.tblUploader" Multiplicity="*" />
+        <Association Name="FK_tblUsers_tblRoleMaster">
+          <End Type="eConnectAppModel.tblRoleMaster" Role="tblRoleMaster" Multiplicity="0..1" />
+          <End Type="eConnectAppModel.tblUser" Role="tblUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblReportType">
               <PropertyRef Name="ReportTypeId" />
@@ -2239,207 +2472,6 @@ warning 6013: The table/view 'eConnectApp.dbo.test1' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="eConnectAppEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tblAnnouncements" EntityType="Self.tblAnnouncement" />
-          <EntitySet Name="tblApplicationSettings" EntityType="Self.tblApplicationSetting" />
-          <EntitySet Name="tblBusinesses" EntityType="Self.tblBusiness" />
-          <EntitySet Name="tblBusinessDetailReports" EntityType="Self.tblBusinessDetailReport" />
-          <EntitySet Name="tblCategories" EntityType="Self.tblCategory" />
-          <EntitySet Name="tblCities" EntityType="Self.tblCity" />
-          <EntitySet Name="tblCommissionReports" EntityType="Self.tblCommissionReport" />
-          <EntitySet Name="tblCommissionReportMains" EntityType="Self.tblCommissionReportMain" />
-          <EntitySet Name="tblCommissionReportNews" EntityType="Self.tblCommissionReportNew" />
-          <EntitySet Name="tblCommissionReportTransactionTypes" EntityType="Self.tblCommissionReportTransactionType" />
-          <EntitySet Name="tblConfigurations" EntityType="Self.tblConfiguration" />
-          <EntitySet Name="tblCountries" EntityType="Self.tblCountry" />
-          <EntitySet Name="tblCSPDetails" EntityType="Self.tblCSPDetail" />
-          <EntitySet Name="tblDepartments" EntityType="Self.tblDepartment" />
-          <EntitySet Name="tblDepositRequests" EntityType="Self.tblDepositRequest" />
-          <EntitySet Name="tblDesignations" EntityType="Self.tblDesignation" />
-          <EntitySet Name="tblDocuments" EntityType="Self.tblDocument" />
-          <EntitySet Name="tblEducations" EntityType="Self.tblEducation" />
-          <EntitySet Name="tblErrorLogs" EntityType="Self.tblErrorLog" />
-          <EntitySet Name="tblFolderDetails" EntityType="Self.tblFolderDetail" />
-          <EntitySet Name="tblFolderImageDetails" EntityType="Self.tblFolderImageDetail" />
-          <EntitySet Name="tblHolidays" EntityType="Self.tblHoliday" />
-          <EntitySet Name="tblMenuMains" EntityType="Self.tblMenuMain" />
-          <EntitySet Name="tblMenuSubs" EntityType="Self.tblMenuSub" />
-          <EntitySet Name="tblProblemTypes" EntityType="Self.tblProblemType" />
-          <EntitySet Name="tblReportTypes" EntityType="Self.tblReportType" />
-          <EntitySet Name="tblRequestTypes" EntityType="Self.tblRequestType" />
-          <EntitySet Name="tblRoleMasters" EntityType="Self.tblRoleMaster" />
-          <EntitySet Name="tblScreens" EntityType="Self.tblScreen" />
-          <EntitySet Name="tblScreenRoles" EntityType="Self.tblScreenRole" />
-          <EntitySet Name="tblStates" EntityType="Self.tblState" />
-          <EntitySet Name="tblStatus" EntityType="Self.tblStatu" />
-          <EntitySet Name="tblTechRequests" EntityType="Self.tblTechRequest" />
-          <EntitySet Name="tblUploaders" EntityType="Self.tblUploader" />
-          <EntitySet Name="tblUserCSPDetails" EntityType="Self.tblUserCSPDetail" />
-          <EntitySet Name="tblUserDetails" EntityType="Self.tblUserDetail" />
-          <EntitySet Name="tblUserLoginLogs" EntityType="Self.tblUserLoginLog" />
-          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
-          <EntitySet Name="tblWebFeedbacks" EntityType="Self.tblWebFeedback" />
-          <EntitySet Name="tblWithdrawalRequests" EntityType="Self.tblWithdrawalRequest" />
-          <EntitySet Name="tests" EntityType="Self.test" />
-          <AssociationSet Name="FK_tblApplicationSettings_tblBusiness" Association="Self.FK_tblApplicationSettings_tblBusiness">
-            <End Role="tblBusiness" EntitySet="tblBusinesses" />
-            <End Role="tblApplicationSettings" EntitySet="tblApplicationSettings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblConfiguration_tblBusiness" Association="Self.FK_tblConfiguration_tblBusiness">
-            <End Role="tblBusiness" EntitySet="tblBusinesses" />
-            <End Role="tblConfiguration" EntitySet="tblConfigurations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblBusinessDetailReport_tblUploader" Association="Self.FK_tblBusinessDetailReport_tblUploader">
-            <End Role="tblUploader" EntitySet="tblUploaders" />
-            <End Role="tblBusinessDetailReport" EntitySet="tblBusinessDetailReports" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCity_tblState" Association="Self.FK_tblCity_tblState">
-            <End Role="tblState" EntitySet="tblStates" />
-            <End Role="tblCity" EntitySet="tblCities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCSPDetail_tblCity" Association="Self.FK_tblCSPDetail_tblCity">
-            <End Role="tblCity" EntitySet="tblCities" />
-            <End Role="tblCSPDetail" EntitySet="tblCSPDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUserDetail_tblCity" Association="Self.FK_tblUserDetail_tblCity">
-            <End Role="tblCity" EntitySet="tblCities" />
-            <End Role="tblUserDetail" EntitySet="tblUserDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCommissionReport_tblCommissionReportTransactionType" Association="Self.FK_tblCommissionReport_tblCommissionReportTransactionType">
-            <End Role="tblCommissionReportTransactionType" EntitySet="tblCommissionReportTransactionTypes" />
-            <End Role="tblCommissionReport" EntitySet="tblCommissionReports" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCommissionReportMain_tblUploader" Association="Self.FK_tblCommissionReportMain_tblUploader">
-            <End Role="tblUploader" EntitySet="tblUploaders" />
-            <End Role="tblCommissionReportMain" EntitySet="tblCommissionReportMains" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCommissionReportNew_tblUploader" Association="Self.FK_tblCommissionReportNew_tblUploader">
-            <End Role="tblUploader" EntitySet="tblUploaders" />
-            <End Role="tblCommissionReportNew" EntitySet="tblCommissionReportNews" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblState_tblCountry" Association="Self.FK_tblState_tblCountry">
-            <End Role="tblCountry" EntitySet="tblCountries" />
-            <End Role="tblState" EntitySet="tblStates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCSPDetail_tblUsers" Association="Self.FK_tblCSPDetail_tblUsers">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblCSPDetail" EntitySet="tblCSPDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCSPDetail_tblUsers1" Association="Self.FK_tblCSPDetail_tblUsers1">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblCSPDetail" EntitySet="tblCSPDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblDepositRequest_tblCSPDetail" Association="Self.FK_tblDepositRequest_tblCSPDetail">
-            <End Role="tblCSPDetail" EntitySet="tblCSPDetails" />
-            <End Role="tblDepositRequest" EntitySet="tblDepositRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblTechRequest_tblUsers" Association="Self.FK_tblTechRequest_tblUsers">
-            <End Role="tblCSPDetail" EntitySet="tblCSPDetails" />
-            <End Role="tblTechRequest" EntitySet="tblTechRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblWithdrawalRequest_tblCSPDetail" Association="Self.FK_tblWithdrawalRequest_tblCSPDetail">
-            <End Role="tblCSPDetail" EntitySet="tblCSPDetails" />
-            <End Role="tblWithdrawalRequest" EntitySet="tblWithdrawalRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblDepositRequest_tblUsers" Association="Self.FK_tblDepositRequest_tblUsers">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblDepositRequest" EntitySet="tblDepositRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblDepositRequest_tblUsers1" Association="Self.FK_tblDepositRequest_tblUsers1">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblDepositRequest" EntitySet="tblDepositRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblFolderImageDetails_tblFolderDetails" Association="Self.FK_tblFolderImageDetails_tblFolderDetails">
-            <End Role="tblFolderDetails" EntitySet="tblFolderDetails" />
-            <End Role="tblFolderImageDetails" EntitySet="tblFolderImageDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblMenuSub_tblMenuMain" Association="Self.FK_tblMenuSub_tblMenuMain">
-            <End Role="tblMenuMain" EntitySet="tblMenuMains" />
-            <End Role="tblMenuSub" EntitySet="tblMenuSubs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblMenuSub_tblRoleMaster" Association="Self.FK_tblMenuSub_tblRoleMaster">
-            <End Role="tblRoleMaster" EntitySet="tblRoleMasters" />
-            <End Role="tblMenuSub" EntitySet="tblMenuSubs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblTechRequest_tblProblemType" Association="Self.FK_tblTechRequest_tblProblemType">
-            <End Role="tblProblemType" EntitySet="tblProblemTypes" />
-            <End Role="tblTechRequest" EntitySet="tblTechRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUploader_tblReportType" Association="Self.FK_tblUploader_tblReportType">
-            <End Role="tblReportType" EntitySet="tblReportTypes" />
-            <End Role="tblUploader" EntitySet="tblUploaders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUploader_tblStatus" Association="Self.FK_tblUploader_tblStatus">
-            <End Role="tblStatus" EntitySet="tblStatus" />
-            <End Role="tblUploader" EntitySet="tblUploaders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblTechRequest_tblUsers1" Association="Self.FK_tblTechRequest_tblUsers1">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblTechRequest" EntitySet="tblTechRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblTechRequest_tblUsers2" Association="Self.FK_tblTechRequest_tblUsers2">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblTechRequest" EntitySet="tblTechRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblTechRequest_tblUsers3" Association="Self.FK_tblTechRequest_tblUsers3">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblTechRequest" EntitySet="tblTechRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUploader_tblUsers" Association="Self.FK_tblUploader_tblUsers">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblUploader" EntitySet="tblUploaders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUploader_tblUsers1" Association="Self.FK_tblUploader_tblUsers1">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblUploader" EntitySet="tblUploaders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUserDetail_tblUsers" Association="Self.FK_tblUserDetail_tblUsers">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblUserDetail" EntitySet="tblUserDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUserDetail_tblUsers1" Association="Self.FK_tblUserDetail_tblUsers1">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblUserDetail" EntitySet="tblUserDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUserDetail_tblUsers2" Association="Self.FK_tblUserDetail_tblUsers2">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblUserDetail" EntitySet="tblUserDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUsers_tblUsers" Association="Self.FK_tblUsers_tblUsers">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblUsers1" EntitySet="tblUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUsers_tblUsers1" Association="Self.FK_tblUsers_tblUsers1">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblUsers1" EntitySet="tblUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblWithdrawalRequest_tblUsers" Association="Self.FK_tblWithdrawalRequest_tblUsers">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblWithdrawalRequest" EntitySet="tblWithdrawalRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblWithdrawalRequest_tblUsers1" Association="Self.FK_tblWithdrawalRequest_tblUsers1">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblWithdrawalRequest" EntitySet="tblWithdrawalRequests" />
-          </AssociationSet>
-          <FunctionImport Name="sp_GetCommissionReportByYearMonthandCSPName" ReturnType="Collection(eConnectAppModel.sp_GetCommissionReportByYearMonthandCSPName_Result)">
-            <Parameter Name="Year" Mode="In" Type="Int32" />
-            <Parameter Name="Month" Mode="In" Type="Int32" />
-            <Parameter Name="CSPCode" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_PublishCommissionReport">
-            <Parameter Name="UploaderId" Mode="In" Type="Int32" />
-          </FunctionImport>
-        </EntityContainer>
-        <ComplexType Name="sp_GetCommissionReportByYearMonthandCSPName_Result">
-          <Property Type="String" Name="CSPCode" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="CSPName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="TransactionType" Nullable="true" />
-          <Property Type="Decimal" Name="NoOfTransactions" Nullable="true" Precision="18" Scale="4" />
-          <Property Type="Decimal" Name="ActualCommission" Nullable="true" Precision="38" Scale="6" />
-          <Property Type="Decimal" Name="IncludingTDS" Nullable="true" Precision="38" Scale="6" />
-          <Property Type="Decimal" Name="CSPCommission" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="Total" Nullable="true" Precision="18" Scale="4" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3029,10 +3061,31 @@ warning 6013: The table/view 'eConnectApp.dbo.test1' does not have a primary key
                 <ScalarProperty Name="BCBF_Code" ColumnName="BCBF_Code" />
                 <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
                 <ScalarProperty Name="CSPName" ColumnName="CSPName" />
-                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
-                <ScalarProperty Name="NoOfTransactions" ColumnName="NoOfTransactions" />
-                <ScalarProperty Name="Commission" ColumnName="Commission" />
-                <ScalarProperty Name="UploaderId" ColumnName="UploaderId" />
+                <ScalarProperty Name="CSPId" ColumnName="CSPId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRoleMasters">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblRoleMaster">
+              <MappingFragment StoreEntitySet="tblRoleMaster">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UserSourceId" ColumnName="UserSourceId" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

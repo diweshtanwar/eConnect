@@ -68,19 +68,35 @@
         <AssociationConnector Association="eConnectAppModel.FK_tblMenuSub_tblRoleMaster" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblProblemType" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblUploader_tblReportType" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUploader_tblStatus" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers1" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers2" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers3" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUploader_tblUsers" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUploader_tblUsers1" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUserDetail_tblUsers" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUserDetail_tblUsers1" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUserDetail_tblUsers2" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblUsers" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblUsers1" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.fkey_Status_Detail" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblApplicationSetting" Width="1.5" PointX="8" PointY="0.75" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblApplicationSettings_tblBusiness" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblUserCSPDetail" Width="1.5" PointX="16.25" PointY="17.25" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUserCSPDetail_tblCity" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUserCSPDetail_tblCountry" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUserCSPDetail_tblState" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUserCSPDetail_tblStatus" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblRoleMaster" Width="1.5" PointX="0.875" PointY="5" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblMenuSub_tblRoleMaster" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblUser" Width="1.5" PointX="8.125" PointY="17.875" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblDepositRequest_tblUsers" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblDepositRequest_tblUsers1" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblRoleMaster" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblStatus" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers1" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers2" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers3" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUploader_tblUsers" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUploader_tblUsers1" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUserDetail_tblUsers" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUserDetail_tblUsers1" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUserDetail_tblUsers2" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblUsers" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblUsers1" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblUsers2" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
