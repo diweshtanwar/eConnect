@@ -1,7 +1,7 @@
 ﻿@model eConnect.Model.UserCSPDetail
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "CSP Delete";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
     string PassportSizePhotoPath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\PassportSizePhoto\\" + Model.PassportSizePhotoName;
     string VoterIdImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\VoterIdImage\\" + Model.VoterIdImageName;
@@ -11,9 +11,6 @@
     string IIBFCertificationImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\IIBFCertificationImage\\" + Model.IIBFCertificationImageName;
 
 }
-
-    <h2>Delete</h2>
-
 <h3>Are you sure you want to delete this?</h3>
 <section class="section">
     <div class="card">

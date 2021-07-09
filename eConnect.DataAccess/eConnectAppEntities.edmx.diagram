@@ -4,99 +4,83 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="74bd435eb7ce4e22bb6bb8a6e134c72b" Name="Diagram1">
-        <EntityTypeShape EntityType="eConnectAppModel.tblAnnouncement" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblApplicationSetting" Width="1.5" PointX="8" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblBusiness" Width="1.5" PointX="5.75" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblBusinessDetailReport" Width="1.5" PointX="7.5" PointY="30.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblCategory" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblCity" Width="1.5" PointX="6" PointY="15.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblCommissionReport" Width="1.5" PointX="8" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblCommissionReportMain" Width="1.5" PointX="7.5" PointY="35.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblCommissionReportNew" Width="1.5" PointX="7.5" PointY="39.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblCommissionReportTransactionType" Width="1.5" PointX="5.75" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblConfiguration" Width="1.5" PointX="8" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblCountry" Width="1.5" PointX="1.5" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblCSPDetail" Width="1.5" PointX="8.25" PointY="21.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblDepartment" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblDepositRequest" Width="1.5" PointX="5.25" PointY="21.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblDesignation" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblDocument" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblEducation" Width="1.5" PointX="10.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblErrorLog" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblFolderDetail" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblFolderImageDetail" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblHoliday" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblMenuMain" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblMenuSub" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblProblemType" Width="1.5" PointX="11.25" PointY="29.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblReportType" Width="1.5" PointX="3" PointY="30.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblRequestType" Width="1.5" PointX="2.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblRoleMaster" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblScreen" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblScreenRole" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblState" Width="1.5" PointX="3.75" PointY="15.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblStatu" Width="1.5" PointX="3" PointY="33" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblTechRequest" Width="1.5" PointX="13.5" PointY="21.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblUploader" Width="1.5" PointX="5.25" PointY="27.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblUserCSPDetail" Width="1.5" PointX="12.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblUserDetail" Width="1.5" PointX="11.25" PointY="23" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblUserLoginLog" Width="1.5" PointX="8.75" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblUser" Width="1.5" PointX="3" PointY="22.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblWebFeedback" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblWithdrawalRequest" Width="1.5" PointX="10.5" PointY="16.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.test" Width="1.5" PointX="14.75" PointY="4.75" IsExpanded="true" />
+      <Diagram DiagramId="560f599efda748bfb10d620f3b17b486" Name="Diagram1">
+        <EntityTypeShape EntityType="eConnectAppModel.tblAnnouncement" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblApplicationSetting" Width="1.5" PointX="13" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblBusiness" Width="1.5" PointX="10.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblBusinessDetailReport" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblCategory" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblCity" Width="1.5" PointX="6" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblCommissionReport" Width="1.5" PointX="16" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblCommissionReportMain" Width="1.5" PointX="8.25" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblCommissionReportNew" Width="1.5" PointX="8.25" PointY="27" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblCommissionReportTransactionType" Width="1.5" PointX="13.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblConfiguration" Width="1.5" PointX="13" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblCountry" Width="1.5" PointX="1.5" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblDepartment" Width="1.5" PointX="13.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblDepositRequest" Width="1.5" PointX="3" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblDesignation" Width="1.5" PointX="15.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblDocument" Width="1.5" PointX="15.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblEducation" Width="1.5" PointX="15.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblErrorLog" Width="1.5" PointX="15.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblFolderDetail" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblFolderImageDetail" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblHoliday" Width="1.5" PointX="13.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblMenuMain" Width="1.5" PointX="8.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblMenuSub" Width="1.5" PointX="11" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblProblemType" Width="1.5" PointX="15.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblReportType" Width="1.5" PointX="3.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblRequestType" Width="1.5" PointX="17.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblRoleMaster" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblScreen" Width="1.5" PointX="17.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblScreenRole" Width="1.5" PointX="17.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblState" Width="1.5" PointX="3.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblStatu" Width="1.5" PointX="0.75" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblTechRequest" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblUploader" Width="1.5" PointX="6" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblUserCSPDetail" Width="1.5" PointX="9" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblUserDetail" Width="1.5" PointX="8.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblUserLoginLog" Width="1.5" PointX="17.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblUser" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblWebFeedback" Width="1.5" PointX="17.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblWithdrawalRequest" Width="1.5" PointX="11.25" PointY="14.75" IsExpanded="true" />
         <AssociationConnector Association="eConnectAppModel.FK_tblApplicationSettings_tblBusiness" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblConfiguration_tblBusiness" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblBusinessDetailReport_tblUploader" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblCity_tblState" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblCSPDetail_tblCity" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUserCSPDetail_tblCity" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblUserDetail_tblCity" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblCommissionReport_tblCommissionReportTransactionType" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblCommissionReportMain_tblUploader" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblCommissionReportNew_tblUploader" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblState_tblCountry" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblCSPDetail_tblUsers" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblCSPDetail_tblUsers1" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblDepositRequest_tblCSPDetail" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblCSPDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUserCSPDetail_tblCountry" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblDepositRequest_tblStatus" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblDepositRequest_tblUsers" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblDepositRequest_tblUsers1" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblFolderImageDetails_tblFolderDetails" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblMenuSub_tblMenuMain" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblMenuSub_tblRoleMaster" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblProblemType" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblUploader_tblReportType" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblRoleMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUserCSPDetail_tblState" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUploader_tblStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUserCSPDetail_tblStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblStatus" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblStatus" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.fkey_Status_Detail" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblApplicationSetting" Width="1.5" PointX="8" PointY="0.75" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblApplicationSettings_tblBusiness" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblUserCSPDetail" Width="1.5" PointX="16.25" PointY="17.25" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUserCSPDetail_tblCity" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUserCSPDetail_tblCountry" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUserCSPDetail_tblState" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUserCSPDetail_tblStatus" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblRoleMaster" Width="1.5" PointX="0.875" PointY="5" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblMenuSub_tblRoleMaster" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblUser" Width="1.5" PointX="8.125" PointY="17.875" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblDepositRequest_tblUsers" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblDepositRequest_tblUsers1" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblRoleMaster" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblStatus" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers1" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers2" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers3" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUploader_tblUsers" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUploader_tblUsers1" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUserDetail_tblUsers" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUserDetail_tblUsers1" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUserDetail_tblUsers2" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblUsers" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblUsers1" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblUsers2" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers1" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers2" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers3" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUploader_tblUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUploader_tblUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUserDetail_tblUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUserDetail_tblUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUserDetail_tblUsers2" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblUsers1" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblUsers2" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers1" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

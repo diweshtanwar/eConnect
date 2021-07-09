@@ -132,9 +132,6 @@
     <Compile Include="tblCountry.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="tblCSPDetail.cs">
-      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="tblDepartment.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
@@ -214,9 +211,6 @@
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblWithdrawalRequest.cs">
-      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="test.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="UnitOfWork.cs" />

@@ -138,7 +138,7 @@ namespace eConnect.Application.Controllers
         }
         public ActionResult ShowFolderImages()
         {
-            int id = 2;
+            //int id = 2;
             FolderDetailsLogic folderdetail = new FolderDetailsLogic();
             // var model = folderdetail.GetAllFolderDetailsById(id);
             return View();
@@ -547,7 +547,7 @@ namespace eConnect.Application.Controllers
                 con.Close();
                 return Json("Record Updated successfully", JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return null;
             }
@@ -637,7 +637,7 @@ namespace eConnect.Application.Controllers
                             tran.Commit();
                             con.Close();
                         }
-                        catch (Exception ex)
+                        catch (Exception )
                         {
                             tran.Rollback();
                             con.Close();

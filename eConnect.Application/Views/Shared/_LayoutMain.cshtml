@@ -12,7 +12,7 @@
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    
+
 
     <link href="~/Content/HTML/css/jquery.growl.css" rel="stylesheet" type="text/css">
     <link href="~/Content/HTML/css/fileup.css" rel="stylesheet" type="text/css">
@@ -29,17 +29,18 @@
                         </a>
                     </li>
                 </ul>
-                <div class="d-flex mr-3">
+                <div class="d-flex mr-3">                  
                     <h5 class="mr-3">
+                        @ViewBag.Title
                     </h5>
-                    <div class="notification">
-                        <marquee behavior="scroll" scrollamount="5" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
-                            <span>
-                                <a href="#" data-toggle="modal" data-target="#newsdetail"> New Branch of SBI CSP Coming in Dispur, Assam</a>
-                            </span> <span> Inauguration of Nagaon CSP has been done on 17.04.2021</span>
-                        </marquee>
-                    </div>
-                </div>
+                                <div class="notification">
+                                    <marquee behavior="scroll" scrollamount="5" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+                                        <span>
+                                            <a href="#" data-toggle="modal" data-target="#newsdetail"> New Branch of SBI CSP Coming in Dispur, Assam</a>
+                                        </span> <span> Inauguration of Nagaon CSP has been done on 17.04.2021</span>
+                                    </marquee>
+                                </div>
+                            </div>
 
                 <ul class="navbar-nav navbar-right ml-auto">
 
@@ -55,7 +56,7 @@
                                 @Session["LastLoginDetails"]
                             </div>
                             <a href="#" class="dropdown-item has-icon">
-                                <i class="mdi mdi-account-outline"></i> Account
+                                <i class="mdi mdi-account-outline"></i> Chnage Password
                             </a>
                             <div class="dropdown-divider"></div>
                             <a href="@Url.Action("Logout", "Home")" class="dropdown-item has-icon text-danger">
@@ -73,7 +74,7 @@
                     <div class="sidebar-brand sidebar-brand-sm">
                         <a href="Dashboard.html"><img src="~/Content/HTML/img/favicon.png" alt=""></a>
                     </div>
-                   @* @{ Html.RenderAction("_GetAppMenu", "Partial", new { UserTypeId = Session["UserTypeId"] }); }*@
+                    @{ Html.RenderAction("_GetAppMenu", "Partial", new { UserTypeId = Session["UserTypeId"] }); }
 
 
                 </aside>
@@ -301,7 +302,8 @@
             }
         }
 
-        function CheckFile(input) {
+
+        function CheckFileExcel(input) {
             if (input.files[0] != null) {
                 var validExtensions = ['xls', 'xlsx'];
                 var fileName = input.files[0].name;
@@ -323,6 +325,7 @@
                 }
             }
         }
+
     </script>
 
 

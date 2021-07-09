@@ -14,17 +14,8 @@ namespace eConnect.DataAccess
     
     public partial class tblProblemType
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblProblemType()
-        {
-            this.tblTechRequests = new HashSet<tblTechRequest>();
-        }
-    
         public int ProblemTypeId { get; set; }
         public string Name { get; set; }
         public Nullable<bool> Status { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblTechRequest> tblTechRequests { get; set; }
     }
 }

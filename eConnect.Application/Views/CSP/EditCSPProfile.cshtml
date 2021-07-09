@@ -1,7 +1,7 @@
 ﻿@model eConnect.Model.UserCSPDetail
 
 @{
-    ViewBag.Title = "UpdateProfile";
+    ViewBag.Title = "CSP Update Profile";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 
     string PassportSizePhotoPath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\PassportSizePhoto\\" + Model.PassportSizePhotoName;
@@ -12,8 +12,6 @@
     string IIBFCertificationImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\IIBFCertificationImage\\" + Model.IIBFCertificationImageName;
 
 }
-
-    <h2>Update Profile</h2>
 
 @using (Html.BeginForm("EditCSPProfile", "CSP", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {

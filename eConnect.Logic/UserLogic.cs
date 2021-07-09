@@ -114,6 +114,25 @@ namespace eConnect.Logic
             //    throw;
             //}
         }
+
+        public void ResetPasswordLogic(ResetPasswordViewModel ResetPasswordViewModel)
+        {
+            try
+            {
+                using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+                {
+                    var tblUser = unitOfWork.Userss.Find(x => x.UserId == ResetPasswordViewModel.UserID).FirstOrDefault();
+                    tblUser.Password = ResetPasswordViewModel.NewPassword;
+                    tblUser.IsPasswordReset = true;
+                    tblUser.UpdatedDate = DateTime.Now;
+                    unitOfWork.Userss.Update(tblUser);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public long InsertUserCSPDetails(UserCSPDetail UserCSPDetail)
         {
             try

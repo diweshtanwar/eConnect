@@ -111,6 +111,27 @@ namespace eConnect.Model
         public string Password { get; set; }
 
     }
+
+    public class ResetPasswordViewModel
+    {
+
+        public Nullable<int> UserType { get; set; }
+        public long UserID { get; set; }
+        public string UserName { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]      
+        [Display(Name = " New Password")]
+        public string NewPassword { get; set; }
+
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("NewPassword", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+    }
     public class UsersLoginDetailsModel
     {
 

@@ -33,7 +33,5 @@ namespace eConnect.DataAccess
         public Nullable<int> MoneyTransferNo { get; set; }
         public Nullable<decimal> MoneyTransferAmount { get; set; }
         public Nullable<int> IMPSNo { get; set; }
-    
-        public virtual tblUploader tblUploader { get; set; }
     }
 }

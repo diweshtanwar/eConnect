@@ -16,7 +16,7 @@ namespace eConnect.Application.Controllers
         public ActionResult _GetAppMenu(int UserTypeId)
         {
             MenuLogic objMenuLogic = new MenuLogic();
-            return View(objMenuLogic.GetAllMenuMainWithSubMenuByRoleId(UserTypeId));
+            return View(objMenuLogic.GetAllMenuMainWithSubMenuByRoleId(UserTypeId).Where(d=>d.Status==true).OrderBy(d=>d.Priority));
         }
     
         // GET: Partial

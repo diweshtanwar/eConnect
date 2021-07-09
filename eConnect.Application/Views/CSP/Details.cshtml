@@ -1,7 +1,7 @@
 ﻿@model eConnect.Model.UserCSPDetail
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "CSP Details";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 
     string PassportSizePhotoPath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\PassportSizePhoto\\" + Model.PassportSizePhotoName;
@@ -13,8 +13,6 @@
 
     
 }
-
-    <h2>Details</h2>
     <section class="section">
         <div class="card">
             <div class="card-body">

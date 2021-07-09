@@ -17,7 +17,7 @@ namespace eConnect.DataAccess
         public long DepositeRequestId { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public Nullable<int> RaisedBy { get; set; }
-        public Nullable<byte> Status { get; set; }
+        public Nullable<int> Status { get; set; }
         public Nullable<System.DateTime> RequestedDate { get; set; }
         public Nullable<System.DateTime> CompletionDate { get; set; }
         public Nullable<bool> HasReceipt { get; set; }
@@ -29,7 +29,7 @@ namespace eConnect.DataAccess
         public Nullable<int> UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
     
-        public virtual tblCSPDetail tblCSPDetail { get; set; }
+        public virtual tblStatu tblStatu { get; set; }
         public virtual tblUser tblUser { get; set; }
         public virtual tblUser tblUser1 { get; set; }
     }

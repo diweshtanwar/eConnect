@@ -17,7 +17,6 @@ namespace eConnect.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblUploader()
         {
-            this.tblBusinessDetailReports = new HashSet<tblBusinessDetailReport>();
             this.tblCommissionReportMains = new HashSet<tblCommissionReportMain>();
             this.tblCommissionReportNews = new HashSet<tblCommissionReportNew>();
         }
@@ -36,8 +35,6 @@ namespace eConnect.DataAccess
         public bool InActive { get; set; }
         public Nullable<int> StatusID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblBusinessDetailReport> tblBusinessDetailReports { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCommissionReportMain> tblCommissionReportMains { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

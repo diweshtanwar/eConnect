@@ -22,7 +22,7 @@ namespace eConnect.Model
         public string BankAccount { get; set; }
         public string IFSC { get; set; }
         public string CertificateStatus { get; set; }
-        public Nullable<byte> Status { get; set; }
+        public Nullable<int> Status { get; set; }
         public string FatherName { get; set; }
         public string MotherName { get; set; }
         public Nullable<int> Country { get; set; }

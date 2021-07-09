@@ -68,7 +68,7 @@ namespace eConnect.Application.Controllers
                                    TechSupportReqID = item.TechRequestId,
                                    Description = item.Description,
                                    //RaisedByName = item.tblUserCSPDetail.CSPCode + " (" + item.tblCSPDetail.BranchCode + ")",
-                                   TechProbName = item.tblProblemType.Name,
+                                   //TechProbName = item.tblProblemType.Name,
                                    MobileNo = item.MobileNo,
                                    RequestedDate = (DateTime)item.RequestedDate,
                                    RequestDate = item.RequestedDate.ToString(),

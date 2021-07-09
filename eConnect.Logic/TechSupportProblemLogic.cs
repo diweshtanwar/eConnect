@@ -149,7 +149,7 @@ namespace eConnect.Logic
             ////        sr.StatusName = model.tblStatu.Name;
                    // sr.RaisedByName = model.tblUser.UserName;
                     //  sr.UserName = model.User.CSPName;
-                    sr.TechProbName = model.tblProblemType.Name;
+                    //sr.TechProbName = model.tblProblemType.Name;
                 }
                 return TechSupportReq;
             }
@@ -175,7 +175,7 @@ namespace eConnect.Logic
                      ////   sr.StatusName = model.tblStatu.Name;
                         // sr.RaisedByName = model.tblUser.UserName;
                         //  sr.UserName = model.User.CSPName;
-                        sr.TechProbName = model.tblProblemType.Name;
+                        //sr.TechProbName = model.tblProblemType.Name;
                         sr.ResolutionDetail = model.ResolutionDetail;
                     }
                     return model;

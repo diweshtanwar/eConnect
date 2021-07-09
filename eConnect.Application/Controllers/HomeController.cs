@@ -71,23 +71,24 @@ namespace eConnect.Application.Controllers
                     objtblUserLoginLog.HostName = Dns.GetHostName();
                     objtblUserLoginLog.IpAddress= Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString();                  
                     objUserLoginLogLogic.InsertUserLoginLog(objtblUserLoginLog);
-                    //Super Admin
-                    if (userData.UserId==1)
+
+                    if (!userData.IsPasswordReset ==true || userData.IsPasswordReset is null )
                     {
-                        return RedirectToAction("About");
+                        return RedirectToAction("ResetPassword");
                     }
-                    //Admin
-                    else if (userData.UserId == 2)
+
+                    //Admin and Super Admin
+                    if (userData.UserType == 2 || userData.UserType==1)
                     {
                         return RedirectToAction("Dashboard","Admin");
                     }
                     //CSP
-                    else if (userData.UserId == 3)
+                    else if (userData.UserType == 3)
                     {
                         return RedirectToAction("Dashboard","CSP");
                     }
                     //User
-                    else if (userData.UserId == 4)
+                    else if (userData.UserType == 4)
                     {
                         return RedirectToAction("About");
                     }
@@ -108,7 +109,48 @@ namespace eConnect.Application.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
-        public ActionResult Test()
+
+        public ActionResult ResetPassword()
+        {
+            ResetPasswordViewModel objResetPasswordViewModel = new ResetPasswordViewModel();
+            objResetPasswordViewModel.UserName = (string)Session["UserName"];
+            objResetPasswordViewModel.UserType = (int)Session["UserTypeId"];
+            objResetPasswordViewModel.UserID = (int)Session["UserId"];
+            ViewBag.UserName= (string)Session["UserName"]; 
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ResetPassword(ResetPasswordViewModel ResetPasswordViewModel)
+        {
+            ResetPasswordViewModel.UserName = (string)Session["UserName"];
+            ResetPasswordViewModel.UserType = (int)Session["UserTypeId"];
+            ResetPasswordViewModel.UserID = (int)Session["UserId"];
+            if (ModelState.IsValid)
+            {
+                UserLogic objUserLogic = new UserLogic();
+                objUserLogic.ResetPasswordLogic(ResetPasswordViewModel);
+                         
+                //Admin and Super Admin
+                if (ResetPasswordViewModel.UserType == 2 || ResetPasswordViewModel.UserType == 1)
+                {
+                    return RedirectToAction("Dashboard", "Admin");
+                }
+                //CSP
+                else if (ResetPasswordViewModel.UserType == 3)
+                {
+                    return RedirectToAction("Dashboard", "CSP");
+                }
+                //User
+                else if (ResetPasswordViewModel.UserType == 4)
+                {
+                    return RedirectToAction("About");
+                }
+            }
+            return View();
+        }
+    
+    public ActionResult Test()
         {
             return View();
         }

@@ -73,7 +73,7 @@ namespace eConnect.Application.Controllers
                 
                 return PartialView("_CommissionReport", products);
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             }

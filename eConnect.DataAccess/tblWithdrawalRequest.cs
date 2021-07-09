@@ -17,7 +17,7 @@ namespace eConnect.DataAccess
         public long WithdrawalRequestId { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public Nullable<int> RaisedBy { get; set; }
-        public Nullable<byte> Status { get; set; }
+        public Nullable<int> Status { get; set; }
         public Nullable<System.DateTime> RequestedDate { get; set; }
         public Nullable<System.DateTime> CompletionDate { get; set; }
         public Nullable<bool> IsConfigured { get; set; }
@@ -30,7 +30,7 @@ namespace eConnect.DataAccess
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<long> Account { get; set; }
     
-        public virtual tblCSPDetail tblCSPDetail { get; set; }
+        public virtual tblStatu tblStatu { get; set; }
         public virtual tblUser tblUser { get; set; }
         public virtual tblUser tblUser1 { get; set; }
     }

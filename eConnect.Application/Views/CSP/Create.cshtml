@@ -1,11 +1,9 @@
 ﻿@model eConnect.Model.UserCSPDetail
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "CSP Create";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
-
-<h2>Create</h2>
 
 @using (Html.BeginForm("Create", "CSP", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {

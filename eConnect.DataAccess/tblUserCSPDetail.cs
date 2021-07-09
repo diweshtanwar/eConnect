@@ -23,7 +23,7 @@ namespace eConnect.DataAccess
         public string BankAccount { get; set; }
         public string IFSC { get; set; }
         public string CertificateStatus { get; set; }
-        public Nullable<byte> Status { get; set; }
+        public Nullable<int> Status { get; set; }
         public string FatherName { get; set; }
         public string MotherName { get; set; }
         public Nullable<int> Country { get; set; }
@@ -46,5 +46,10 @@ namespace eConnect.DataAccess
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
+    
+        public virtual tblCity tblCity { get; set; }
+        public virtual tblCountry tblCountry { get; set; }
+        public virtual tblState tblState { get; set; }
+        public virtual tblStatu tblStatu { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace eConnect.DataAccess
         public tblState()
         {
             this.tblCities = new HashSet<tblCity>();
+            this.tblUserCSPDetails = new HashSet<tblUserCSPDetail>();
         }
     
         public int StateId { get; set; }
@@ -28,5 +29,7 @@ namespace eConnect.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCity> tblCities { get; set; }
         public virtual tblCountry tblCountry { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblUserCSPDetail> tblUserCSPDetails { get; set; }
     }
 }

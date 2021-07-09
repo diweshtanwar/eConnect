@@ -1,11 +1,11 @@
 ﻿@model eConnect.Model.UploaderModel
 
 @{
-    ViewBag.Title = "Uploader";
+    ViewBag.Title = "Uploader Report";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-<h2>Upload Report</h2>
+
 
 @using (Html.BeginForm("Uploader", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -55,7 +55,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.fileupload, htmlAttributes: new { @class = "required-field" })
-                            <input type="file" id="fileupload" name="fileupload" class="btn btn-outline-primary btn-block fileup-btn" onchange="CheckFile(this)" />
+                            <input type="file" id="fileupload" name="fileupload" class="btn btn-outline-primary btn-block fileup-btn" onchange="CheckFileExcel(this)" />
                             @Html.ValidationMessageFor(model => model.fileupload, "", new { @class = "text-danger" })
                         </div>
                     </div>
