@@ -237,15 +237,55 @@ public class RoleMasterLogic
             return AppList;
         }
     }
+
+    public void DeleteRole(int id)
+    {
+        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+        {
+            unitOfWork.RoleMasters.DeleteRecord(id);
+
+        }
+    }
+
+    public void UpdateRole(RoleMasterModel model)
+    {
+
+        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+        {
+            var sr = unitOfWork.RoleMasters.Find(x => x.RoleId == model.RoleId).FirstOrDefault();
+            sr.RoleId = (int)model.RoleId;
+            sr.Name = model.Name;
+            unitOfWork.RoleMasters.Update(sr);
+        }
+    }
 }
 public class AccountConfigurationLogic
 {
 
     public IList<tblConfiguration> GetAllAccountConfiguration()
     {
+        List<AccountConfigurationModel> Accconfigurations = new List<AccountConfigurationModel>();
         using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
         {
             var ConfiList = unitOfWork.Configurations.GetAllConfiguration().ToList();
+            foreach (var item in ConfiList)
+            {
+                Accconfigurations.Add(
+                               new AccountConfigurationModel
+                               {
+                                   ConfigurationId = item.ConfigurationId,
+                                   BusinessId = (int)item.BusinessId,
+                                   DeactiveAccountDaysForInvalidPwd = (int)item.DeactiveAccountDaysForInvalidPwd,
+                                   LockAccountDaysForInvalidPwd = (int)item.LockAccountDaysForInvalidPwd,
+                                   AutoUnlockAccountMinutes = (int)item.AutoUnlockAccountMinutes,
+                                   PasswordAutoExpireInDays = (int)item.PasswordAutoExpireInDays,
+                                   IsPasswordNeverExpired = (bool)item.IsPasswordNeverExpired,
+                                   ChangedPwdOnNextLogin = (bool)item.ChangedPwdOnNextLogin,
+                                   PasswordLength = (int)item.PasswordLength,
+                                   NotifiedToCSP = (bool)item.NotifiedToCSP,
+                                   BusinessName = item.tblBusiness.Name,
+                               }) ;
+            }
             return ConfiList;
         }
     }
@@ -266,7 +306,14 @@ public class AccountConfigurationLogic
             unitOfWork.Configurations.Add(sr);
         }
     }
+    public void DeleteAccConfigRecord(int id)
+    {
+        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+        {
+            unitOfWork.Configurations.DeleteRecord(id);
 
+        }
+    }
 
 
     public AccountConfigurationModel GetAccountConfigurationById(long id)

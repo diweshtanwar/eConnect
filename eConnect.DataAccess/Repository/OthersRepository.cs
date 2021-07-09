@@ -93,6 +93,12 @@ namespace eConnect.DataAccess
         {
             return eConnectAppEntities.tblConfigurations.ToList();
         }
+        public void DeleteRecord(int id)
+        {
+            var rec = eConnectAppEntities.tblConfigurations.Where(x => x.ConfigurationId == id).SingleOrDefault();
+            eConnectAppEntities.tblConfigurations.Remove(rec);
+            eConnectAppEntities.SaveChanges();
+        }
     }
 
 
@@ -109,6 +115,13 @@ namespace eConnect.DataAccess
         public IList<tblRoleMaster> GetAllRoleMaster()
         {
             return eConnectAppEntities.tblRoleMasters.ToList();
+        }
+
+        public void DeleteRecord(int id)
+        {
+            var rec = eConnectAppEntities.tblRoleMasters.Where(x => x.RoleId == id).SingleOrDefault();
+            eConnectAppEntities.tblRoleMasters.Remove(rec);
+            eConnectAppEntities.SaveChanges();
         }
     }
 

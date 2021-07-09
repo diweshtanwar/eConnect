@@ -1,20 +1,49 @@
-﻿@{
-    ViewBag.Title = "Role Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿
+@{
+    ViewBag.Title = "RoleDetails";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
-<h2>Role Details</h2>
-@*<meta name="viewport" content="width=device-width" />*@
-<title>Role Requests</title>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+@using (@Html.BeginForm("RoleDetails", "SuperAdmin", FormMethod.Get))
+{@Html.AntiForgeryToken()
+<section class="section">
+    <div class="card">
+        <div class="card-body">
+            <h6 class="text-primary mb-3"> Search Role</h6>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" id="Name" name="Name" class="form-control" />
+                    </div>
+                </div>
+                <div class="my-4 text-right">
+                    <button class="btn btn-primary px-4" type="button" onclick="LoadData()">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="RoleDetailsList">
+    </div>
+</section>
+}
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+                $(function () {
+                    alert("@TempData["Message"]")
+                });
+    </script>
+}
+}
 <script type="text/javascript">
+    $(document).ready(function () {
+        LoadData()
+
+    });
     function LoadData() {
         var rolename = $('#Name').val();
-
         $.ajax({
                 type: "POST",
                 url: '@Url.Action("RoleDetails", "SAdmin")',
@@ -26,90 +55,5 @@
             });
     }
 </script>
-<style type="text/css">
-    body {
-        font-family: Arial;
-        font-size: 10pt;
-    }
 
-    table {
-        border: 1px solid #ccc;
-        border-collapse: collapse;
-        width: 80%;
-    }
 
-        table th {
-            background-color: #c7c6c3;
-            color: #333;
-            font-weight: bold;
-            width: 10%;
-        }
-
-        table th, table td {
-            padding: 5px;
-            width: 10%;
-            border: 1px solid #ccc;
-        }
-
-    .error {
-        color: red;
-    }
-</style>
-@using (Html.BeginForm("RoleDetails", "SAdmin"))
-{
-    <table border="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <th colspan="4">
-                Filter
-            </th>
-        </tr>
-        <tr>
-            <td>
-                Role:
-            </td>
-            <td>  <input type="text" id="Name" name="Name" /></td>
-            <td>
-                Screen:
-            </td>
-            <td>
-                <input type="text" id="Status" name="Status" />
-            </td>
-        </tr>
-        <tr>
-            <td colspan="4" style="text-align:center;">
-                <input type="button" value="Search" name="btnSubmit" onclick="LoadData()" />
-                <input type="button" value="Cancel" id="btnCancel" onclick="location.href='@Url.Action("RoleDetails")'" />
-
-            </td>
-        </tr>
-    </table>
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-        <tr>
-            <td colspan="4">
-                <div id="RoleDetailsList">
-                </div>
-            </td>
-        </tr>
-    </table>
-}
-<script src="~/Content/Plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="~/Content/Plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="~/Content/Plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="~/Content/Plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="~/Content/Plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="~/Content/Plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="~/Content/Plugins/jszip/jszip.min.js"></script>
-<script src="~/Content/Plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-<script src="~/Content/Plugins/pdfmake/pdfmake.min.js"></script>
-<script src="~/Content/Plugins/pdfmake/vfs_fonts.js"></script>
-<script src="~/Content/Plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="~/Content/Plugins/datatables-buttons/js/buttons.print.min.js"></script>
-
-@if (TempData["Message"] != null)
-{
-    <script type="text/javascript">
-            $(function () {
-                alert("@TempData["Message"]")
-            });
-    </script>
-}

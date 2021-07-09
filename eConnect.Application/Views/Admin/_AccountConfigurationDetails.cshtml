@@ -1,94 +1,127 @@
-﻿
-@model IEnumerable<ApplicationModel.AccountConfigurationModel>
+﻿@model IEnumerable<eConnect.Model.AccountConfigurationModel>
+
 @{
 
     Layout = null;
 }
-<script>
-    $(function () {
-        $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            buttons: [
-                {
-                    extend: 'print',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                    }
-                },
-                {
-                    extend: 'excel',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                    }
-                },
-                {
-                    extend: 'csv',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                    }
-                },
-                {
-                    extend: 'copy',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                    }
-                },
-                {
-                    extend: 'pdf',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                    }
-                },
-            ],
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    });
+
+<section class="section">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <div class="table-actions">
+                    @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
+                </div>
+                <table class="table table-striped" id="table-2">
+                    <thead>
+                        <tr>
+                            <th>SNo</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BusinessId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DeactiveAccountDaysForInvalidPwd)
+                            </th>
+
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.LockAccountDaysForInvalidPwd)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.AutoUnlockAccountMinutes)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PasswordAutoExpireInDays)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IsPasswordNeverExpired)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ChangedPwdOnNextLogin)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PasswordLength)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NotifiedToCSP)
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int count = 1; }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>  @count</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BusinessName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DeactiveAccountDaysForInvalidPwd)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LockAccountDaysForInvalidPwd)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AutoUnlockAccountMinutes)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PasswordAutoExpireInDays)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IsPasswordNeverExpired)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChangedPwdOnNextLogin)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PasswordLength)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NotifiedToCSP)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit | ", "EditAccountConfiguration", new { id = @item.ConfigurationId }, null)
+                                    <a class="details" href="javascript:;" onclick="DeleteRecord(@item.ConfigurationId)">Delete</a>
+                                    @Html.HiddenFor(odelItem => item.BusinessId)
+                                    @Html.HiddenFor(odelItem => item.ConfigurationId)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+<script type="text/javascript">
+    function DeleteRecord(accconfigId) {
+        if (confirm('Are you sure to delete this record ?')) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DeleteAccountConfigRecord", "Admin")',
+                data: { configid: accconfigId },
+                dataType: 'html',
+                success: function (data) {
+                    location.reload();
+                    alert("Record deleted successfully.")
+                }
+            });
+        };
+    };
 </script>
-<table id="example1" class="" width="70%">
-    <thead>
-        <tr>
-            <th>S.No</th>
-            <th>Configuration Id</th>
-            <th>Business Name</th>
-            <th>DeactiveAccount DaysFor InvalidPwd</th>
-            <th>LockAccountDays For InvalidPwd</th>
-            <th>AutoUnlock AccountMinutes</th>
-            <th>PasswordAuto ExpireInDays</th>
-            <th>IsPasswordNever Expired</th>
-            <th>ChangedPwdOn NextLogin</th>
-            <th>Password Length</th>
-            <th>NotifiedTo CSP</th>
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+                $(function () {
+                    alert("@TempData["Message"]")
+                });
+    </script>
+}
 
-        </tr>
-    </thead>
-    <tbody>
-        @{ int count = 1; }
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @count
-                </td>
-                <td>
-                    @item.ConfigurationId
-                </td>
-                <td>
-                    @item.BusinessId
-                </td>
-                <td>@item.DeactiveAccountDaysForInvalidPwd</td>
-                <td>@item.LockAccountDaysForInvalidPwd</td>
-                <td>@item.AutoUnlockAccountMinutes</td>
-                <td>@item.PasswordAutoExpireInDays</td>
-
-                <td>@item.IsPasswordNeverExpired</td>
-                <td>@item.ChangedPwdOnNextLogin</td>
-                <td>@item.PasswordLength</td>
-                <td>@item.NotifiedToCSP</td>
-            </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <th colspan="11"></th>
-        </tr>
-    </tfoot>
-</table>

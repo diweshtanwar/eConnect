@@ -1,61 +1,39 @@
-﻿@model IEnumerable<ApplicationModel.RoleMasterModel>
-@{
+﻿@model IEnumerable<eConnect.Model.RoleMasterModel>
+@{ Layout = null; }
 
-    Layout = null;
-}
-<script>
-    $(function () {
-        $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            buttons: [
-                {
-                    extend: 'print',
-                    exportOptions: {
-                        columns: [0, 1, 2]
-                    }
-                },
-                {
-                    extend: 'excel',
-                    exportOptions: {
-                        columns: [0, 1, 2]
-                    }
-                },
-                {
-                    extend: 'csv',
-                    exportOptions: {
-                        columns: [0, 1, 2]
-                    }
-                },
-                {
-                    extend: 'copy',
-                    exportOptions: {
-                        columns: [0, 1, 2]
-                    }
-                },
-                {
-                    extend: 'pdf',
-                    exportOptions: {
-                        columns: [0, 1, 2]
-                    }
-                },
-            ],
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    });
-</script>
-<div class="card" width="100%">
-    <div class="card-header">
-        <h3 class="card-title">
-            Role Details
-        </h3>
-    </div>
+<style type="text/css">
+    .ajax-loader {
+        visibility: hidden;
+        background-color: rgba(255,255,255,0.7);
+        position: absolute;
+        z-index: +100 !important;
+        width: 100%;
+        height: 100%;
+    }
 
-    <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped" style="text-align :center;width:100%;">
+        .ajax-loader img {
+            position: relative;
+            top: 50%;
+            left: 50%;
+        }
+</style>
+
+<div class="card-body">
+    <div class="table-responsive">
+        <div class="table-actions">
+            @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
+        </div>
+        <h6 class="text-primary mb-3">Role Details</h6>
+        <table class="table table-striped" id="table-2">
             <thead>
                 <tr>
                     <th>SNo</th>
-                    <th>Role Name</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+
                     <th>Action</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -67,149 +45,40 @@
                             @count
                         </td>
                         <td>
-                            @item.Name
+                            @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
-                            <a class="details" href="javascript:;" onclick="ViewClick(@item.RoleId,'View')">View</a>
-                            <a class="details" href="javascript:;" onclick="ViewClick(@item.RoleId,'Add')">| Add</a>
-                            <a class="details" href="javascript:;" onclick="ViewClick(@item.RoleId,'Edit')">| Edit</a>
+                            @Html.ActionLink("Edit | ", "EditRole", new { id = @item.RoleId }, null)
+                            <a class="details" href="javascript:;" onclick="DeleteRole(@item.RoleId)">Delete</a>
+
                         </td>
                     </tr>
                     count++;
                 }
             </tbody>
-            <tfoot>
-                <tr>
-                    <th colspan="3"></th>
-                </tr>
-            </tfoot>
         </table>
     </div>
 </div>
-<table id="dialog" style="display: none; width:100%;" width="100%">
-</table>
+<div class="ajax-loader">
+    <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
+</div>
+
 <script type="text/javascript">
-    $(function () {
-        //$("#dialog").dialog({
-        //    width: 800,
-        //    autoOpen: false,
-        //    modal: true,
-        //    title: "Edit Tech Request",
-        //});
-    });
-    function CloseDialog() {
-        $("#dialog").dialog("close");
-    }
-    function ViewClick(id, type) {
-        var reqId = id;
-        $('#dialog').html('');
-        if (type == "View") {
-            $("#dialog").dialog({
-                width: 800,
-                autoOpen: false,
-                modal: true,
-                title: "Edit Tech Request",
-            });
+
+    function DeleteRole(roleid) {
+        if (confirm('Are you sure to delete this record ?')) {
             $.ajax({
                 type: "POST",
-                url: "/SAdmin/_EditRequest",
-                data: '{reqid: "' + reqId + '" }',
-                contentType: "application/json; charset=utf-8",
-                dataType: "html",
-                success: function (response) {
-                    $('#dialog').html(response);
-                    $('#dialog').dialog('open');
-                },
-                failure: function (response) {
-                    alert('failure');
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert('error');
-                    alert(response.responseText);
+                url: '@Url.Action("DeleteRole", "SAdmin")',
+                data: { roleid: roleid },
+                dataType: 'html',
+                success: function (data) {
+                    location.reload();
+                    alert("Record deleted successfully.")
                 }
             });
-        }
-        else if (type == "Add") {
-            $("#dialog").dialog({
-                width: 800,
-                autoOpen: false,
-                modal: true,
-                title: "Add Account Configuration",
-            });
-            $.ajax({
-                type: "POST",
-                url: "/Admin/_AddAccountConfiguration",
-                //  data: '{reqid: "' + reqId + '" }',
-                contentType: "application/json; charset=utf-8",
-                dataType: "html",
-                success: function (response) {
-                    $('#dialog').html(response);
-                    $('#dialog').dialog('open');
-                },
-                failure: function (response) {
-                    alert('failure');
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert('error');
-                    alert(response.responseText);
-                }
-            });
-        }
-        else if (type == "Edit") {
-            $("#dialog").dialog({
-                width: 800,
-                autoOpen: false,
-                modal: true,
-                title: "Add Account Configuration",
-            });
-            $.ajax({
-                type: "POST",
-                url: "/Admin/_EditAccountConfiguration",
-                data: '{id: "' + 1 + '" }',
-                contentType: "application/json; charset=utf-8",
-                dataType: "html",
-                success: function (response) {
-                    $('#dialog').html(response);
-                    $('#dialog').dialog('open');
-                },
-                failure: function (response) {
-                    alert('failure');
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert('error');
-                    alert(response.responseText);
-                }
-            });
-        }
-        else {
-            $("#dialog").dialog({
-                width: 800,
-                autoOpen: false,
-                modal: true,
-                title: "Tech Request Details",
-            });
-            $.ajax({
-                type: "POST",
-                url: "/SAdmin/_TecRequestHistory",
-                data: '{reqid: "' + reqId + '" }',
-                contentType: "application/json; charset=utf-8",
-                dataType: "html",
-                success: function (response) {
-                    $('#dialog').html(response);
-                    $('#dialog').dialog('open');
-                },
-                failure: function (response) {
-                    alert('failure');
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert('error');
-                    alert(response.responseText);
-                }
-            });
-        }
-    }
+        };
+    };
 </script>
+
+

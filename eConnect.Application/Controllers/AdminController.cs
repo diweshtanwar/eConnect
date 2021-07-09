@@ -257,7 +257,34 @@ namespace eConnect.Application.Controllers
 
         }
 
+        public ActionResult AddAccountConfiguration()
+        {
+            BusinessLogic BusinessList = new BusinessLogic();
+            var BList = BusinessList.GetAllBusiness();
+            ViewBag.BusinessList = BList;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddAccountConfiguration(AccountConfigurationModel model)
+        {
+            BusinessLogic BusinessList = new BusinessLogic();
+            var BList = BusinessList.GetAllBusiness();
+            ViewBag.BusinessList = BList;
+            if (ModelState.IsValid)
+            {
+                AccountConfigurationLogic cl = new AccountConfigurationLogic();
+                if (model.BusinessId > 0)
+                {
+                    cl.InsertAccountConfiguration(model);
+                    TempData["Message"] = "Record Updated successfully.";
+                   
+                }
 
+            }
+
+            return View();
+            //return null;
+        }
         public ActionResult AccountConfiguration()
         {
             BusinessLogic BusinessList = new BusinessLogic();
@@ -266,13 +293,21 @@ namespace eConnect.Application.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AccountConfiguration(string type)
+        public ActionResult AccountConfiguration(string type, int businessid)
         {
             if (type == "Search")
             {
+                var Applist = (dynamic)null;
                 List<AccountConfigurationModel> products = new List<AccountConfigurationModel>();
                 AccountConfigurationLogic aplogic = new AccountConfigurationLogic();
-                var Applist = aplogic.GetAllAccountConfiguration().ToList();
+                if (businessid > 0)
+                {
+                    Applist = aplogic.GetAllAccountConfiguration().Where(x => x.BusinessId == businessid).ToList();
+                }
+                else
+                {
+                    Applist = aplogic.GetAllAccountConfiguration().ToList();
+                }
                 foreach (var item in Applist)
                 {
                     products.Add(
@@ -288,6 +323,8 @@ namespace eConnect.Application.Controllers
                                        ChangedPwdOnNextLogin = (bool)item.ChangedPwdOnNextLogin,
                                        PasswordLength = (int)item.PasswordLength,
                                        NotifiedToCSP = (bool)item.NotifiedToCSP,
+                                       BusinessName = item.tblBusiness.Name,
+
                                    });
                 }
                 return PartialView("_AccountConfigurationDetails", products);
@@ -320,38 +357,38 @@ namespace eConnect.Application.Controllers
             return PartialView("_AddAccountConfiguration");
         }
 
-
-        //[HttpGet]
-        //public ActionResult _EditAccountConfiguration(int id)
-        //{
-        //    AccountConfigurationLogic cl = new AccountConfigurationLogic();
-        //    var aconfig = cl.GetAccountConfigurationById(id);
-        //    return PartialView("_EditAccountConfiguration", aconfig);
-        //}
-
-        [HttpPost]
-        public ActionResult _EditAccountConfiguration(int id, AccountConfigurationModel model, string btnname)
+        public ActionResult EditAccountConfiguration(int id)
         {
-            if (btnname == "Update")
-            {
-                AccountConfigurationLogic cl = new AccountConfigurationLogic();
-                cl.UpdateAccountConfigurationBy(model);
-                return PartialView("_EditAccountConfiguration");
-            }
-            else
-            {
-                AccountConfigurationLogic cl = new AccountConfigurationLogic();
-                var aconfig = cl.GetAccountConfigurationById(id);
-                return PartialView("_EditAccountConfiguration", aconfig);
-            }
+
+            AccountConfigurationModel accm = new AccountConfigurationModel();
+            AccountConfigurationLogic cl = new AccountConfigurationLogic();
+            // ReportsLogic upmodel = new ReportsLogic();
+            var item = cl.GetAccountConfigurationById(id);
+            accm.BusinessId = (int)item.BusinessId;
+            accm.ConfigurationId = (int)item.ConfigurationId;
+            accm.DeactiveAccountDaysForInvalidPwd = item.DeactiveAccountDaysForInvalidPwd;
+            accm.NotifiedToCSP = item.NotifiedToCSP;
+            accm.PasswordLength = item.PasswordLength;
+            accm.ChangedPwdOnNextLogin = item.ChangedPwdOnNextLogin;
+            accm.IsPasswordNeverExpired = item.IsPasswordNeverExpired;
+            accm.PasswordAutoExpireInDays = item.PasswordAutoExpireInDays;
+            accm.AutoUnlockAccountMinutes = item.AutoUnlockAccountMinutes;
+            accm.LockAccountDaysForInvalidPwd = item.LockAccountDaysForInvalidPwd;
+            BusinessLogic BusinessList = new BusinessLogic();
+            var BList = BusinessList.GetAllBusiness();
+            ViewBag.BusinessList = BList;
+            return View(accm);
         }
 
-        //[HttpGet]
-        //public ActionResult _EditApplicationSetting()
-        //{
-        //    return PartialView();
-        //}
+        [HttpPost]
+        public ActionResult EditAccountConfiguration(int id, AccountConfigurationModel model, string btnname)
+        {
+            AccountConfigurationLogic cl = new AccountConfigurationLogic();
+            cl.UpdateAccountConfigurationBy(model);
+            TempData["Message"] = "Record Updated Successfully.";
+            return RedirectToAction("EditAccountConfiguration", new { id = model.ConfigurationId });
 
+        }
         [HttpGet]
         public ActionResult _EditApplicationSetting(int? id)
         {
@@ -645,6 +682,14 @@ namespace eConnect.Application.Controllers
                     }
                 }
             }
+        }
+
+        public JsonResult DeleteAccountConfigRecord(int configid)
+        {
+            AccountConfigurationLogic rl = new AccountConfigurationLogic();
+            rl.DeleteAccConfigRecord(configid);
+            TempData["Message"] = "Record Deleted successfully.";
+            return Json("Record Deleted successfully", JsonRequestBehavior.AllowGet);
         }
     }
 }

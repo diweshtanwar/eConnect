@@ -44,6 +44,7 @@ namespace eConnect.Model
         public bool ChangedPwdOnNextLogin { get; set; }
         public int PasswordLength { get; set; }
         public bool NotifiedToCSP { get; set; }
+        public string BusinessName { get; set; }
     }
     public class RoleMasterModel
     {

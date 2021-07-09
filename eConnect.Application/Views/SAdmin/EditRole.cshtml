@@ -1,20 +1,18 @@
 ﻿@model eConnect.Model.RoleMasterModel
-
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "EditRole";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-
-
-@using (Html.BeginForm("CreateRole", "SAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("EditRole", "SAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.AntiForgeryToken()
+
+
 
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <h6 class="text-primary mb-3"> Create Role</h6>
+                <h6 class="text-primary mb-3"> Edit Role</h6>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -23,23 +21,19 @@
                             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                         </div>
                     </div>
+                </div>
 
-                    <div class="my-4 text-right">
-                        <button class="btn btn-primary px-4" type="submit">Save</button>
-                    </div>
+
+                <div class="my-4 text-right">
+                    <button class="btn btn-primary px-4" type="submit">Update</button>
+                    @Html.HiddenFor(model => model.RoleId)
+
+                </div>
+                <div class="text-left">
+                    @Html.ActionLink("Cancel", "RoleDetails")
                 </div>
             </div>
+
         </div>
     </section>
-}
-<div>
-    @Html.ActionLink("Cancel", "CreateRole")
-</div>
-@if (TempData["Message"] != null)
-{
-    <script type="text/javascript">
-            $(function () {
-                alert("@TempData["Message"]")
-            });
-    </script>
 }
