@@ -1,0 +1,131 @@
+﻿@model eConnect.Model.Userinput
+
+@{ ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml"; @*string PassportSizePhotoPath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\PassportSizePhoto\\" + Model.PassportSizePhotoName;
+        string VoterIdImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\VoterIdImage\\" + Model.VoterIdImageName;
+        string PANImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\PANImage\\" + Model.PANImageName;
+        string AadharImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\AadharImage\\" + Model.AadharImageName;
+        string LatestEducationProofImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\LatestEducationProofImage\\" + Model.LatestEducationProofImageName;
+        string IIBFCertificationImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\IIBFCertificationImage\\" + Model.IIBFCertificationImageName;
+        }*@ }
+<h2>Details</h2>
+
+<section class="section">
+    <div class="card">
+        <div class="card-body">
+            <h6 class="text-primary mb-3"> Personal Details</h6>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FatherName, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MotherName, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.MotherName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "" })
+                    @Html.DropDownList("Country", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "" })
+
+                        @Html.DropDownList("State", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "" })
+
+                        @Html.DropDownList("City", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmergencyContactNumber, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.EmergencyContactNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "" })
+                        @Html.DropDownList("Department", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Designation, htmlAttributes: new { @class = "" })
+                        @Html.DropDownList("Designation", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Qualification, htmlAttributes: new { @class = "d" })
+                        @Html.EditorFor(model => model.Qualification, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+            </div>
+
+
+            <h6 class="text-primary mb-3"> Upload</h6>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PassportSizePic, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.PassportSizePic, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+
+            </div>
+            <div>
+              
+                @Html.ActionLink("Cancel", "Index")
+            </div>
+        </div>
+    </div>
+</section>
+
+

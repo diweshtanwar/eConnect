@@ -82,6 +82,7 @@ namespace eConnect.Model
     }
     public class Userinput
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string FatherName { get; set; }
         public string MotherName { get; set; }
@@ -89,13 +90,18 @@ namespace eConnect.Model
         public string MobileNumber { get; set; }
         public string Address { get; set; }
         public string EmergencyContactNumber { get; set; }
-        public string DepartmentId { get; set; }
-        public string DesignationId { get; set; }
+        public string Department { get; set; }
+        public string Designation { get; set; }
         public string Qualification { get; set; }
-        public int CityID { get; set; }
-        public int CountryID { get; set; }
-        public int StateID { get; set; }
-        public HttpPostedFileBase PassportPic { get; set; }
+        public int City { get; set; }
+        public int Country { get; set; }
+        public int State { get; set; }
+        //public HttpPostedFileBase PassportSizePhoto { get; set; }
+        //public string PassportSizePhoto { get; set; }
+
+        public HttpPostedFileBase PassportSizePhoto { get; set; }
+        public string PassportSizePic { get; set; }
+
 
     }
 

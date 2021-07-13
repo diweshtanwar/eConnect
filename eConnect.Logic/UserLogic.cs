@@ -331,6 +331,180 @@ namespace eConnect.Logic
             }
         }
 
+        public long InsertUserDetail(Userinput userinput)
+        {
+            try
+            {
+                using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+                {
+                    tblUserDetail tblUser = new tblUserDetail();
+                    tblUser.Name = userinput.Name;
+                    tblUser.FatherName = userinput.FatherName;
+                    tblUser.MotherName = userinput.MotherName;
+                    tblUser.EmailId = userinput.EmailId;
+                    tblUser.MobileNumber = userinput.MobileNumber;
+                    tblUser.CityId = userinput.City;
+                    tblUser.Address = userinput.Address;
+                    tblUser.EmergencyContactNumber = userinput.EmergencyContactNumber;
+                    tblUser.DepartmentId = Convert.ToInt32(userinput.Department);
+                    tblUser.DesignationId = Convert.ToInt32(userinput.Designation);
+                    tblUser.Qualification = userinput.Qualification;
+
+                    tblUser.ProfilePicSource = userinput.PassportSizePhoto != null
+                                ? Path.GetFileName(userinput.PassportSizePhoto.FileName).ToString() : null;
+
+
+                    tblUser.CreatedDate = DateTime.Now;
+                    tblUser.UpdatedDate = DateTime.Now;
+                    tblUser.CreaterdBy = 0;
+                    tblUser.UpdatedBy = 0;
+                    unitOfWork.UserDetail.Add(tblUser);
+                    long id = tblUser.UserDetailId;  //gives the newly generated 
+                     //Insert User Login data
+                    tblUser objtblUser = new tblUser();
+                    objtblUser.UserName = userinput.EmailId;
+                    objtblUser.Password = "eConnect@" + userinput.MobileNumber;
+                    objtblUser.UserSourceId = (int?)id;
+                    objtblUser.UserType = 4;
+                    objtblUser.Status = 1;
+                    unitOfWork.Userss.Add(objtblUser);
+                    return id;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public void UpdateUserDetail(Userinput UserDetail)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var tblUserDetail = unitOfWork.UserDetail.Find(x => x.UserDetailId == UserDetail.Id).FirstOrDefault();
+
+                tblUserDetail.Name = UserDetail.Name;
+                tblUserDetail.FatherName = UserDetail.FatherName;
+                tblUserDetail.MotherName = UserDetail.MotherName;
+                tblUserDetail.EmailId = UserDetail.EmailId;
+                tblUserDetail.MobileNumber = UserDetail.MobileNumber;
+                tblUserDetail.CityId = UserDetail.City;
+                tblUserDetail.Address = UserDetail.Address;
+                tblUserDetail.EmergencyContactNumber = UserDetail.EmergencyContactNumber;
+                tblUserDetail.DepartmentId = Convert.ToInt32(UserDetail.Department);
+                tblUserDetail.DesignationId = Convert.ToInt32(UserDetail.Designation);
+                tblUserDetail.Qualification = UserDetail.Qualification;
+
+                tblUserDetail.ProfilePicSource = UserDetail.PassportSizePhoto != null
+                            ? Path.GetFileName(UserDetail.PassportSizePhoto.FileName).ToString() : null;
+                tblUserDetail.CreatedDate = DateTime.Now;
+                tblUserDetail.UpdatedDate = DateTime.Now;
+                tblUserDetail.CreaterdBy = 0;
+                tblUserDetail.UpdatedBy = 0;
+                tblUserDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
+                unitOfWork.UserDetail.Update(tblUserDetail);
+                //unitOfWork.UserCSPDetail.Save();
+
+            }
+        }
+
+        public Userinput GetUserDetailsById(int id)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                Userinput UserDetail = new Userinput();
+                var tblUserDetail = unitOfWork.UserCSPDetail.GetUserDetailByID(id);
+
+                UserDetail.Name = tblUserDetail.Name;
+                UserDetail.FatherName = tblUserDetail.FatherName;
+                UserDetail.MotherName = tblUserDetail.MotherName;
+                UserDetail.EmailId = tblUserDetail.EmailId;
+                UserDetail.MobileNumber = tblUserDetail.MobileNumber;
+                UserDetail.City = Convert.ToInt32(tblUserDetail.CityId);
+                UserDetail.Address = tblUserDetail.Address;
+                UserDetail.EmergencyContactNumber = tblUserDetail.EmergencyContactNumber;
+                UserDetail.Department = tblUserDetail.DepartmentId.ToString();
+                UserDetail.Designation = tblUserDetail.DesignationId.ToString();
+                UserDetail.Qualification = tblUserDetail.Qualification;
+                UserDetail.PassportSizePic = tblUserDetail.ProfilePicSource;
+                return UserDetail;
+
+            }
+        }
+
+        public void DeleteUserDetail(int id)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                unitOfWork.UserCSPDetail.DeleteUserCSPDetail(id);
+                unitOfWork.UserCSPDetail.Save();
+
+            }
+        }
+
+        public IList<tblUserDetail> GetAllUserDetail()
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                return unitOfWork.UserCSPDetail.GetAllUserDetail().ToList();
+            }
+        }
+
+        public IList<tblUserDetail> GetAllUserDetailSearch(string Name, string Qualification, string Designation, string Country, string State, string City)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var result = unitOfWork.UserCSPDetail.GetAllUserDetail().ToList();
+
+                if (Name != null)
+                {
+                    result = result.Where(d => d.Name == Name).ToList();
+                }
+                if (!string.IsNullOrEmpty(Qualification))
+                {
+                    result = result.Where(d => d.Qualification.Contains(Qualification)).ToList();
+                }
+                if (!string.IsNullOrEmpty(Designation))
+                {
+
+                    result = result.Where(d => d.DesignationId == Convert.ToInt32(Designation)).ToList();
+                }
+                if (!string.IsNullOrEmpty(City))
+                {
+                    result = result.Where(d => d.CityId == Convert.ToInt32(City)).ToList();
+                }
+
+                return result;
+            }
+        }
+
+        public Userinput GetUserDetailByID(int id)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                Userinput UserDetail = new Userinput();
+                var tblUserDetail = unitOfWork.UserCSPDetail.GetUserDetailByID(id);
+                //UserDetail.Name = tblUserDetail.Name;
+                //UserDetail.CSPName = tblUserDetail.CSPName;
+                //UserDetail.CSPCode = tblUserDetail.CSPCode;
+                //UserDetail.BranchCode = tblUserDetail.BranchCode;
+                UserDetail.Name = tblUserDetail.Name;
+                UserDetail.FatherName = tblUserDetail.FatherName;
+                UserDetail.MotherName = tblUserDetail.MotherName;
+                UserDetail.EmailId = tblUserDetail.EmailId;
+                UserDetail.MobileNumber = tblUserDetail.MobileNumber;
+                UserDetail.City = Convert.ToInt32(tblUserDetail.CityId);
+                UserDetail.Address = tblUserDetail.Address;
+                UserDetail.EmergencyContactNumber = tblUserDetail.EmergencyContactNumber;
+                UserDetail.Department = tblUserDetail.DepartmentId.ToString();
+                UserDetail.Designation = tblUserDetail.DesignationId.ToString();
+                UserDetail.Qualification = tblUserDetail.Qualification;
+                return UserDetail;
+
+            }
+        }
+
     }
 }
 

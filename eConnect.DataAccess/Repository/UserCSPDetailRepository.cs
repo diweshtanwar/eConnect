@@ -56,6 +56,20 @@ public class UserCSPDetailRepository : Repository<tblUserCSPDetail>, IUserCSPDet
         {
             eConnectAppEntities.SaveChanges();
         }
+        public IList<tblUserDetail> GetAllUserDetail()
+        {
+            return eConnectAppEntities.tblUserDetails.ToList();
+        }
+
+        public tblUserDetail GetUserDetailByID(int id)
+        {
+            return eConnectAppEntities.tblUserDetails.Find(id);
+        }
+        public void DeleteuserDetail(int Id)
+        {
+            tblUserDetail tblUserDetail = eConnectAppEntities.tblUserDetails.Find(Id);
+            eConnectAppEntities.tblUserDetails.Remove(tblUserDetail);
+        }
 
     }
 }

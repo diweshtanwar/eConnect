@@ -35,6 +35,7 @@ namespace eConnect.DataAccess
         public IUserCSPDetailRepository UserCSPDetail { get; private set; }
         public ICommissionReportNewRepository CommissionReportNews { get; private set; }
         public IAnnouncementRepository Announcement { get; private set; }
+        public UserDetail UserDetail { get; private set; }
         public UnitOfWork(eConnectAppEntities context)
         {
             _context = context;
@@ -60,6 +61,7 @@ namespace eConnect.DataAccess
             UserCSPDetail = new UserCSPDetailRepository(_context);
             CommissionReportNews = new CommissionReportNewRepository(_context);
             Announcement = new AnnouncementRepository(_context);
+            UserDetail = new UserDetail(_context);
         }
 
         public int Complete()

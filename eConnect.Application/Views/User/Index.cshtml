@@ -1,0 +1,197 @@
+﻿@model IEnumerable<eConnect.DataAccess.tblUserDetail>
+
+@{ ViewBag.Title = "Index";
+                Layout = "~/Views/Shared/_LayoutMain.cshtml"; }
+
+<section class="section">
+    <h2>Manage User</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+
+    </p>
+    @using (@Html.BeginForm("IndexSearch", "User", FormMethod.Get))
+    {@Html.AntiForgeryToken()
+                    <div class="card">
+                        <div class="card-header">
+                            <h4><span class="toggle-collapse" data-toggle="collapse" href="#filter" role="button" aria-expanded="true" aria-controls="filter"></span> Filter</h4>
+                        </div>
+                        <div class="card-body collapse show" id="filter">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input type="text" id="Name" name="Name" class="form-control" value="@Request["Name"]">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Qualification</label>
+                                        <input type="text" id="Qualification" name="Qualification" class="form-control" value="@Request["Qualification"]">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Designation</label>
+                                        @Html.DropDownList("Designation", (IEnumerable<SelectListItem>)ViewBag.Designation, "Select Designations", new { @class = "form-control" })
+                                        @*@Html.DropDownList("Designation", (IEnumerable<SelectListItem>)ViewBag.Designation, " ", new { @class = "form-control" })*@
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Country</label>
+                                        @Html.DropDownList("Country", (IEnumerable<SelectListItem>)ViewBag.Country, "Select Country", new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>State</label>
+                                        @Html.DropDownList("State", (IEnumerable<SelectListItem>)ViewBag.State, "Select State", new { @class = "form-control" })
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        @Html.DropDownList("City", (IEnumerable<SelectListItem>)ViewBag.City, "Select City", new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 mt-md-4 pt-1">
+                                    @*<button class="btn btn-dark px-4 mr-2">Cancel</button>*@
+                                    <button type="submit" class="btn btn-primary px-4">Search</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>}
+    <div class="card">
+
+        <div class="card-body">
+
+
+            <div class="table-responsive">
+                <div class="table-actions">
+                    @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
+                </div>
+                <table class="table table-striped" id="table-2">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model =>model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FatherName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MotherName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmailId)
+                            </th>
+                            @*<th>
+                                    @Html.DisplayNameFor(model => model.ExpiryDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BankName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BankAccount)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.IFSC)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FatherName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.MotherName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PAN)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.VoterId)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AadharNo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Education)
+                                </th>*@
+                            <th> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FatherName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MotherName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailId)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.ExpiryDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BankName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BankAccount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IFSC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FatherName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MotherName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PAN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VoterId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AadharNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Education)
+                    </td>*@
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.UserDetailId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.UserDetailId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.UserDetailId })
+                </td>
+
+            </tr>}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+
