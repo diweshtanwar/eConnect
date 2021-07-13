@@ -27,5 +27,17 @@ namespace eConnect.DataAccess
         {
             return eConnectAppEntities.tblStatus.ToList(); ;
         }
+        public IList<tblUserStatu> GetAllUserStatus()
+        {
+            return eConnectAppEntities.tblUserStatus.ToList();
+        }
+
+        public List<tblUserStatu> GetUserStatus()
+        {
+            return eConnectAppEntities.tblUserStatus.ToList(); ;
+        }
+
     }
-    }
+ 
+}
+

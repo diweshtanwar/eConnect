@@ -36,8 +36,9 @@ namespace eConnect.Application.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(string message)
         {
+            ViewBag.SuccessMsg = message;
             return View();
         }
 
@@ -60,11 +61,14 @@ namespace eConnect.Application.Controllers
                 {
                     UserLoginLogLogic objUserLoginLogLogic = new UserLoginLogLogic();
                     objUserLoginLogLogic.GetLastLoginDetailsByUserID(userData.UserId);
+                    RoleMasterLogic objRoleMasterLogic = new RoleMasterLogic();
+                    var roleMasterData =objRoleMasterLogic.GetRoleMasterByID((int)userData.UserType);
                    Session["LastLoginDetails"] = objUserLoginLogLogic.GetLastLoginDetailsByUserID(userData.UserId);              
                    Session["UserTypeId"] = userData.UserType;
                     Session["UserName"] = userData.UserName;
                     Session["UserId"] = userData.UserId;
                     Session["UserSourceId"] = userData.UserSourceId;
+                    Session["UserRoleName"] = roleMasterData.Name;
                     tblUserLoginLog objtblUserLoginLog = new tblUserLoginLog();
                     objtblUserLoginLog.UserId = userData.UserId;
                     objtblUserLoginLog.LoginTimeStamp = DateTime.Now;
@@ -115,37 +119,36 @@ namespace eConnect.Application.Controllers
             ResetPasswordViewModel objResetPasswordViewModel = new ResetPasswordViewModel();
             objResetPasswordViewModel.UserName = (string)Session["UserName"];
             objResetPasswordViewModel.UserType = (int)Session["UserTypeId"];
-            objResetPasswordViewModel.UserID = (int)Session["UserId"];
-            ViewBag.UserName= (string)Session["UserName"]; 
-            return View();
+            objResetPasswordViewModel.UserID = (int)Session["UserId"];        
+            return View(objResetPasswordViewModel);
         }
 
         [HttpPost]
         public ActionResult ResetPassword(ResetPasswordViewModel ResetPasswordViewModel)
         {
-            ResetPasswordViewModel.UserName = (string)Session["UserName"];
-            ResetPasswordViewModel.UserType = (int)Session["UserTypeId"];
-            ResetPasswordViewModel.UserID = (int)Session["UserId"];
+          
             if (ModelState.IsValid)
             {
                 UserLogic objUserLogic = new UserLogic();
                 objUserLogic.ResetPasswordLogic(ResetPasswordViewModel);
-                         
-                //Admin and Super Admin
-                if (ResetPasswordViewModel.UserType == 2 || ResetPasswordViewModel.UserType == 1)
-                {
-                    return RedirectToAction("Dashboard", "Admin");
-                }
-                //CSP
-                else if (ResetPasswordViewModel.UserType == 3)
-                {
-                    return RedirectToAction("Dashboard", "CSP");
-                }
-                //User
-                else if (ResetPasswordViewModel.UserType == 4)
-                {
-                    return RedirectToAction("About");
-                }
+
+                ////Admin and Super Admin
+                //if (ResetPasswordViewModel.UserType == 2 || ResetPasswordViewModel.UserType == 1)
+                //{
+                //    return RedirectToAction("Dashboard", "Admin");
+                //}
+                ////CSP
+                //else if (ResetPasswordViewModel.UserType == 3)
+                //{
+                //    return RedirectToAction("Dashboard", "CSP");
+                //}
+                ////User
+                //else if (ResetPasswordViewModel.UserType == 4)
+                //{
+                //    return RedirectToAction("About");
+                //}
+                string message = "Password reset successfully! Login with new credentials.";
+                return RedirectToAction("Login","Home", new { message } );
             }
             return View();
         }

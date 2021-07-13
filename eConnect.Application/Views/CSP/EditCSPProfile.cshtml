@@ -193,6 +193,24 @@
 
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "required-field" })
+
+                            @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "required-field" })
+
+                            @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
                 </div>
 
                 <h6 class="text-primary mb-3"> Upload</h6>

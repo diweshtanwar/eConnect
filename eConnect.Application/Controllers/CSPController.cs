@@ -35,7 +35,7 @@ namespace eConnect.Application.Controllers
             UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
             var tblUserCSPDetails = objUserCSPDetailLogic.GetAllUserCSPDetail();
             StatusLogic objStatusLogic = new StatusLogic();
-            ViewBag.Status = new SelectList(objStatusLogic.GetStatus(), "StatusId", "Name");
+            ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name");
             ViewBag.CertificateStatus = CertificateStatusList;
             return View(tblUserCSPDetails.ToList());
         }
@@ -44,7 +44,7 @@ namespace eConnect.Application.Controllers
             UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
             var tblUserCSPDetails = objUserCSPDetailLogic.GetAllUserCSPDetailSearch(CSPCode, CSPName, BranchCode, Status, CertificateStatus);
             StatusLogic objStatusLogic = new StatusLogic();
-            ViewBag.Status = new SelectList(objStatusLogic.GetStatus(), "StatusId", "Name");
+            ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name");
             ViewBag.CertificateStatus = CertificateStatusList;
             return View("Index",tblUserCSPDetails.ToList());
         }
@@ -67,7 +67,7 @@ namespace eConnect.Application.Controllers
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
 
-            ViewBag.Status = new SelectList(objStatusLogic.GetStatus(), "StatusId", "Name", UserCSPDetail.Status);
+            ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name", UserCSPDetail.Status);
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
@@ -83,7 +83,7 @@ namespace eConnect.Application.Controllers
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
 
-            ViewBag.Status = new SelectList(objStatusLogic.GetStatus(), "StatusId", "Name");
+            ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name");
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name");
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name");
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
@@ -145,7 +145,7 @@ namespace eConnect.Application.Controllers
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
 
-            ViewBag.Status = new SelectList(objStatusLogic.GetStatus(), "StatusId", "Name", UserCSPDetail.Status);
+            ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name", UserCSPDetail.Status);
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
@@ -171,7 +171,7 @@ namespace eConnect.Application.Controllers
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
 
-            ViewBag.Status = new SelectList(objStatusLogic.GetStatus(), "StatusId", "Name", UserCSPDetail.Status);
+            ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name", UserCSPDetail.Status);
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
@@ -228,7 +228,7 @@ namespace eConnect.Application.Controllers
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
 
-            ViewBag.Status = new SelectList(objStatusLogic.GetStatus(), "StatusId", "Name", UserCSPDetail.Status);
+            ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name", UserCSPDetail.Status);
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
@@ -254,7 +254,7 @@ namespace eConnect.Application.Controllers
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
 
-            ViewBag.Status = new SelectList(objStatusLogic.GetStatus(), "StatusId", "Name", UserCSPDetail.Status);
+            ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name", UserCSPDetail.Status);
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
@@ -314,7 +314,7 @@ namespace eConnect.Application.Controllers
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
 
-            ViewBag.Status = new SelectList(objStatusLogic.GetStatus(), "StatusId", "Name", UserCSPDetail.Status);
+            ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name", UserCSPDetail.Status);
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
@@ -369,7 +369,7 @@ namespace eConnect.Application.Controllers
                     UserCSPDetail.IIBFCertificationImage.SaveAs(fpath);
                 }              
 
-                ViewBag.Status = new SelectList(objStatusLogic.GetStatus(), "StatusId", "Name", UserCSPDetail.Status);
+                ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name", UserCSPDetail.Status);
                 ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
                 ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
                 ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
@@ -380,12 +380,48 @@ namespace eConnect.Application.Controllers
             }
 
 
-            ViewBag.Status = new SelectList(objStatusLogic.GetStatus(), "StatusId", "Name", UserCSPDetail.Status);
+            ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name", UserCSPDetail.Status);
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
             ViewBag.CertificateStatus = new SelectList(CertificateStatusList, "Text", "Value", UserCSPDetail.CertificateStatus);
             return View(UserCSPDetail);
+        }
+
+        public ActionResult ResetPassword(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+            UserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID((int)id);
+            if (UserCSPDetail == null)
+            {
+                return HttpNotFound();
+            }
+            ResetPasswordViewModel objResetPasswordViewModel = new ResetPasswordViewModel();
+
+            objResetPasswordViewModel.UserName = UserCSPDetail.CSPName;     
+            objResetPasswordViewModel.UserID = UserCSPDetail.CSPId;
+            ViewBag.SuccessMsg = "";
+            return View(objResetPasswordViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult ResetPassword(ResetPasswordViewModel ResetPasswordViewModel)
+        {
+            //ResetPasswordViewModel.UserName = (string)Session["UserName"];
+            //ResetPasswordViewModel.UserType = (int)Session["UserTypeId"];
+            //ResetPasswordViewModel.UserID = (int)Session["UserId"];
+            if (ModelState.IsValid)
+            {
+                UserLogic objUserLogic = new UserLogic();
+                objUserLogic.ResetPasswordLogic(ResetPasswordViewModel);
+                ViewBag.SuccessMsg = "Password reset successfully!";
+            }
+
+            return View();
         }
 
         public string CheckDirectory(string CSPUserID, string path, string filetype, HttpPostedFileBase postedfile)

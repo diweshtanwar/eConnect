@@ -71,6 +71,8 @@ namespace eConnect.Logic
                 UserCSPDetail.Country = tblUserCSPDetail.Country;
                 UserCSPDetail.State = tblUserCSPDetail.State;
                 UserCSPDetail.City = tblUserCSPDetail.City;
+                UserCSPDetail.Location = tblUserCSPDetail.Location;
+                UserCSPDetail.Category = tblUserCSPDetail.Category;
                 UserCSPDetail.PAN = tblUserCSPDetail.PAN;
                 UserCSPDetail.VoterId = tblUserCSPDetail.VoterId;
                 UserCSPDetail.AadharNo = tblUserCSPDetail.AadharNo;
@@ -112,6 +114,8 @@ namespace eConnect.Logic
                     tblUserCSPDetail.Country = UserCSPDetail.Country;
                     tblUserCSPDetail.State = UserCSPDetail.State;
                     tblUserCSPDetail.City = UserCSPDetail.City;
+                    tblUserCSPDetail.Location = UserCSPDetail.Location;
+                    tblUserCSPDetail.Category = UserCSPDetail.Category;
                     tblUserCSPDetail.PAN = UserCSPDetail.PAN;
                     tblUserCSPDetail.VoterId = UserCSPDetail.VoterId;
                     tblUserCSPDetail.AadharNo = UserCSPDetail.AadharNo;
@@ -174,6 +178,8 @@ namespace eConnect.Logic
                 tblUserCSPDetail.Country = UserCSPDetail.Country;
                 tblUserCSPDetail.State = UserCSPDetail.State;
                 tblUserCSPDetail.City = UserCSPDetail.City;
+                tblUserCSPDetail.Location = UserCSPDetail.Location;
+                tblUserCSPDetail.Category = UserCSPDetail.Category;
                 tblUserCSPDetail.PAN = UserCSPDetail.PAN;
                 tblUserCSPDetail.VoterId = UserCSPDetail.VoterId;
                 tblUserCSPDetail.AadharNo = UserCSPDetail.AadharNo;

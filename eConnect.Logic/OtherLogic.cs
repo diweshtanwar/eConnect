@@ -218,47 +218,6 @@ public class BusinessLogic
 
 }
 
-public class RoleMasterLogic
-{
-    public void InsertRoleMaster(RoleMasterModel model)
-    {
-        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
-        {
-            tblRoleMaster rmaster = new tblRoleMaster();
-            rmaster.Name = model.Name;
-            unitOfWork.RoleMasters.Add(rmaster);
-        }
-    }
-    public IList<tblRoleMaster> GetAllRoles()
-    {
-        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
-        {
-            var AppList = unitOfWork.RoleMasters.GetAllRoleMaster().ToList();
-            return AppList;
-        }
-    }
-
-    public void DeleteRole(int id)
-    {
-        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
-        {
-            unitOfWork.RoleMasters.DeleteRecord(id);
-
-        }
-    }
-
-    public void UpdateRole(RoleMasterModel model)
-    {
-
-        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
-        {
-            var sr = unitOfWork.RoleMasters.Find(x => x.RoleId == model.RoleId).FirstOrDefault();
-            sr.RoleId = (int)model.RoleId;
-            sr.Name = model.Name;
-            unitOfWork.RoleMasters.Update(sr);
-        }
-    }
-}
 public class AccountConfigurationLogic
 {
 

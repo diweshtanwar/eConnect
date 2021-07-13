@@ -18,7 +18,14 @@ namespace eConnect.Application.Controllers
             MenuLogic objMenuLogic = new MenuLogic();
             return View(objMenuLogic.GetAllMenuMainWithSubMenuByRoleId(UserTypeId).Where(d=>d.Status==true).OrderBy(d=>d.Priority));
         }
-    
+        [ChildActionOnly]
+        public ActionResult _GetAnnouncement()
+        {
+            AnnouncementLogic objAnnouncementLogic = new AnnouncementLogic();
+          var data=   objAnnouncementLogic.GetAnnouncement();
+            ViewBag.NotificationDetails = "";
+            return View();
+        }
         // GET: Partial
         public ActionResult Index()
         {

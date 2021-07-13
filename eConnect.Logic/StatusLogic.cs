@@ -28,5 +28,24 @@ namespace eConnect.Logic
                  return data;
             }
         }
+
+
+        public IList<tblUserStatu> GetAllUserStatus()
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var data = unitOfWork.Statuss.GetAllUserStatus().ToList();
+                return data;
+            }
+        }
+
+        public List<tblUserStatu> GetUserStatus()
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var data = unitOfWork.Statuss.GetUserStatus();
+                return data;
+            }
+        }
     }
 }

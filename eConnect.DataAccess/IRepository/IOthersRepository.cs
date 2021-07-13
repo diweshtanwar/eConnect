@@ -33,9 +33,9 @@ namespace eConnect.DataAccess
         void DeleteRecord(int id);
     }
 
-    public interface IRoleMasterRepository : IRepository<tblRoleMaster>
-    {
-        IList<tblRoleMaster> GetAllRoleMaster();
-        void DeleteRecord(int id);
-    }
+    //public interface IRoleMasterRepository : IRepository<tblRoleMaster>
+    //{
+    //    IList<tblRoleMaster> GetAllRoleMaster();
+    //    void DeleteRecord(int id);
+    //}
 }

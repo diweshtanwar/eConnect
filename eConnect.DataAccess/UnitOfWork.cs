@@ -12,6 +12,7 @@ namespace eConnect.DataAccess
     public class UnitOfWork : IUnitOfWork
     {
         private readonly eConnectAppEntities _context;
+
         public IUserRepository Userss { get; private set; }
         public ICountryRepository Countriess { get; private set; }
         public IStateRepository Statess { get; private set; }
@@ -33,6 +34,7 @@ namespace eConnect.DataAccess
         public IMenuRepository Menus { get; private set; }
         public IUserCSPDetailRepository UserCSPDetail { get; private set; }
         public ICommissionReportNewRepository CommissionReportNews { get; private set; }
+        public IAnnouncementRepository Announcement { get; private set; }
         public UnitOfWork(eConnectAppEntities context)
         {
             _context = context;
@@ -57,6 +59,7 @@ namespace eConnect.DataAccess
             Menus = new MenuRepository(_context);
             UserCSPDetail = new UserCSPDetailRepository(_context);
             CommissionReportNews = new CommissionReportNewRepository(_context);
+            Announcement = new AnnouncementRepository(_context);
         }
 
         public int Complete()

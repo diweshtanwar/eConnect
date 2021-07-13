@@ -28,6 +28,8 @@ namespace eConnect.Model
         public Nullable<int> Country { get; set; }
         public Nullable<int> State { get; set; }
         public Nullable<int> City { get; set; }
+        public string Location { get; set; }
+        public string Category { get; set; }
         public string PAN { get; set; }
         public string VoterId { get; set; }
         public string AadharNo { get; set; }

@@ -12,5 +12,7 @@ namespace eConnect.DataAccess
         IList<tblStatu> GetAllStatus();
         List<tblStatu> GetStatus();
 
+        IList<tblUserStatu> GetAllUserStatus();
+        List<tblUserStatu> GetUserStatus();
     }
 }

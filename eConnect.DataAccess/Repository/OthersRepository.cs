@@ -102,28 +102,4 @@ namespace eConnect.DataAccess
     }
 
 
-    public class RoleMasterRepository : Repository<tblRoleMaster>, IRoleMasterRepository
-    {
-        public RoleMasterRepository(eConnectAppEntities appcontext) : base(appcontext)
-        {
-        }
-        public eConnectAppEntities eConnectAppEntities
-        {
-            get { return Context as eConnectAppEntities; }
-        }
-
-        public IList<tblRoleMaster> GetAllRoleMaster()
-        {
-            return eConnectAppEntities.tblRoleMasters.ToList();
-        }
-
-        public void DeleteRecord(int id)
-        {
-            var rec = eConnectAppEntities.tblRoleMasters.Where(x => x.RoleId == id).SingleOrDefault();
-            eConnectAppEntities.tblRoleMasters.Remove(rec);
-            eConnectAppEntities.SaveChanges();
-        }
-    }
-
-
 }

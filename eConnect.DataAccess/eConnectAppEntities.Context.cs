@@ -58,13 +58,13 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblScreenRole> tblScreenRoles { get; set; }
         public virtual DbSet<tblState> tblStates { get; set; }
         public virtual DbSet<tblStatu> tblStatus { get; set; }
-        public virtual DbSet<tblStatusold> tblStatusolds { get; set; }
         public virtual DbSet<tblTechRequest> tblTechRequests { get; set; }
         public virtual DbSet<tblUploader> tblUploaders { get; set; }
         public virtual DbSet<tblUserCSPDetail> tblUserCSPDetails { get; set; }
         public virtual DbSet<tblUserDetail> tblUserDetails { get; set; }
         public virtual DbSet<tblUserLoginLog> tblUserLoginLogs { get; set; }
         public virtual DbSet<tblUser> tblUsers { get; set; }
+        public virtual DbSet<tblUserStatu> tblUserStatus { get; set; }
         public virtual DbSet<tblWebFeedback> tblWebFeedbacks { get; set; }
         public virtual DbSet<tblWithdrawalRequest> tblWithdrawalRequests { get; set; }
     

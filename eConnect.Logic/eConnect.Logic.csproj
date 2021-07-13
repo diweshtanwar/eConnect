@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnnouncementLogic.cs" />
     <Compile Include="ApplicationSettingLogic.cs" />
     <Compile Include="CityLogic.cs" />
     <Compile Include="CommonLogic.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="OtherLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportsLogic.cs" />
+    <Compile Include="RoleMasterLogic.cs" />
     <Compile Include="StateLogic.cs" />
     <Compile Include="StatusLogic.cs" />
     <Compile Include="TechSupportProblemLogic.cs" />

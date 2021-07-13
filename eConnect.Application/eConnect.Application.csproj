@@ -208,9 +208,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="UploadedFiles\CSP\1\PANImage\e-gramin-logo.png" />
-    <Content Include="UploadedFiles\CSP\1\PassportSizePhoto\avatar-2.png" />
-    <Content Include="UploadedFiles\CSP\1\PassportSizePhoto\chart-01.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -290,16 +287,13 @@
     <Content Include="Views\Admin\EditCommissionRecord.cshtml" />
     <Content Include="Views\Admin\ViewUnPublishedRecords.cshtml" />
     <Content Include="Views\Admin\_UploaderDetailsTemp.cshtml" />
-    <Content Include="Views\tblUsers\Create.cshtml" />
-    <Content Include="Views\tblUsers\Delete.cshtml" />
-    <Content Include="Views\tblUsers\Details.cshtml" />
-    <Content Include="Views\tblUsers\Edit.cshtml" />
-    <Content Include="Views\tblUsers\Index.cshtml" />
-    <Content Include="Views\Users\UpdateAccount.cshtml" />
+    <Content Include="Views\Home\ResetPassword.cshtml" />
+    <Content Include="Views\CSP\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\CSP\" />
+    <Folder Include="UploadedFiles\CSP\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
