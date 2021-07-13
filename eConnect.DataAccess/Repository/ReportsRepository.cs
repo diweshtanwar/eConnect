@@ -67,11 +67,19 @@ namespace eConnect.DataAccess
 
             //um.ProfilePicSource = item.PassportPic != null ? Path.GetFileName(item.PassportPic.FileName).ToString() : null;
         }
-     
+
         public void UpdateCommissionReport(tblCommissionReportNew model)
         {
             eConnectAppEntities.Entry(model).State = System.Data.Entity.EntityState.Modified;
             eConnectAppEntities.SaveChanges();
+        }
+
+
+        public IList<tblCommissionReportMonthly> GetAllMonthlyCommissionReport()
+        {
+
+            var EE = eConnectAppEntities.tblCommissionReportMonthlies.ToList();
+            return EE.ToList();
         }
     }
 }

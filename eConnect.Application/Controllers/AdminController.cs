@@ -138,7 +138,7 @@ namespace eConnect.Application.Controllers
         }
         public ActionResult ShowFolderImages()
         {
-            //int id = 2;
+            int id = 2;
             FolderDetailsLogic folderdetail = new FolderDetailsLogic();
             // var model = folderdetail.GetAllFolderDetailsById(id);
             return View();
@@ -181,17 +181,7 @@ namespace eConnect.Application.Controllers
             return new SelectList(ddlYears, "Value", "Text");
         }
 
-        public string CheckUploaderDirectory(string path, UploaderModel model)
-        {
-            string fullpath = string.Empty;
-            fullpath = Path.Combine(path, model.ReportType.ToString(), model.Year.ToString(), model.Month.ToString());
-            if (!Directory.Exists(fullpath))
-            {
-                Directory.CreateDirectory(fullpath);
-            }
-            fullpath = fullpath + "\\" + Path.GetFileName(model.fileupload.FileName);
-            return fullpath;
-        }
+
         public ActionResult ApplicationSetting(UploaderModel model)
         {
             BusinessLogic BusinessList = new BusinessLogic();
@@ -277,7 +267,7 @@ namespace eConnect.Application.Controllers
                 {
                     cl.InsertAccountConfiguration(model);
                     TempData["Message"] = "Record Updated successfully.";
-                   
+
                 }
 
             }
@@ -429,15 +419,7 @@ namespace eConnect.Application.Controllers
             return check;
 
         }
-        public ActionResult Uploader()
-        {
-            RequestTypeLogic Rtypes = new RequestTypeLogic();
-            var RtypesList = Rtypes.GetAllRequestTypes();
-            ViewBag.RequestTypes = RtypesList;
-            ViewBag.Years = GetYears().OrderByDescending(x => x.Value);
-            ViewBag.Months = GetMonths().OrderByDescending(x => x.Value);
-            return View();
-        }
+  
         [HttpPost]
         public ActionResult Uploader(UploaderModel model)
         {
@@ -510,33 +492,7 @@ namespace eConnect.Application.Controllers
             return PartialView("_UploaderList", reportsList);
         }
 
-        public ActionResult _UploaderDetailsTemp()
-        {
-            List<UploaderModel> reportsList = new List<UploaderModel>();
-            UploaderLogic upmodel = new UploaderLogic();
-            var Reqlist = upmodel.GetAllUploaderDetails().ToList();
-            foreach (var item in Reqlist)
-            {
-                reportsList.Add(
-                               new UploaderModel
-                               {
-                                   UploaderId = item.UploaderId,
-                                   Year = (int)item.Year,
-                                   Month = (int)item.Month,
-                                   ReportType = (int)item.ReportType,
-                                   ApplyTDS = item.ApplyTDS,
-                                   FileName = item.FileName,
-                                   UpdatedDate = (DateTime)item.UpdatedDate,
-                                   ReportTypeName = item.tblReportType.Name,
-                                   InActive = item.InActive,
-                                   StatusId = (int)item.StatusID,
-                                   ReportStatus = item.tblStatu.Name,
-                                   MonthName = CommonLogic.GetMonthName(Convert.ToInt32(item.Month)),
-                                   UnPublishedCount = item.tblCommissionReportNews.Count
-                               }); ;
-            }
-            return PartialView("_UploaderDetailsTemp", reportsList);
-        }
+       
 
         public ActionResult ViewUnPublishedRecords(int id)
         {
@@ -584,7 +540,7 @@ namespace eConnect.Application.Controllers
                 con.Close();
                 return Json("Record Updated successfully", JsonRequestBehavior.AllowGet);
             }
-            catch (Exception )
+            catch (Exception ex)
             {
                 return null;
             }
@@ -674,7 +630,57 @@ namespace eConnect.Application.Controllers
                             tran.Commit();
                             con.Close();
                         }
-                        catch (Exception )
+                        catch (Exception ex)
+                        {
+                            tran.Rollback();
+                            con.Close();
+                        }
+                    }
+                }
+            }
+        }
+
+
+        private void InsertCommissionRecordsMonthly(string FilePath, int uploaderid, int year, int month)
+        {
+            ExcelConn(FilePath);
+            Query = string.Format("Select [CSP CODE],[CSP NAME],[TRANSACTION],[INCENTIVE],[RURAL],[TOTAL],[TDS],[PAYABLE TO CSP],[NET PAYABLE]," + uploaderid + " as [uploaderid]," + year + " as [Year]," + month + " as [Month] FROM [{0}]", "Sheet1$");
+            OleDbCommand Ecom = new OleDbCommand(Query, Econ);
+            Econ.Open();
+            //try
+            {
+                DataSet ds = new DataSet();
+                OleDbDataAdapter oda = new OleDbDataAdapter(Query, Econ);
+                Econ.Close();
+                oda.Fill(ds);
+                DataTable Exceldt = ds.Tables[0];
+                connection();
+                con.Open();
+                using (var tran = con.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    using (var objbulk = new SqlBulkCopy(con, SqlBulkCopyOptions.Default, tran))
+                    {
+                        try
+                        {
+                            objbulk.DestinationTableName = "[dbo].[tblCommissionReportMonthly]";
+                            //Mapping Table column    
+                            objbulk.ColumnMappings.Add("CSP CODE", "CSPCode");
+                            objbulk.ColumnMappings.Add("CSP NAME", "CSPName");
+                            objbulk.ColumnMappings.Add("TRANSACTION", "Transation");
+                            objbulk.ColumnMappings.Add("INCENTIVE", "Incentive");
+                            objbulk.ColumnMappings.Add("RURAL", "Rural");
+                            objbulk.ColumnMappings.Add("TOTAL", "Total");
+                            objbulk.ColumnMappings.Add("TDS", "TDS");
+                            objbulk.ColumnMappings.Add("PAYABLE TO CSP", "PayableToCSP");
+                            objbulk.ColumnMappings.Add("NET PAYABLE", "NetPayable");
+                            objbulk.ColumnMappings.Add("Year", "Year");
+                            objbulk.ColumnMappings.Add("Month", "Month");
+                            objbulk.ColumnMappings.Add("UploaderId", "UploaderId");
+                            objbulk.WriteToServerAsync(Exceldt);
+                            tran.Commit();
+                            con.Close();
+                        }
+                        catch (Exception ex)
                         {
                             tran.Rollback();
                             con.Close();
@@ -691,6 +697,175 @@ namespace eConnect.Application.Controllers
             TempData["Message"] = "Record Deleted successfully.";
             return Json("Record Deleted successfully", JsonRequestBehavior.AllowGet);
         }
+
+
+
+
+        public ActionResult UploadCommissionReport()
+        {
+            ViewBag.Years = GetYears().OrderByDescending(x => x.Value);
+            ViewBag.Months = GetMonths().OrderByDescending(x => x.Value);
+            return View();
+        }
+
+        public bool CheckUploadedFileExist(int year, int month)
+        {
+            UploaderLogic uploaderLogic = new UploaderLogic();
+            bool check = uploaderLogic.CheckExistingFile(year, month, 3);
+            return check;
+
+        }
+        [HttpPost]
+        public ActionResult UploadCommissionReport(UploaderModel model)
+        {
+            bool check = CheckUploadedFileExist(model.Year, model.Month);
+            if (check == true)
+            {
+                string monthname = CommonLogic.GetMonthName(Convert.ToInt32(model.Month));
+                TempData["Message"] = "Record for " + model.Year + "and month " + monthname + " has been already submitted.";
+            }
+            else
+            {
+                string path = UploaderFilePath;
+                string fpath = string.Empty;
+                UploaderLogic uploaderLogic = new UploaderLogic();
+                model.ReportType = 3;
+                model.FileName = model.fileupload.FileName;
+                int uploaderid = uploaderLogic.InsertUploader(model);
+                if (model.fileupload != null)
+                {
+                    fpath = CheckUploaderDirectory(path, model);
+                    model.fileupload.SaveAs(fpath);
+                }
+                //   string FilePath = fpath;// @"C:\New folder\EGRAMIN TRANSCATION WISE COMISSION MAY-2021.xlsx";
+                // InsertCommissionRecordsMonthly(FilePath, uploaderid, model.Year, model.Month);
+                TempData["Message"] = "Record submitted successfully.";
+
+            }
+            return RedirectToAction("UploadCommissionReport");
+        }
+
+        public ActionResult _UploadCommissionReportMonthly()
+        {
+
+            List<UploaderModel> reportsList = new List<UploaderModel>();
+            UploaderLogic upmodel = new UploaderLogic();
+            var Reqlist = upmodel.GetAllUploaderDetails().Where(x => x.ReportType == 3).ToList();
+            foreach (var item in Reqlist)
+            {
+                reportsList.Add(
+                               new UploaderModel
+                               {
+                                   UploaderId = item.UploaderId,
+                                   Year = (int)item.Year,
+                                   Month = (int)item.Month,
+                                   ReportType = (int)item.ReportType,
+                                   CreatedDate = item.CreatedDate,
+                                   FileName = item.FileName,
+                                   ReportTypeName = item.tblReportType.Name,
+                                   InActive = item.InActive,
+                                   StatusId = (int)item.StatusID,
+                                   ReportStatus = item.tblStatu.Name,
+                                   MonthName = CommonLogic.GetMonthName(Convert.ToInt32(item.Month)),
+                               });
+            }
+            return PartialView("_UploadCommissionReportMonthly", reportsList);
+
+        }
+
+        public JsonResult DeleteUploadedCommissionRecord(int uploaderid)
+        {
+            UploaderLogic rl = new UploaderLogic();
+            rl.DeleteUploaderRecord(uploaderid);
+            TempData["Message"] = "Record Deleted successfully.";
+            return Json("Record Deleted successfully", JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult PublishCommissionMonthlyReport(int uploaderid)
+        {
+            try
+            {
+                UploaderLogic ul = new UploaderLogic();
+                var uploaderdetails = ul.GetAllUploaderDetailsById(uploaderid);
+                string path = UploaderFilePath;
+                string fullpath = string.Empty;
+                if (uploaderdetails.UploaderId > 0)
+                {
+                    try
+                    {
+                        int Reporttype = 3;
+                        fullpath = Path.Combine(path, Reporttype.ToString(), uploaderdetails.Year.ToString(), uploaderdetails.Month.ToString(), uploaderdetails.FileName);
+                        InsertCommissionRecordsMonthly(fullpath, uploaderid, Convert.ToInt32(uploaderdetails.Year), Convert.ToInt32(uploaderdetails.Month));
+                        ul.UpdateUploaderStatus(uploaderid, 5);
+                        return Json("Record Published Successfully", JsonRequestBehavior.AllowGet);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        return Json("Report Not Published.", JsonRequestBehavior.AllowGet);
+                    }
+
+                }
+                else
+                {
+
+                    return Json("Report Not Published.", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("Report Not Published.", JsonRequestBehavior.AllowGet);
+
+            }
+        }
+
+        public string CheckUploaderDirectory(string path, UploaderModel model)
+        {
+            string fullpath = string.Empty;
+            fullpath = Path.Combine(path, model.ReportType.ToString(), model.Year.ToString(), model.Month.ToString());
+            if (!Directory.Exists(fullpath))
+            {
+                Directory.CreateDirectory(fullpath);
+            }
+            fullpath = fullpath + "\\" + Path.GetFileName(model.fileupload.FileName);
+            return fullpath;
+        }
+
+        public ActionResult Uploader()
+        {
+            RequestTypeLogic Rtypes = new RequestTypeLogic();
+            var RtypesList = Rtypes.GetAllRequestTypes();
+            ViewBag.RequestTypes = RtypesList;
+            ViewBag.Years = GetYears().OrderByDescending(x => x.Value);
+            ViewBag.Months = GetMonths().OrderByDescending(x => x.Value);
+            return View();
+        }
+        public ActionResult _UploaderDetailsTemp()
+        {
+            List<UploaderModel> reportsList = new List<UploaderModel>();
+            UploaderLogic upmodel = new UploaderLogic();
+            var Reqlist = upmodel.GetAllUploaderDetails().ToList();
+            foreach (var item in Reqlist)
+            {
+                reportsList.Add(
+                               new UploaderModel
+                               {
+                                   UploaderId = item.UploaderId,
+                                   Year = (int)item.Year,
+                                   Month = (int)item.Month,
+                                   ReportType = (int)item.ReportType,
+                                   ApplyTDS = item.ApplyTDS,
+                                   FileName = item.FileName,
+                                   UpdatedDate = (DateTime)item.UpdatedDate,
+                                   ReportTypeName = item.tblReportType.Name,
+                                   InActive = item.InActive,
+                                   StatusId = (int)item.StatusID,
+                                   ReportStatus = item.tblStatu.Name,
+                                   MonthName = CommonLogic.GetMonthName(Convert.ToInt32(item.Month)),
+                                   UnPublishedCount = item.tblCommissionReportNews.Count
+                               }); ;
+            }
+            return PartialView("_UploaderDetailsTemp", reportsList);
+        }
     }
 }
-

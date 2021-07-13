@@ -295,6 +295,16 @@
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Admin\_EditAccountConfiguration.cshtml" />
+    <Content Include="Views\Admin\_AccountConfigurationDetails.cshtml" />
+    <Content Include="Views\Admin\_AddAccountConfiguration.cshtml" />
+    <Content Include="Views\Admin\AccountConfiguration.cshtml" />
+    <Content Include="Views\Admin\AddAccountConfiguration.cshtml" />
+    <Content Include="Views\Admin\EditAccountConfiguration.cshtml" />
+    <Content Include="Views\Reports\DownloadCommissionReportMonthly.cshtml" />
+    <Content Include="Views\Reports\_MonthlyCommissionReport.cshtml" />
+    <Content Include="Views\Admin\UploadCommissionReport.cshtml" />
+    <Content Include="Views\Admin\_UploadCommissionReportMonthly.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -44,7 +44,7 @@ namespace eConnect.Logic
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                var Rtypes = unitOfWork.ReportTypess.GetAllReportType().ToList();
+                var Rtypes = unitOfWork.ReportTypess.GetAllReportType().Where(x=>x.Status==false).ToList();
                 return Rtypes;
             }
         }
@@ -84,12 +84,38 @@ namespace eConnect.Logic
                     sr.ReportTypeName = model.tblReportType.Name;
                     sr.StatusId = (int)model.StatusID;
                     sr.ReportStatus = model.tblStatu.Name;
+                    sr.CreatedDate = model.CreatedDate;
                     sr.UnPublishedCount = model.tblCommissionReportNews.Count;
 
                 }
                 return uploaderdetails;
             }
         }
+        public tblUploader  GetAllUploaderDetailsById(int id)
+        {
+
+            UploaderModel sr = new UploaderModel();
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var model = unitOfWork.Uploaders.Find(x => x.UploaderId==id).FirstOrDefault();
+                {
+                    sr.ReportType = (int)model.ReportType;
+                    sr.Year = (int)model.Year;
+                    sr.Month = (int)model.Month;
+                    sr.UploaderId = model.UploaderId;
+                    sr.ApplyTDS = model.ApplyTDS;
+                    sr.FileName = model.FileName;
+                    sr.FileSource = model.FileSource;
+                    sr.ReportTypeName = model.tblReportType.Name;
+                    sr.StatusId = (int)model.StatusID;
+                    sr.ReportStatus = model.tblStatu.Name;
+                    sr.UnPublishedCount = model.tblCommissionReportNews.Count;
+
+                }
+                return model;
+            }
+        }
+
         public IList<tblUploader> GetAllUploaderFilesByYearMonthAndType(string reporttype, string year, string month)
         {
 
@@ -162,6 +188,18 @@ namespace eConnect.Logic
 
             }
         }
+
+        public void UpdateUploaderStatus(int uploaderid,int statusId)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var data = unitOfWork.Uploaders.Find(x => x.UploaderId == uploaderid).FirstOrDefault();
+                data.StatusID = statusId;
+                data.UpdatedDate = DateTime.Now;
+                unitOfWork.Uploaders.Update(data);
+
+            }
+        }
         public bool CheckExistingFile(int year, int month, int reporttype)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
@@ -217,6 +255,8 @@ public class BusinessLogic
     }
 
 }
+
+
 
 public class AccountConfigurationLogic
 {

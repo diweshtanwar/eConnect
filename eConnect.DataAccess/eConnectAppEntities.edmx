@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="eConnectAppEntitie1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="eConnectAppEntitie1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblAnnouncement">
           <Key>
             <PropertyRef Name="AnnouncementId" />
@@ -110,6 +110,24 @@
           <Property Name="NoOfTransactions" Type="decimal" Precision="18" Scale="4" />
           <Property Name="Commission" Type="decimal" Precision="18" Scale="4" />
           <Property Name="UploaderId" Type="int" />
+        </EntityType>
+        <EntityType Name="tblCommissionReportMonthly">
+          <Key>
+            <PropertyRef Name="MonthlyCommissionReportID" />
+          </Key>
+          <Property Name="MonthlyCommissionReportID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CSPCode" Type="varchar" MaxLength="100" />
+          <Property Name="CSPName" Type="varchar" MaxLength="200" />
+          <Property Name="Transation" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Incentive" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Rural" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TDS" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PayableToCSP" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NetPayable" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="Month" Type="int" />
+          <Property Name="Year" Type="int" />
+          <Property Name="UploaderId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tblCommissionReportNew">
           <Key>
@@ -273,9 +291,9 @@
           <Property Name="MenuSubId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MenuMainId" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" />
-          <Property Name="Tittle" Type="varchar" MaxLength="20" />
-          <Property Name="Controller" Type="varchar" MaxLength="30" />
-          <Property Name="Action" Type="varchar" MaxLength="30" />
+          <Property Name="Tittle" Type="varchar" MaxLength="40" />
+          <Property Name="Controller" Type="varchar" MaxLength="40" />
+          <Property Name="Action" Type="varchar" MaxLength="40" />
           <Property Name="Description" Type="varchar" MaxLength="50" />
           <Property Name="Status" Type="bit" />
           <Property Name="Priority" Type="int" />
@@ -567,6 +585,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblCommissionReportMonthly_tblUploader">
+          <End Role="tblUploader" Type="Self.tblUploader" Multiplicity="1" />
+          <End Role="tblCommissionReportMonthly" Type="Self.tblCommissionReportMonthly" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUploader">
+              <PropertyRef Name="UploaderId" />
+            </Principal>
+            <Dependent Role="tblCommissionReportMonthly">
+              <PropertyRef Name="UploaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblCommissionReportNew_tblUploader">
           <End Role="tblUploader" Type="Self.tblUploader" Multiplicity="0..1" />
           <End Role="tblCommissionReportNew" Type="Self.tblCommissionReportNew" Multiplicity="*" />
@@ -819,42 +849,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblUserDetail_tblUsers">
-          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="0..1" />
-          <End Role="tblUserDetail" Type="Self.tblUserDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUsers">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblUserDetail">
-              <PropertyRef Name="UpdatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblUserDetail_tblUsers1">
-          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="0..1" />
-          <End Role="tblUserDetail" Type="Self.tblUserDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUsers">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblUserDetail">
-              <PropertyRef Name="CreaterdBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblUserDetail_tblUsers2">
-          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="0..1" />
-          <End Role="tblUserDetail" Type="Self.tblUserDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUsers">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblUserDetail">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblUsers_tblRoleMaster">
           <End Role="tblRoleMaster" Type="Self.tblRoleMaster" Multiplicity="0..1" />
           <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="*" />
@@ -876,42 +870,6 @@
             </Principal>
             <Dependent Role="tblUsers">
               <PropertyRef Name="Status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblUsers_tblUsers">
-          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="0..1" />
-          <End Role="tblUsers1" Type="Self.tblUsers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUsers">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblUsers1">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblUsers_tblUsers1">
-          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="0..1" />
-          <End Role="tblUsers1" Type="Self.tblUsers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUsers">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblUsers1">
-              <PropertyRef Name="UpdatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblUsers_tblUsers2">
-          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="1" />
-          <End Role="tblUsers1" Type="Self.tblUsers" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="tblUsers">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblUsers1">
-              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -968,6 +926,11 @@
           <Parameter Name="Month" Type="int" Mode="In" />
           <Parameter Name="CSPCode" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_GetMonthlyCommissionReportByYearMonthandCSPCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Year" Type="int" Mode="In" />
+          <Parameter Name="Month" Type="int" Mode="In" />
+          <Parameter Name="CSPCode" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_PublishCommissionReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UploaderId" Type="int" Mode="In" />
         </Function>
@@ -980,6 +943,7 @@
           <EntitySet Name="tblCity" EntityType="Self.tblCity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCommissionReport" EntityType="Self.tblCommissionReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCommissionReportMain" EntityType="Self.tblCommissionReportMain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCommissionReportMonthly" EntityType="Self.tblCommissionReportMonthly" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCommissionReportNew" EntityType="Self.tblCommissionReportNew" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCommissionReportTransactionType" EntityType="Self.tblCommissionReportTransactionType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblConfiguration" EntityType="Self.tblConfiguration" Schema="dbo" store:Type="Tables" />
@@ -1027,6 +991,10 @@
           <AssociationSet Name="FK_tblCommissionReportMain_tblUploader" Association="Self.FK_tblCommissionReportMain_tblUploader">
             <End Role="tblUploader" EntitySet="tblUploader" />
             <End Role="tblCommissionReportMain" EntitySet="tblCommissionReportMain" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCommissionReportMonthly_tblUploader" Association="Self.FK_tblCommissionReportMonthly_tblUploader">
+            <End Role="tblUploader" EntitySet="tblUploader" />
+            <End Role="tblCommissionReportMonthly" EntitySet="tblCommissionReportMonthly" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCommissionReportNew_tblUploader" Association="Self.FK_tblCommissionReportNew_tblUploader">
             <End Role="tblUploader" EntitySet="tblUploader" />
@@ -1112,18 +1080,6 @@
             <End Role="tblCity" EntitySet="tblCity" />
             <End Role="tblUserDetail" EntitySet="tblUserDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblUserDetail_tblUsers" Association="Self.FK_tblUserDetail_tblUsers">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblUserDetail" EntitySet="tblUserDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUserDetail_tblUsers1" Association="Self.FK_tblUserDetail_tblUsers1">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblUserDetail" EntitySet="tblUserDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUserDetail_tblUsers2" Association="Self.FK_tblUserDetail_tblUsers2">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblUserDetail" EntitySet="tblUserDetail" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblUsers_tblRoleMaster" Association="Self.FK_tblUsers_tblRoleMaster">
             <End Role="tblRoleMaster" EntitySet="tblRoleMaster" />
             <End Role="tblUsers" EntitySet="tblUsers" />
@@ -1131,18 +1087,6 @@
           <AssociationSet Name="FK_tblUsers_tblStatus" Association="Self.FK_tblUsers_tblStatus">
             <End Role="tblStatus" EntitySet="tblStatus" />
             <End Role="tblUsers" EntitySet="tblUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUsers_tblUsers" Association="Self.FK_tblUsers_tblUsers">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblUsers1" EntitySet="tblUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUsers_tblUsers1" Association="Self.FK_tblUsers_tblUsers1">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblUsers1" EntitySet="tblUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUsers_tblUsers2" Association="Self.FK_tblUsers_tblUsers2">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblUsers1" EntitySet="tblUsers" />
           </AssociationSet>
           <AssociationSet Name="FK_tblWithdrawalRequest_tblStatus" Association="Self.FK_tblWithdrawalRequest_tblStatus">
             <End Role="tblStatus" EntitySet="tblStatus" />
@@ -1161,8 +1105,7 @@
             <End Role="tblTechRequest" EntitySet="tblTechRequest" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="eConnectAppEntitie1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1453,9 +1396,9 @@
           <Property Name="MenuSubId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MenuMainId" Type="Int32" Nullable="false" />
           <Property Name="RoleId" Type="Int32" />
-          <Property Name="Tittle" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Controller" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Action" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Tittle" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Controller" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Action" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="Priority" Type="Int32" />
@@ -1594,6 +1537,7 @@
           <NavigationProperty Name="tblStatu" Relationship="Self.FK_tblUploader_tblStatus" FromRole="tblUploader" ToRole="tblStatus" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblUploader_tblUsers" FromRole="tblUploader" ToRole="tblUsers" />
           <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblUploader_tblUsers1" FromRole="tblUploader" ToRole="tblUsers" />
+          <NavigationProperty Name="tblCommissionReportMonthlies" Relationship="eConnectAppEntitie1.FK_tblCommissionReportMonthly_tblUploader" FromRole="tblUploader" ToRole="tblCommissionReportMonthly" />
         </EntityType>
         <EntityType Name="tblUserCSPDetail">
           <Key>
@@ -2393,7 +2337,17 @@
             <Parameter Name="CSPCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_PublishCommissionReport">
-            <Parameter Name="UploaderId" Mode="In" Type="Int32" />
+          <Parameter Name="UploaderId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tblCommissionReportMonthlies" EntityType="eConnectAppEntitie1.tblCommissionReportMonthly" />
+          <AssociationSet Name="FK_tblCommissionReportMonthly_tblUploader" Association="eConnectAppEntitie1.FK_tblCommissionReportMonthly_tblUploader">
+            <End Role="tblUploader" EntitySet="tblUploaders" />
+            <End Role="tblCommissionReportMonthly" EntitySet="tblCommissionReportMonthlies" />
+          </AssociationSet>
+          <FunctionImport Name="sp_GetMonthlyCommissionReportByYearMonthandCSPCode" ReturnType="Collection(eConnectAppEntitie1.sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result)">
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="Month" Mode="In" Type="Int32" />
+            <Parameter Name="CSPCode" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_GetCommissionReportByYearMonthandCSPName_Result">
@@ -2405,6 +2359,52 @@
           <Property Type="Decimal" Name="IncludingTDS" Nullable="true" Precision="38" Scale="6" />
           <Property Type="Decimal" Name="CSPCommission" Nullable="true" Precision="18" Scale="0" />
           <Property Type="Decimal" Name="Total" Nullable="true" Precision="18" Scale="4" />
+        </ComplexType>
+        <EntityType Name="tblCommissionReportMonthly">
+          <Key>
+            <PropertyRef Name="MonthlyCommissionReportID" />
+          </Key>
+          <Property Name="MonthlyCommissionReportID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CSPCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CSPName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Transation" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Incentive" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Rural" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TDS" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PayableToCSP" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NetPayable" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Month" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="UploaderId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblUploader" Relationship="eConnectAppEntitie1.FK_tblCommissionReportMonthly_tblUploader" FromRole="tblCommissionReportMonthly" ToRole="tblUploader" />
+        </EntityType>
+        <Association Name="FK_tblCommissionReportMonthly_tblUploader">
+          <End Type="eConnectAppEntitie1.tblUploader" Role="tblUploader" Multiplicity="1" />
+          <End Type="eConnectAppEntitie1.tblCommissionReportMonthly" Role="tblCommissionReportMonthly" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUploader">
+              <PropertyRef Name="UploaderId" />
+            </Principal>
+            <Dependent Role="tblCommissionReportMonthly">
+              <PropertyRef Name="UploaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result">
+          <Property Type="Int64" Name="MonthlyCommissionReportID" Nullable="false" />
+          <Property Type="String" Name="CSPCode" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="CSPName" Nullable="true" MaxLength="200" />
+          <Property Type="Decimal" Name="Transation" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Incentive" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Rural" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Total" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TDS" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="PayableToCSP" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="NetPayable" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="Int32" Name="Month" Nullable="true" />
+          <Property Type="Int32" Name="Year" Nullable="true" />
+          <Property Type="Int32" Name="UploaderId" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2980,6 +2980,44 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_PublishCommissionReport" FunctionName="eConnectAppEntitie1.Store.sp_PublishCommissionReport" />
+          <EntitySetMapping Name="tblCommissionReportMonthlies">
+            <EntityTypeMapping TypeName="eConnectAppEntitie1.tblCommissionReportMonthly">
+              <MappingFragment StoreEntitySet="tblCommissionReportMonthly">
+                <ScalarProperty Name="UploaderId" ColumnName="UploaderId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="NetPayable" ColumnName="NetPayable" />
+                <ScalarProperty Name="PayableToCSP" ColumnName="PayableToCSP" />
+                <ScalarProperty Name="TDS" ColumnName="TDS" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Rural" ColumnName="Rural" />
+                <ScalarProperty Name="Incentive" ColumnName="Incentive" />
+                <ScalarProperty Name="Transation" ColumnName="Transation" />
+                <ScalarProperty Name="CSPName" ColumnName="CSPName" />
+                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
+                <ScalarProperty Name="MonthlyCommissionReportID" ColumnName="MonthlyCommissionReportID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetMonthlyCommissionReportByYearMonthandCSPCode" FunctionName="eConnectAppEntitie1.Store.sp_GetMonthlyCommissionReportByYearMonthandCSPCode">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="eConnectAppEntitie1.sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result">
+                <ScalarProperty Name="MonthlyCommissionReportID" ColumnName="MonthlyCommissionReportID" />
+                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
+                <ScalarProperty Name="CSPName" ColumnName="CSPName" />
+                <ScalarProperty Name="Transation" ColumnName="Transation" />
+                <ScalarProperty Name="Incentive" ColumnName="Incentive" />
+                <ScalarProperty Name="Rural" ColumnName="Rural" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="TDS" ColumnName="TDS" />
+                <ScalarProperty Name="PayableToCSP" ColumnName="PayableToCSP" />
+                <ScalarProperty Name="NetPayable" ColumnName="NetPayable" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="UploaderId" ColumnName="UploaderId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

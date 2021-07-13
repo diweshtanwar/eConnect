@@ -32,10 +32,13 @@ namespace eConnect.DataAccess
         IList<tblConfiguration> GetAllConfiguration();
         void DeleteRecord(int id);
     }
+       
 
-    //public interface IRoleMasterRepository : IRepository<tblRoleMaster>
-    //{
-    //    IList<tblRoleMaster> GetAllRoleMaster();
-    //    void DeleteRecord(int id);
-    //}
+    public interface ICommissionReportMonthlyRepository : IRepository<tblCommissionReportMonthly>
+    {
+        IList<tblCommissionReportMonthly> GetAllMonthlyCommissionReport();
+        IList<sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result> GetMonthlyCommissionReport(int year, int month, string cspcode);
+        void DeleteRecord(int id);
+    }
+
 }

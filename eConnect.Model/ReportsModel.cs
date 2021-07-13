@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace eConnect.Model
 {
@@ -50,5 +51,27 @@ namespace eConnect.Model
         public decimal TDS { get; set; }
         public decimal PayableToCSP { get; set; }
         public string Message { get; set; }
+    }
+
+    public class CommissionReportMonthlyModel
+    {
+        public long MonthlyCommissionReportID { get; set; }
+        public string CSPCode { get; set; }
+        public string CSPName { get; set; }
+        public string CSPCategory { get; set; }
+        public decimal Transation { get; set; }
+        public Nullable<decimal> Incentive { get; set; }
+        public Nullable<decimal> Rural { get; set; }
+        public Nullable<decimal> Total { get; set; }
+        public Nullable<decimal> TDS { get; set; }
+        public Nullable<decimal> PayableToCSP { get; set; }
+        public Nullable<decimal> NetPayable { get; set; }
+        public Nullable<int> Month { get; set; }
+        public Nullable<int> Year { get; set; }
+        public int UploaderId { get; set; }
+        public string Message { get; set; }
+
+        public Nullable<decimal> TotalTransaction { get; set; }
+
     }
 }

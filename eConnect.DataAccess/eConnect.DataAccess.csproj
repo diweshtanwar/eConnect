@@ -100,6 +100,9 @@
     <Compile Include="sp_GetCommissionReportByYearMonthandCSPName_Result.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblAnnouncement.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
@@ -122,6 +125,9 @@
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblCommissionReportMain.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCommissionReportMonthly.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblCommissionReportNew.cs">

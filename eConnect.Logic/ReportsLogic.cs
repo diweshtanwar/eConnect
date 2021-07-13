@@ -71,14 +71,43 @@ namespace eConnect.Logic
             }
         }
 
-
-        public void Save()
+        public IList<tblCommissionReportMonthly> GetMonthlyCommissionReport()
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                unitOfWork.ApplicationSettings.Save();
+                var lst = unitOfWork.CommissionReportMonthly.GetAllMonthlyCommissionReport().ToList();
+                return lst;
+            }
+        }
+
+
+        public IList<sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result> GetMonthlyCommissionReportByMonth(int year, int month, string cspcode)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var lst = unitOfWork.CommissionReportMonthly.GetMonthlyCommissionReport(year,month,cspcode).ToList();
+                return lst;
+            }
+        }
+
+        //public IList<tblCommissionReportMonthly> GetMonthlyCommissionReportByYearMonthandCSBCode()
+        //{
+        //    using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+        //    {
+        //        var lst = unitOfWork.CommissionReportMonthly.GetAllMonthlyCommissionReport().ToList();
+        //        return lst;
+        //    }
+        //}
+
+
+        public void DeleteRecord(int id)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                unitOfWork.CommissionReportMonthly.DeleteRecord(id);
 
             }
         }
+
     }
 }

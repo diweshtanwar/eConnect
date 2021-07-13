@@ -34,7 +34,11 @@ namespace eConnect.DataAccess
         public IMenuRepository Menus { get; private set; }
         public IUserCSPDetailRepository UserCSPDetail { get; private set; }
         public ICommissionReportNewRepository CommissionReportNews { get; private set; }
-        public IAnnouncementRepository Announcement { get; private set; }
+        public IAnnouncementRepository Announcement { get; private set; }     
+
+        public ICommissionReportMonthlyRepository CommissionReportMonthly { get; private set; }
+     
+
         public UserDetail UserDetail { get; private set; }
         public UnitOfWork(eConnectAppEntities context)
         {
@@ -62,6 +66,7 @@ namespace eConnect.DataAccess
             CommissionReportNews = new CommissionReportNewRepository(_context);
             Announcement = new AnnouncementRepository(_context);
             UserDetail = new UserDetail(_context);
+            CommissionReportMonthly = new CommissionReportMonthlyRepository(_context);
         }
 
         public int Complete()

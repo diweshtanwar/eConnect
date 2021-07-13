@@ -82,6 +82,8 @@
         <AssociationConnector Association="eConnectAppEntitie1.FK_tblUsers_tblUsers2" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppEntitie1.FK_tblWithdrawalRequest_tblUsers" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppEntitie1.FK_tblWithdrawalRequest_tblUsers1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="eConnectAppEntitie1.tblCommissionReportMonthly" Width="1.5" PointX="8.25" PointY="32.125" />
+        <AssociationConnector Association="eConnectAppEntitie1.FK_tblCommissionReportMonthly_tblUploader" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

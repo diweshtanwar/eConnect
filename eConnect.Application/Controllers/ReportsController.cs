@@ -57,7 +57,7 @@ namespace eConnect.Application.Controllers
                                           CommissionIncludingTDS = (decimal)item.IncludingTDS,
                                           Commissionpercentage = (decimal)item.CSPCommission,
                                           TotalCommission = (decimal)item.Total,
-                                          Message = "Commission For" + monthname +" ," + year,
+                                          Message = "Commission For" + monthname + " ," + year,
 
                                       });
                     }
@@ -70,10 +70,10 @@ namespace eConnect.Application.Controllers
                                             Message = "Commission Report For" + " " + "Year: " + year + " , Month: " + monthname
                                         });
                 }
-                
+
                 return PartialView("_CommissionReport", products);
             }
-            catch (Exception )
+            catch (Exception ex)
             {
 
             }
@@ -114,5 +114,73 @@ namespace eConnect.Application.Controllers
             }
             return new SelectList(ddlMonths, "Value", "Text", CurrentMonth);
         }
+
+
+        public ActionResult DownloadCommissionReportMonthly()
+        {
+            //string FilePath = @"C:\Users\dilpr\OneDrive\Desktop\Proj Docs\EGRAMIN TRANSCATION WISE COMISSION MAY-202.xlsx";
+
+            //InsertExcelRecords(FilePath);
+            StatusLogic sl = new StatusLogic();
+            var Statuslist = sl.GetAllStatus();
+            ViewBag.Statuslist = Statuslist;
+            ViewBag.Years = GetYears().OrderByDescending(x => x.Value);
+            ViewBag.Months = GetMonths().OrderByDescending(x => x.Value);
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DownloadCommissionReportMonthly(int year, int month, string cspcode, string status)
+        {
+            try
+            {
+                ReportsLogic cl = new ReportsLogic();
+                List<CommissionReportMonthlyModel> products = new List<CommissionReportMonthlyModel>();
+                var Reqlist = cl.GetMonthlyCommissionReportByMonth(year, month, cspcode).ToList();
+                string monthname = CommonLogic.GetMonthName(Convert.ToInt32(month));
+
+                if (Reqlist.Count > 0)
+                {
+                    foreach (var item in Reqlist)
+                    {
+                        products.Add(
+                                      new CommissionReportMonthlyModel
+                                      {
+                                          CSPCode = item.CSPCode,
+                                          CSPName = item.CSPName,
+                                          MonthlyCommissionReportID = item.MonthlyCommissionReportID,
+                                          Transation =Convert.ToDecimal(item.Transation),
+                                          Incentive = item.Incentive,
+                                          Rural = item.Rural,
+                                          Total = item.Total,
+                                          TDS = item.TDS,
+                                          PayableToCSP = item.PayableToCSP,
+                                          NetPayable = item.NetPayable,
+                                          Month = item.Month,
+                                          Year = item.Year,
+                                          UploaderId = item.UploaderId,
+                                          Message = "Commission Report " + " " + " Year: " + year + " , Month: " + monthname
+                                      });
+                    }
+                }
+                else
+                {
+                    products.Add(
+                                        new CommissionReportMonthlyModel
+                                        {
+                                            Message = "Commission Report " + " " + " Year: " + year + " , Month: " + monthname
+                                        });
+                }
+
+                return PartialView("_MonthlyCommissionReport", products);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
+        }
+
+
+
     }
 }

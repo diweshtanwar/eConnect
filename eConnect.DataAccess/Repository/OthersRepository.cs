@@ -102,4 +102,38 @@ namespace eConnect.DataAccess
     }
 
 
+
+
+    public class CommissionReportMonthlyRepository : Repository<tblCommissionReportMonthly>, ICommissionReportMonthlyRepository
+    {
+        public CommissionReportMonthlyRepository(eConnectAppEntities appcontext) : base(appcontext)
+        {
+        }
+        public eConnectAppEntities eConnectAppEntities
+        {
+            get { return Context as eConnectAppEntities; }
+        }
+
+        public IList<tblCommissionReportMonthly> GetAllMonthlyCommissionReport()
+        {
+            return eConnectAppEntities.tblCommissionReportMonthlies.ToList();
+        }
+
+        public IList<sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result> GetMonthlyCommissionReport(int year, int month, string cspcode)
+        {
+
+            var EE = eConnectAppEntities.sp_GetMonthlyCommissionReportByYearMonthandCSPCode(year, month, cspcode);
+            return EE.ToList();
+        }
+
+
+        public void DeleteRecord(int id)
+        {
+            var rec = eConnectAppEntities.tblCommissionReportMonthlies.Where(x => x.MonthlyCommissionReportID == id).SingleOrDefault();
+            eConnectAppEntities.tblCommissionReportMonthlies.Remove(rec);
+            eConnectAppEntities.SaveChanges();
+        }
+    }
+
+
 }
