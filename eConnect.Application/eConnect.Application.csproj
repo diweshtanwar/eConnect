@@ -175,7 +175,6 @@
     <Compile Include="Controllers\PartialController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SAdminController.cs" />
-    <Compile Include="Controllers\tblUsersController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -286,7 +285,6 @@
     <Content Include="Views\CSP\EditCSPProfile.cshtml" />
     <Content Include="Views\Admin\Dashboard.cshtml" />
     <Content Include="Views\CSP\Dashboard.cshtml" />
-    <Content Include="Views\Test\IndexImage.cshtml" />
     <Content Include="Views\Reports\DownloadCommissionReport.cshtml" />
     <Content Include="Views\Reports\_CommissionReport.cshtml" />
     <Content Include="Views\Admin\EditCommissionRecord.cshtml" />
@@ -298,10 +296,6 @@
     <Content Include="Views\tblUsers\Edit.cshtml" />
     <Content Include="Views\tblUsers\Index.cshtml" />
     <Content Include="Views\Users\UpdateAccount.cshtml" />
-    <Content Include="Views\Admin\AccountConfiguration.cshtml" />
-    <Content Include="Views\Admin\_AccountConfigurationDetails.cshtml" />
-    <Content Include="Views\Admin\EditAccountConfiguration.cshtml" />
-    <Content Include="Views\Admin\AddAccountConfiguration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
