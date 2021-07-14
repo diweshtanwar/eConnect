@@ -307,6 +307,7 @@
     <Content Include="Views\Admin\_UploadCommissionReportMonthly.cshtml" />
     <Content Include="Views\Partial\_GetAnnouncementMessage.cshtml" />
     <Content Include="Views\Partial\_GetAnnouncementDetail.cshtml" />
+    <Content Include="Views\SAdmin\EditRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

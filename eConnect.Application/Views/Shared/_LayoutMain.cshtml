@@ -77,10 +77,8 @@
                     <div class="sidebar-brand sidebar-brand-sm">
                         <a href="Dashboard.html"><img src="~/Content/HTML/img/favicon.png" alt=""></a>
                     </div>
-                    @if (!String.IsNullOrEmpty(Session["UserTypeId"].ToString()))
-                    {
-                        Html.RenderAction("_GetAppMenu", "Partial", new { UserTypeId = Session["UserTypeId"] }); 
-                    }
+                   
+                    @{ Html.RenderAction("_GetAppMenu", "Partial"); }
 
                 </aside>
             </div>
