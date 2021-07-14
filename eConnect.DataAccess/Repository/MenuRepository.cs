@@ -33,5 +33,11 @@ namespace eConnect.DataAccess
         {
             return eConnectAppEntities.tblMenuMains.Where(d=>d.MenuMainId==Id).Where(d => d.Status == true).ToList();
         }
+
+        public IEnumerable<sp_GetAppMenuWithSubMenu_Result> GetAppMenuWithSubMenu(int userTypeId)
+        {
+            var data = eConnectAppEntities.sp_GetAppMenuWithSubMenu(userTypeId).ToList();
+            return data;
+        }
     }
 }

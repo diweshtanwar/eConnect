@@ -10,11 +10,20 @@ namespace eConnect.Logic
    public class AnnouncementLogic
     {
 
-        public List<tblAnnouncement> GetAnnouncement()
+        public string GetAnnouncementMessage()
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                var data = unitOfWork.Announcement.GetAnnouncement().ToList();
+                var data = unitOfWork.Announcement.GetAnnouncementMessage();
+                return data;
+            }
+        }
+
+        public string GetAnnouncementDetail()
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var data = unitOfWork.Announcement.GetAnnouncementDetail();
                 return data;
             }
         }

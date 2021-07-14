@@ -35,6 +35,7 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblCity> tblCities { get; set; }
         public virtual DbSet<tblCommissionReport> tblCommissionReports { get; set; }
         public virtual DbSet<tblCommissionReportMain> tblCommissionReportMains { get; set; }
+        public virtual DbSet<tblCommissionReportMonthly> tblCommissionReportMonthlies { get; set; }
         public virtual DbSet<tblCommissionReportNew> tblCommissionReportNews { get; set; }
         public virtual DbSet<tblCommissionReportTransactionType> tblCommissionReportTransactionTypes { get; set; }
         public virtual DbSet<tblConfiguration> tblConfigurations { get; set; }
@@ -67,7 +68,15 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblUserStatu> tblUserStatus { get; set; }
         public virtual DbSet<tblWebFeedback> tblWebFeedbacks { get; set; }
         public virtual DbSet<tblWithdrawalRequest> tblWithdrawalRequests { get; set; }
-        public virtual DbSet<tblCommissionReportMonthly> tblCommissionReportMonthlies { get; set; }
+    
+        public virtual ObjectResult<sp_GetAppMenuWithSubMenu_Result> sp_GetAppMenuWithSubMenu(Nullable<int> roleId)
+        {
+            var roleIdParameter = roleId.HasValue ?
+                new ObjectParameter("RoleId", roleId) :
+                new ObjectParameter("RoleId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetAppMenuWithSubMenu_Result>("sp_GetAppMenuWithSubMenu", roleIdParameter);
+        }
     
         public virtual ObjectResult<sp_GetCommissionReportByYearMonthandCSPName_Result> sp_GetCommissionReportByYearMonthandCSPName(Nullable<int> year, Nullable<int> month, string cSPCode)
         {
@@ -86,15 +95,6 @@ namespace eConnect.DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetCommissionReportByYearMonthandCSPName_Result>("sp_GetCommissionReportByYearMonthandCSPName", yearParameter, monthParameter, cSPCodeParameter);
         }
     
-        public virtual int sp_PublishCommissionReport(Nullable<int> uploaderId)
-        {
-            var uploaderIdParameter = uploaderId.HasValue ?
-                new ObjectParameter("UploaderId", uploaderId) :
-                new ObjectParameter("UploaderId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_PublishCommissionReport", uploaderIdParameter);
-        }
-    
         public virtual ObjectResult<sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result> sp_GetMonthlyCommissionReportByYearMonthandCSPCode(Nullable<int> year, Nullable<int> month, string cSPCode)
         {
             var yearParameter = year.HasValue ?
@@ -110,6 +110,15 @@ namespace eConnect.DataAccess
                 new ObjectParameter("CSPCode", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result>("sp_GetMonthlyCommissionReportByYearMonthandCSPCode", yearParameter, monthParameter, cSPCodeParameter);
+        }
+    
+        public virtual int sp_PublishCommissionReport(Nullable<int> uploaderId)
+        {
+            var uploaderIdParameter = uploaderId.HasValue ?
+                new ObjectParameter("UploaderId", uploaderId) :
+                new ObjectParameter("UploaderId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_PublishCommissionReport", uploaderIdParameter);
         }
     }
 }

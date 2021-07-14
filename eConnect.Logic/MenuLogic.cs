@@ -44,5 +44,23 @@ namespace eConnect.Logic
 
             }
         }
+
+        public IEnumerable<sp_GetAppMenuWithSubMenu_Result> GetMenuWithSubMenuByRoleId(int userTypeId)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+
+                var data = unitOfWork.Menus.GetAppMenuWithSubMenu(userTypeId);
+                if (data != null)
+                {
+                    return data;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+        }
     }
 }

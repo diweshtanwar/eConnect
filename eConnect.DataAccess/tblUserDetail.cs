@@ -34,8 +34,5 @@ namespace eConnect.DataAccess
         public Nullable<int> UserId { get; set; }
     
         public virtual tblCity tblCity { get; set; }
-        public virtual tblUser tblUser { get; set; }
-        public virtual tblUser tblUser1 { get; set; }
-        public virtual tblUser tblUser2 { get; set; }
     }
 }

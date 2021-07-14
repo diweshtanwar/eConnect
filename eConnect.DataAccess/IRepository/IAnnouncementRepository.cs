@@ -8,6 +8,7 @@ namespace eConnect.DataAccess
 {
   public  interface IAnnouncementRepository : IRepository<tblAnnouncement>
     {
-       IList< tblAnnouncement> GetAnnouncement();
+       string GetAnnouncementMessage();
+       string GetAnnouncementDetail();
     }
 }

@@ -36,8 +36,11 @@
                                 <div class="notification">
                                     <marquee behavior="scroll" scrollamount="5" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
                                         <span>
-                                            <a href="#" data-toggle="modal" data-target="#newsdetail"> New Branch of SBI CSP Coming in Dispur, Assam</a>
-                                        </span> <span> Inauguration of Nagaon CSP has been done on 17.04.2021</span>
+                                            <a href="#" data-toggle="modal" data-target="#newsdetail">
+                                                @{ Html.RenderAction("_GetAnnouncementMessage", "Partial"); }
+                                            </a>
+                                            <span>   @{ Html.RenderAction("_GetAnnouncementMessage", "Partial"); }</span>
+                                        </span>
                                     </marquee>
                                 </div>
                             </div>
@@ -103,11 +106,7 @@
             <div class="modal-content">
 
                 <div class="modal-body p-4">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor<br> incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                    <p>
-                        Our strong network presence in all the nook and corners of North-Eastern region. Our mission is to bring convenience to the consumer's doorstep, enabling them to access a diversified range of B2C services through a vibrant delivery
-                        mechanism by developing rural level entrepreneurs.
-                    </p>
+                    @{ Html.RenderAction("_GetAnnouncementDetail", "Partial"); }
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning px-4 text-white" data-dismiss="modal">Close</button>

@@ -10,7 +10,8 @@ namespace eConnect.DataAccess
    public interface IMenuRepository
     {
         IEnumerable<tblMenuMain> GetAllMenuMain();
-        IEnumerable<tblMenuMain> GetAllMenuMainWithSubMenu(int userTypeId);    
+        IEnumerable<tblMenuMain> GetAllMenuMainWithSubMenu(int userTypeId);
+        IEnumerable<sp_GetAppMenuWithSubMenu_Result> GetAppMenuWithSubMenu(int userTypeId);
         IEnumerable<tblMenuMain> GetMenuMainByID(long id);
     }
 }

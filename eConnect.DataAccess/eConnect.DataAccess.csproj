@@ -97,6 +97,9 @@
     <Compile Include="Repository\UserLoginLogRepository.cs" />
     <Compile Include="Repository\TechSupportProblemRepository.cs" />
     <Compile Include="Repository\TransactionsRequest.cs" />
+    <Compile Include="sp_GetAppMenuWithSubMenu_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_GetCommissionReportByYearMonthandCSPName_Result.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>

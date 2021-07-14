@@ -4,8 +4,11 @@
 }
 
     <ul class="sidebar-menu">
+
         @foreach (var itemMain in Model)
         {
+            if (itemMain.Status==true)
+            {
 
         <li class="nav-item dropdown">
             <a href="/@itemMain.Controller/@itemMain.Action" class="nav-link has-dropdown" data-toggle="dropdown"><i class="mdi mdi-file-chart-outline"></i><span>@itemMain.Tittle</span></a>
@@ -14,13 +17,18 @@
                 <ul class="dropdown-menu">
                     @foreach (var itemSub in itemMain.tblMenuSubs)
                     {
-                        <li><a class="nav-link" href="/@itemSub.Controller/@itemSub.Action">@itemSub.Tittle</a></li>
+                        if (itemSub.Status == true)
+                        {
+                            <li><a class="nav-link" href="/@itemSub.Controller/@itemSub.Action">@itemSub.Tittle</a></li>
+
+                        }
 
                     }
                 </ul>
             }
-            </li>
+        </li>
 
+            }
         }
     </ul>
             

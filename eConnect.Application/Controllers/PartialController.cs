@@ -19,11 +19,18 @@ namespace eConnect.Application.Controllers
             return View(objMenuLogic.GetAllMenuMainWithSubMenuByRoleId(UserTypeId).Where(d=>d.Status==true).OrderBy(d=>d.Priority));
         }
         [ChildActionOnly]
-        public ActionResult _GetAnnouncement()
+        public ActionResult _GetAnnouncementMessage()
+        {
+            AnnouncementLogic objAnnouncementLogic = new AnnouncementLogic();         
+           ViewBag.AnnouncementMessage = objAnnouncementLogic.GetAnnouncementMessage();
+            return View();
+        }
+
+        [ChildActionOnly]
+        public ActionResult _GetAnnouncementDetail()
         {
             AnnouncementLogic objAnnouncementLogic = new AnnouncementLogic();
-          var data=   objAnnouncementLogic.GetAnnouncement();
-            ViewBag.NotificationDetails = "";
+            ViewBag.AnnouncementDetail = objAnnouncementLogic.GetAnnouncementDetail();
             return View();
         }
         // GET: Partial

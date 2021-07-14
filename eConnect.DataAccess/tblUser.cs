@@ -24,11 +24,6 @@ namespace eConnect.DataAccess
             this.tblTechRequests2 = new HashSet<tblTechRequest>();
             this.tblUploaders = new HashSet<tblUploader>();
             this.tblUploaders1 = new HashSet<tblUploader>();
-            this.tblUserDetails = new HashSet<tblUserDetail>();
-            this.tblUserDetails1 = new HashSet<tblUserDetail>();
-            this.tblUserDetails2 = new HashSet<tblUserDetail>();
-            this.tblUsers1 = new HashSet<tblUser>();
-            this.tblUsers11 = new HashSet<tblUser>();
             this.tblWithdrawalRequests = new HashSet<tblWithdrawalRequest>();
             this.tblWithdrawalRequests1 = new HashSet<tblWithdrawalRequest>();
         }
@@ -61,20 +56,6 @@ namespace eConnect.DataAccess
         public virtual ICollection<tblUploader> tblUploaders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblUploader> tblUploaders1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblUserDetail> tblUserDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblUserDetail> tblUserDetails1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblUserDetail> tblUserDetails2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblUser> tblUsers1 { get; set; }
-        public virtual tblUser tblUser1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblUser> tblUsers11 { get; set; }
-        public virtual tblUser tblUser2 { get; set; }
-        public virtual tblUser tblUsers12 { get; set; }
-        public virtual tblUser tblUser3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblWithdrawalRequest> tblWithdrawalRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

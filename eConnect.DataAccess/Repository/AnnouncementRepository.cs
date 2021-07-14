@@ -17,11 +17,14 @@ namespace eConnect.DataAccess
         {
             get { return Context as eConnectAppEntities; }
         }
-        public IList<tblAnnouncement> GetAnnouncement()
+        public string GetAnnouncementMessage()
         {
-            return eConnectAppEntities.tblAnnouncements.Where(d=>d.Status==true).ToList();
+            return eConnectAppEntities.tblAnnouncements.Where(d => d.Status == true).Select(d => d.Message).FirstOrDefault().ToString();
         }
-
+        public string GetAnnouncementDetail()
+        {
+            return eConnectAppEntities.tblAnnouncements.Where(d => d.Status == true).Select(d => d.Detail).FirstOrDefault().ToString();
+        }
     }
 }
 
