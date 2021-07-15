@@ -21,50 +21,56 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.CSPName, htmlAttributes: new { @class = "" })
-                            @Html.EditorFor(model => model.CSPName, new { htmlAttributes = new { @class =  "form-control", @readonly = "readonly" } })
+                            @Html.EditorFor(model => model.CSPName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.CSPCode, htmlAttributes: new { @class = "" })
-                            @Html.EditorFor(model => model.CSPCode, new { htmlAttributes = new { @class =  "form-control", @readonly = "readonly" } })
+                            @Html.EditorFor(model => model.CSPCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.BranchCode, htmlAttributes: new { @class = "" })
-                            @Html.EditorFor(model => model.BranchCode, new { htmlAttributes = new { @class =  "form-control", @readonly = "readonly" } })
+                            @Html.EditorFor(model => model.BranchCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "" })
-                            @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class =  "form-control", @readonly = "readonly" } })
+                            @Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "" })                           
+                           @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                          
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.BankName, htmlAttributes: new { @class = "required-field" })
+                        @Html.EditorFor(model => model.BankName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    
 
+                    </div>
                     <div class="col-md-4">
                         @Html.LabelFor(model => model.BankAccount, htmlAttributes: new { @class = "" })
-                        @Html.EditorFor(model => model.BankAccount, new { htmlAttributes = new { @class =  "form-control", @readonly = "readonly" } })
+                        @Html.EditorFor(model => model.BankAccount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.IFSC, htmlAttributes: new { @class = "" })
-                            @Html.EditorFor(model => model.IFSC, new { htmlAttributes = new { @class =  "form-control", @readonly = "readonly" } })
+                            @Html.EditorFor(model => model.IFSC, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.CertificateStatus, htmlAttributes: new { @class = "" })
-                            @Html.EditorFor(model => model.CertificateStatus, new { htmlAttributes = new { @class =  "form-control", @readonly = "readonly" } })
+                            @Html.EditorFor(model => model.CertificateStatus, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "" })
-                            @Html.DropDownList("Status", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                            @Html.DropDownList("Status", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly",@disabled = "disabled" })
                         </div>
                     </div>
                 </div>
@@ -90,21 +96,21 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "" })
-                            @Html.DropDownList("Country", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                            @Html.DropDownList("Country", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" , @disabled = "disabled" })
 
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "" })
-                            @Html.DropDownList("State", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                            @Html.DropDownList("State", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
 
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "" })
-                            @Html.DropDownList("City", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                            @Html.DropDownList("City", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
 
                         </div>
                     </div>
@@ -165,7 +171,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "required-field" })
+                            @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "" })
 
                             @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                          
@@ -174,7 +180,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "required-field" })
+                            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "" })
 
                             @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 

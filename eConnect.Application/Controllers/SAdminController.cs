@@ -138,7 +138,7 @@ namespace eConnect.Application.Controllers
             RoleMasterLogic RMaster = new RoleMasterLogic();
             RMaster.InsertRoleMaster(model);
             TempData["Message"] = "Record updated successfully.";
-            return RedirectToAction("CreateRole");
+            return RedirectToAction("RoleDetails");
         }
         public ActionResult RoleDetails()
         {

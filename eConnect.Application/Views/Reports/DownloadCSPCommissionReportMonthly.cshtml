@@ -1,11 +1,11 @@
 ﻿
-
 @{
-    ViewBag.Title = "Download Commission Report";
+    ViewBag.Title = "DownloadCommissionReportMonthly";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-@using (Html.BeginForm("DownloadCommissionReport", "Reports", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+@using (Html.BeginForm("DownloadCSPCommissionReportMonthly", "Reports", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <style type="text/css">
@@ -28,9 +28,8 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <h6 class="text-primary mb-3"> Download Commission Report </h6>
+                <h6 class="text-primary mb-3"> Download Report </h6>
                 <div class="row">
-
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.Label(" Year")
@@ -43,31 +42,21 @@
                             @Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text"), new { id = "Month", @class = "form-control" })
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @Html.Label("CSP Code")
-                            <div class="input-group ">
-                                <input type="text" id="CSPCode" name="CSPCode" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="my-4 text-right">
                     <button class="btn btn-primary px-4" type="button" onclick="LoadData()">Search</button>
-
                 </div>
             </div>
         </div>
-        <div id="RequestDetailsList">
+        <div id="MonthlyReport" class="card">
         </div>
         <div class="ajax-loader">
             <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
         </div>
-
     </section>
 }
 <div>
-    @Html.ActionLink("Cancel", "DownloadCommissionReport")
+    @Html.ActionLink("Cancel", "DownloadCSPCommissionReportMonthly")
 
 </div>
 @if (TempData["Message"] != null)
@@ -80,18 +69,15 @@
 }
 <script type="text/javascript">
     function LoadData() {
-        $('#RequestDetailsList').html('');
+        $('#MonthlyReport').html('');
         var Selyear = document.getElementById("Year");
         var year = Selyear.options[Selyear.selectedIndex].value;
         var Selmonth = document.getElementById("Month");
         var month = Selmonth.options[Selmonth.selectedIndex].value;
-         var SelStatus = document.getElementById("Status");
-        var Status = "1";//SelStatus.options[SelStatus.selectedIndex].value;
-        var CSPCode = $('#CSPCode').val();
-         $.ajax({
+            $.ajax({
                 type: "POST",
-                url: '@Url.Action("DownloadCommissionReport","Reports")',
-            data: { year: year, month: month, cspcode: CSPCode, status: Status },
+                url: '@Url.Action("DownloadCSPCommissionReportMonthly", "Reports")',
+            data: { year: year, month: month },
              dataType: 'html',
              beforeSend: function () {
                  $('.ajax-loader').css("visibility", "visible");
@@ -100,8 +86,9 @@
                  $('.ajax-loader').css("visibility", "hidden");
              },
                 success: function (data) {
-                    $('#RequestDetailsList').html(data);
+                    $('#MonthlyReport').html(data);
                 }
             });
     }
 </script>
+

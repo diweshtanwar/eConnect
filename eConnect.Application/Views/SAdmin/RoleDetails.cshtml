@@ -6,9 +6,13 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-@using (@Html.BeginForm("RoleDetails", "SuperAdmin", FormMethod.Get))
+@using (@Html.BeginForm("RoleDetails", "SAdmin", FormMethod.Get))
 {@Html.AntiForgeryToken()
 <section class="section">
+    <p>
+        @Html.ActionLink("Create New", "CreateRole")
+
+    </p>
     <div class="card">
         <div class="card-body">
             <h6 class="text-primary mb-3"> Search Role</h6>
@@ -36,7 +40,7 @@
                 });
     </script>
 }
-}
+
 <script type="text/javascript">
     $(document).ready(function () {
         LoadData()

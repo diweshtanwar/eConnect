@@ -25,28 +25,32 @@
             }
     </style>
     @Html.AntiForgeryToken()
-    <section class="section">
-        <div class="card">
-            <div class="card-body">
-                <h6 class="text-primary mb-3"> Account Configuration </h6>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @Html.Label("Select Business")
-                            @Html.DropDownListFor(o => o.BusinessId, new SelectList(ViewBag.BusinessList, "BusinessId", "Name"), "Select Type", new { id = "BusinessId", @class = "form-control" })
-                        </div>
+<section class="section">
+    <p>
+        @Html.ActionLink("Create New", "AddAccountConfiguration")
+
+    </p>
+    <div class="card">
+        <div class="card-body">
+            <h6 class="text-primary mb-3"> Account Configuration </h6>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.Label("Select Business")
+                        @Html.DropDownListFor(o => o.BusinessId, new SelectList(ViewBag.BusinessList, "BusinessId", "Name"), "Select Type", new { id = "BusinessId", @class = "form-control" })
                     </div>
                 </div>
-                <div class="my-4 text-right">
-                    <button class="btn btn-primary px-4" type="button" onclick="LoadData()">Search</button>
-                </div>
+            </div>
+            <div class="my-4 text-right">
+                <button class="btn btn-primary px-4" type="button" onclick="LoadData()">Search</button>
             </div>
         </div>
-        <div id="AccountConfigurationDetailsList" class="card"></div>
-        <div class="ajax-loader">
-            <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
-        </div>
-    </section>
+    </div>
+    <div id="AccountConfigurationDetailsList" class="card"></div>
+    <div class="ajax-loader">
+        <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
+    </div>
+</section>
 }
 <div>
     @Html.ActionLink("Cancel", "AccountConfiguration")

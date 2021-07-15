@@ -10,33 +10,58 @@ namespace eConnect.Model
 {
   public  class UserCSPDetail
     {
+       
         public int CSPId { get; set; }
+        [Required]
         public string CSPName { get; set; }
+        [Required]
         public string CSPCode { get; set; }
+        [Required]
         public string BranchCode { get; set; }
+        [Required]
 
         //[DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
         public Nullable<System.DateTime> ExpiryDate { get; set; }
+        [Required]
         public string BankName { get; set; }
+        [Required]
         public string BankAccount { get; set; }
+        [Required]
         public string IFSC { get; set; }
+        [Required]
         public string CertificateStatus { get; set; }
+        [Required]
         public Nullable<int> Status { get; set; }
+        [Required]
         public string FatherName { get; set; }
+        [Required]
         public string MotherName { get; set; }
+        [Required]
         public Nullable<int> Country { get; set; }
+        [Required]
         public Nullable<int> State { get; set; }
+        [Required]
         public Nullable<int> City { get; set; }
+        [Required]
         public string Location { get; set; }
+        [Required]
         public string Category { get; set; }
+        [Required]
         public string PAN { get; set; }
+        [Required]
         public string VoterId { get; set; }
+        [Required]
         public string AadharNo { get; set; }
+        [Required]
         public string Education { get; set; }
+        [Required]
         public string Email { get; set; }
+        [Required]
         public string Mobile { get; set; }
+        [Required]
         public string EmergencyContactNumber { get; set; }
+       
         public HttpPostedFileBase PassportSizePhoto { get; set; }
         public string PassportSizePhotoName { get; set; }
 

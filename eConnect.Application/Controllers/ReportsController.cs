@@ -182,5 +182,133 @@ namespace eConnect.Application.Controllers
 
 
 
+        public ActionResult DownloadCSPCommissionReport()
+        {
+            StatusLogic sl = new StatusLogic();
+            var Statuslist = sl.GetAllStatus();
+            ViewBag.Statuslist = Statuslist;
+            ViewBag.Years = GetYears().OrderByDescending(x => x.Value);
+            ViewBag.Months = GetMonths().OrderByDescending(x => x.Value);
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DownloadCSPCommissionReport(int year, int month, string status)
+        {
+            try
+            {
+                int cspid = Convert.ToInt32(Session["UserSourceId"]);
+                UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+                UserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID((int)cspid);
+                string cspcode = UserCSPDetail.CSPCode;
+
+                ReportsLogic cl = new ReportsLogic();
+                List<DownloadTransactionCommissionModel> products = new List<DownloadTransactionCommissionModel>();
+                var Reqlist = cl.DownloadCommissionReport(year, month, cspcode, status).ToList();
+                string monthname = CommonLogic.GetMonthName(Convert.ToInt32(month));
+
+                if (Reqlist.Count > 0)
+                {
+                    foreach (var item in Reqlist)
+                    {
+                        products.Add(
+                                      new DownloadTransactionCommissionModel
+                                      {
+                                          CSPCode = item.CSPCode,
+                                          // NoOfTransaction = (decimal)item.NoOfTransactions,
+                                          NoOfTransaction = item.NoOfTransactions,
+                                          TransactionType = item.TransactionType,
+                                          Commission = (decimal)item.ActualCommission,
+                                          CommissionIncludingTDS = (decimal)item.IncludingTDS,
+                                          Commissionpercentage = (decimal)item.CSPCommission,
+                                          TotalCommission = (decimal)item.Total,
+                                          Message = "Commission For " + monthname + " ," + year,
+
+                                      });
+                    }
+                }
+                else
+                {
+                    products.Add(
+                                        new DownloadTransactionCommissionModel
+                                        {
+                                            Message = "Commission Report For " + " " + "Year: " + year + " , Month: " + monthname
+                                        });
+                }
+
+                return PartialView("_CommissionReport", products);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
+        }
+
+        public ActionResult DownloadCSPCommissionReportMonthly()
+        {
+            StatusLogic sl = new StatusLogic();
+            var Statuslist = sl.GetAllStatus();
+            ViewBag.Statuslist = Statuslist;
+            ViewBag.Years = GetYears().OrderByDescending(x => x.Value);
+            ViewBag.Months = GetMonths().OrderByDescending(x => x.Value);
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult DownloadCSPCommissionReportMonthly(int year, int month, string status)
+        {
+            try
+            {
+                int cspid = Convert.ToInt32(Session["UserSourceId"]);
+                UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+                UserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID((int)cspid);
+                string cspcode = UserCSPDetail.CSPCode;
+                ReportsLogic cl = new ReportsLogic();
+                List<CommissionReportMonthlyModel> products = new List<CommissionReportMonthlyModel>();
+                var Reqlist = cl.GetMonthlyCommissionReportByMonth(year, month, cspcode).ToList();
+                string monthname = CommonLogic.GetMonthName(Convert.ToInt32(month));
+
+                if (Reqlist.Count > 0)
+                {
+                    foreach (var item in Reqlist)
+                    {
+                        products.Add(
+                                      new CommissionReportMonthlyModel
+                                      {
+                                          CSPCode = item.CSPCode,
+                                          CSPName = item.CSPName,
+                                          MonthlyCommissionReportID = item.MonthlyCommissionReportID,
+                                          Transation = Convert.ToDecimal(item.Transation),
+                                          Incentive = item.Incentive,
+                                          Rural = item.Rural,
+                                          Total = item.Total,
+                                          TDS = item.TDS,
+                                          PayableToCSP = item.PayableToCSP,
+                                          NetPayable = item.NetPayable,
+                                          Month = item.Month,
+                                          Year = item.Year,
+                                          UploaderId = item.UploaderId,
+                                          Message = "Commission Report " + " " + " Year: " + year + " , Month: " + monthname
+                                      });
+                    }
+                }
+                else
+                {
+                    products.Add(
+                                        new CommissionReportMonthlyModel
+                                        {
+                                            Message = "Commission Report " + " " + " Year: " + year + " , Month: " + monthname
+                                        });
+                }
+
+                return PartialView("_MonthlyCommissionReport", products);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
+        }
     }
 }

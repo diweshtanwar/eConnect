@@ -269,11 +269,11 @@ namespace eConnect.Application.Controllers
                     TempData["Message"] = "Record Updated successfully.";
 
                 }
-
+                return RedirectToAction("AccountConfiguration");
             }
 
+
             return View();
-            //return null;
         }
         public ActionResult AccountConfiguration()
         {

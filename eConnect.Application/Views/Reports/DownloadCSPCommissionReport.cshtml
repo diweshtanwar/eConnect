@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-@using (Html.BeginForm("DownloadCommissionReport", "Reports", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("DownloadCSPCommissionReport", "Reports", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <style type="text/css">
@@ -43,31 +43,21 @@
                             @Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text"), new { id = "Month", @class = "form-control" })
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @Html.Label("CSP Code")
-                            <div class="input-group ">
-                                <input type="text" id="CSPCode" name="CSPCode" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="my-4 text-right">
                     <button class="btn btn-primary px-4" type="button" onclick="LoadData()">Search</button>
-
                 </div>
             </div>
         </div>
         <div id="RequestDetailsList">
         </div>
-        <div class="ajax-loader">
-            <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
-        </div>
-
     </section>
+    <div class="ajax-loader">
+        <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
+    </div>
 }
 <div>
-    @Html.ActionLink("Cancel", "DownloadCommissionReport")
+    @Html.ActionLink("Cancel", "DownloadCSPCommissionReport")
 
 </div>
 @if (TempData["Message"] != null)
@@ -85,13 +75,11 @@
         var year = Selyear.options[Selyear.selectedIndex].value;
         var Selmonth = document.getElementById("Month");
         var month = Selmonth.options[Selmonth.selectedIndex].value;
-         var SelStatus = document.getElementById("Status");
-        var Status = "1";//SelStatus.options[SelStatus.selectedIndex].value;
-        var CSPCode = $('#CSPCode').val();
+        var Status = "1";
          $.ajax({
                 type: "POST",
-                url: '@Url.Action("DownloadCommissionReport","Reports")',
-            data: { year: year, month: month, cspcode: CSPCode, status: Status },
+                url: '@Url.Action("DownloadCSPCommissionReport","Reports")',
+             data: { year: year, month: month, status: Status},
              dataType: 'html',
              beforeSend: function () {
                  $('.ajax-loader').css("visibility", "visible");

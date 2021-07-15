@@ -17,7 +17,12 @@ namespace eConnect.Application.Controllers
         {
             int UserTypeId = (int)Session["UserTypeId"];
             MenuLogic objMenuLogic = new MenuLogic();
-            return View(objMenuLogic.GetAllMenuMainWithSubMenuByRoleId(UserTypeId).Where(d=>d.Status==true).OrderBy(d=>d.Priority));
+            var data = objMenuLogic.GetAllMenuMainWithSubMenuByRoleId(UserTypeId);
+            if (!(data==null))
+            {
+                return View(data);
+            }
+            return View();
         }
         [ChildActionOnly]
         public ActionResult _GetAnnouncementMessage()

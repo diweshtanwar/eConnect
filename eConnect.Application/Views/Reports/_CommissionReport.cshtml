@@ -70,19 +70,20 @@
                                 @Html.DisplayFor(modelItem => item.TransactionType)
                             </td>
                             <td>
-                                @item.NoOfTransaction
+                                @Html.DisplayFor(modelItem => item.NoOfTransaction)
                             </td>
                             <td>
-                                @item.Commission
+
+                                @Html.DisplayFor(modelItem => item.Commission)
                             </td>
                             <td>
-                                @item.CommissionIncludingTDS
+                                @Html.DisplayFor(modelItem => item.CommissionIncludingTDS)
                             </td>
                             <td>
-                                @item.Commissionpercentage
+                                @Html.DisplayFor(modelItem => item.Commissionpercentage)
                             </td>
                             <td>
-                                @item.TotalCommission
+                                @Html.DisplayFor(modelItem => item.TotalCommission)
                             </td>
                         </tr>
                         TotalCommission = @TotalCommission + Convert.ToDecimal(@item.TotalCommission);
@@ -96,37 +97,6 @@
                             @TotalCommission
                         </td>
                     </tr>
-
-                    <!--<tr>
-                        <td colspan="5" style="text-align:right">Total</td>
-                        <td colspan="3">
-                            TotalTDS
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" style="text-align:right">TDS(-) - 3.75%</td>
-                        <td colspan="3">
-
-                            { double tds = 0.0375;
-                                TotalTDSPercentage = (TotalTDS * tds);
-                                TotalTDSPercentage
-                            }-
-
-
-                    @*@TotalTDSPercentage*@
-                    <!--</td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" style="text-align:right">NET Payable</td>
-                        <td colspan="3">
-                            {}
-                                TotalPayable = (TotalTDS - TotalTDSPercentage);
-                            }
-                            TotalPayable
-                        </td>
-                    </tr>-->
-
-
                     <tr>
                         <td colspan="4"></td>
                         <td colspan="4" style="text-align:center">
@@ -137,9 +107,9 @@
                                     <td>
                                         @{ double tds = 0.0375;
                                             TotalTDSPercentage = (@TotalTDS * tds);
+
                                             @TotalTDSPercentage
                                         }
-
                                     </td>
                                 </tr>
                                 <tr>
