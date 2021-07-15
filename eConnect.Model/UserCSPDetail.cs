@@ -21,7 +21,7 @@ namespace eConnect.Model
         [Required]
 
         //[DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy}")]
         public Nullable<System.DateTime> ExpiryDate { get; set; }
         [Required]
         public string BankName { get; set; }

@@ -80,7 +80,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.CertificateStatus, htmlAttributes: new { @class = "required-field" })
-                            @Html.EditorFor(model => model.CertificateStatus, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.DropDownList("CertificateStatus", null, htmlAttributes: new { @class = "form-control" })
+                            @*@Html.EditorFor(model => model.CertificateStatus, new { htmlAttributes = new { @class = "form-control" } })*@
                             @Html.ValidationMessageFor(model => model.CertificateStatus, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -89,7 +90,7 @@
                             @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "required-field" })
                             @*@Html.DropDownList("Status", (IEnumerable<SelectListItem>)ViewBag.Status, new { @class = "form-control" })*@
                             @Html.DropDownList("Status", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
-                            @*@Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })*@
+                            @Html.HiddenFor(model => model.Status, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                             @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                         </div>
                     </div>
