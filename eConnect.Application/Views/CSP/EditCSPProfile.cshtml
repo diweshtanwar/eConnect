@@ -302,7 +302,7 @@
                     </div>
                     @if (Model.CertificateStatus=="Yes")
                     {                    
-                    <div class="col-md-4">
+                    <div id="CertificationImageStatus" class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "required-field" })
                             <input type="file" id="IIBFCertificationImage" name="IIBFCertificationImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
