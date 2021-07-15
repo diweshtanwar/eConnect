@@ -263,20 +263,23 @@
                         }
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "" })
+                @if (Model.CertificateStatus == "Yes")
+                {
+                    <div id="CertificationImageStatus" class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "" })
 
-                        @Html.EditorFor(model => model.IIBFCertificationImageName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                        @if (!string.IsNullOrEmpty(Model.IIBFCertificationImageName))
-                        {
-                            <a href="@Url.Content(IIBFCertificationImagePath)" target="_blank">PreviewImage</a>
-                        }
-                        else
-                        { <span style="color:red;">No image uploaded.</span>
-                        }
+                            @Html.EditorFor(model => model.IIBFCertificationImageName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @if (!string.IsNullOrEmpty(Model.IIBFCertificationImageName))
+                            {
+                                <a href="@Url.Content(IIBFCertificationImagePath)" target="_blank">PreviewImage</a>
+                            }
+                            else
+                            { <span style="color:red;">No image uploaded.</span>
+                            }
+                        </div>
                     </div>
-                </div>
+                }
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()

@@ -303,21 +303,24 @@
                             }
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "" })
-                            <input type="file" id="IIBFCertificationImage" name="IIBFCertificationImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
+                    @if (Model.CertificateStatus == "Yes")
+                    {
+                        <div id="CertificationImageStatus" class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "" })
+                                <input type="file" id="IIBFCertificationImage" name="IIBFCertificationImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
 
-                            @Html.ValidationMessageFor(model => model.IIBFCertificationImage, "", new { @class = "text-danger" })
-                            @if (!string.IsNullOrEmpty(Model.IIBFCertificationImageName))
-                            {
-                                <a href="@Url.Content(IIBFCertificationImagePath)" target="_blank">PreviewImage</a>
-                            }
-                            else
-                            { <span style="color:red;">No image uploaded.</span>
-                            }
+                                @Html.ValidationMessageFor(model => model.IIBFCertificationImage, "", new { @class = "text-danger" })
+                                @if (!string.IsNullOrEmpty(Model.IIBFCertificationImageName))
+                                {
+                                    <a href="@Url.Content(IIBFCertificationImagePath)" target="_blank">PreviewImage</a>
+                                }
+                                else
+                                { <span style="color:red;">No image uploaded.</span>
+                                }
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
 
                 <div class="my-4 text-right">

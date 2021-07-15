@@ -29,21 +29,21 @@
                         </a>
                     </li>
                 </ul>
-                <div class="d-flex mr-3">                  
+                <div class="d-flex mr-3">
                     <h5 class="mr-3">
                         @ViewBag.Title
                     </h5>
-                                <div class="notification">
-                                    <marquee behavior="scroll" scrollamount="5" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
-                                        <span>
-                                            <a href="#" data-toggle="modal" data-target="#newsdetail">
-                                                @{ Html.RenderAction("_GetAnnouncementMessage", "Partial"); }
-                                            </a>
-                                            <span>   @{ Html.RenderAction("_GetAnnouncementMessage", "Partial"); }</span>
-                                        </span>
-                                    </marquee>
-                                </div>
-                            </div>
+                    <div class="notification">
+                        <marquee behavior="scroll" scrollamount="5" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+                            <span>
+                                <a href="#" data-toggle="modal" data-target="#newsdetail">
+                                    @{ Html.RenderAction("_GetAnnouncementMessage", "Partial"); }
+                                </a>
+                                <span>   @{ Html.RenderAction("_GetAnnouncementMessage", "Partial"); }</span>
+                            </span>
+                        </marquee>
+                    </div>
+                </div>
 
                 <ul class="navbar-nav navbar-right ml-auto">
 
@@ -77,7 +77,7 @@
                     <div class="sidebar-brand sidebar-brand-sm">
                         <a href="Dashboard.html"><img src="~/Content/HTML/img/favicon.png" alt=""></a>
                     </div>
-                   
+
                     @{ Html.RenderAction("_GetAppMenu", "Partial"); }
 
                 </aside>
@@ -330,7 +330,22 @@
 
     </script>
 
+    <script type="text/javascript">
+        $(function () {
+            if ($('#CertificateStatus').val() != 'Yes') {
+                $('#CertificationImageStatus').hide();
+            }
 
+            $('#CertificateStatus').change(function () {
+                if ($(this).val() != 'Yes') {
+                    $('#CertificationImageStatus').hide();
+                } else {
+                    $('#CertificationImageStatus').show();
+                }
+            });
+        });
+
+    </script>
 </body>
 
 </html>

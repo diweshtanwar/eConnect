@@ -198,11 +198,11 @@
                             @*@Html.ActionLink("PreviewImage", "PreviewImage", new { id = Model.CSPId, fileName = Model.PassportSizePhoto, folderName = "PassportSizePhoto" })*@
                             @if (!string.IsNullOrEmpty(Model.PassportSizePhotoName))
                             {
-                            <a href="@Url.Content(PassportSizePhotoPath)" target="_blank">PreviewImage</a>
+                                <a href="@Url.Content(PassportSizePhotoPath)" target="_blank">PreviewImage</a>
                             }
                             else
                             { <span style="color:red;">No image uploaded.</span>
-                            }                            
+                            }
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -223,10 +223,10 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.PANImage, htmlAttributes: new { @class = "" })
                             @Html.EditorFor(model => model.PANImageName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                            
+
                             @if (!string.IsNullOrEmpty(Model.PANImageName))
                             {
-                            <a href="@Url.Content(PANImagePath)" target="_blank">PreviewImage</a>
+                                <a href="@Url.Content(PANImagePath)" target="_blank">PreviewImage</a>
                             }
                             else
                             { <span style="color:red;">No image uploaded.</span>
@@ -251,31 +251,34 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.LatestEducationProofImage, htmlAttributes: new { @class = "" })
                             @Html.EditorFor(model => model.LatestEducationProofImageName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                            
+
                             @if (!string.IsNullOrEmpty(Model.LatestEducationProofImageName))
                             {
-                            <a href="@Url.Content(LatestEducationProofImagePath)" target="_blank">PreviewImage</a>
+                                <a href="@Url.Content(LatestEducationProofImagePath)" target="_blank">PreviewImage</a>
                             }
                             else
                             { <span style="color:red;">No image uploaded.</span>
                             }
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "" })
+                    @if (Model.CertificateStatus == "Yes")
+                    {
+                        <div id="CertificationImageStatus" class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "" })
 
-                            @Html.EditorFor(model => model.IIBFCertificationImageName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.EditorFor(model => model.IIBFCertificationImageName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
-                            @if (!string.IsNullOrEmpty(Model.IIBFCertificationImageName))
-                            {
-                                <a href="@Url.Content(IIBFCertificationImagePath)" target="_blank">PreviewImage</a>
-                            }
-                            else
-                            { <span style="color:red;">No image uploaded.</span>
-                            }
+                                @if (!string.IsNullOrEmpty(Model.IIBFCertificationImageName))
+                                {
+                                    <a href="@Url.Content(IIBFCertificationImagePath)" target="_blank">PreviewImage</a>
+                                }
+                                else
+                                { <span style="color:red;">No image uploaded.</span>
+                                }
+                            </div>
                         </div>
-                    </div>
+                    }
                     <div>
                         @Html.ActionLink("Edit", "Edit", new { id = Model.CSPId }) |
                         @Html.ActionLink("Cancel", "Index")
