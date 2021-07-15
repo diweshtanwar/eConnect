@@ -65,7 +65,7 @@
                             @Html.DisplayFor(modelItem => item.MonthName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ReportTypeName)   
+                            @Html.DisplayFor(modelItem => item.ReportTypeName)
 
                         </td>
                         <td>
@@ -78,11 +78,11 @@
                             @Html.DisplayFor(modelItem => item.ReportStatus)
                         </td>
                         <td>
-                            @if (item.StatusId == 5)
+                            @if (item.StatusId == 6)
                             {
                                 <span>Report  Published</span>
-                                }
-                            else if (item.StatusId == 4)
+                            }
+                            else if (item.StatusId == 5)
                             {
                                 if (item.InActive == false)
                                 {
@@ -95,13 +95,19 @@
                             }
                         </td>
                         <td>
-                            @if (item.StatusId == 5)
+                            @if (item.StatusId == 6)
                             {
                                 if (item.UnPublishedCount > 0)
                                 {
-                                    @Html.ActionLink("View Unpublished Records", "ViewUnPublishedRecords", new { id = item.UploaderId }, null)}
+                                    @Html.ActionLink("View Unpublished Records", "ViewUnPublishedRecords", new { id = item.UploaderId }, null)
+                                }
+                                else
+                                {
+                                    <span style = "color:forestgreen;" > @Html.ActionLink("View Report", "DownloadCommissionReportMonthly", "Reports", new { }, new { target = "_blank" }) </span >
+
+                                }
                             }
-                            @if (item.StatusId == 4)
+                            @if (item.StatusId == 5)
                             {
                                 if (item.InActive == false)
                                 {
@@ -115,7 +121,7 @@
                             }
                         </td>
                     </tr>
-count++;
+                    count++;
                 }
             </tbody>
         </table>

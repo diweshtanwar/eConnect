@@ -847,7 +847,9 @@ namespace eConnect.Application.Controllers
             var Reqlist = upmodel.GetAllUploaderDetails().ToList();
             foreach (var item in Reqlist)
             {
-                reportsList.Add(
+                if (item.tblReportType.Status == false)
+                {
+                    reportsList.Add(
                                new UploaderModel
                                {
                                    UploaderId = item.UploaderId,
@@ -857,13 +859,15 @@ namespace eConnect.Application.Controllers
                                    ApplyTDS = item.ApplyTDS,
                                    FileName = item.FileName,
                                    UpdatedDate = (DateTime)item.UpdatedDate,
+                                   CreatedDate = (DateTime)item.CreatedDate,
                                    ReportTypeName = item.tblReportType.Name,
                                    InActive = item.InActive,
                                    StatusId = (int)item.StatusID,
                                    ReportStatus = item.tblStatu.Name,
                                    MonthName = CommonLogic.GetMonthName(Convert.ToInt32(item.Month)),
                                    UnPublishedCount = item.tblCommissionReportNews.Count
-                               }); ;
+                               });
+                }
             }
             return PartialView("_UploaderDetailsTemp", reportsList);
         }

@@ -27,7 +27,7 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <h6 class="text-primary mb-3"> Upload </h6>
+                <h6 class="text-primary mb-3"> Upload Report</h6>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -52,15 +52,16 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.fileupload, htmlAttributes: new { @class = "required-field" })
-                            <input type="file" id="fileupload" name="fileupload" class="btn btn-outline-primary btn-block fileup-btn" onchange="CheckFile(this)" />
+                            <input type="file" id="fileupload" name="fileupload" class="btn btn-outline-primary btn-block fileup-btn" onchange="CheckExcelFile(this)" />
                             @Html.ValidationMessageFor(model => model.fileupload, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-4" id="trTDS" style="display:none;">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.ApplyTDS, htmlAttributes: new { @class = "required-field" })
+                            @Html.LabelFor(model => model.ApplyTDS, htmlAttributes: new { @class = "required-field"})
                             <div class="input-group ">
-                                @Html.EditorFor(model => model.ApplyTDS, new { htmlAttributes = new { @class = "form-control" } })
+                                @*@Html.EditorFor(model => model.ApplyTDS, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.TextBoxFor(model => model.ApplyTDS, new { @Value = "3.75" , @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.ApplyTDS, "", new { @class = "text-danger" })
                             </div>
                         </div>
