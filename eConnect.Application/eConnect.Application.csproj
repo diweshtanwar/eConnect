@@ -46,9 +46,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.7.10\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -170,13 +177,16 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CSPController.cs" />
+    <Compile Include="Controllers\DepositRequestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PartialController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SAdminController.cs" />
+    <Compile Include="Controllers\TechSupportRequestController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\WithdrawRequestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -436,6 +446,12 @@
     <Content Include="Content\HTML\scss\_functions.scss" />
     <Content Include="Content\HTML\scss\_mixin.scss" />
     <Content Include="Content\HTML\scss\_variable.scss" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -548,6 +564,21 @@
     <Content Include="Views\SAdmin\EditRole.cshtml" />
     <Content Include="Views\Reports\DownloadCSPCommissionReport.cshtml" />
     <Content Include="Views\Reports\DownloadCSPCommissionReportMonthly.cshtml" />
+    <Content Include="Views\DepositRequest\Create.cshtml" />
+    <Content Include="Views\DepositRequest\Delete.cshtml" />
+    <Content Include="Views\DepositRequest\Details.cshtml" />
+    <Content Include="Views\DepositRequest\Edit.cshtml" />
+    <Content Include="Views\DepositRequest\Index.cshtml" />
+    <Content Include="Views\TechSupportRequest\Create.cshtml" />
+    <Content Include="Views\TechSupportRequest\Delete.cshtml" />
+    <Content Include="Views\TechSupportRequest\Details.cshtml" />
+    <Content Include="Views\TechSupportRequest\Edit.cshtml" />
+    <Content Include="Views\TechSupportRequest\Index.cshtml" />
+    <Content Include="Views\WithdrawRequest\Create.cshtml" />
+    <Content Include="Views\WithdrawRequest\Delete.cshtml" />
+    <Content Include="Views\WithdrawRequest\Details.cshtml" />
+    <Content Include="Views\WithdrawRequest\Edit.cshtml" />
+    <Content Include="Views\WithdrawRequest\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

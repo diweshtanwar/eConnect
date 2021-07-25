@@ -41,7 +41,6 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblConfiguration> tblConfigurations { get; set; }
         public virtual DbSet<tblCountry> tblCountries { get; set; }
         public virtual DbSet<tblDepartment> tblDepartments { get; set; }
-        public virtual DbSet<tblDepositRequest> tblDepositRequests { get; set; }
         public virtual DbSet<tblDesignation> tblDesignations { get; set; }
         public virtual DbSet<tblDocument> tblDocuments { get; set; }
         public virtual DbSet<tblEducation> tblEducations { get; set; }
@@ -59,7 +58,6 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblScreenRole> tblScreenRoles { get; set; }
         public virtual DbSet<tblState> tblStates { get; set; }
         public virtual DbSet<tblStatu> tblStatus { get; set; }
-        public virtual DbSet<tblTechRequest> tblTechRequests { get; set; }
         public virtual DbSet<tblUploader> tblUploaders { get; set; }
         public virtual DbSet<tblUserCSPDetail> tblUserCSPDetails { get; set; }
         public virtual DbSet<tblUserDetail> tblUserDetails { get; set; }
@@ -67,6 +65,8 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblUserStatu> tblUserStatus { get; set; }
         public virtual DbSet<tblWebFeedback> tblWebFeedbacks { get; set; }
+        public virtual DbSet<tblDepositRequest> tblDepositRequests { get; set; }
+        public virtual DbSet<tblTechRequest> tblTechRequests { get; set; }
         public virtual DbSet<tblWithdrawalRequest> tblWithdrawalRequests { get; set; }
     
         public virtual ObjectResult<sp_GetAppMenuWithSubMenu_Result> sp_GetAppMenuWithSubMenu(Nullable<int> roleId)

@@ -1,0 +1,164 @@
+﻿
+@model IEnumerable<eConnect.DataAccess.tblWithdrawalRequest>
+
+@{ ViewBag.Title = "";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml"; }
+
+<section class="section">
+    <h2>Withdraw Request</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+    @using (@Html.BeginForm("IndexSearch", "WithdrawRequest", FormMethod.Get))
+    {@Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <h4><span class="toggle-collapse" id="toggle" data-toggle="collapse" href="#filter" role="button" aria-expanded="true" aria-controls="filter"></span> Filter</h4>
+        </div>
+        <div class="card-body collapse show" id="filter">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Request Id</label>
+                        <input type="text" id="Requestid" name="Requestid" class="form-control" value="@Request["Requestid"]">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Account Details</label>
+                        <input type="text" id="Requestid" name="Requestid" class="form-control" value="@Request["Account"]">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Request Type</label>
+                        @Html.DropDownList("RequestType", (IEnumerable<SelectListItem>)ViewBag.RequestType, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Requested Date</label>
+                        <input type="date" id="Requesteddte" name="Requesteddte" class="form-control" value="@Request["Requesteddte"]">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Completion Date</label>
+                        <input type="date" id="Completiondte" name="Completiondte" class="form-control" value="@Request["Completiondte"]">
+
+                    </div>
+                </div>
+
+
+                <div class="col-md-3 mt-md-4 pt-1">
+                    @*<button class="btn btn-dark px-4 mr-2">Cancel</button>*@
+                    <button type="submit" class="btn btn-primary px-4">Search</button>
+                </div>
+
+            </div>
+        </div>
+    </div>}
+    <div class="card">
+
+        <div class="card-body">
+
+
+            <div class="table-responsive">
+                <div class="table-actions">
+                    @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
+                </div>
+                <table class="table table-striped" id="table-2">
+                    <thead>
+                        <tr>
+                            <th>
+                                RequestedID
+                                @*@Html.DisplayNameFor(model => model.RequestId)*@
+                            </th>
+                            <th>
+                                RequestedType
+                                @*@Html.DisplayNameFor(model => model.RequestId)*@
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Amount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.RequestedDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CompletionDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Account)
+                            </th>
+                            <th> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.WithdrawalRequestId)
+                            </td>
+
+                            @if (item.RequestType.Equals(1))
+                            {
+                                <td>Withdrawal</td>
+
+                            }
+                            else
+                            {
+                                <td>Deposit</td>
+                            }
+                            @*@Html.DisplayFor(modelItem => item.RequestType)*@
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>
+                                @(item.RequestedDate?.ToString("MM/dd/yyyy"))
+                                @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
+                            </td>
+                            <td>
+                                @(item.CompletionDate?.ToString("MM/dd/yyyy"))
+                                @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
+                            </td>
+                            @if (item.Status.Equals(1))
+                            {
+                                <td>In-Progress</td>
+
+                            }
+                            else if (item.Status.Equals(2))
+                            {
+                                <td>Not Started</td>
+                            }
+                            else if (item.Status.Equals(3))
+                            {
+                                <td>Completed</td>
+                            }
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Account)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.WithdrawalRequestId }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.WithdrawalRequestId }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.WithdrawalRequestId })
+                            </td>
+
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+

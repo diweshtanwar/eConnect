@@ -166,7 +166,7 @@ namespace eConnect.Logic
                 }
                 uploader.FileName = item.fileupload.FileName;
                 uploader.UpdatedDate = DateTime.Now;
-                uploader.StatusID = 4;
+                uploader.StatusID = 5;
                 uploader.InActive = false;
                 uploader.CreatedDate = DateTime.Now;
                 // uploader.UpdatedDate = @Session["UserId"];

@@ -1,0 +1,71 @@
+﻿
+@model eConnect.Model.Deposit
+
+@{ ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml"; }
+
+
+
+@using (Html.BeginForm("Create", "DepositRequest", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+                <section class="section">
+                    <div class="card">
+                        <div class="card-body">
+                            @*<h6 class="text-primary mb-3"> Personal Details</h6>*@
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.RequestType, htmlAttributes: new { @class = "required-field" })
+                                        @Html.DropDownList("RequestType", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.RequestType, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "required-field" })
+                                        @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
+                                        @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "required-field" })
+                                        @Html.DropDownList("Status", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                @*<div class="row">*@
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Reciept, htmlAttributes: new { @class = "required-field" })
+                                            <input type="file" id="Reciept" name="Reciept" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
+                                            @Html.ValidationMessageFor(model => model.Reciept, "", new { @class = "text-danger" })
+
+                                        </div>
+                                    </div>
+
+                                @*</div>*@
+
+                            </div>
+
+                            <div class="my-4 text-right">
+                                <button class="btn btn-primary px-4" type="submit">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>}
+@if (TempData["Message"] != null)
+{
+<script type="text/javascript">
+        $(function () {
+            alert("@TempData["Message"]")
+        });
+</script>
+}
+<div>
+    @Html.ActionLink("Cancel", "Index")
+</div>

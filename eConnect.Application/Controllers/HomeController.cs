@@ -260,77 +260,77 @@ namespace eConnect.Application.Controllers
             //ViewBag.ProblemList = ProblemList;
             return View();
         }
-        [HttpPost]
-        public ActionResult TechSupportRequest(TechSupportRequestModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                TechSupportRequestLogic userLogic = new TechSupportRequestLogic();
-                userLogic.InsertTechSupportRequest(model);
-                TempData["Message"] = "Record submitted successfully.";
-                return RedirectToAction("TechSupportRequest");
-            }
-            else
-            {
-                return RedirectToAction("TechSupportRequest");
-            }
-        }
+        //[HttpPost]
+        //public ActionResult TechSupportRequest(TechSupportRequestModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        TechSupportRequestLogic userLogic = new TechSupportRequestLogic();
+        //        userLogic.InsertTechSupportRequest(model);
+        //        TempData["Message"] = "Record submitted successfully.";
+        //        return RedirectToAction("TechSupportRequest");
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("TechSupportRequest");
+        //    }
+        //}
     
-        [HttpPost]
-        public ActionResult AddDepositDetails(Deposit deposit) //Added by Aditya//
-        {
-            UserLogic ul = new UserLogic();
-            if (Request.Files.Count > 0)
-            {
-                try
-                {
-                    HttpFileCollectionBase files = Request.Files;
-                    for (int i = 0; i < files.Count; i++)
-                    {
-                        HttpPostedFileBase file = files[i];
-                        string fname;
-                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
-                        {
-                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
-                            fname = testfiles[testfiles.Length - 1];
-                        }
-                        else
-                        {
-                            fname = file.FileName;
-                        }
-                        string fpath = string.Empty;
-                        string path = Path.Combine(RootFilePath, "Receipt");
-                        fpath = CheckDirectory(path, "DepositReceipt", file);
-                        file.SaveAs(fpath);
-                        deposit.FileName = fname;
-                        ul.AddDepositDetails(deposit, Convert.ToInt32(Session["UserID"]));
-                    }
-                    return Json("Data Inserted Successfully!");
-                }
-                catch (Exception ex)
-                {
-                    return Json("Error occurred. Error details: " + ex.Message);
-                }
-            }
-            else
-            {
-                return Json("something went wrong");
-            }
-        }
-        [HttpPost]
-        public ActionResult AddWithDrawDetails(Withdraw withdraw)//Added by Aditya//
-        {
-            UserLogic ul = new UserLogic();
-            try
-            {
-                ul.AddWithdrawDetails(withdraw, Convert.ToInt32(Session["UserID"]));
-                return Json("Data Inserted Successfully!");
-            }
-            catch (Exception ex)
-            {
-                return Json("Error occurred. Error details: " + ex.Message);
-            }
+        //[HttpPost]
+        //public ActionResult AddDepositDetails(Deposit deposit) //Added by Aditya//
+        //{
+        //    UserLogic ul = new UserLogic();
+        //    if (Request.Files.Count > 0)
+        //    {
+        //        try
+        //        {
+        //            HttpFileCollectionBase files = Request.Files;
+        //            for (int i = 0; i < files.Count; i++)
+        //            {
+        //                HttpPostedFileBase file = files[i];
+        //                string fname;
+        //                if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+        //                {
+        //                    string[] testfiles = file.FileName.Split(new char[] { '\\' });
+        //                    fname = testfiles[testfiles.Length - 1];
+        //                }
+        //                else
+        //                {
+        //                    fname = file.FileName;
+        //                }
+        //                string fpath = string.Empty;
+        //                string path = Path.Combine(RootFilePath, "Receipt");
+        //                fpath = CheckDirectory(path, "DepositReceipt", file);
+        //                file.SaveAs(fpath);
+        //                deposit.FileName = fname;
+        //                ul.AddDepositDetails(deposit, Convert.ToInt32(Session["UserID"]));
+        //            }
+        //            return Json("Data Inserted Successfully!");
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            return Json("Error occurred. Error details: " + ex.Message);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return Json("something went wrong");
+        //    }
+        //}
+        //[HttpPost]
+        //public ActionResult AddWithDrawDetails(Withdraw withdraw)//Added by Aditya//
+        //{
+        //    UserLogic ul = new UserLogic();
+        //    try
+        //    {
+        //        ul.AddWithdrawDetails(withdraw, Convert.ToInt32(Session["UserID"]));
+        //        return Json("Data Inserted Successfully!");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json("Error occurred. Error details: " + ex.Message);
+        //    }
 
-        }
+        //}
     }
 }

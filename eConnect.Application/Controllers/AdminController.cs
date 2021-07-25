@@ -13,11 +13,13 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Data.OleDb;
+using NLog;
 
 namespace eConnect.Application.Controllers
 {
     public class AdminController : Controller
     {
+        private static Logger logger = LogManager.GetLogger("EConnectLogRules");
         string RootFilePath = System.Web.HttpContext.Current.Server.MapPath(Convert.ToString(ConfigurationManager.AppSettings["RootFilePath"]));
         string UploaderFilePath = System.Web.HttpContext.Current.Server.MapPath(Convert.ToString(ConfigurationManager.AppSettings["UploaderFiles"]));
         List<SelectListItem> ddlMonths = new List<SelectListItem>();
@@ -530,18 +532,24 @@ namespace eConnect.Application.Controllers
         {
             try
             {
+                logger.Info("PublishCommissionReport:Connection Start-");
                 connection();
+                logger.Info("PublishCommissionReport:Connection End-");
                 SqlCommand sqlcomm = new SqlCommand("[dbo].[sp_PublishCommissionReport]");
+                logger.Info("SqlCommand: Call");
                 con.Open();
                 sqlcomm.Connection = con;
                 sqlcomm.CommandType = CommandType.StoredProcedure;
                 sqlcomm.Parameters.AddWithValue("UploaderId", uploaderid);
                 SqlDataReader sdr = sqlcomm.ExecuteReader();
+                logger.Info("SqlCommand: End");
                 con.Close();
                 return Json("Record Updated successfully", JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
+                logger.Error("PublishCommissionReport:-" + " " + uploaderid + " ");
+
                 return null;
             }
         }
@@ -550,7 +558,7 @@ namespace eConnect.Application.Controllers
         {
             UploaderLogic rl = new UploaderLogic();
             rl.DeleteUploaderRecord(uploaderid);
-            TempData["Message"] = "Record Deleted successfully.";
+           // TempData["Message"] = "Record Deleted successfully.";
             return Json("Record Deleted successfully", JsonRequestBehavior.AllowGet);
         }
         public ActionResult EditCommissionRecord(int id)
@@ -585,17 +593,22 @@ namespace eConnect.Application.Controllers
         string constr, Query, sqlconn;
         private void ExcelConn(string FilePath)
         {
+            logger.Info("ExcelConnection creation starts");
             constr = string.Format(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=""Excel 12.0 Xml;HDR=YES;""", FilePath);
             // constr = string.Format(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=""Excel 12.0 Xml;HDR=NO;""", FilePath);
             Econ = new OleDbConnection(constr);
+            logger.Info("ExcelConnection created successfully");
         }
         private void connection()
         {
+            logger.Info("SQL connection creation starts");
             sqlconn = ConfigurationManager.ConnectionStrings["eConnectAppEntitiesExcel"].ConnectionString;
             con = new SqlConnection(sqlconn);
+            logger.Info("SQL connection created successfully");
         }
         private void InsertExcelRecords(string FilePath, int uploaderid)
         {
+            logger.Info("InsertExcelRecords starts with parameters:- FilePath =" + FilePath + " " + "UploaderId-" + uploaderid);
             ExcelConn(FilePath);
             Query = string.Format("Select [Circle],[Circle Name],[BCBF_CODE],[CSP_CODE],[CSP Name],[Transaction Type],[Num Txns / Avg Bal],[Commission]," + uploaderid + " as [uploaderid] FROM [{0}]", "Sheet1$");
             OleDbCommand Ecom = new OleDbCommand(Query, Econ);
@@ -609,6 +622,7 @@ namespace eConnect.Application.Controllers
                 DataTable Exceldt = ds.Tables[0];
                 connection();
                 con.Open();
+                logger.Info("Start mapping Excel file");
                 using (var tran = con.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
                     using (var objbulk = new SqlBulkCopy(con, SqlBulkCopyOptions.Default, tran))
@@ -629,9 +643,12 @@ namespace eConnect.Application.Controllers
                             objbulk.WriteToServerAsync(Exceldt);
                             tran.Commit();
                             con.Close();
+
+                            logger.Info("Complete  Excel file mapping");
                         }
                         catch (Exception ex)
                         {
+                            logger.Error("Error while uploading file :uploader id:-"+ " " + uploaderid +" "+"and FilePath:- "+" "+ FilePath);
                             tran.Rollback();
                             con.Close();
                         }
@@ -639,7 +656,6 @@ namespace eConnect.Application.Controllers
                 }
             }
         }
-
 
         private void InsertCommissionRecordsMonthly(string FilePath, int uploaderid, int year, int month)
         {

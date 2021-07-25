@@ -83,27 +83,48 @@ namespace eConnect.Model
     public class Userinput
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Name is required.")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "FatherName is required.")]
         public string FatherName { get; set; }
+        [Required(ErrorMessage = "MotherName is required.")]
         public string MotherName { get; set; }
+        [Required(ErrorMessage = "Email is required.")]
+        //[DataType(DataType.EmailAddress)]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please enter a valid e-mail adress")]
         public string EmailId { get; set; }
+        [Required(ErrorMessage = "MobileNumber is required.")]
+        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Invalid Mobile Number.")]
+        //[MaxLength(10)]
         public string MobileNumber { get; set; }
+        [Required(ErrorMessage = "Address is required.")]
         public string Address { get; set; }
+        [Required(ErrorMessage = "EmergencyContactNumber is required.")]
+        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Invalid EmergencyContact Number.")]
+        //[MaxLength(10)]
         public string EmergencyContactNumber { get; set; }
+        [Required(ErrorMessage = "Department is required.")]
         public string Department { get; set; }
+        [Required(ErrorMessage = "Designation is required.")]
         public string Designation { get; set; }
+        [Required(ErrorMessage = "Qualification is required..")]
         public string Qualification { get; set; }
+        [Required(ErrorMessage = "City is required..")]
         public int City { get; set; }
+        [Required(ErrorMessage = "Country is required..")]
         public int Country { get; set; }
+        [Required(ErrorMessage = "State is required..")]
         public int State { get; set; }
         //public HttpPostedFileBase PassportSizePhoto { get; set; }
         //public string PassportSizePhoto { get; set; }
-
+        [Required(ErrorMessage = "PassportSizePhoto is required..")]
         public HttpPostedFileBase PassportSizePhoto { get; set; }
+        //public HttpPostedFileBase PassportSizePhotoforedit { get; set; }
         public string PassportSizePic { get; set; }
 
 
     }
+
 
     public class Login
     {

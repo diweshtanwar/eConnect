@@ -52,10 +52,10 @@
     <Compile Include="MenuModel.cs" />
     <Compile Include="OtherModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RaiseRequest.cs" />
     <Compile Include="ReportsModel.cs" />
     <Compile Include="StateModel.cs" />
     <Compile Include="TechSupportProblem.cs" />
-    <Compile Include="TransactionModel.cs" />
     <Compile Include="UploaderModel.cs" />
     <Compile Include="UserCSPDetail.cs" />
     <Compile Include="UsersModel.cs" />

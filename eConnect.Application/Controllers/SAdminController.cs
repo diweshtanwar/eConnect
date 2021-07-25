@@ -80,35 +80,35 @@ namespace eConnect.Application.Controllers
             return PartialView("_BindSupportRequest", products);
         }
 
-        [HttpPost]
-        public ActionResult _EditRequest(TechSupportRequestModel model, long reqid, string btnSubmit)
-        {
-            TechSupportRequestLogic cl = new TechSupportRequestLogic();
-            if (btnSubmit == "Submit")
-            {
-                cl.UpdateTechSupportRequest(model);
-                TempData["Message"] = "Record Updated successfully.";
-                return RedirectToAction("SAdmin", "TechSupportReqDetails");
+        //[HttpPost]
+        //public ActionResult _EditRequest(TechSupportRequestModel model, long reqid, string btnSubmit)
+        //{
+        //    TechSupportRequestLogic cl = new TechSupportRequestLogic();
+        //    if (btnSubmit == "Submit")
+        //    {
+        //        cl.UpdateTechSupportRequest(model);
+        //        TempData["Message"] = "Record Updated successfully.";
+        //        return RedirectToAction("SAdmin", "TechSupportReqDetails");
 
-            }
-            else
-            {
-                TechSupportProblemLogic ProbList = new TechSupportProblemLogic();
-                var ProblemList = ProbList.GetAllTechSupportProblems();
-                StatusLogic StatsList = new StatusLogic();
-                var StatusList = StatsList.GetAllStatus();
-                //TechSupportRequestLogic cl = new TechSupportRequestLogic();
-                var ReqDetails = cl.GetTechSupportRequestsByTReqId(reqid);
-                ViewBag.ProblemList = new SelectList(ProblemList, "ProblemTypeId", "Name", ReqDetails.ProblemType);
-                ViewBag.StatusList = new SelectList(StatusList, "StatusId", "Name", ReqDetails.Status);
-                ViewBag.ReqDetails = ReqDetails;
-                return PartialView("_EditRequest");
+        //    }
+        //    else
+        //    {
+        //        TechSupportProblemLogic ProbList = new TechSupportProblemLogic();
+        //        var ProblemList = ProbList.GetAllTechSupportProblems();
+        //        StatusLogic StatsList = new StatusLogic();
+        //        var StatusList = StatsList.GetAllStatus();
+        //        //TechSupportRequestLogic cl = new TechSupportRequestLogic();
+        //        var ReqDetails = cl.GetTechSupportRequestsByTReqId(reqid);
+        //        ViewBag.ProblemList = new SelectList(ProblemList, "ProblemTypeId", "Name", ReqDetails.ProblemType);
+        //        ViewBag.StatusList = new SelectList(StatusList, "StatusId", "Name", ReqDetails.Status);
+        //        ViewBag.ReqDetails = ReqDetails;
+        //        return PartialView("_EditRequest");
 
-            }
+        //    }
 
 
 
-        }
+        //}
 
         [HttpPost]
         public ActionResult _TecRequestHistory(long reqid)

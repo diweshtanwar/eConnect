@@ -31,6 +31,7 @@ namespace eConnect.DataAccess
         public Nullable<int> UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
+        public string AnyDeskDetail { get; set; }
     
         public virtual tblStatu tblStatu { get; set; }
         public virtual tblUser tblUser { get; set; }

@@ -30,7 +30,7 @@ namespace eConnect.Application.Controllers
 
             };
         public ActionResult Index()
-        
+
         {
             UserLogic objUserDetailLogic = new UserLogic();
             var tblUserDetails = objUserDetailLogic.GetAllUserDetail();
@@ -44,11 +44,11 @@ namespace eConnect.Application.Controllers
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name");
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
             bool flag = Convert.ToBoolean(TempData["flag"]);
-            if(flag == true)
+            if (flag == true)
             {
                 tblUserDetails = TempData["searchdata"] as List<tblUserDetail>;
             }
-           
+
             return View(tblUserDetails.ToList());
         }
 
@@ -59,12 +59,12 @@ namespace eConnect.Application.Controllers
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
             UserLogic objUserDetailLogic = new UserLogic();
-            var tblUserDetails = objUserDetailLogic.GetAllUserDetailSearch( Name,  Qualification,  Designation,  Country,  State,City);
+            var tblUserDetails = objUserDetailLogic.GetAllUserDetailSearch(Name, Qualification, Designation, Country, State, City);
             TempData["searchdata"] = tblUserDetails.ToList();
             TempData["flag"] = true;
             //return RedirectToAction("Index", tblUserDetails.ToList());
             return RedirectToAction("Index");
-             //return View("Index");
+            //return View("Index");
         }
         public ActionResult Create()
         {
@@ -90,6 +90,11 @@ namespace eConnect.Application.Controllers
             CityLogic objCityLogic = new CityLogic();
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
+            ViewBag.Department = Department;
+            ViewBag.Designation = Designation;
+            ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name");
+            ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name");
+            ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
             if (ModelState.IsValid)
             {
                 string fpath = string.Empty;
@@ -101,11 +106,7 @@ namespace eConnect.Application.Controllers
                     fpath = CheckDirectory(path, "UserPassportSizePhoto", objUser.PassportSizePhoto);
                     objUser.PassportSizePhoto.SaveAs(fpath);
                 }
-                ViewBag.Department = Department;
-                ViewBag.Designation = Designation;
-                ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name");
-                ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name");
-                ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
+
                 TempData["Message"] = "Record submitted successfully";
                 return RedirectToAction("Index");
             }
@@ -120,6 +121,7 @@ namespace eConnect.Application.Controllers
             }
             UserLogic objUserDetailLogic = new UserLogic();
             Userinput UserDetail = objUserDetailLogic.GetUserDetailByID((int)id);
+            Session["Image"] = UserDetail.PassportSizePic;
             if (UserDetail == null)
             {
                 return HttpNotFound();
@@ -141,12 +143,26 @@ namespace eConnect.Application.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Userinput objUser)
         {
+            string Image = "";
+            if (objUser.PassportSizePhoto == null)
+            {
+                Image = Session["Image"].ToString();
+                objUser.PassportSizePic = Image;
+                ModelState.Remove("PassportSizePhoto");
+            }
+
             StatusLogic objStatusLogic = new StatusLogic();
             CityLogic objCityLogic = new CityLogic();
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
+            ViewBag.Department = Department;
+            ViewBag.Designation = Designation;
+            ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name");
+            ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name");
+            ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
             if (ModelState.IsValid)
             {
+
                 string fpath = string.Empty;
                 UserLogic objUserDetailLogic = new UserLogic();
                 objUserDetailLogic.UpdateUserDetail(objUser);
@@ -156,11 +172,7 @@ namespace eConnect.Application.Controllers
                     fpath = CheckDirectory(path, "UserPassportSizePhoto", objUser.PassportSizePhoto);
                     objUser.PassportSizePhoto.SaveAs(fpath);
                 }
-                ViewBag.Department = Department;
-                ViewBag.Designation = Designation;
-                ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name");
-                ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name");
-                ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
+
                 TempData["Message"] = "Record submitted successfully";
                 return RedirectToAction("Index");
             }
@@ -175,7 +187,7 @@ namespace eConnect.Application.Controllers
             }
             UserLogic objUserDetailLogic = new UserLogic();
             Userinput UserDetail = objUserDetailLogic.GetUserDetailByID((int)id);
-               
+
             if (UserDetail == null)
             {
                 return HttpNotFound();
@@ -191,7 +203,7 @@ namespace eConnect.Application.Controllers
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name");
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
             return View(UserDetail);
-           
+
         }
 
         public ActionResult Delete(int? id)
@@ -219,7 +231,7 @@ namespace eConnect.Application.Controllers
             return View(UserDetail);
         }
 
-       
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

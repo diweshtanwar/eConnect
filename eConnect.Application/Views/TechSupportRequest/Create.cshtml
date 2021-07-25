@@ -1,0 +1,86 @@
+﻿
+@model eConnect.Model.TechSupportRequest
+
+@{ ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml"; }
+
+
+
+@using (Html.BeginForm("Create", "TechSupportRequest", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <section class="section">
+        <div class="card">
+            <div class="card-body">
+                @*<h6 class="text-primary mb-3"> Personal Details</h6>*@
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TechProblemType, htmlAttributes: new { @class = "required-field" })
+                            @Html.DropDownList("TechProblemType", new SelectList(ViewBag.ProblemList, "ProblemTypeId", "Name"), "Select Problem", new { id = "TechProblemType", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.TechProblemType, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
+                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AnyDeskDetail, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.AnyDeskDetail, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AnyDeskDetail, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "required-field" })
+                            @Html.DropDownList("Status", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    @*<div class="row">*@
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Screenshot, htmlAttributes: new { @class = "required-field" })
+                            <input type="file" id="Screenshot" name="Screenshot" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
+                            @Html.ValidationMessageFor(model => model.Screenshot, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                    @*</div>*@
+
+                </div>
+
+                <div class="my-4 text-right">
+                    <button class="btn btn-primary px-4" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
+    </section>}
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+        $(function () {
+            alert("@TempData["Message"]")
+        });
+    </script>
+}
+<div>
+    @Html.ActionLink("Cancel", "Index")
+</div>

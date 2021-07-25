@@ -14,7 +14,6 @@ namespace eConnect.DataAccess
     
     public partial class tblWithdrawalRequest
     {
-        public long WithdrawalRequestId { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public Nullable<int> RaisedBy { get; set; }
         public Nullable<int> Status { get; set; }
@@ -29,6 +28,8 @@ namespace eConnect.DataAccess
         public Nullable<int> UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<long> Account { get; set; }
+        public int WithdrawalRequestId { get; set; }
+        public Nullable<int> RequestType { get; set; }
     
         public virtual tblStatu tblStatu { get; set; }
         public virtual tblUser tblUser { get; set; }

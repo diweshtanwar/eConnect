@@ -1,15 +1,10 @@
 ﻿@model eConnect.Model.Userinput
 
-@{ ViewBag.Title = "Edit";
+@{ ViewBag.Title = "";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 
-    @*string PassportSizePhotoPath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\PassportSizePhoto\\" + Model.PassportSizePhotoName;
-    string VoterIdImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\VoterIdImage\\" + Model.VoterIdImageName;
-    string PANImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\PANImage\\" + Model.PANImageName;
-    string AadharImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\AadharImage\\" + Model.AadharImageName;
-    string LatestEducationProofImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\LatestEducationProofImage\\" + Model.LatestEducationProofImageName;
-    string IIBFCertificationImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\IIBFCertificationImage\\" + Model.IIBFCertificationImageName; 
-    }*@
+    string PassportSizePhotoPath = @System.Web.Configuration.WebConfigurationManager.AppSettings["UserFilePath"] + Model.Id + "\\UserPassportSizePhoto\\" + Model.PassportSizePic;
+ 
     }
 <h2>Edit</h2>
 
@@ -78,7 +73,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { @class = "required-field" })
-                                                                        @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                                        @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
                                                                         @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
                                                                     </div>
                                                                 </div>
@@ -92,7 +87,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         @Html.LabelFor(model => model.EmergencyContactNumber, htmlAttributes: new { @class = "required-field" })
-                                                                        @Html.EditorFor(model => model.EmergencyContactNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                                        @Html.EditorFor(model => model.EmergencyContactNumber, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
                                                                         @Html.ValidationMessageFor(model => model.EmergencyContactNumber, "", new { @class = "text-danger" })
                                                                     </div>
                                                                 </div>
@@ -126,14 +121,23 @@
                                                                     <div class="form-group">
                                                                         @Html.LabelFor(model => model.PassportSizePhoto, htmlAttributes: new { @class = "required-field" })
                                                                         <input type="file" id="PassportSizePhoto" name="PassportSizePhoto" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
-                                                                        @Html.ValidationMessageFor(model => model.PassportSizePhoto, "", new { @class = "text-danger" })
+                                                                        @*@Html.ValidationMessageFor(model => model.PassportSizePhoto, "", new { @class = "text-danger" })*@
 
+                                                                        @if (!string.IsNullOrEmpty(Model.PassportSizePic))
+                                                                        {
+                                                        <a href="@Url.Content(PassportSizePhotoPath)" target="_blank">PreviewImage</a> }
+                                                    else
+                                                    {
+                                                        <span style="color:red;">No image uploaded.</span>}
                                                                     </div>
                                                                 </div>
 
                                                             </div>
                                                             <div class="my-4 text-right">
                                                                 <button class="btn btn-primary px-4" type="submit">Save</button>
+                                                            </div>
+                                                            <div class="text-left">
+                                                                @Html.ActionLink("Cancel", "Index")
                                                             </div>
                                                         </div>
                                                     </div>

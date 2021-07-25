@@ -66,6 +66,7 @@
       <DependentUpon>eConnectAppEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="IRepository\IAnnouncementRepository.cs" />
+    <Compile Include="IRepository\IRaiseRequestRepository.cs" />
     <Compile Include="IRepository\IReportsRepository.cs" />
     <Compile Include="IRepository\IRoleMasterRepository.cs" />
     <Compile Include="Repository\AnnouncementRepository.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Repository\MenuRepository.cs" />
     <Compile Include="Repository\OthersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\RaiseRequestRepository.cs" />
     <Compile Include="Repository\ReportsRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Repository\ApplicationSettingRepository.cs" />

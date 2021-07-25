@@ -255,81 +255,81 @@ namespace eConnect.Logic
             }
         }
 
-        public void AddDepositDetails(Deposit deposit, int UserId)//Added by Aditya
-        {
-            try
-            {
-                using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
-                {
-                    tblDepositRequest objDeposit = new tblDepositRequest();
-                    objDeposit.DepositeRequestId = Convert.ToInt64(deposit.Receipt);
-                    objDeposit.Amount = deposit.Amount;
-                    objDeposit.RaisedBy = UserId;
-                    objDeposit.RequestedDate = DateTime.Now;
-                   objDeposit.ReceiptSource = deposit.FileName;
-                    objDeposit.CreatedBy = UserId;
-                    objDeposit.CreatedDate = DateTime.Now;
-                    objDeposit.Status = 0;
-                    objDeposit.ResolutionDetail = "test";
-                    objDeposit.CompletionDate = DateTime.Now;
-                    objDeposit.UpdatedDate = DateTime.Now;
-                    unitOfWork.DepositRequests.Add(objDeposit);
+        //public void AddDepositDetails(Deposit deposit, int UserId)//Added by Aditya
+        //{
+        //    try
+        //    {
+        //        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+        //        {
+        //            tblDepositRequest objDeposit = new tblDepositRequest();
+        //            objDeposit.DepositeRequestId = Convert.ToInt64(deposit.Receipt);
+        //            objDeposit.Amount = deposit.Amount;
+        //            objDeposit.RaisedBy = UserId;
+        //            objDeposit.RequestedDate = DateTime.Now;
+        //           objDeposit.ReceiptSource = deposit.FileName;
+        //            objDeposit.CreatedBy = UserId;
+        //            objDeposit.CreatedDate = DateTime.Now;
+        //            objDeposit.Status = 0;
+        //            objDeposit.ResolutionDetail = "test";
+        //            objDeposit.CompletionDate = DateTime.Now;
+        //            objDeposit.UpdatedDate = DateTime.Now;
+        //            unitOfWork.DepositRequests.Add(objDeposit);
 
 
-                }
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
-                throw;
-            }
-        }
+        //        }
+        //    }
+        //    catch (DbEntityValidationException e)
+        //    {
+        //        foreach (var eve in e.EntityValidationErrors)
+        //        {
+        //            Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+        //                eve.Entry.Entity.GetType().Name, eve.Entry.State);
+        //            foreach (var ve in eve.ValidationErrors)
+        //            {
+        //                Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+        //                    ve.PropertyName, ve.ErrorMessage);
+        //            }
+        //        }
+        //        throw;
+        //    }
+        //}
 
-        public void AddWithdrawDetails(Withdraw withdraw, int UserId)//Added by Aditya
-        {
-            try
-            {
-                using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
-                {
-                    tblWithdrawalRequest objWithdraw = new tblWithdrawalRequest();
-                    objWithdraw.WithdrawalRequestId = Convert.ToInt64(withdraw.WStatus);
-                    objWithdraw.Amount = withdraw.WAmount;
-                    objWithdraw.RaisedBy = UserId;
-                    objWithdraw.RequestedDate = DateTime.Now;
-                    objWithdraw.CreatedBy = UserId;
-                    objWithdraw.CreatedDate = DateTime.Now;
-                    objWithdraw.Status = 0;
-                    objWithdraw.ResolutionDetail = "test";
-                    objWithdraw.CompletionDate = DateTime.Now;
-                    objWithdraw.UpdatedDate = DateTime.Now;
-                    objWithdraw.Account = withdraw.AccDetails;
-                    unitOfWork.WithdrawRequests.Add(objWithdraw);
-                }
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
-                throw;
-            }
-        }
+        //public void AddWithdrawDetails(Withdraw withdraw, int UserId)//Added by Aditya
+        //{
+        //    try
+        //    {
+        //        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+        //        {
+        //            tblWithdrawalRequest objWithdraw = new tblWithdrawalRequest();
+        //            objWithdraw.WithdrawalRequestId = Convert.ToInt64(withdraw.WStatus);
+        //            objWithdraw.Amount = withdraw.WAmount;
+        //            objWithdraw.RaisedBy = UserId;
+        //            objWithdraw.RequestedDate = DateTime.Now;
+        //            objWithdraw.CreatedBy = UserId;
+        //            objWithdraw.CreatedDate = DateTime.Now;
+        //            objWithdraw.Status = 0;
+        //            objWithdraw.ResolutionDetail = "test";
+        //            objWithdraw.CompletionDate = DateTime.Now;
+        //            objWithdraw.UpdatedDate = DateTime.Now;
+        //            objWithdraw.Account = withdraw.AccDetails;
+        //            unitOfWork.WithdrawRequests.Add(objWithdraw);
+        //        }
+        //    }
+        //    catch (DbEntityValidationException e)
+        //    {
+        //        foreach (var eve in e.EntityValidationErrors)
+        //        {
+        //            Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+        //                eve.Entry.Entity.GetType().Name, eve.Entry.State);
+        //            foreach (var ve in eve.ValidationErrors)
+        //            {
+        //                Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+        //                    ve.PropertyName, ve.ErrorMessage);
+        //            }
+        //        }
+        //        throw;
+        //    }
+        //}
 
         public long InsertUserDetail(Userinput userinput)
         {

@@ -56,35 +56,60 @@ namespace eConnect.Logic
             TechSupportRequestModel sr = new TechSupportRequestModel();
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                var TechSupportReq = unitOfWork.TechSupportRequestss.GetAll().ToList();
-                foreach (var model in TechSupportReq)
-                {
-                    //sr.TechProblemTypeID = model.TechProblemTypeID;
-                    //sr.Description = model.Description;
-                    //sr.Screenshot = model.Screenshot;
-                    //sr.MobileNumber = model.MobileNumber;
-                    //sr.DeskDetail = model.DeskDetail;
-                    //sr.UserID = model.UserID;
-                    //sr.UserName = model.User.CSPName;
-                    //sr.TechProbName = model.TechSupportProblem.TechProblemName;
-
-
-                }
+                var TechSupportReq = unitOfWork.RaiseRequest.GetTechDetail().ToList();
                 return TechSupportReq;
             }
         }
-        public void InsertTechSupportRequest(TechSupportRequestModel model)
+
+        public IList<tblTechRequest> GetTechDetailsSearch(int Requestid, int RequestType, string Requesteddte, string Completiondte)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
+                var result = unitOfWork.RaiseRequest.GetTechDetail().ToList();
+
+                if (Requestid != 0)
+                {
+                    result = result.Where(d => d.TechRequestId == Requestid).ToList();
+                }
+                if (RequestType != 0)
+                {
+                    result = result.Where(d => d.ProblemType == RequestType).ToList();
+                }
+                if (!string.IsNullOrEmpty(Requesteddte))
+                {
+
+                    result = result.Where(d => d.RequestedDate == Convert.ToDateTime(Requesteddte)).ToList();
+                }
+                if (!string.IsNullOrEmpty(Completiondte))
+                {
+                    result = result.Where(d => d.CompletionDate == Convert.ToDateTime(Completiondte)).ToList();
+                }
+
+                return result;
+            }
+        }
+        public long InsertTechSupportRequest(TechSupportRequest model, int UserId)
+        {
+            var dateAndTime = DateTime.Now;
+            var date = dateAndTime.Date;
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
                 tblTechRequest sr = new tblTechRequest();
-                //  sr.TechProblemTypeID = model.TechProblemTypeID;
+                sr.ProblemType = model.TechProblemType;
                 sr.Description = model.Description;
-                //sr.Screenshot = model.Screenshot;
-                //sr.MobileNumber = model.MobileNumber;
-                //sr.DeskDetail = model.DeskDetail;
-                //sr.UserID = model.UserID;
+                sr.AttachmentSource = model.Screenshot != null
+                            ? Path.GetFileName(model.Screenshot.FileName).ToString() : null;
+                sr.MobileNo = model.PhoneNumber.ToString();
+                sr.AnyDeskDetail = model.AnyDeskDetail;
+                sr.Status = model.Status;
+                sr.CreatedBy = UserId;
+                sr.RequestedDate = date;
+                sr.CreatedDate= DateTime.Now;
+                sr.CompletionDate = null;
+                sr.UpdatedDate = DateTime.Now;
                 unitOfWork.TechSupportRequestss.Add(sr);
+                 long id = sr.TechRequestId;
+                return id;
             }
         }
         public IList<tblTechRequest> GetAllTechSupportRequestsByFilter(string ReqID, string CSPName, string CSPID, string Reqtype, string Status, string From, string To)
@@ -155,55 +180,41 @@ namespace eConnect.Logic
             }
         }
 
-        public tblTechRequest GetTechSupportRequestsByTReqId(long ReqID)
-        {
-            TechSupportRequestModel sr = new TechSupportRequestModel();
-            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
-            {
-                var model = unitOfWork.TechSupportRequestss.GetTechRequestByTReqId(Convert.ToInt64(ReqID));
-                if (model != null)
-                {
-                   // foreach (var model in TechSupportReq)
-                    {
-                        sr.ProblemType = model.ProblemType;
-                        sr.TechSupportReqID = model.TechRequestId;
-                        sr.Description = model.Description;
-                        //  sr.Screenshot = model.Screenshot;
-                        sr.MobileNo = model.MobileNo;
-                        //sr.DeskDetail = model.DeskDetail;
-                        //sr.RaisedByName = model.tblUserCSPDetail.CSPCode;
-                     ////   sr.StatusName = model.tblStatu.Name;
-                        // sr.RaisedByName = model.tblUser.UserName;
-                        //  sr.UserName = model.User.CSPName;
-                        //sr.TechProbName = model.tblProblemType.Name;
-                        sr.ResolutionDetail = model.ResolutionDetail;
-                    }
-                    return model;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-        public void UpdateTechSupportRequest(TechSupportRequestModel model)
+        public TechSupportRequest GetTechSupportRequestsByTReqId(long ReqID)
         {
            
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                tblTechRequest sr = unitOfWork.TechSupportRequestss.GetTechRequestByTReqId(Convert.ToInt64(model.TechSupportReqID));
-                sr.TechRequestId = model.TechSupportReqID;
-                 sr.ProblemType = model.ProblemType;
-                sr.Summary = model.Summary;
+                TechSupportRequest sr = new TechSupportRequest();
+                var tblTechRequest = unitOfWork.TechSupportRequestss.GetTechRequestByTReqId(Convert.ToInt64(ReqID));
+                sr.TechProblemType = Convert.ToInt32(tblTechRequest.ProblemType);
+                sr.Description = tblTechRequest.Description;
+                sr.AnyDeskDetail = tblTechRequest.AnyDeskDetail;
+                sr.PhoneNumber =tblTechRequest.MobileNo;
+                sr.Status = Convert.ToInt32(tblTechRequest.Status);
+                sr.Screenpic = tblTechRequest.AttachmentSource;
+                sr.ID = Convert.ToInt32(tblTechRequest.TechRequestId);
+                return sr;
+            }
+           
+        }
+        public void UpdateTechSupportRequest(TechSupportRequest model,int Id)
+        {
+           
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                tblTechRequest sr = unitOfWork.TechSupportRequestss.GetTechRequestByTReqId(Convert.ToInt64(model.ID));
+                sr.ProblemType = model.TechProblemType;
                 sr.Description = model.Description;
-                sr.MobileNo = model.MobileNo;
-                 sr.Status = (byte)model.Status;
-                sr.ResolutionDetail = model.ResolutionDetailx;
+                sr.MobileNo = model.PhoneNumber.ToString();
+                sr.Status = model.Status;
+                sr.AnyDeskDetail = model.AnyDeskDetail;
+                sr.AttachmentSource = model.Screenshot != null
+                                  ? Path.GetFileName(model.Screenshot.FileName).ToString() : model.Screenpic; ;
+                sr.UpdatedDate = DateTime.Now;
+                sr.UpdatedBy =Id ;
                 unitOfWork.TechSupportRequestss.Update(sr);
             }
         }
-
-
-
     }
 }

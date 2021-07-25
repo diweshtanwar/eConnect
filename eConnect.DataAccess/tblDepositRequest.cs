@@ -14,7 +14,6 @@ namespace eConnect.DataAccess
     
     public partial class tblDepositRequest
     {
-        public long DepositeRequestId { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public Nullable<int> RaisedBy { get; set; }
         public Nullable<int> Status { get; set; }
@@ -28,6 +27,8 @@ namespace eConnect.DataAccess
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public int DepositeRequestId { get; set; }
+        public Nullable<int> RequestType { get; set; }
     
         public virtual tblStatu tblStatu { get; set; }
         public virtual tblUser tblUser { get; set; }

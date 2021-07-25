@@ -1,0 +1,67 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace eConnect.DataAccess
+{
+    public class RaiseRequestRepository : Repository<tblDepositRequest>, IRaiseRequestRepository
+    {
+        public RaiseRequestRepository(eConnectAppEntities appcontext) : base(appcontext)
+        {
+
+        }
+
+        public eConnectAppEntities eConnectAppEntities
+        {
+            get { return new eConnectAppEntities(); }
+        }
+
+        public IList<tblDepositRequest> GetAllDepositDetail()
+        {
+
+            return eConnectAppEntities.tblDepositRequests.ToList();
+        }
+        public tblDepositRequest GetDepositDetailByID(int Id)
+        {
+            return eConnectAppEntities.tblDepositRequests.Find(Id);
+        }
+        public void DeleteDepositDetail(int Id)
+        {
+            tblDepositRequest tblDepositRequest = eConnectAppEntities.tblDepositRequests.Find(Id);
+            eConnectAppEntities.tblDepositRequests.Remove(tblDepositRequest);
+        }
+        public void Save()
+        {
+            eConnectAppEntities.SaveChanges();
+        }
+        public IList<tblWithdrawalRequest> GetAllWithdrawDetail()
+        {
+
+            return eConnectAppEntities.tblWithdrawalRequests.ToList();
+        }
+        public tblWithdrawalRequest GetWithdrawalDetailByID(int Id)
+        {
+            return eConnectAppEntities.tblWithdrawalRequests.Find(Id);
+        }
+        public void DeleteWithdrawDetail(int Id)
+        {
+            tblWithdrawalRequest tblWithdrawalRequest = eConnectAppEntities.tblWithdrawalRequests.Find(Id);
+            eConnectAppEntities.tblWithdrawalRequests.Remove(tblWithdrawalRequest);
+        }
+        public IList<tblTechRequest> GetTechDetail()
+        {
+
+            return eConnectAppEntities.tblTechRequests.ToList();
+        }
+
+        public void DeleteTechDetail(int Id)
+        {
+            tblTechRequest tblTechRequest = eConnectAppEntities.tblTechRequests.Find(Id);
+            eConnectAppEntities.tblTechRequests.Remove(tblTechRequest);
+        }
+    }
+}
