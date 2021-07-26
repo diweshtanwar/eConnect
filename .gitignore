@@ -344,3 +344,4 @@ healthchecksdb
 /eConnect.Application/Views/tblUserCSPDetails
 /eConnect.Application/UploadedFiles/CSP/1
 /eConnect.DataAccess/tblStatusold.cs
+/eConnect.Application/UploaderFiles

@@ -33,19 +33,19 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.Label("Year")
-                            @Html.DropDownList("Year", new SelectList(ViewBag.Years, "Text", "Text"), "YY", new { id = "Year", @class = "form-control" })
+                            @Html.DropDownList("Year", new SelectList(ViewBag.Years, "Text", "Text"), "YY", new { id = "Year", @class = "form-control", required = (string)null })
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.Label("Month")
-                            @Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text"), "MM", new { id = "Month", @class = "form-control" })
+                            @Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text"), "MM", new { id = "Month", @class = "form-control", required = (string)null })
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.Label("Upload File", htmlAttributes: new { @class = "required-field" })
-                            <input type="file" id="fileupload" name="fileupload" class="btn btn-outline-primary btn-block fileup-btn" onchange="CheckExcelFile(this)" />
+                            <input type="file" id="fileupload" name="fileupload" required class="btn btn-outline-primary btn-block fileup-btn" onchange="CheckExcelFile(this)" />
                             @Html.ValidationMessageFor(model => model.fileupload, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -75,6 +75,19 @@
     </script>
 }
 <script type="text/javascript">
+
+    function BindDefaultMonths() {
+        var d = new Date();
+        var n = d.getFullYear();
+        $.get("BindMonths", { year: n }, function (data) {
+            var v = "<option value=''>MM</option>";
+            $.each(data, function (i, v1) {
+                v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+            });
+            $("#Month").html(v);
+
+        });
+    }
     function LoadTempData() {
                 $.ajax({
                 type: "POST",
@@ -93,7 +106,21 @@
             });
     }
             $(document).ready(function () {
-           LoadTempData();
+                LoadTempData();
+                BindDefaultMonths();
+                $("#Year").change(function () {
+                    $("#Month").empty();
+                    var Yearid = $(this).val();
+                    if (Yearid > 0) {
+                        $.get("BindMonths", { year: Yearid }, function (data) {
+                            var v = "<option value=''>MM</option>";
+                            $.each(data, function (i, v1) {
+                                v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                            });
+                            $("#Month").html(v);
 
-        });
+                        });
+                    }
+                });
+                         });
 </script>

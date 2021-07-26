@@ -32,36 +32,39 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.ReportType, htmlAttributes: new { @class = "required-field" })
-                            @Html.DropDownListFor(o => o.ReportType, new SelectList(ViewBag.RequestTypes, "ReportTypeId", "Name"), "Select Type", new { id = "ReportType", @class = "form-control" })
+                            @Html.DropDownListFor(o => o.ReportType, new SelectList(ViewBag.RequestTypes, "ReportTypeId", "Name"), "Select Type", new { id = "ReportType", @class = "form-control", required = (string)null })
                             @Html.ValidationMessageFor(model => model.ReportType, "", new { @class = "text-danger" })
 
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            @Html.Label("Year")
-                            @Html.DropDownList("Year", new SelectList(ViewBag.Years, "Text", "Text"), "YY", new { id = "Year", @class = "form-control" })
+                            @Html.Label("Year", new { @class = "required-field" })
+                            @Html.DropDownList("Year", new SelectList(ViewBag.Years, "Text", "Text"), "YY", new { id = "Year", @class = "form-control", required = (string)null })
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            @Html.Label("Month")
-                            @Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text"), "MM", new { id = "Month", @class = "form-control" })
+                            @Html.Label("Month", new { @class = "required-field" })
+                            @*@Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text"), "MM", new { id = "Month", @class = "form-control", required = (string)null })
+                            *@
+                            <select required id="Month" name="Month" class="form-control">
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.fileupload, htmlAttributes: new { @class = "required-field" })
-                            <input type="file" id="fileupload" name="fileupload" class="btn btn-outline-primary btn-block fileup-btn" onchange="CheckExcelFile(this)" />
+                            @Html.Label("Upload File", htmlAttributes: new { @class = "required-field" })
+                            <input type="file" id="fileupload" name="fileupload" class="btn btn-outline-primary btn-block fileup-btn" required onchange="CheckExcelFile(this)" />
                             @Html.ValidationMessageFor(model => model.fileupload, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-4" id="trTDS" style="display:none;">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.ApplyTDS, htmlAttributes: new { @class = "required-field"})
+                            @Html.LabelFor(model => model.ApplyTDS, htmlAttributes: new { @class = "required-field" })
                             <div class="input-group ">
                                 @*@Html.EditorFor(model => model.ApplyTDS, new { htmlAttributes = new { @class = "form-control" } })*@
-                                @Html.TextBoxFor(model => model.ApplyTDS, new { @Value = "3.75" , @class = "form-control" })
+                                @Html.TextBoxFor(model => model.ApplyTDS, new { @Value = "3.75", @class = "form-control", @readonly = "true" })
                                 @Html.ValidationMessageFor(model => model.ApplyTDS, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -91,6 +94,19 @@
     </script>
 }
 <script type="text/javascript">
+
+    function BindDefaultMonths() {
+        var d = new Date();
+        var n = d.getFullYear();
+        $.get("BindMonths", { year: n }, function (data) {
+            var v = "<option value=''>MM</option>";
+            $.each(data, function (i, v1) {
+                v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+            });
+            $("#Month").html(v);
+
+        });
+    }
     function LoadTempData() {
                 $.ajax({
                 type: "POST",
@@ -109,16 +125,36 @@
             });
     }
             $(document).ready(function () {
-           LoadTempData();
+                LoadTempData();
+                BindDefaultMonths();
             $("#ReportType").change(function () {
                 var id = $(this).val();
                 if (id == 1) {
                     document.getElementById("trTDS").style.display = '';
                 }
                 else {
-                    $('#ApplyTDS').val('');
+              //      $('#ApplyTDS').val('');
                     document.getElementById("trTDS").style.display = 'none';
                 }
             });
+
+                $("#Year").change(function () {
+                    $("#Month").empty();
+                    var Yearid = $(this).val();
+                    if (Yearid >0) {
+                        $.get("BindMonths", { year: Yearid }, function (data) {
+                            var v = "<option value=''>MM</option>";
+                             $.each(data, function (i, v1) {
+                                v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                            });
+                            $("#Month").html(v);
+
+                        });
+                    }
+                    //else {
+
+                    //}
+                });
+
         });
 </script>

@@ -148,7 +148,7 @@ namespace eConnect.Application.Controllers
                                           CSPCode = item.CSPCode,
                                           CSPName = item.CSPName,
                                           MonthlyCommissionReportID = item.MonthlyCommissionReportID,
-                                          Transation =Convert.ToDecimal(item.Transation),
+                                          Transation = Convert.ToDecimal(item.Transation),
                                           Incentive = item.Incentive,
                                           Rural = item.Rural,
                                           Total = item.Total,
@@ -309,6 +309,43 @@ namespace eConnect.Application.Controllers
 
             }
             return null;
+        }
+
+        public JsonResult BindMonths(int year)
+        {
+            int currentYear = DateTime.Now.Year;
+            if (year == currentYear)
+            {
+                var months = Enumerable.Range(1, 12).Select(i => new
+                {
+                    A = i,
+                    B = DateTimeFormatInfo.CurrentInfo.GetMonthName(i)
+                });
+                int CurrentMonth = 1; //January  
+                {
+                    CurrentMonth = DateTime.Now.Month;
+                    months = Enumerable.Range(1, CurrentMonth).Select(i => new
+                    {
+                        A = i,
+                        B = DateTimeFormatInfo.CurrentInfo.GetMonthName(i)
+                    });
+                }
+                foreach (var item in months)
+                {
+                    ddlMonths.Add(new SelectListItem { Text = item.B.ToString(), Value = item.A.ToString() });
+                }
+                return Json(ddlMonths.OrderByDescending(x => x.Value), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+
+                DateTimeFormatInfo df = DateTimeFormatInfo.GetInstance(null);
+                for (int i = 12; i >= 1; i--)
+                {
+                    ddlMonths.Add(new SelectListItem { Text = df.GetMonthName(i), Value = i.ToString() });
+                }
+                return Json(ddlMonths, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

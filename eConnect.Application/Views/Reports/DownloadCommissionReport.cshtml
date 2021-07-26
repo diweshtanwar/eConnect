@@ -40,7 +40,9 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.Label("Month")
-                            @Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text"), new { id = "Month", @class = "form-control" })
+                            @*@Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text"), new { id = "Month", @class = "form-control" })*@
+                            <select  id="Month" name="Month" class="form-control">
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -57,12 +59,12 @@
 
                 </div>
             </div>
+        </div> <div class="ajax-loader">
+            <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
         </div>
         <div id="RequestDetailsList">
         </div>
-        <div class="ajax-loader">
-            <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
-        </div>
+
 
     </section>
 }
@@ -104,4 +106,37 @@
                 }
             });
     }
+
+    function BindDefaultMonths() {
+        var d = new Date();
+        var n = d.getFullYear();
+        $.get("BindMonths", { year: n }, function (data) {
+            var v;// "<option value=''>MM</option>";
+            $.each(data, function (i, v1) {
+                v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+            });
+            $("#Month").html(v);
+
+        });
+    }
+    $(document).ready(function () {
+        BindDefaultMonths();
+
+    $("#Year").change(function () {
+        $("#Month").empty();
+        var Yearid = $(this).val();
+        if (Yearid > 0) {
+            $.get("BindMonths", { year: Yearid }, function (data) {
+                var v;// = "<option value=''>MM</option>";
+                $.each(data, function (i, v1) {
+                    v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                });
+                sortorder: 'desc',
+                $("#Month").html(v);
+
+            });
+        }
+
+    });
+    });
 </script>

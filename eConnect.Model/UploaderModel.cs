@@ -11,12 +11,12 @@ namespace eConnect.Model
     public class UploaderModel
     {
         public int UploaderId { get; set; }
-        [Required]
         
+        [Required(ErrorMessage = "Select Report Type")]
         public int ReportType { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Select Month")]
         public int Month { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Select Year")]
         public int Year { get; set; }
         public string FileName { get; set; }
         public string FileSource { get; set; }
@@ -29,7 +29,7 @@ namespace eConnect.Model
         public int StatusId { get; set; }
         public string ReportStatus { get; set; }
         public string MonthName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Upload File")]
         public HttpPostedFileBase fileupload { get; set; }
 
         public bool InActive { get; set; }
