@@ -203,11 +203,16 @@ namespace eConnect.Application.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UserCSPDetail UserCSPDetail)
         {
+            UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+            var UserCSPDetails = objUserCSPDetailLogic.GetUserCSPDetailByCSPCode(UserCSPDetail.CSPCode).FirstOrDefault();
+            if (UserCSPDetails != null && UserCSPDetails.CSPCode == UserCSPDetail.CSPCode)
+            {
+                ModelState.AddModelError("CSPCode", "CSPCode already exists");
+            }
 
             if (ModelState.IsValid)
             {
-                string fpath = string.Empty;
-                UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+                string fpath = string.Empty;              
                 objUserCSPDetailLogic.UpdateUserCSPDetail(UserCSPDetail);
                 string path = Path.Combine(CSPFilePath, UserCSPDetail.CSPId.ToString());
                 if (UserCSPDetail.PassportSizePhoto != null)
