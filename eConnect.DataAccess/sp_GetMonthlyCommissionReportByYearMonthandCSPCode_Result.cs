@@ -16,6 +16,7 @@ namespace eConnect.DataAccess
         public long MonthlyCommissionReportID { get; set; }
         public string CSPCode { get; set; }
         public string CSPName { get; set; }
+        public string Category { get; set; }
         public Nullable<decimal> Transation { get; set; }
         public Nullable<decimal> Incentive { get; set; }
         public Nullable<decimal> Rural { get; set; }

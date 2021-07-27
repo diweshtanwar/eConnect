@@ -109,6 +109,8 @@
                 </div>
                 <div class="my-4 text-right">
                     <button class="btn btn-primary px-4" type="Submit">Submit</button>
+                    <button class="btn btn-primary px-4" type="button" onclick="location.href='@Url.Action("AccountConfiguration", "Admin")'" name="Cancel">Cancel</button>
+
                 </div>
             </div>
         </div>
@@ -118,10 +120,7 @@
         </div>
     </section>
 }
-<div>
-    @Html.ActionLink("Cancel", "Uploader")
 
-</div>
 @if (TempData["Message"] != null)
 {
     <script type="text/javascript">

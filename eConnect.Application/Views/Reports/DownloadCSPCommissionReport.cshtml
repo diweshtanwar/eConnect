@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Download Commission Report";
-    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    Layout = "~/Views/Shared/_LayoutReport.cshtml";
 }
 
 @using (Html.BeginForm("DownloadCSPCommissionReport", "Reports", FormMethod.Post, new { enctype = "multipart/form-data" }))
