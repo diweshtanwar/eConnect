@@ -6,6 +6,7 @@
 
 @using (Html.BeginForm("EditAccountConfiguration", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <section class="section">
         <div class="card">
@@ -15,7 +16,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.BusinessId, htmlAttributes: new { @class = "required-field" })
-                             @Html.DropDownListFor(o => o.BusinessId, new SelectList(ViewBag.BusinessList, "BusinessId", "Name"), "Select Type", new { id = "BusinessId", @class = "form-control" })
+                            @Html.DropDownListFor(o => o.BusinessId, new SelectList(ViewBag.BusinessList, "BusinessId", "Name"), "Select Type", new { id = "BusinessId", @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.BusinessId, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -78,19 +79,12 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div class="my-4 text-right">
-                    @Html.ActionLink("Cancel", "AccountConfiguration") | 
                     <button class="btn btn-primary px-4" type="submit" name="Update">Update</button>
+                    <button class="btn btn-primary px-4" type="button" onclick="location.href='@Url.Action("AccountConfiguration", "Admin")'" name="Cancel">Cancel</button>
                     @Html.HiddenFor(model => model.ConfigurationId)
-
-                </div>
-                <div class="text-left">
-                  
                 </div>
             </div>
-
         </div>
     </section>
 }
