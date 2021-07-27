@@ -1,8 +1,6 @@
-﻿
-
-@{
+﻿@{
     ViewBag.Title = "Download Commission Report";
-    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    Layout = "~/Views/Shared/_LayoutReport.cshtml";
 }
 
 @using (Html.BeginForm("DownloadCommissionReport", "Reports", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -41,7 +39,7 @@
                         <div class="form-group">
                             @Html.Label("Month")
                             @*@Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text"), new { id = "Month", @class = "form-control" })*@
-                            <select  id="Month" name="Month" class="form-control">
+                            <select id="Month" name="Month" class="form-control">
                             </select>
                         </div>
                     </div>

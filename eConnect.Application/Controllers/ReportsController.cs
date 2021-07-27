@@ -147,6 +147,7 @@ namespace eConnect.Application.Controllers
                                       {
                                           CSPCode = item.CSPCode,
                                           CSPName = item.CSPName,
+                                        //  CSPCategory=item.Category,
                                           MonthlyCommissionReportID = item.MonthlyCommissionReportID,
                                           Transation = Convert.ToDecimal(item.Transation),
                                           Incentive = item.Incentive,

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<eConnect.Model.CommissionReportMonthlyModel>
 @{ Layout = null;
-    
-    }
+
+}
 
 <style type="text/css">
     .ajax-loader {
@@ -25,20 +25,132 @@
         <div class="table-actions">
             @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
         </div>
-        <table class="table table-striped" id="table-2">
+        @*<table class="table table-striped" id="table-2">*@
+        <table id="example" class="display nowrap" style="width:auto">
             <thead>
                 <h6 class="text-primary mb-3">@Model.FirstOrDefault().Message </h6>
                 <tr>
-                    <th colspan="3" style="height:25px;"></th>
-                    <th colspan="4" style="text-align:center;border-bottom-style:solid;height:25px;">
+                    <th colspan="2"></th>
+                    <th colspan="4" style="text-align:center;border-bottom-style:solid;">
                         Commission
                     </th>
-                    <th colspan="4" style="height:25px;"></th>
+                    <th colspan="4"></th>
                 </tr>
                 <tr>
-                    <th style="height:45px;">
-                        SNo
+                    
+                    <th>
+                        @Html.DisplayNameFor(model => model.CSPCode)
                     </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CSPName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CSPCategory)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Transation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Incentive)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rural)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Total)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TDS)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PayableToCSP)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NetPayable)
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.FirstOrDefault().MonthlyCommissionReportID > 0)
+                {
+                    int count = 1;
+
+                    decimal TotalTransaction = 0;
+                    decimal TotalIncentive = 0;
+
+                    decimal TotalRural = 0;
+                    decimal TotalTotal = 0;
+                    decimal TotalPayableToCSP = 0;
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(modelItem => item.CSPCode)
+                                </td>
+                                <td style="text-align:left">
+                                    @Html.DisplayFor(modelItem => item.CSPName)
+                                </td>
+                                <td style="text-align: left">
+                                    @Html.DisplayFor(modelItem => item.CSPCategory)
+
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(modelItem => item.Transation)
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(modelItem => item.Incentive)
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(modelItem => item.Rural)
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(modelItem => item.Total)
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(modelItem => item.TDS)
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.DisplayFor(modelItem => item.PayableToCSP)
+                                </td>
+                                <td style="text-align:center">
+                                    @item.NetPayable
+                                </td>
+                            </tr>
+                            TotalTransaction = @TotalTransaction + Convert.ToDecimal(@item.Transation);
+                            TotalIncentive = @TotalIncentive + Convert.ToDecimal(@item.Incentive);
+                            TotalRural = @TotalRural + Convert.ToDecimal(@item.Rural);
+                            TotalTotal = @TotalTotal + Convert.ToDecimal(@item.Total);
+                            TotalPayableToCSP = TotalPayableToCSP + Convert.ToDecimal(@item.PayableToCSP);
+                            count++;
+                        }
+                        <tr>
+                            <td colspan="3" style="text-align:left"><b>Total (Rs)</b></td>
+                            <td style="display: none"></td>
+                            <td style="display: none"></td>
+                            <td style="text-align:center">
+                                @TotalTransaction
+                            </td>
+                            <td style="text-align:center">@TotalIncentive</td>
+                            <td style="text-align:center">@TotalRural</td>
+                            <td style="text-align:center">@TotalTotal</td>
+                            <td style="text-align:center">--</td>
+                            <td style="text-align:center">@TotalPayableToCSP</td>
+                            <td style="text-align:center">--</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="10" style="text-align:center;"> No Record Found !!!!</td></tr>
+                }
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    
                     <th style="height:45px;">
                         @Html.DisplayNameFor(model => model.CSPCode)
                     </th>
@@ -69,95 +181,8 @@
                     <th style="height:45px;">
                         @Html.DisplayNameFor(model => model.NetPayable)
                     </th>
-
                 </tr>
-            </thead>
-            <tbody>
-                @if (Model.FirstOrDefault().MonthlyCommissionReportID > 0)
-                {
-                    int count = 1;
-
-                    decimal TotalTransaction = 0;
-                    decimal TotalIncentive = 0;
-
-                    decimal TotalRural = 0;
-                    decimal TotalTotal = 0;
-                    decimal TotalPayableToCSP = 0;
-                    {
-                        foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @count
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CSPCode)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CSPName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CSPCategory)
-
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Transation)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Incentive)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Rural)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Total)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.TDS)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.PayableToCSP)
-                                </td>
-                                <td>
-                                    @item.NetPayable
-                                </td>
-                            </tr>
-                            TotalTransaction = @TotalTransaction + Convert.ToDecimal(@item.Transation);
-                            TotalIncentive = @TotalIncentive + Convert.ToDecimal(@item.Incentive);
-                            TotalRural = @TotalRural + Convert.ToDecimal(@item.Rural);
-                            TotalTotal = @TotalTotal + Convert.ToDecimal(@item.Total);
-                            TotalPayableToCSP = TotalPayableToCSP + Convert.ToDecimal(@item.PayableToCSP);
-                            //TotalTransaction = @TotalTransaction + (@item.Transation);
-                            //TotalIncentive = @TotalIncentive + Convert.ToDouble(@item.Incentive);
-                            //TotalRural = @TotalRural + Convert.ToDouble(@item.Rural);
-                            //TotalTotal = @TotalTotal + Convert.ToDouble(@item.Total);
-                            //TotalPayableToCSP = TotalPayableToCSP + Convert.ToDouble(@item.PayableToCSP);
-                            count++;
-
-                        }
-
-                        <tr>
-                            <td colspan="4">Total</td>
-                            <td>
-                                @TotalTransaction
-                            </td>
-                            <td>@TotalIncentive</td>
-                            <td>@TotalRural</td>
-                            <td>@TotalTotal</td>
-                            <td>
-                            </td>
-                            <td>@TotalPayableToCSP</td>
-
-
-                        </tr>
-                    }
-                }
-                else
-                {
-                    <tr><td colspan="8" style="text-align:center;"> No Record Found !!!!</td></tr>
-                }
-
-            </tbody>
+            </tfoot>
         </table>
     </div>
 </div>
@@ -165,3 +190,59 @@
     <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
 </div>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#example').DataTable({
+
+            //"lengthMenu": [[100, 250, 500, -1], [100, 250, 500, "All"]],
+            //"pageLength": 30,
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excel',
+                    filename: 'Commission Report',
+                    "download": 'download'
+                }, {
+                    extend: 'pdf',
+                    text: 'PDF',
+                    filename: 'Commission Report',
+                    download: 'download',
+                    //pageMargins: [150, 150, 150, 150],
+                    //margin: [150, 150, 150, 150],
+                     //orientation: 'landscape',
+                    // pagesize: 'A5',
+                    // pageSize: 'A0',
+                    customize: function (pdfDocument) {
+                        pdfDocument.content[1].table.headerRows = 2;
+                        var firstHeaderRow = [];
+                        $('#example').find("thead>tr:first-child>th").each(
+                            function (index, element) {
+                                var colSpan = element.getAttribute("colSpan");
+                                firstHeaderRow.push({
+                                    text: element.innerHTML,
+                                    style: "tableHeader",
+                                    colSpan: colSpan
+                                });
+                                for (var i = 0; i < colSpan - 1; i++) {
+                                    firstHeaderRow.push({});
+                                }
+                            });
+                        pdfDocument.content[1].table.body.unshift(firstHeaderRow);
+
+                    },
+
+
+                }, {
+                    extend: 'print',
+                    download: 'download',
+                    filename: 'Commission Report',
+                    exportOptions: {
+                        modifier: {
+                            selected: true
+                        }
+                    }
+                }
+            ]
+        });
+    });
+</script>

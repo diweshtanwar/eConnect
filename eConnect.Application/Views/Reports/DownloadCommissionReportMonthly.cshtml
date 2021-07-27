@@ -1,12 +1,12 @@
 ﻿
 @{
     ViewBag.Title = "DownloadCommissionReportMonthly";
-    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    Layout = "~/Views/Shared/_LayoutReport.cshtml";
 }
 
 
 @using (Html.BeginForm("DownloadCommissionReportMonthly", "Reports", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
+{<title>Commission Report</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <style type="text/css">
         .ajax-loader {
@@ -25,52 +25,52 @@
             }
     </style>
     @Html.AntiForgeryToken()
-<section class="section">
-    <div class="card">
-        <div class="card-body">
-            <h6 class="text-primary mb-3"> Download Report </h6>
-            <div class="row">
+    <section class="section">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-primary mb-3"> Download Report </h6>
+                <div class="row">
 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        @Html.Label(" Year")
-                        @Html.DropDownList("Year", new SelectList(ViewBag.Years, "Text", "Text"), new { id = "Year", @class = "form-control" })
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.Label(" Year")
+                            @Html.DropDownList("Year", new SelectList(ViewBag.Years, "Text", "Text"), new { id = "Year", @class = "form-control" })
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        @Html.Label("Month")
-                     @*   @Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text"), new { id = "Month", @class = "form-control" })*@
-                        <select id="Month" name="Month" class="form-control">
-                        </select>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.Label("Month")
+                            @*   @Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text"), new { id = "Month", @class = "form-control" })*@
+                            <select id="Month" name="Month" class="form-control">
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        @Html.Label("CSP Code")
-                        <div class="input-group ">
-                            <input type="text" id="CSPCode" name="CSPCode" class="form-control" />
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.Label("CSP Code")
+                            <div class="input-group ">
+                                <input type="text" id="CSPCode" name="CSPCode" class="form-control" />
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="my-4 text-right">
+                    <button class="btn btn-primary px-4" type="button" onclick="LoadData()">Search</button>
+
+                </div>
             </div>
-            <div class="my-4 text-right">
-                <button class="btn btn-primary px-4" type="button" onclick="LoadData()">Search</button>
-
-            </div>
-        </div>
-    </div>
-
-
-    <div id="MonthlyReport" class="card">
         </div>
 
 
-    <div class="ajax-loader">
-        <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
-    </div>
+        <div id="MonthlyReport" class="card">
+        </div>
 
-</section>
+
+        <div class="ajax-loader">
+            <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
+        </div>
+
+    </section>
 }
 <div>
     @Html.ActionLink("Cancel", "DownloadCommissionReportMonthly")

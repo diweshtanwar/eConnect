@@ -23,11 +23,11 @@
         <div class="table-actions">
             @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
         </div>
-        <table class="table table-striped" id="table-2">
+        @*<table class="table table-striped" id="table-2">*@
+        <table id="example" class="display nowrap" style="width:100%">
             <thead>
                 <h6 class="text-primary mb-3">@Model.FirstOrDefault().Message </h6>
                 <tr>
-                    <th>SNo</th>
                     <th>
                         @Html.DisplayNameFor(model => model.CSPCode)
                     </th>
@@ -50,7 +50,7 @@
 
                 </tr>
             </thead>
-            <tbody>
+            <tbody style="overflow: hidden;">
                 @if (Model.FirstOrDefault().TotalCommission > 0)
                 {
                     int count = 1;
@@ -60,9 +60,7 @@
                     foreach (var item in Model)
                     {
                         <tr>
-                            <td>
-                                @count
-                            </td>
+
                             <td>
                                 @Html.DisplayFor(modelItem => item.CSPCode)
                             </td>
@@ -88,27 +86,34 @@
                         </tr>
                         TotalCommission = @TotalCommission + Convert.ToDecimal(@item.TotalCommission);
                         TotalTDS = @TotalTDS + Convert.ToDouble(@item.CommissionIncludingTDS);
-                        count++;
                     }
-
                     <tr>
-                        <td colspan="7">Total</td>
+                        <td>Total</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td>
-                            @TotalCommission
+                            @TotalCommission.ToString("0.00"))
+
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4"></td>
+                        @*<td colspan="4"></td>*@
+                        <td colspan="3" style="text-align:right;">Total Details</td>
+                        <td style="display: none"></td>
+                        <td style="display: none"></td>
+                        <td style="display: none"></td>
                         <td colspan="4" style="text-align:center">
                             <table style="text-align:left;border:solid;">
-                                <tr><td>Total</td><td> @TotalTDS</td></tr>
+                                <tr><td>Total (Rs)</td><td> @TotalTDS.ToString("0.00")</td></tr>
                                 <tr>
                                     <td style="text-align:right">TDS(-) - 3.75%</td>
                                     <td>
                                         @{ double tds = 0.0375;
                                             TotalTDSPercentage = (@TotalTDS * tds);
-
-                                            @TotalTDSPercentage
+                                            @TotalTDSPercentage.ToString("0.00")
                                         }
                                     </td>
                                 </tr>
@@ -116,24 +121,58 @@
                                     <td>NET Payable</td>
                                     <td>
                                         @{
-                                            TotalPayable = (@TotalTDS - @TotalTDSPercentage);
+                                        TotalPayable = (@TotalTDS - @TotalTDSPercentage);
                                         }
-                                        @TotalPayable
+                                        @TotalPayable.ToString("0.00")
                                     </td>
                                 </tr>
                             </table>
                         </td>
+                        <td style="display: none"></td>
+                        <td style="display: none"></td>
+                        <td style="display: none"></td>
+                        <td style="display: none"></td>
                     </tr>
                 }
                 else
                 {
-                    <tr><td colspan="8" style="text-align:center;"> No Record Found !!!!</td></tr>
+                    <tr>
+                        <td colspan="7" style="text-align:center;"> No Record Found !!!!</td>
+                        <td style="display: none"></td>
+                        <td style="display: none"></td>
+                        <td style="display: none"></td>
+                        <td style="display: none"></td>
+                        <td style="display: none"></td>
+                        <td style="display: none"></td>
+                    </tr>
                 }
-
             </tbody>
+            <tfoot>
+                <tr>
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </div>
 <div class="ajax-loader">
     <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "pageLength": 30,
+            dom: 'Bfrtip',
+            buttons: [
+                'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>
