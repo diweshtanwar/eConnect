@@ -11,6 +11,7 @@ namespace eConnect.DataAccess
         IList<tblUserCSPDetail> GetAllUserCSPDetail();
         IEnumerable<tblUserCSPDetail> GetUserCSPDetail();
         tblUserCSPDetail GetUserCSPDetailByID(int CSPId);
+        IEnumerable<tblUserCSPDetail> GetUserCSPDetailByCSPCode(string CSPCode);
         void InsertUserCSPDetail(tblUserCSPDetail tblUserCSPDetail);
         void DeleteUserCSPDetail(int CSPId);
         void UpdateUserCSPDetail(tblUserCSPDetail tblUserCSPDetail);

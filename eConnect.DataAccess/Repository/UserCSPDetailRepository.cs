@@ -36,6 +36,10 @@ public class UserCSPDetailRepository : Repository<tblUserCSPDetail>, IUserCSPDet
             return eConnectAppEntities.tblUserCSPDetails.Find(id);
         }
 
+        public IEnumerable<tblUserCSPDetail> GetUserCSPDetailByCSPCode(string CSPCode)
+        {
+            return eConnectAppEntities.tblUserCSPDetails.Where(d => d.CSPCode ==CSPCode).ToList();
+        }
         public void InsertUserCSPDetail(tblUserCSPDetail tblUserCSPDetail)
         {
             eConnectAppEntities.tblUserCSPDetails.Add(tblUserCSPDetail);

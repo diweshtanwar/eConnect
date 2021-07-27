@@ -93,7 +93,14 @@ namespace eConnect.Logic
 
             }
         }
+        public IList<tblUserCSPDetail> GetUserCSPDetailByCSPCode(string CSPCode)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                return unitOfWork.UserCSPDetail.GetUserCSPDetailByCSPCode(CSPCode).ToList();
 
+            }
+        }
         public long InsertUserCSPDetail(UserCSPDetail UserCSPDetail)
         {
             try

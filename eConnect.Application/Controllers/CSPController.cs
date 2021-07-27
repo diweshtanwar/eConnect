@@ -75,6 +75,20 @@ namespace eConnect.Application.Controllers
             return View(UserCSPDetail);
         }
 
+        public JsonResult IsCSPCodeExist( string CSPCode, int? id)
+        {
+
+            UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+            UserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID((int)id);
+            if (UserCSPDetail.CSPCode == CSPCode)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+        }
         // GET: CSP/Create
         public ActionResult Create()
         {
@@ -99,12 +113,18 @@ namespace eConnect.Application.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create( UserCSPDetail UserCSPDetail)
-        {           
-            
+        {
+            UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+            var UserCSPDetails = objUserCSPDetailLogic.GetUserCSPDetailByCSPCode(UserCSPDetail.CSPCode).FirstOrDefault();
+            if (UserCSPDetails !=null && UserCSPDetails.CSPCode == UserCSPDetail.CSPCode)
+            {
+                ModelState.AddModelError("CSPCode", "CSPCode already exists");
+            }
             if (ModelState.IsValid)
             {
+
                 string fpath = string.Empty;
-                UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+               
                 long CSPUserID = objUserCSPDetailLogic.InsertUserCSPDetail(UserCSPDetail);
                 string path = Path.Combine(CSPFilePath, CSPUserID.ToString());
                 if (UserCSPDetail.PassportSizePhoto != null)
@@ -440,5 +460,7 @@ namespace eConnect.Application.Controllers
             }
             return fullpath;
         }
+
+       
     }
 }

@@ -81,12 +81,13 @@
 
 
                 <div class="my-4 text-right">
+                    @Html.ActionLink("Cancel", "AccountConfiguration") | 
                     <button class="btn btn-primary px-4" type="submit" name="Update">Update</button>
                     @Html.HiddenFor(model => model.ConfigurationId)
 
                 </div>
                 <div class="text-left">
-                    @Html.ActionLink("Cancel", "AccountConfiguration")
+                  
                 </div>
             </div>
 

@@ -305,7 +305,25 @@
                     </div>
                     @if (Model.CertificateStatus == "Yes")
                     {
-                        <div id="CertificationImageStatus" class="col-md-4">
+                        <div id="CertificationImageStatus" class="col-md-4" >
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "" })
+                                <input type="file" id="IIBFCertificationImage" name="IIBFCertificationImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
+
+                                @Html.ValidationMessageFor(model => model.IIBFCertificationImage, "", new { @class = "text-danger" })
+                                @if (!string.IsNullOrEmpty(Model.IIBFCertificationImageName))
+                                {
+                                    <a href="@Url.Content(IIBFCertificationImagePath)" target="_blank">PreviewImage</a>
+                                }
+                                else
+                                { <span style="color:red;">No image uploaded.</span>
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="CertificationImageStatus" class="col-md-4" style="display: none";>
                             <div class="form-group">
                                 @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "" })
                                 <input type="file" id="IIBFCertificationImage" name="IIBFCertificationImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
@@ -324,10 +342,11 @@
                 </div>
 
                 <div class="my-4 text-right">
-                    <button class="btn btn-primary px-4" type="submit">Save</button>
+                    <button class="btn btn-primary px-4" type="submit">Save</button> |
+                    @Html.ActionLink("Cancel", "Index")
                 </div>
                 <div class="text-left">
-                    @Html.ActionLink("Cancel", "Index")
+                   
                 </div>
             </div>
 

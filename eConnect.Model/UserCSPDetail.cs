@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 
 namespace eConnect.Model
 {
@@ -15,6 +16,9 @@ namespace eConnect.Model
         [Required]
         public string CSPName { get; set; }
         [Required]
+
+        //[Remote("IsCSPCodeExist", "CSPCode", AdditionalFields = "id",
+        //        ErrorMessage = "CSP Code already exists")]
         public string CSPCode { get; set; }
         [Required]
         public string BranchCode { get; set; }
@@ -26,6 +30,7 @@ namespace eConnect.Model
         [Required]
         public string BankName { get; set; }
         [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Please enter valid number only.")]
         public string BankAccount { get; set; }
         [Required]
         public string IFSC { get; set; }
@@ -56,8 +61,10 @@ namespace eConnect.Model
         [Required]
         public string Education { get; set; }
         [Required]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [Required]
+        [DataType(DataType.PhoneNumber)]
         public string Mobile { get; set; }
         [Required]
         public string EmergencyContactNumber { get; set; }
