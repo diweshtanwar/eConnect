@@ -63,5 +63,17 @@ namespace eConnect.DataAccess
             tblTechRequest tblTechRequest = eConnectAppEntities.tblTechRequests.Find(Id);
             eConnectAppEntities.tblTechRequests.Remove(tblTechRequest);
         }
+
+        public IList<tblWithdrawalRequest> GetAllWithdrawDetailbyCSPID(int id)
+        {
+
+            return eConnectAppEntities.tblWithdrawalRequests.Where(x=>x.RaisedBy==id).ToList();
+        }
+
+        public IList<sp_GetManageWithdrawalRequestDetails_Result> GetManageWithdrawalRequestDetails()
+        {
+
+            return  eConnectAppEntities.sp_GetManageWithdrawalRequestDetails().ToList();
+        }
     }
 }

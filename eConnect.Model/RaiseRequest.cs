@@ -66,4 +66,24 @@ namespace eConnect.Model
 
     }
 
+
+    public class ManageWithdrawal
+    {
+
+        public string RequestId { get; set; }
+        public string CSPName{ get; set; }
+        public int Amount { get; set; }
+        public string AccountDetail{ get; set; }
+        public string RequestedDate { get; set; }
+        public string CurrentStatus { get; set; }
+        public string CompletionDate { get; set; }
+        public bool Configure { get; set; }
+        public bool Make { get; set; }
+        public bool Authorize { get; set; }
+        public string Comment { get; set; }
+        public string EmailAddress { get; set; }
+        public int Id { get; set; }
+
+    }
+
 }

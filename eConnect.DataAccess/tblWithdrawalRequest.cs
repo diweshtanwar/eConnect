@@ -30,6 +30,8 @@ namespace eConnect.DataAccess
         public Nullable<long> Account { get; set; }
         public int WithdrawalRequestId { get; set; }
         public Nullable<int> RequestType { get; set; }
+        public string EmailAddress { get; set; }
+        public string Comment { get; set; }
     
         public virtual tblStatu tblStatu { get; set; }
         public virtual tblUser tblUser { get; set; }

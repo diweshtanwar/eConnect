@@ -29,8 +29,9 @@ namespace eConnect.Model
         public Nullable<System.DateTime> ExpiryDate { get; set; }
         [Required]
         public string BankName { get; set; }
-        [Required]
-        [Range(0, int.MaxValue, ErrorMessage = "Please enter valid number only.")]
+        [Required]      
+        [MinLength(1)]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Please enter valid number only.")]
         public string BankAccount { get; set; }
         [Required]
         public string IFSC { get; set; }

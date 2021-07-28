@@ -180,6 +180,7 @@
     <Compile Include="Controllers\DepositRequestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManageWithdrawalRequestController.cs" />
     <Compile Include="Controllers\PartialController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SAdminController.cs" />
@@ -408,6 +409,9 @@
     <Content Include="Views\WithdrawRequest\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutReport.cshtml" />
     <Content Include="Views\Reports\_CSPCommissionReport.cshtml" />
+    <Content Include="Views\ManageWithdrawalRequest\Details.cshtml" />
+    <Content Include="Views\ManageWithdrawalRequest\Edit.cshtml" />
+    <Content Include="Views\ManageWithdrawalRequest\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -36,7 +36,9 @@ namespace eConnect.Application.Controllers
         {
             RaiseRequestLogic raiseRequest = new RaiseRequestLogic();
             ViewBag.RequestType = RequestType;
-            var tblWithdrawDetails = raiseRequest.GetWithdrawDetails();
+            // var tblWithdrawDetails = raiseRequest.GetWithdrawDetails();
+            var tblWithdrawDetails = raiseRequest.GetWithdrawDetailsByCSPID(Convert.ToInt32(Session["CSPID"].ToString()));
+            
             bool flag = Convert.ToBoolean(TempData["flag"]);
             if (flag == true)
             {
@@ -96,8 +98,8 @@ namespace eConnect.Application.Controllers
             ViewBag.Status = Status;
             if (ModelState.IsValid)
             {
-                int UserId = Convert.ToInt32(Session["UserID"]);
-                long UserID = raiseRequest.AddWithdrawDetails(withdraw, UserId);
+                string UserId = Session["CSPID"].ToString();
+                long UserID = raiseRequest.AddWithdrawDetails(withdraw, Convert.ToInt32(UserId));
                
                 return RedirectToAction("Index");
             }

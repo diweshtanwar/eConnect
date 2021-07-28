@@ -47,7 +47,6 @@
         <EntityTypeShape EntityType="eConnectAppModel.tblUser" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblUserStatu" Width="1.5" PointX="17.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblWebFeedback" Width="1.5" PointX="19.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblWithdrawalRequest" Width="1.5" PointX="11.25" PointY="15.375" IsExpanded="true" />
         <AssociationConnector Association="eConnectAppModel.FK_tblApplicationSettings_tblBusiness" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblConfiguration_tblBusiness" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblCity_tblState" ManuallyRouted="false" />
@@ -71,15 +70,16 @@
         <AssociationConnector Association="eConnectAppModel.FK_tblUploader_tblStatus" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblUserCSPDetail_tblStatus" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblUsers_tblStatus" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblStatus" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.fkey_Status_Detail" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers1" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers2" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers3" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblUploader_tblUsers" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblUploader_tblUsers1" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblWithdrawalRequest" Width="1.5" PointX="11.25" PointY="15.125" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblStatus" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

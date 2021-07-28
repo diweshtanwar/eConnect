@@ -437,7 +437,7 @@ namespace eConnect.Logic
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                unitOfWork.UserCSPDetail.DeleteUserCSPDetail(id);
+                unitOfWork.UserCSPDetail.DeleteuserDetail(id);
                 unitOfWork.UserCSPDetail.Save();
 
             }

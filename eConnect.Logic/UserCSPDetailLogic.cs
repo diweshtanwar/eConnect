@@ -12,6 +12,21 @@ namespace eConnect.Logic
 {
   public  class UserCSPDetailLogic
     {
+        public int GetCSPDetailByUSourceId(int Sourceid)
+        {
+            int CSPID = 0;
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var Id = unitOfWork.UserCSPDetail.GetUserCSPDetailByID(Sourceid);
+                if (Id != null)
+                {
+                    CSPID = Id.CSPId;
+                }
+
+                return CSPID;
+            }
+        }
+
         public IList<tblUserCSPDetail> GetAllUserCSPDetail()
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))

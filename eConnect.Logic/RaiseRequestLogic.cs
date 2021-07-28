@@ -150,7 +150,7 @@ namespace eConnect.Logic
                     tblWithdrawalRequest objWithdrawal = new tblWithdrawalRequest();
                     // objDeposit.DepositeRequestId = Convert.ToInt64(deposit.Receipt);
                     objWithdrawal.Amount = withdraw.Amount;
-                    objWithdrawal.RaisedBy = UserId;
+                    objWithdrawal.RaisedBy = UserId;//Passing Csp id in Raised by from session
                     objWithdrawal.RequestedDate = date;
                     objWithdrawal.Account = Convert.ToInt64(withdraw.Account);
                     objWithdrawal.CreatedBy = UserId;
@@ -159,9 +159,9 @@ namespace eConnect.Logic
                     objWithdrawal.ResolutionDetail = "";
                     objWithdrawal.CompletionDate = null;
                     objWithdrawal.UpdatedDate = DateTime.Now;
-                    objWithdrawal.IsConfigured = true;
-                    objWithdrawal.IsConfigured = true;
-                    objWithdrawal.IsMake = true;
+                    objWithdrawal.IsConfigured = false;
+                    objWithdrawal.IsConfigured = false;
+                    objWithdrawal.IsMake = false;
                     objWithdrawal.RequestType = Convert.ToInt32(withdraw.RequestType);
                     unitOfWork.WithdrawRequests.Add(objWithdrawal);
                     long id = objWithdrawal.WithdrawalRequestId;
@@ -188,6 +188,13 @@ namespace eConnect.Logic
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
                 return unitOfWork.RaiseRequest.GetAllWithdrawDetail().ToList();
+            }
+        }
+       public IList<tblWithdrawalRequest> GetWithdrawDetailsByCSPID(int CSPID)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                return unitOfWork.RaiseRequest.GetAllWithdrawDetailbyCSPID(CSPID).ToList();
             }
         }
         public IList<tblWithdrawalRequest> GetWithdrawDetailsSearch(int Requestid, int RequestType, string Requesteddte, string Completiondte,int Account)
@@ -248,7 +255,7 @@ namespace eConnect.Logic
                 tblWithdrawDetail.Status = withdraw.Status;
                 tblWithdrawDetail.Account = withdraw.Account;
                 tblWithdrawDetail.UpdatedDate = DateTime.Now;
-                tblWithdrawDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
+                tblWithdrawDetail.UpdatedBy = (int)HttpContext.Current.Session["CSPID"];
                 //tblDepositDetail.CreatedBy = (int)HttpContext.Current.Session["UserId"];
                 //tblDepositDetail.CreatedDate = DateTime.Now;
                 unitOfWork.WithdrawRequests.Update(tblWithdrawDetail);
@@ -274,6 +281,113 @@ namespace eConnect.Logic
                
                 unitOfWork.RaiseRequest.DeleteTechDetail(id);
                 unitOfWork.RaiseRequest.Save();
+            }
+        }
+
+        public IList<sp_GetManageWithdrawalRequestDetails_Result> GetManageWithdrawDetails()
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                return unitOfWork.RaiseRequest.GetManageWithdrawalRequestDetails().ToList();
+            }
+        }
+
+        public IList<sp_GetManageWithdrawalRequestDetails_Result> GetManageWithdrawDetailsSearch(int Requestid, string CspName, int CspID, int State, int City, int Status, string Requesteddte)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var result = unitOfWork.RaiseRequest.GetManageWithdrawalRequestDetails().ToList();
+
+                if (Requestid != 0)
+                {
+                    result = result.Where(d => d.WithdrawalRequestId == Requestid).ToList();
+                }
+                if (!string.IsNullOrEmpty(CspName))
+                {
+                    result = result.Where(d => d.CSPName.Contains(CspName)).ToList();
+                    result = result.Where(d => d.CSPName.StartsWith(CspName)).ToList();
+                    result = result.Where(d => d.CSPName.EndsWith(CspName)).ToList();
+                }
+                if (CspID !=0)
+                {
+                    result = result.Where(d => d.CSPId == CspID).ToList();
+                }
+                if (State != 0)
+                {
+                    result = result.Where(d => d.State == State).ToList();
+                }
+                if (City != 0)
+                {
+                    result = result.Where(d => d.City == City).ToList();
+                }
+                if (Status != 0)
+                {
+                    result = result.Where(d => d.Status == Status).ToList();
+                }
+                if (!string.IsNullOrEmpty(Requesteddte))
+                {
+
+                    result = result.Where(d => d.RequestedDate == Convert.ToDateTime(Requesteddte)).ToList();
+                }
+               
+                return result;
+            }
+        }
+
+        public ManageWithdrawal GetManageWithdrawDetailByID(int id)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                ManageWithdrawal withdraw = new ManageWithdrawal();
+                var tblWithdrawDetail = unitOfWork.RaiseRequest.GetManageWithdrawalRequestDetails().ToList();
+                var Query = from x in tblWithdrawDetail where x.WithdrawalRequestId == id select x;
+                var tblMWithdrawDetail = unitOfWork.WithdrawRequests.Find(x => x.WithdrawalRequestId == id).FirstOrDefault();
+                foreach (var x in Query)
+                {
+                    withdraw.Id = Convert.ToInt32(x.WithdrawalRequestId);
+                    withdraw.RequestId = x.WithdrawalRequestId.ToString();
+                    withdraw.CSPName = x.CSPName.ToString();
+                    withdraw.Amount =Convert.ToInt32(x.Amount);
+                    withdraw.AccountDetail = x.Account.ToString();
+                    withdraw.RequestedDate = Convert.ToDateTime(x.RequestedDate).ToString("dd/MMM/yyyy");
+                    withdraw.CurrentStatus = x.Status.ToString();
+                    withdraw.CurrentStatus = x.Status.ToString();
+                    if(!string.IsNullOrEmpty(x.CompletionDate.ToString()))
+                    {
+                        withdraw.CompletionDate = Convert.ToDateTime(x.CompletionDate).ToString("dd/MMM/yyyy");
+                    }
+                    withdraw.Configure = Convert.ToBoolean(tblMWithdrawDetail.IsConfigured);
+                    withdraw.Make = Convert.ToBoolean(tblMWithdrawDetail.IsMake);
+                    withdraw.Authorize = Convert.ToBoolean(tblMWithdrawDetail.IsAuthorized);
+                    withdraw.EmailAddress = tblMWithdrawDetail.EmailAddress;
+                    withdraw.Comment = tblMWithdrawDetail.Comment;
+                }
+                return withdraw;
+
+            }
+        }
+        public void UpdateManageWithdrawDetail(ManageWithdrawal withdraw)
+        {
+            var dateAndTime = DateTime.Now;
+            var date = dateAndTime.Date;
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var tblWithdrawDetail = unitOfWork.WithdrawRequests.Find(x => x.WithdrawalRequestId == withdraw.Id).FirstOrDefault();
+                tblWithdrawDetail.Comment = withdraw.Comment;
+                tblWithdrawDetail.EmailAddress = withdraw.EmailAddress;
+                if(withdraw.Make ==true && withdraw.Authorize==true && withdraw.Configure==true)
+                {
+                    tblWithdrawDetail.Status = 2;
+                    tblWithdrawDetail.CompletionDate = date;
+                    tblWithdrawDetail.IsMake = true;
+                    tblWithdrawDetail.IsAuthorized = true;
+                    tblWithdrawDetail.IsConfigured = true;
+                }
+                tblWithdrawDetail.UpdatedDate = DateTime.Now;
+                tblWithdrawDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"]; 
+                unitOfWork.WithdrawRequests.Update(tblWithdrawDetail);
+                //unitOfWork.UserCSPDetail.Save();
+
             }
         }
 

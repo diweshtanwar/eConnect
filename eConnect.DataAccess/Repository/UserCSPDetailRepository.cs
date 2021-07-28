@@ -71,8 +71,26 @@ public class UserCSPDetailRepository : Repository<tblUserCSPDetail>, IUserCSPDet
         }
         public void DeleteuserDetail(int Id)
         {
-            tblUserDetail tblUserDetail = eConnectAppEntities.tblUserDetails.Find(Id);
-            eConnectAppEntities.tblUserDetails.Remove(tblUserDetail);
+            eConnectAppEntities.sp_DeleteRequest(Id, 1);
+            //tblUserCSPDetail tblUserCSPDetail = eConnectAppEntities.tblUserCSPDetails.Find(CSPId);
+            //tblUserDetail obj = eConnectAppEntities.tblUserDetails.Find(Id);
+            //eConnectAppEntities.tblUserDetails.Remove(obj);
+            //eConnectAppEntities.SaveChanges();
+            //bool oldValidateOnSaveEnabled = eConnectAppEntities.Configuration.ValidateOnSaveEnabled;
+
+            //try
+            //{
+            //    eConnectAppEntities.Configuration.ValidateOnSaveEnabled = false;
+            //    tblUserDetail obj = eConnectAppEntities.tblUserDetails.Find(Id);
+            //    eConnectAppEntities.tblUserDetails.Remove(obj);
+            //    eConnectAppEntities.SaveChanges();
+
+            //}
+            //finally
+            //{
+            //    eConnectAppEntities.Configuration.ValidateOnSaveEnabled = oldValidateOnSaveEnabled;
+            //}
+
         }
 
     }

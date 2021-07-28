@@ -1,0 +1,202 @@
+﻿
+
+@model IEnumerable<eConnect.DataAccess.sp_GetManageWithdrawalRequestDetails_Result>
+
+@{ ViewBag.Title = "";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml"; }
+
+<section class="section">
+    <h2>Manage Withdraw Request</h2>
+
+    @*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+    @using (@Html.BeginForm("IndexSearch", "ManageWithdrawalRequest", FormMethod.Get))
+    {@Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <h4><span class="toggle-collapse" id="toggle" data-toggle="collapse" href="#filter" role="button" aria-expanded="true" aria-controls="filter"></span> Filter</h4>
+        </div>
+        <div class="card-body collapse show" id="filter">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Request Id</label>
+                        <input type="text" id="Requestid" name="Requestid" class="form-control" value="@Request["Requestid"]">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>CSP Name</label>
+                        <input type="text" id="CspName" name="CspName" class="form-control" value="@Request["CspName"]">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>CSP ID</label>
+                        <input type="text" id="CspID" name="CspID" class="form-control" value="@Request["CspID"]">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>State</label>
+                        @Html.DropDownList("State", null,"Select State", htmlAttributes: new { @class = "form-control", @onchange = "return bindCity();" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>City</label>
+                        @Html.DropDownList("City", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Status</label>
+                        @Html.DropDownList("Status", (IEnumerable<SelectListItem>)ViewBag.Status, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Requested Date</label>
+                        <input type="date" id="Requesteddte" name="Requesteddte" class="form-control" value="@Request["Requesteddte"]">
+                    </div>
+                </div>
+                @*<div class="col-md-3">
+                    <div class="form-group">
+                        <label>Completion Date</label>
+                        <input type="date" id="Completiondte" name="Completiondte" class="form-control" value="@Request["Completiondte"]">
+
+                    </div>
+                </div>*@
+
+
+                <div class="col-md-3 mt-md-4 pt-1">
+                    @*<button class="btn btn-dark px-4 mr-2">Cancel</button>*@
+                    <button type="submit" class="btn btn-primary px-4">Search</button>
+                </div>
+
+            </div>
+        </div>
+    </div>}
+    <div class="card">
+
+        <div class="card-body">
+
+
+            <div class="table-responsive">
+                <div class="table-actions">
+                    @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
+                </div>
+                <table class="table table-striped" id="table-2">
+                    <thead>
+                        <tr>
+                            <th>
+                                RequestedID
+                                @*@Html.DisplayNameFor(model => model.RequestId)*@
+                            </th>
+                            <th>
+                                CSPId
+                                @*@Html.DisplayNameFor(model => model.RequestId)*@
+                            </th>
+                            <th>
+                               Name
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Amount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.RequestedDate)
+                            </th>
+                            @*<th>
+                                @Html.DisplayNameFor(model => model.CompletionDate)
+                            </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            
+                            <th> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.WithdrawalRequestId)
+                            </td>
+
+                            @*@Html.DisplayFor(modelItem => item.RequestType)*@
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CSPId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CSPName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>
+                                @(item.RequestedDate?.ToString("MM/dd/yyyy"))
+                                @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
+                            </td>
+                            <!--<td>
+                                @(item.CompletionDate?.ToString("MM/dd/yyyy"))-->
+                                @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
+                            <!--</td>-->
+                            @if (item.Status.Equals(1))
+                            {
+                                <td>Open</td>
+
+                            }
+                            else if (item.Status.Equals(2))
+                            {
+                                <td>Close</td>
+                            }
+                            @*<td>
+                                @Html.DisplayFor(modelItem => item.Account)
+                            </td>*@
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.WithdrawalRequestId })
+                                |
+                                @Html.ActionLink("Go", "Details", new { id = item.WithdrawalRequestId }) @*|
+                                @Html.ActionLink("Delete", "Delete", new { id = item.WithdrawalRequestId })*@
+                            </td>
+
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+<script>
+
+    debugger;
+    /*  $(document).ready(function () {*/
+
+    function bindCity() {
+        var sid = $("#State").val();
+        $("#City").empty();
+
+        $.ajax({
+            url: '@Url.Action("BindCity", "ManageWithdrawalRequest")',
+            data: { state_id: sid },
+            type: 'GET',
+            success: function (data)
+            {
+                var v = "<option>---Select---</option>";
+                $.each(data, function (i, v1) {
+                    v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                });
+                $("#City").html(v);
+            }
+        });
+    }
+    /*    });*/
+</script>

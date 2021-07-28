@@ -52,9 +52,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "required-field" })
+                                        @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "required-field"  })
 
-                                        @Html.DropDownList("State", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.DropDownList("State", null, htmlAttributes: new { @class = "form-control" , @onchange = "return bindCity();" })
                                         @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -131,12 +131,26 @@
                 </section>}
 @if (TempData["Message"] != null)
 {
-    <script type="text/javascript">
-        $(function () {
-            alert("@TempData["Message"]")
-        });
-    </script>
+
 }
+<script>
+       
+        debugger;
+      /*  $(document).ready(function () {*/
+
+            function bindCity() {
+                var sid = $("#State").val();
+                $("#City").empty();
+                $.get("BindCity", { state_id: sid }, function (data) {
+                    var v = "<option>---Select---</option>";
+                    $.each(data, function (i, v1) {
+                        v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                    });
+                    $("#City").html(v);
+                });
+            }
+    /*    });*/
+</script>
 <div>
     @Html.ActionLink("Cancel", "Index")
 </div>

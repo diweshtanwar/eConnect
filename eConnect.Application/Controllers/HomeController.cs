@@ -65,6 +65,11 @@ namespace eConnect.Application.Controllers
                     var roleMasterData =objRoleMasterLogic.GetRoleMasterByID((int)userData.UserType);
                    Session["LastLoginDetails"] = objUserLoginLogLogic.GetLastLoginDetailsByUserID(userData.UserId);              
                    Session["UserTypeId"] = userData.UserType;
+                    if (userData.UserType == 3)
+                    {
+                        UserCSPDetailLogic cl = new UserCSPDetailLogic();
+                        Session["CSPID"] = cl.GetCSPDetailByUSourceId(Convert.ToInt32(userData.UserSourceId));
+                    }
                     Session["UserName"] = userData.UserName;
                     Session["UserId"] = userData.UserId;
                     Session["UserSourceId"] = userData.UserSourceId;

@@ -1,0 +1,123 @@
+﻿@model eConnect.Model.ManageWithdrawal
+@{ ViewBag.Title = "";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+
+}
+<h2>Details</h2>
+
+<section class="section">
+    <div class="card">
+        <div class="card-body">
+            <h6 class="text-primary mb-3"> Request Detail</h6>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RequestId, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.RequestId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CSPName, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.CSPName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AccountDetail, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.AccountDetail, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RequestedDate, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.RequestedDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+                @*<div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "" })
+                            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                        </div>
+                    </div>*@
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CurrentStatus, htmlAttributes: new { @class = "" })
+                        @Html.DropDownList("Status", (SelectListItem[])ViewBag.EditedStatus, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                @*<div class="row">*@
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompletionDate, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.CompletionDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+
+                @*</div>*@
+
+            </div>
+
+            <h6 class="text-primary mb-3"> Action</h6>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Configure, htmlAttributes: new { @class = "" })
+                        @Html.CheckBoxFor(model => model.Configure, new { @disabled = "disabled" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Make, htmlAttributes: new { @class = "" })
+                        @Html.CheckBoxFor(model => model.Make, new { @disabled = "disabled" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Authorize, htmlAttributes: new { @class = "" })
+                        @Html.CheckBoxFor(model => model.Authorize, new { @disabled = "disabled" })
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmailAddress, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+            </div>
+            @*<div class="my-4 text-right">
+                    <button class="btn btn-primary px-4" type="submit">Save</button>
+                </div>*@
+            <div class="text-left">
+                @Html.ActionLink("Cancel", "Index")
+            </div>
+        </div>
+    </div>
+</section>
