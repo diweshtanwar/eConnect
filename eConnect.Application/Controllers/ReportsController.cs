@@ -159,7 +159,7 @@ namespace eConnect.Application.Controllers
                                           Month = item.Month,
                                           Year = item.Year,
                                           UploaderId = item.UploaderId,
-                                          Message = "Commission Report " + " " + " Year: " + year + " , Month: " + monthname
+                                          Message = "Commission for " + " " + monthname + ", " + year
                                       });
                     }
                 }
@@ -168,7 +168,7 @@ namespace eConnect.Application.Controllers
                     products.Add(
                                         new CommissionReportMonthlyModel
                                         {
-                                            Message = "Commission Report " + " " + " Year: " + year + " , Month: " + monthname
+                                            Message = "Commission for " + " " + monthname +  ", " + year
                                         });
                 }
 
@@ -215,6 +215,7 @@ namespace eConnect.Application.Controllers
                                       new DownloadTransactionCommissionModel
                                       {
                                           CSPCode = item.CSPCode,
+                                          CSPName=item.CSPName,
                                           // NoOfTransaction = (decimal)item.NoOfTransactions,
                                           NoOfTransaction = item.NoOfTransactions,
                                           TransactionType = item.TransactionType,
@@ -232,11 +233,13 @@ namespace eConnect.Application.Controllers
                     products.Add(
                                         new DownloadTransactionCommissionModel
                                         {
-                                            Message = "Commission Report For " + " " + "Year: " + year + " , Month: " + monthname
+                                            CSPCode = UserCSPDetail.CSPCode,
+                                            CSPName = UserCSPDetail.CSPName,
+                                            Message = "Commission For " + " " + "Year: " + year + " , Month: " + monthname
                                         });
                 }
 
-                return PartialView("_CommissionReport", products);
+                return PartialView("_CSPCommissionReport", products);
             }
             catch (Exception ex)
             {
@@ -299,6 +302,8 @@ namespace eConnect.Application.Controllers
                     products.Add(
                                         new CommissionReportMonthlyModel
                                         {
+                                            CSPCode = UserCSPDetail.CSPCode,
+                                            CSPName = UserCSPDetail.CSPName,
                                             Message = "Commission Report " + " " + " Year: " + year + " , Month: " + monthname
                                         });
                 }

@@ -1,0 +1,133 @@
+﻿
+
+@model IEnumerable<eConnect.Model.DownloadTransactionCommissionModel>
+@{ Layout = null; }
+
+<style type="text/css">
+    .ajax-loader {
+        visibility: hidden;
+        background-color: rgba(255,255,255,0.7);
+        position: absolute;
+        z-index: +100 !important;
+        width: 100%;
+        height: 100%;
+    }
+
+        .ajax-loader img {
+            position: relative;
+            top: 50%;
+            left: 50%;
+        }
+</style>
+@*<div class="card">*@
+<div class="card-body">
+    <div class="table-responsive">
+        <div class="" style="text-align:center;">
+            CSP Name:<b> @Model.FirstOrDefault().CSPName</b><br />
+            CSP Code: <b>@Model.FirstOrDefault().CSPCode</b>
+            @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
+         </div>
+        @*<table class="table table-striped" id="table-2">*@
+        <table id="example" class="display nowrap" style="width:100%;text-align:center;">
+            <thead>
+                <h6 class="text-primary mb-3">@Model.FirstOrDefault().Message </h6>
+                <tr>
+                    <th>
+                        S.No
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TransactionType)
+                    </th>
+                    <th>
+                        @Html.DisplayName("Num Txns/ Avg Balance")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Amount (Rs)")
+                    </th>
+                </tr>
+            </thead>
+            <tbody style="overflow: hidden;">
+                @if (Model.FirstOrDefault().TotalCommission > 0)
+                {
+                    int count = 1;
+                    decimal TotalCommission = 0;
+                    double TotalTDS = 0; double TotalTDSPercentage = 0;
+                    double TotalPayable = 0;
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @count
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TransactionType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NoOfTransaction)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CommissionIncludingTDS)
+                            </td>
+                        </tr>
+                        TotalCommission = @TotalCommission + Convert.ToDecimal(@item.TotalCommission);
+                        TotalTDS = @TotalTDS + Convert.ToDouble(@item.CommissionIncludingTDS);
+                        count++;
+                    }
+                    <tr>
+                        <td>Total</td>
+                        <td></td>
+                        <td></td>
+                        <td>@TotalTDS.ToString("0.00")</td>
+                    </tr>
+                    <tr style="background-color:lightgrey;">
+
+                        <td style="background-color:lightgrey;" colspan="2">Total (Rs) - <b> @TotalTDS.ToString("0.00")</b></td>
+                        <td style="display: none"></td>
+                        <td> TDS(Deducted) - 3.75% -  @{ double tds = 0.0375; TotalTDSPercentage = (@TotalTDS * tds); <b>@TotalTDSPercentage.ToString("0.00")</b> }</td>
+                        <td>NET Payable -  @{TotalPayable = (@TotalTDS - @TotalTDSPercentage);} <b>@TotalPayable.ToString("0.00")</b></td>
+                        <!--<td style="text-align:center;font-weight:bold;vertical-align:middle;">-->
+                        @*Total (Rs): @TotalTDS.ToString("0.00"); TDS(-) - 3.75%: @{ double tds = 0.0375; TotalTDSPercentage = (@TotalTDS * tds);@TotalTDSPercentage.ToString("0.00") }
+                            NET Payable:  @{TotalPayable = (@TotalTDS - @TotalTDSPercentage);}@TotalPayable.ToString("0.00")*@
+                        <!--</td>-->
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" style="text-align:center;"> No Record Found !!!!</td>
+                        <td style="display: none"></td>
+                        <td style="display: none"></td>
+                        <td style="display: none"></td>
+                        <td style="display: none"></td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
+
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="ajax-loader">
+    <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "pageLength": 30,
+            "ordering": false,
+            dom: 'Bfrtip',
+            buttons: [
+                'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>
