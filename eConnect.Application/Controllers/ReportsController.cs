@@ -236,7 +236,7 @@ namespace eConnect.Application.Controllers
                                         });
                 }
 
-                return PartialView("_CommissionReport", products);
+                return PartialView("_CSPCommissionReport", products);
             }
             catch (Exception ex)
             {
