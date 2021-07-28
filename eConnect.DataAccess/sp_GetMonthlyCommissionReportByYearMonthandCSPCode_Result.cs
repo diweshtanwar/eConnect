@@ -27,5 +27,6 @@ namespace eConnect.DataAccess
         public Nullable<int> Month { get; set; }
         public Nullable<int> Year { get; set; }
         public int UploaderId { get; set; }
+        public string Category1 { get; set; }
     }
 }

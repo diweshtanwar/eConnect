@@ -12,10 +12,10 @@ namespace eConnect.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class tblCategory
+    public partial class tblBranchCode
     {
-        public byte CategoryId { get; set; }
-        public string Category { get; set; }
+        public byte BranchCodeId { get; set; }
+        public string BranchCode { get; set; }
         public string Code { get; set; }
         public Nullable<bool> Status { get; set; }
     }

@@ -66,11 +66,17 @@
       <DependentUpon>eConnectAppEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="IRepository\IAnnouncementRepository.cs" />
+    <Compile Include="IRepository\ICategoryRepository.cs" />
+    <Compile Include="IRepository\ILocationRepository.cs" />
+    <Compile Include="IRepository\IBranchCodeRepository.cs" />
     <Compile Include="IRepository\IRaiseRequestRepository.cs" />
     <Compile Include="IRepository\IReportsRepository.cs" />
     <Compile Include="IRepository\IRoleMasterRepository.cs" />
     <Compile Include="Repository\AnnouncementRepository.cs" />
     <Compile Include="Repository\CityRepository.cs" />
+    <Compile Include="Repository\CategoryRepository.cs" />
+    <Compile Include="Repository\LocationRepository.cs" />
+    <Compile Include="Repository\BranchCodeRepository.cs" />
     <Compile Include="Repository\CountryRepository.cs" />
     <Compile Include="IRepository\ICityRepository.cs" />
     <Compile Include="IRepository\ICountryRepository.cs" />
@@ -112,6 +118,9 @@
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblApplicationSetting.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblBranchCode.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblBusiness.cs">
@@ -172,6 +181,9 @@
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblHoliday.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblLocation.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblMenuMain.cs">

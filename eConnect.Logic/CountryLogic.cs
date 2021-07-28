@@ -14,13 +14,13 @@ namespace eConnect.Logic
           //  IList<Country> country = null;
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                var dsds = unitOfWork.Countriess.GetAllCountry().ToList();
+                var data = unitOfWork.Countriess.GetAllCountry().ToList();
                 //foreach (var item in dsds)
                 //{
                 //    item.CountryID;
                 //    country.CountryName = item.CountryName;
                 //}
-                return dsds;
+                return data;
             }
         }
     }

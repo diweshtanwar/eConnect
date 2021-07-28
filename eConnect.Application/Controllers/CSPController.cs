@@ -96,11 +96,18 @@ namespace eConnect.Application.Controllers
             CityLogic objCityLogic = new CityLogic();
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
+            BranchCodeLogic objBranchCodeLogic = new BranchCodeLogic();
+            CategoryLogic objCategoryLogic = new CategoryLogic();
+            LocationLogic objLocationLogic = new LocationLogic();
+
 
             ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name");
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name");
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name");
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
+            ViewBag.BranchCode = new SelectList(objBranchCodeLogic.GetAllBranchCode(), "BranchCode", "BranchCode");
+            ViewBag.Category = new SelectList(objCategoryLogic.GetAllCategory(), "Category", "Category");
+            ViewBag.Location = new SelectList(objLocationLogic.GetAllLocation(), "Location", "Location");
             ViewBag.CertificateStatus = CertificateStatusList;
 
 
@@ -164,12 +171,18 @@ namespace eConnect.Application.Controllers
             CityLogic objCityLogic = new CityLogic();
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
+            BranchCodeLogic objBranchCodeLogic = new BranchCodeLogic();
+            CategoryLogic objCategoryLogic = new CategoryLogic();
+            LocationLogic objLocationLogic = new LocationLogic();
 
             ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name", UserCSPDetail.Status);
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
             ViewBag.CertificateStatus = new SelectList(CertificateStatusList, "Text", "Value", UserCSPDetail.CertificateStatus);
+            ViewBag.BranchCode = new SelectList(objBranchCodeLogic.GetAllBranchCode(), "BranchCode", "BranchCode",UserCSPDetail.BranchCode);
+            ViewBag.Category = new SelectList(objCategoryLogic.GetAllCategory(), "Category", "Category", UserCSPDetail.Category);
+            ViewBag.Location = new SelectList(objLocationLogic.GetAllLocation(), "Location", "Location", UserCSPDetail.Location);
             return View(UserCSPDetail);
         }
 
@@ -190,12 +203,18 @@ namespace eConnect.Application.Controllers
             CityLogic objCityLogic = new CityLogic();
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
+            BranchCodeLogic objBranchCodeLogic = new BranchCodeLogic();
+            CategoryLogic objCategoryLogic = new CategoryLogic();
+            LocationLogic objLocationLogic = new LocationLogic();
 
             ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name", UserCSPDetail.Status);
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
             ViewBag.CertificateStatus = new SelectList(CertificateStatusList,"Text","Value", UserCSPDetail.CertificateStatus);
+            ViewBag.BranchCode = new SelectList(objBranchCodeLogic.GetAllBranchCode(), "BranchCode", "BranchCode", UserCSPDetail.BranchCode);
+            ViewBag.Category = new SelectList(objCategoryLogic.GetAllCategory(), "Category", "Category", UserCSPDetail.Category);
+            ViewBag.Location = new SelectList(objLocationLogic.GetAllLocation(), "Location", "Location", UserCSPDetail.Location);
             return View(UserCSPDetail);
         }
 
@@ -248,12 +267,18 @@ namespace eConnect.Application.Controllers
             CityLogic objCityLogic = new CityLogic();
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
+            BranchCodeLogic objBranchCodeLogic = new BranchCodeLogic();
+            CategoryLogic objCategoryLogic = new CategoryLogic();
+            LocationLogic objLocationLogic = new LocationLogic();
 
             ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name", UserCSPDetail.Status);
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
             ViewBag.CertificateStatus = new SelectList(CertificateStatusList, "Text", "Value", UserCSPDetail.CertificateStatus);
+            ViewBag.BranchCode = new SelectList(objBranchCodeLogic.GetAllBranchCode(), "BranchCode", "BranchCode", UserCSPDetail.BranchCode);
+            ViewBag.Category = new SelectList(objCategoryLogic.GetAllCategory(), "Category", "Category", UserCSPDetail.Category);
+            ViewBag.Location = new SelectList(objLocationLogic.GetAllLocation(), "Location", "Location", UserCSPDetail.Location);
             return View(UserCSPDetail);
         }
 
@@ -274,12 +299,18 @@ namespace eConnect.Application.Controllers
             CityLogic objCityLogic = new CityLogic();
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
+            BranchCodeLogic objBranchCodeLogic = new BranchCodeLogic();
+            CategoryLogic objCategoryLogic = new CategoryLogic();
+            LocationLogic objLocationLogic = new LocationLogic();
 
             ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name", UserCSPDetail.Status);
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
             ViewBag.CertificateStatus = new SelectList(CertificateStatusList, "Text", "Value", UserCSPDetail.CertificateStatus);
+            ViewBag.BranchCode = new SelectList(objBranchCodeLogic.GetAllBranchCode(), "BranchCode", "BranchCode", UserCSPDetail.BranchCode);
+            ViewBag.Category = new SelectList(objCategoryLogic.GetAllCategory(), "Category", "Category", UserCSPDetail.Category);
+            ViewBag.Location = new SelectList(objLocationLogic.GetAllLocation(), "Location", "Location", UserCSPDetail.Location);
             return View(UserCSPDetail);
         }
 
@@ -334,12 +365,19 @@ namespace eConnect.Application.Controllers
             CityLogic objCityLogic = new CityLogic();
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
+            BranchCodeLogic objBranchCodeLogic = new BranchCodeLogic();
+            CategoryLogic objCategoryLogic = new CategoryLogic();
+            LocationLogic objLocationLogic = new LocationLogic();
 
             ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name", UserCSPDetail.Status);
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
             ViewBag.CertificateStatus = new SelectList(CertificateStatusList, "Text", "Value", UserCSPDetail.CertificateStatus);
+            ViewBag.BranchCode = new SelectList(objBranchCodeLogic.GetAllBranchCode(), "BranchCode", "BranchCode", UserCSPDetail.BranchCode);
+            ViewBag.Category = new SelectList(objCategoryLogic.GetAllCategory(), "Category", "Category", UserCSPDetail.Category);
+            ViewBag.Location = new SelectList(objLocationLogic.GetAllLocation(), "Location", "Location", UserCSPDetail.Location);
+
             ViewBag.SuccessMsg = "";
             return PartialView("EditCSPProfile", UserCSPDetail);
         }
@@ -353,6 +391,10 @@ namespace eConnect.Application.Controllers
             CityLogic objCityLogic = new CityLogic();
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
+
+            BranchCodeLogic objBranchCodeLogic = new BranchCodeLogic();
+            CategoryLogic objCategoryLogic = new CategoryLogic();
+            LocationLogic objLocationLogic = new LocationLogic();
 
             if (ModelState.IsValid)
             {
@@ -395,7 +437,11 @@ namespace eConnect.Application.Controllers
                 ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
                 ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
                 ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
-                
+                ViewBag.CertificateStatus = new SelectList(CertificateStatusList, "Text", "Value", UserCSPDetail.CertificateStatus);
+                ViewBag.BranchCode = new SelectList(objBranchCodeLogic.GetAllBranchCode(), "BranchCode", "BranchCode", UserCSPDetail.BranchCode);
+                ViewBag.Category = new SelectList(objCategoryLogic.GetAllCategory(), "Category", "Category", UserCSPDetail.Category);
+                ViewBag.Location = new SelectList(objLocationLogic.GetAllLocation(), "Location", "Location", UserCSPDetail.Location);
+
                 UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID((int)UserCSPDetail.CSPId);
                 ViewBag.SuccessMsg = "Record Updated Successfully!";
                 return PartialView("EditCSPProfile", UserCSPDetail);
@@ -407,6 +453,10 @@ namespace eConnect.Application.Controllers
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
             ViewBag.CertificateStatus = new SelectList(CertificateStatusList, "Text", "Value", UserCSPDetail.CertificateStatus);
+            ViewBag.BranchCode = new SelectList(objBranchCodeLogic.GetAllBranchCode(), "BranchCode", "BranchCode", UserCSPDetail.BranchCode);
+            ViewBag.Category = new SelectList(objCategoryLogic.GetAllCategory(), "Category", "Category", UserCSPDetail.Category);
+            ViewBag.Location = new SelectList(objLocationLogic.GetAllLocation(), "Location", "Location", UserCSPDetail.Location);
+
             return View(UserCSPDetail);
         }
 

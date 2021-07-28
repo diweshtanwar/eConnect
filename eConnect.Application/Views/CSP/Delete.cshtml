@@ -32,7 +32,9 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(model => model.BranchCode, htmlAttributes: new { @class = "" })
-                        @Html.EditorFor(model => model.BranchCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @*@Html.EditorFor(model => model.BranchCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })*@
+                        @Html.DropDownList("BranchCode", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -174,8 +176,9 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "" })
 
-                        @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                       
+                        @*@Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })*@
+                        @Html.DropDownList("Location", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+
 
                     </div>
                 </div>
@@ -183,8 +186,9 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "" })
 
-                        @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                      
+                        @*@Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })*@
+                        @Html.DropDownList("Category", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+
 
                     </div>
                 </div>

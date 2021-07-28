@@ -38,6 +38,10 @@ namespace eConnect.DataAccess
         public ICommissionReportMonthlyRepository CommissionReportMonthly { get; private set; }
         public IRaiseRequestRepository RaiseRequest { get; private set; }
         public UserDetail UserDetail { get; private set; }
+
+        public IBranchCodeRepository BranchCodes { get; private set; }
+        public ICategoryRepository Categoress { get; private set; }
+        public ILocationRepository Locations { get; private set; }
         public UnitOfWork(eConnectAppEntities context)
         {
             _context = context;
@@ -66,6 +70,9 @@ namespace eConnect.DataAccess
             UserDetail = new UserDetail(_context);
             CommissionReportMonthly = new CommissionReportMonthlyRepository(_context);
             RaiseRequest = new RaiseRequestRepository(_context);
+            BranchCodes = new BranchCodeRepository(_context);
+            Categoress = new CategoryRepository(_context);
+            Locations = new LocationRepository(_context);
         }
 
         public int Complete()
