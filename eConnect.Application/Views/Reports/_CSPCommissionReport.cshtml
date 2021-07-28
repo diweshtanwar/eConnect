@@ -22,9 +22,11 @@
 @*<div class="card">*@
 <div class="card-body">
     <div class="table-responsive">
-        <div class="table-actions">
+        <div class="" style="text-align:center;">
+            CSP Name:<b> @Model.FirstOrDefault().CSPName</b><br />
+            CSP Code: <b>@Model.FirstOrDefault().CSPCode</b>
             @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
-        </div>
+         </div>
         @*<table class="table table-striped" id="table-2">*@
         <table id="example" class="display nowrap" style="width:100%;text-align:center;">
             <thead>
@@ -96,7 +98,7 @@
                         <td style="display: none"></td>
                         <td style="display: none"></td>
                         <td style="display: none"></td>
-                       <td style="display: none"></td>
+                        <td style="display: none"></td>
                     </tr>
                 }
             </tbody>
