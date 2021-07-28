@@ -27,7 +27,7 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <h6 class="text-primary mb-3"> Upload Report</h6>
+                <h6 class="text-primary mb-3"> Upload Transaction Report</h6>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -72,6 +72,8 @@
                 </div>
                 <div class="my-4 text-right">
                     <button class="btn btn-primary px-4" type="Submit">Upload</button>
+                    <button class="btn btn-primary px-4" type="button" onclick="location.href='@Url.Action("Uploader", "Admin")'" name="Cancel">Cancel</button>
+
                 </div>
             </div>
         </div>
@@ -81,10 +83,7 @@
         </div>
     </section>
 }
-<div>
-    @Html.ActionLink("Cancel", "Uploader")
 
-</div>
 @if (TempData["Message"] != null)
 {
     <script type="text/javascript">
