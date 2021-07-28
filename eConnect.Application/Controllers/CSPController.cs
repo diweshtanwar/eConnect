@@ -66,12 +66,17 @@ namespace eConnect.Application.Controllers
             CityLogic objCityLogic = new CityLogic();
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
-
+            BranchCodeLogic objBranchCodeLogic = new BranchCodeLogic();
+            CategoryLogic objCategoryLogic = new CategoryLogic();
+            LocationLogic objLocationLogic = new LocationLogic();
             ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name", UserCSPDetail.Status);
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
             ViewBag.CertificateStatus = new SelectList(CertificateStatusList, "Text", "Value", UserCSPDetail.CertificateStatus);
+            ViewBag.BranchCode = new SelectList(objBranchCodeLogic.GetAllBranchCode(), "BranchCode", "BranchCode");
+            ViewBag.Category = new SelectList(objCategoryLogic.GetAllCategory(), "Category", "Category");
+            ViewBag.Location = new SelectList(objLocationLogic.GetAllLocation(), "Location", "Location");
             return View(UserCSPDetail);
         }
 
