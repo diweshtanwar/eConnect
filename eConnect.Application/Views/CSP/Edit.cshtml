@@ -127,7 +127,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "required-field" })
-                            @Html.DropDownList("Country", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("Country", null, htmlAttributes: new { @class = "form-control", @onchange = "return bindState();" })
                             @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
 
                         </div>
@@ -135,7 +135,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "required-field" })
-                            @Html.DropDownList("State", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("State", null, htmlAttributes: new { @class = "form-control", @onchange = "return bindCity();" })
                             @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -311,7 +311,7 @@
                     </div>
                     @if (Model.CertificateStatus == "Yes")
                     {
-                        <div id="CertificationImageStatus" class="col-md-4" >
+                        <div id="CertificationImageStatus" class="col-md-4">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "" })
                                 <input type="file" id="IIBFCertificationImage" name="IIBFCertificationImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
@@ -329,7 +329,7 @@
                     }
                     else
                     {
-                        <div id="CertificationImageStatus" class="col-md-4" style="display: none";>
+                        <div id="CertificationImageStatus" class="col-md-4" style="display: none" ;>
                             <div class="form-group">
                                 @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "" })
                                 <input type="file" id="IIBFCertificationImage" name="IIBFCertificationImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
@@ -352,7 +352,7 @@
                     @Html.ActionLink("Cancel", "Index")
                 </div>
                 <div class="text-left">
-                   
+
                 </div>
             </div>
 
@@ -360,3 +360,68 @@
     </section>
 }
 
+<script>
+    //$(document).ready(function () {
+    //    $("#Country").change(function () {
+    //        var id = $(this).val();
+    //        $("#State").empty();
+    //        $("#City").empty();
+    //        $.get("BindStates", { country_id: id }, function (data) {
+    //            var v = "<option>---Select---</option>";
+    //            $.each(data, function (i, v1) {
+    //                v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+    //            });
+    //            $("#State").html(v);
+
+    //        });
+    //    });
+    //    $("#State").change(function () {
+    //        var sid = $(this).val();
+    //        $("#City").empty();
+    //        $.get("BindCity", { state_id: sid }, function (data) {
+    //            var v = "<option>---Select---</option>";
+    //            $.each(data, function (i, v1) {
+    //                v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+    //            });
+    //            $("#City").html(v);
+    //        });
+    //    });
+    //});
+
+        function bindState() {
+            var sid = $("#Country").val();
+        $("#City").empty();
+
+        $.ajax({
+            url: '@Url.Action("BindStates", "CSP")',
+            data: { country_id: sid },
+            type: 'GET',
+            success: function (data)
+            {
+                var v = "<option>---Select---</option>";
+                $.each(data, function (i, v1) {
+                    v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                });
+                $("#State").html(v);
+            }
+        });
+    }
+            function bindCity() {
+        var sid = $("#State").val();
+        $("#City").empty();
+
+        $.ajax({
+            url: '@Url.Action("BindCity", "CSP")',
+            data: { state_id: sid },
+            type: 'GET',
+            success: function (data)
+            {
+                var v = "<option>---Select---</option>";
+                $.each(data, function (i, v1) {
+                    v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                });
+                $("#City").html(v);
+            }
+        });
+    }
+</script>

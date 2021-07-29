@@ -211,17 +211,17 @@ namespace eConnect.Logic
                 tblUserCSPDetail.EmergencyContactNumber = UserCSPDetail.EmergencyContactNumber;
                 tblUserCSPDetail.ExpiryDate = Convert.ToDateTime(UserCSPDetail.ExpiryDate);
                 tblUserCSPDetail.PassportSizePhoto = UserCSPDetail.PassportSizePhoto != null
-                            ? UserCSPDetail.CSPId+"-"+Path.GetFileName(UserCSPDetail.PassportSizePhoto.FileName).ToString() : UserCSPDetail.PassportSizePhotoName;
+                            ? Path.GetFileName(UserCSPDetail.PassportSizePhoto.FileName).ToString() : UserCSPDetail.PassportSizePhotoName;
                 tblUserCSPDetail.VoterIdImage = UserCSPDetail.VoterIdImage != null
-                            ? UserCSPDetail.CSPId + "-" + Path.GetFileName(UserCSPDetail.VoterIdImage.FileName).ToString() : UserCSPDetail.VoterIdImageName;
+                            ?  Path.GetFileName(UserCSPDetail.VoterIdImage.FileName).ToString() : UserCSPDetail.VoterIdImageName;
                 tblUserCSPDetail.PANImage = UserCSPDetail.PANImage != null
-                            ? UserCSPDetail.CSPId + "-" + Path.GetFileName(UserCSPDetail.PANImage.FileName).ToString() : UserCSPDetail.PANImageName;
+                            ?  Path.GetFileName(UserCSPDetail.PANImage.FileName).ToString() : UserCSPDetail.PANImageName;
                 tblUserCSPDetail.AadharImage = UserCSPDetail.AadharImage != null
-                           ? UserCSPDetail.CSPId + "-" + Path.GetFileName(UserCSPDetail.AadharImage.FileName).ToString() : UserCSPDetail.AadharImageName;
+                           ?  Path.GetFileName(UserCSPDetail.AadharImage.FileName).ToString() : UserCSPDetail.AadharImageName;
                 tblUserCSPDetail.LatestEducationProofImage = UserCSPDetail.LatestEducationProofImage != null
-                           ? UserCSPDetail.CSPId + "-" + Path.GetFileName(UserCSPDetail.LatestEducationProofImage.FileName).ToString() : UserCSPDetail.LatestEducationProofImageName;
+                           ? Path.GetFileName(UserCSPDetail.LatestEducationProofImage.FileName).ToString() : UserCSPDetail.LatestEducationProofImageName;
                 tblUserCSPDetail.IIBFCertificationImage = UserCSPDetail.IIBFCertificationImage != null
-                         ? UserCSPDetail.CSPId + "-" + Path.GetFileName(UserCSPDetail.IIBFCertificationImage.FileName).ToString() : UserCSPDetail.IIBFCertificationImageName;
+                         ? Path.GetFileName(UserCSPDetail.IIBFCertificationImage.FileName).ToString() : UserCSPDetail.IIBFCertificationImageName;
            
                 tblUserCSPDetail.Status = UserCSPDetail.Status;
                 tblUserCSPDetail.UpdatedDate = DateTime.Now;

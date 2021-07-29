@@ -12,7 +12,6 @@
     string IIBFCertificationImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\IIBFCertificationImage\\" + Model.IIBFCertificationImageName;
 
 }
-
 @using (Html.BeginForm("EditCSPProfile", "CSP", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -28,7 +27,8 @@
         <div class="card">
             <div class="card-body">
                 <div class="my-4 text-right">
-                    <button class="btn btn-primary px-4" type="submit">Save</button>
+                    <button class="btn btn-primary px-4" type="submit">Save</button>|
+                    @Html.ActionLink("Cancel", "Index")
                 </div>
                 <h6 class="text-primary mb-3"> Account Detail</h6>
                 <div class="row">
@@ -38,7 +38,7 @@
                             @Html.EditorFor(model => model.CSPName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                             @Html.ValidationMessageFor(model => model.CSPName, "", new { @class = "text-danger" })
                         </div>
-                    </div>  
+                    </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.CSPCode, htmlAttributes: new { @class = "required-field" })
@@ -124,7 +124,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "required-field" })
-                            @Html.DropDownList("Country", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("Country", null, htmlAttributes: new { @class = "form-control", @onchange = "return bindState();" })
                             @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
 
                         </div>
@@ -132,7 +132,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "required-field" })
-                            @Html.DropDownList("State", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("State", null, htmlAttributes: new { @class = "form-control", @onchange = "return bindCity();" })
                             @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -306,23 +306,23 @@
                             }
                         </div>
                     </div>
-                    @if (Model.CertificateStatus=="Yes")
-                    {                    
-                    <div id="CertificationImageStatus" class="col-md-4">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "required-field" })
-                            <input type="file" id="IIBFCertificationImage" name="IIBFCertificationImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
+                    @if (Model.CertificateStatus == "Yes")
+                    {
+                        <div id="CertificationImageStatus" class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "required-field" })
+                                <input type="file" id="IIBFCertificationImage" name="IIBFCertificationImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
 
-                            @Html.ValidationMessageFor(model => model.IIBFCertificationImage, "", new { @class = "text-danger" })
-                            @if (!string.IsNullOrEmpty(Model.IIBFCertificationImageName))
-                            {
-                                <a href="@Url.Content(IIBFCertificationImagePath)" target="_blank">PreviewImage</a>
-                            }
-                            else
-                            { <span style="color:red;">No image uploaded.</span>
-                            }
+                                @Html.ValidationMessageFor(model => model.IIBFCertificationImage, "", new { @class = "text-danger" })
+                                @if (!string.IsNullOrEmpty(Model.IIBFCertificationImageName))
+                                {
+                                    <a href="@Url.Content(IIBFCertificationImagePath)" target="_blank">PreviewImage</a>
+                                }
+                                else
+                                { <span style="color:red;">No image uploaded.</span>
+                                }
+                            </div>
                         </div>
-                    </div>
                     }
 
                 </div>
@@ -339,3 +339,41 @@
     </section>
 }
 
+<script>
+           function bindState() {
+            var sid = $("#Country").val();
+        $("#City").empty();
+
+        $.ajax({
+            url: '@Url.Action("BindStates", "CSP")',
+            data: { country_id: sid },
+            type: 'GET',
+            success: function (data)
+            {
+                var v = "<option>---Select---</option>";
+                $.each(data, function (i, v1) {
+                    v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                });
+                $("#State").html(v);
+            }
+        });
+    }
+            function bindCity() {
+        var sid = $("#State").val();
+        $("#City").empty();
+
+        $.ajax({
+            url: '@Url.Action("BindCity", "CSP")',
+            data: { state_id: sid },
+            type: 'GET',
+            success: function (data)
+            {
+                var v = "<option>---Select---</option>";
+                $.each(data, function (i, v1) {
+                    v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                });
+                $("#City").html(v);
+            }
+        });
+    }
+</script>

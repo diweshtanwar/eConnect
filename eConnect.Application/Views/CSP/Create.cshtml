@@ -73,7 +73,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.CertificateStatus, htmlAttributes: new { @class = "required-field" })
-                            @Html.DropDownList("CertificateStatus", ViewBag.CertificateStatus as SelectList, htmlAttributes: new { @class = "form-control"})
+                            @Html.DropDownList("CertificateStatus", ViewBag.CertificateStatus as SelectList, htmlAttributes: new { @class = "form-control" })
                             @*@Html.EditorFor(model => model.CertificateStatus, new { htmlAttributes = new { @class = "form-control" } })*@
                             @Html.ValidationMessageFor(model => model.CertificateStatus, "", new { @class = "text-danger" })
                         </div>
@@ -111,7 +111,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "required-field" })
 
-                            @Html.DropDownList("Country", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("Country", null, htmlAttributes: new { @class = "form-control", @onchange = "return bindState();" })
                             @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
 
                         </div>
@@ -120,7 +120,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "required-field" })
 
-                            @Html.DropDownList("State", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("State", null, htmlAttributes: new { @class = "form-control", @onchange = "return bindCity();" })
                             @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -273,12 +273,50 @@
                 </div>
                 <div class="my-4 text-right">
                     <button class="btn btn-primary px-4" type="submit">Save</button> |
-                    @Html.ActionLink("Cancel", "Index") 
+                    @Html.ActionLink("Cancel", "Index")
                 </div>
             </div>
         </div>
     </section>
 }
 <div>
-   
+
 </div>
+<script>
+            function bindState() {
+            var sid = $("#Country").val();
+        $("#City").empty();
+
+        $.ajax({
+            url: '@Url.Action("BindStates", "CSP")',
+            data: { country_id: sid },
+            type: 'GET',
+            success: function (data)
+            {
+                var v = "<option>---Select---</option>";
+                $.each(data, function (i, v1) {
+                    v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                });
+                $("#State").html(v);
+            }
+        });
+    }
+            function bindCity() {
+        var sid = $("#State").val();
+        $("#City").empty();
+
+        $.ajax({
+            url: '@Url.Action("BindCity", "CSP")',
+            data: { state_id: sid },
+            type: 'GET',
+            success: function (data)
+            {
+                var v = "<option>---Select---</option>";
+                $.each(data, function (i, v1) {
+                    v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                });
+                $("#City").html(v);
+            }
+        });
+    }
+</script>

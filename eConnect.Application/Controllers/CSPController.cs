@@ -509,7 +509,7 @@ namespace eConnect.Application.Controllers
             {
                 Directory.CreateDirectory(fullpath);
             }
-            fullpath = fullpath + "\\"+CSPUserID+"-" + Path.GetFileName(postedfile.FileName);
+            fullpath = fullpath + "\\" + Path.GetFileName(postedfile.FileName);
             if (System.IO.File.Exists(fullpath))
             {
                 System.IO.File.Delete(fullpath);
@@ -517,6 +517,27 @@ namespace eConnect.Application.Controllers
             return fullpath;
         }
 
-       
+        public JsonResult BindStates(long country_id)
+        {
+            StateLogic sl = new StateLogic();
+            IList<SelectListItem> statelist = new List<SelectListItem>();
+            var slist = sl.GetAllStatesByCid(country_id);
+            foreach (var dr in slist)
+            {
+                statelist.Add(new SelectListItem { Text = dr.Name.ToString(), Value = dr.StateId.ToString().ToString() });
+            }
+            return Json(statelist, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult BindCity(long state_id)
+        {
+            CityLogic sl = new CityLogic();
+            IList<SelectListItem> citylist = new List<SelectListItem>();
+            var clist = sl.GetAllCitiesByStateID(state_id);
+            foreach (var dr in clist)
+            {
+                citylist.Add(new SelectListItem { Text = dr.Name.ToString(), Value = dr.CityId.ToString().ToString() });
+            }
+            return Json(citylist, JsonRequestBehavior.AllowGet);
+        }
     }
 }
