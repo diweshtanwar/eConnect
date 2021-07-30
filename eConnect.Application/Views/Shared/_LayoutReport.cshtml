@@ -152,5 +152,110 @@
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css" />
+
+    <script>
+        $(function () {
+            $('.expiry-date').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                minYear: 1901,
+                autoApply: true,
+                maxYear: parseInt(moment().format('YYYY'), 10)
+            });
+        });
+        $(function () {
+            $('.datetimepicker').datepicker();
+        });
+
+        $(document).ready(function () {
+            setTimeout(function () {
+                $("#SuccessMsg").fadeOut();
+            }, 10000);
+        });
+    </script>
+    <script>
+        $.fileup({
+            url: "https://localhost:44331//Content/Images/CSP",
+            inputID: 'upload-1',
+            queueID: 'upload-1-queue',
+            onSuccess: function (response, file_number, file) {
+                $.growl.notice({
+                    title: "Upload success!",
+                    message: file.name
+                });
+            },
+            onError: function (event, file, file_number) {
+                $.growl.error({
+                    message: "Upload error!"
+                });
+            }
+        });
+        $.fileup({
+            url: 'top/https://localhost:44331//Content/Images/CSP',
+            inputID: 'upload-2',
+            queueID: 'upload-2-queue',
+            onSuccess: function (response, file_number, file) {
+                $.growl.notice({
+                    title: "Upload success!",
+                    message: file.name
+                });
+            },
+            onError: function (event, file, file_number) {
+                $.growl.error({
+                    message: "Upload error!"
+                });
+            }
+        });
+        $.fileup({
+            url: '~/Content/Images/CSP?file_upload=1',
+            inputID: 'upload-3',
+            queueID: 'upload-3-queue',
+            onSuccess: function (response, file_number, file) {
+                $.growl.notice({
+                    title: "Upload success!",
+                    message: file.name
+                });
+            },
+            onError: function (event, file, file_number) {
+                $.growl.error({
+                    message: "Upload error!"
+                });
+            }
+        });
+        $.fileup({
+            url: 'example.com/your/path?file_upload=1',
+            inputID: 'upload-4',
+            queueID: 'upload-4-queue',
+            onSuccess: function (response, file_number, file) {
+                $.growl.notice({
+                    title: "Upload success!",
+                    message: file.name
+                });
+            },
+            onError: function (event, file, file_number) {
+                $.growl.error({
+                    message: "Upload error!"
+                });
+            }
+        });
+        $.fileup({
+            url: 'example.com/your/path?file_upload=1',
+            inputID: 'upload-5',
+            queueID: 'upload-5-queue',
+            onSuccess: function (response, file_number, file) {
+                $.growl.notice({
+                    title: "Upload success!",
+                    message: file.name
+                });
+            },
+            onError: function (event, file, file_number) {
+                $.growl.error({
+                    message: "Upload error!"
+                });
+            }
+        });
+
+
+    </script>
 </body>
 </html>

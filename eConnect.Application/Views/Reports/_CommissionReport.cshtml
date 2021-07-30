@@ -24,7 +24,8 @@
             @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
         </div>
         @*<table class="table table-striped" id="table-2">*@
-        <table id="example" class="display nowrap" style="width:100%">
+    @*<table id="example" class="display nowrap" style="width:100%">*@
+        <table id="example" class="table table-striped">
             <thead>
                 <h6 class="text-primary mb-3">@Model.FirstOrDefault().Message </h6>
                 <tr>
@@ -121,7 +122,7 @@
                                     <td>NET Payable</td>
                                     <td>
                                         @{
-                                        TotalPayable = (@TotalTDS - @TotalTDSPercentage);
+                                            TotalPayable = (@TotalTDS - @TotalTDSPercentage);
                                         }
                                         @TotalPayable.ToString("0.00")
                                     </td>
@@ -159,7 +160,7 @@
                 </tr>
             </tfoot>
         </table>
-    </div>
+</div>
 </div>
 <div class="ajax-loader">
     <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />

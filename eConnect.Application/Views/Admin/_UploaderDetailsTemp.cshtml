@@ -2,6 +2,7 @@
 @{ Layout = null; }
 
 <style type="text/css">
+  
     .ajax-loader {
         visibility: hidden;
         background-color: rgba(255,255,255,0.7);
@@ -23,124 +24,130 @@
         <div class="table-actions">
             @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
         </div>
-        <table class="table table-striped" id="table-2">
-            <thead>
-                <tr>
-                    <th>SNo</th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Year)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Month)
-                    </th>
-                    <th>
-
-                        @Html.DisplayNameFor(model => model.ReportType)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FileName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CreatedDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ReportStatus)
-                    </th>
-                    <th>Action</th>
-                    <th>View</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{ int count = 1; }
-                @foreach (var item in Model)
-                {
+        @*<table class="table table-striped" id="table-2">*@
+            <table id="example"  class="table table-striped">
+                <thead>
                     <tr>
-                        <td>
-                            @count
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Year)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MonthName)
-                        </td>
-                        <td>
-                            @if (item.ReportType == 1)
-                            {
-                                <span>Commission</span>
+                        <th>SNo</th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Year)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Month)
+                        </th>
+                        <th>
 
-                            }
-                            else
-                            {
-                                if (item.ReportType == 2)
-                                {
-                                    <span> Business </span>
-                                }
-                            }
-
-
-                        </td>
-                        <td>
-                            @Html.ActionLink(@item.FileName, "OpenFileUploader", new { id = @item.ReportType, year = @item.Year, month = @item.Month, filename = @item.FileName }, null)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreatedDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReportStatus)
-                        </td>
-                        <td>
-                            @if (item.StatusId == 6)
-                            {
-                                <span>Report  Published</span> }
-                            else if (item.StatusId == 5)
-                            {
-                                if (item.InActive == false)
-                                {
-                                    <a class="details" href="javascript:;" onclick="PublishReport(@item.UploaderId)">Click to Publish Report</a> }
-                                else
-                                {
-                                    <span>Report In Active </span>}
-                            }
-                        </td>
-                        <td>
-                            @if (item.StatusId == 6)
-                            {
-                                if (item.UnPublishedCount > 0)
-                                {
-                                    @Html.ActionLink("View Unpublished Records", "ViewUnPublishedRecords", new { id = item.UploaderId }, null)
-                                    <a class="details" href="javascript:;" onclick="PublishReport(@item.UploaderId)">| Publish Again</a>
-                                }
-                                else
-                                {
-                                    <span style="color:forestgreen;"> @Html.ActionLink("View Report", "DownloadCommissionReport", "Reports", new {},new { target = "_blank" }) </span>
-                                }
-                            }
-                            @if (item.StatusId == 5)
-                            {
-                                if (item.InActive == false)
-                                {
-                                    @*<a class="details" href="javascript:;" onclick="ViewClick(@item.UploaderId,'View')">In Active</a>*@
-                                    <a class="details" href="javascript:;" onclick="DeleteUploadRecord(@item.UploaderId)">Delete</a>
-                                }
-
-                                else
-                                {
-                                    <span>Report In Active </span>}
-                            }
-                        </td>
+                            @Html.DisplayNameFor(model => model.ReportType)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FileName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CreatedDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ReportStatus)
+                        </th>
+                        <th>Action</th>
+                        <th>View</th>
                     </tr>
-                    count++;
-                }
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @{ int count = 1; }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @count
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Year)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MonthName)
+                            </td>
+                            <td>
+                                @if (item.ReportType == 1)
+                                {
+                                    <span>Commission</span>
+
+                                }
+                                else
+                                {
+                                    if (item.ReportType == 2)
+                                    {
+                                        <span> Business </span>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @Html.ActionLink(@item.FileName, "OpenFileUploader", new { id = @item.ReportType, year = @item.Year, month = @item.Month, filename = @item.FileName }, null)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ReportStatus)
+                                </td>
+                                <td>
+                                    @if (item.StatusId == 6)
+                                    {
+                                        <span>Report  Published</span> }
+                                    else if (item.StatusId == 5)
+                                    {
+                                        if (item.InActive == false)
+                                        {
+                                            <a class="details" href="javascript:;" onclick="PublishReport(@item.UploaderId)">Click to Publish Report</a> }
+                                        else
+                                        {
+                                            <span>Report In Active </span>}
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.StatusId == 6)
+                                    {
+                                        if (item.UnPublishedCount > 0)
+                                        {
+                                            @Html.ActionLink("View Unpublished Records", "ViewUnPublishedRecords", new { id = item.UploaderId }, null)
+                                            <a class="details" href="javascript:;" onclick="PublishReport(@item.UploaderId)">| Publish Again</a>
+                                        }
+                                        else
+                                        {
+                                            <span style="color:forestgreen;"> @Html.ActionLink("View Report", "DownloadCommissionReport", "Reports", new { }, new { target = "_blank" }) </span>
+                                        }
+                                    }
+                                    @if (item.StatusId == 5)
+                                    {
+                                        if (item.InActive == false)
+                                        {
+                                            @*<a class="details" href="javascript:;" onclick="ViewClick(@item.UploaderId,'View')">In Active</a>*@
+                                            <a class="details" href="javascript:;" onclick="DeleteUploadRecord(@item.UploaderId)">Delete</a>
+                                        }
+
+                                        else
+                                        {
+                                            <span>Report In Active </span>}
+                                    }
+                                </td>
+</tr>
+                        count++;
+                    }
+                </tbody>
+            </table>
+</div>
 </div>
 <div class="ajax-loader">
     <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
 </div>
 @*</div>*@
 <script type="text/javascript">
+    $(document).ready(function () {
+        $('#example').DataTable({
+           // "pageLength": 30,
+           // "ordering": false,
+          //  dom: 'Bfrtip',
+             });
+    });
 
     function DeleteUploadRecord(uploaderId) {
         if (confirm('Are you sure to delete this record ?')) {
