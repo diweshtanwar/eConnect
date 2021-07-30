@@ -11,9 +11,10 @@ using eConnect.Model;
 using eConnect.Logic;
 using System.IO;
 using System.Configuration;
+
 namespace eConnect.Application.Controllers
 {
-    public class ManageWithdrawalRequestController : Controller
+    public class ManageDepositRequestController : Controller
     {
         // GET: ManageWithdrawalRequest
         List<SelectListItem> Status = new List<SelectListItem>()
@@ -22,7 +23,7 @@ namespace eConnect.Application.Controllers
                 new SelectListItem { Text = "Select Status", Value = "" },
                 new SelectListItem { Text = "Open", Value = "1" },
                  new SelectListItem { Text = "Close", Value = "2" },
-               
+
             };
         List<SelectListItem> City = new List<SelectListItem>()
             {
@@ -39,18 +40,18 @@ namespace eConnect.Application.Controllers
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
             ViewBag.City = City;
             ViewBag.Status = Status;
-           
-            var tblWithdrawDetails = raiseRequest.GetManageWithdrawDetails();
+
+            var tblDepositDetails = raiseRequest.GetManageDepositDetails();
             bool flag = Convert.ToBoolean(TempData["flag"]);
             if (flag == true)
             {
-                tblWithdrawDetails = TempData["searchdataManage"] as List<sp_GetManageWithdrawalRequestDetails_Result>;
+                tblDepositDetails = TempData["searchdataManagedeposit"] as List<sp_GetManageDepositRequestDetails_Result>;
             }
-            return View(tblWithdrawDetails.ToList());
+            return View(tblDepositDetails.ToList());
         }
-        public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City,string Status,string Requesteddte)
+        public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City, string Status, string Requesteddte)
         {
-            int Reqid = 0,Cid=0,Sid=0, Cityid=0,Statusid=0;
+            int Reqid = 0, Cid = 0, Sid = 0, Cityid = 0, Statusid = 0;
             if (Requestid == "")
             {
                 Reqid = 0;
@@ -92,28 +93,17 @@ namespace eConnect.Application.Controllers
             {
                 Statusid = Convert.ToInt32(Status);
             }
-            var tblManageWithdrawDetails = raiseRequest.GetManageWithdrawDetailsSearch(Reqid,CspName,Cid,Sid,Cityid,Statusid,Requesteddte);
-            TempData["searchdataManage"] = tblManageWithdrawDetails.ToList();
+            var tblManageDepositDetails = raiseRequest.GetManageDepositDetailsSearch(Reqid, CspName, Cid, Sid, Cityid, Statusid, Requesteddte);
+            TempData["searchdataManagedeposit"] = tblManageDepositDetails.ToList();
             TempData["flag"] = true;
             return RedirectToAction("Index");
-        }
-         public JsonResult BindCity(long state_id)
-        {
-            CityLogic sl = new CityLogic();
-            IList<SelectListItem> citylist = new List<SelectListItem>();
-            var clist = sl.GetAllCitiesByStateID(state_id);
-            foreach (var dr in clist)
-            {
-                citylist.Add(new SelectListItem { Text = dr.Name.ToString(), Value = dr.CityId.ToString().ToString() });
-            }
-            return Json(citylist, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Edit(int? id)
         {
            
             RaiseRequestLogic raiseRequestdetals = new RaiseRequestLogic();
-            ManageWithdrawal objMWithdraw = raiseRequestdetals.GetManageWithdrawDetailByID((int)id);
+            ManageDeposit objMDeposit= raiseRequestdetals.GetManageDepositDetailByID((int)id);
            var Status = new[]
            {
 
@@ -122,28 +112,26 @@ namespace eConnect.Application.Controllers
                  new SelectListItem { Text = "Close", Value = "2" },
 
             };
-            var selectedStatus = Status.FirstOrDefault(d => d.Value == objMWithdraw.CurrentStatus.ToString());
+            var selectedStatus = Status.FirstOrDefault(d => d.Value == objMDeposit.CurrentStatus.ToString());
             if (selectedStatus != null)
                 selectedStatus.Selected = true;
             ViewBag.EditedStatus = Status;
-            return View(objMWithdraw);
+            return View(objMDeposit);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ManageWithdrawal objMWithdraw)
+        public ActionResult Edit(ManageDeposit deposit)
         {
-
-                RaiseRequestLogic raiseRequestLogic = new RaiseRequestLogic();
-                raiseRequestLogic.UpdateManageWithdrawDetail(objMWithdraw);
-                TempData["Message"] = "Record submitted successfully";
-                return RedirectToAction("Index");
+            RaiseRequestLogic raiseRequestLogic = new RaiseRequestLogic();
+            raiseRequestLogic.UpdateManageDepositDetail(deposit);
+            TempData["Message"] = "Record submitted successfully";
+            return RedirectToAction("Index");
         }
-
         public ActionResult Details(int? id)
         {
             RaiseRequestLogic raiseRequestdetals = new RaiseRequestLogic();
-            ManageWithdrawal objMWithdraw = raiseRequestdetals.GetManageWithdrawDetailByID((int)id);
+            ManageDeposit objMDeposit = raiseRequestdetals.GetManageDepositDetailByID((int)id);
             var Status = new[]
             {
 
@@ -152,11 +140,11 @@ namespace eConnect.Application.Controllers
                  new SelectListItem { Text = "Close", Value = "2" },
 
             };
-            var selectedStatus = Status.FirstOrDefault(d => d.Value == objMWithdraw.CurrentStatus.ToString());
+            var selectedStatus = Status.FirstOrDefault(d => d.Value == objMDeposit.CurrentStatus.ToString());
             if (selectedStatus != null)
                 selectedStatus.Selected = true;
             ViewBag.EditedStatus = Status;
-            return View(objMWithdraw);
+            return View(objMDeposit);
         }
     }
 }

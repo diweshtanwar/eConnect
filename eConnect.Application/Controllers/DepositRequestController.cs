@@ -35,11 +35,13 @@ namespace eConnect.Application.Controllers
             };
         // GET: DepositRequest
         public ActionResult Index()
+        
         {
             
             RaiseRequestLogic raiseRequest = new RaiseRequestLogic();
             ViewBag.RequestType = RequestType;
-            var tblDepositDetails = raiseRequest.GetDepositDetails();
+            var tblDepositDetails = raiseRequest.GetDepositDetailsByCSPID(Convert.ToInt32(Session["CSPID"].ToString()));
+           // var tblDepositDetails = raiseRequest.GetDepositDetails();
             bool flag = Convert.ToBoolean(TempData["flag"]);
             if (flag == true)
             {
@@ -88,7 +90,8 @@ namespace eConnect.Application.Controllers
             ViewBag.Status = Status;
             if (ModelState.IsValid)
             {
-                int UserId = Convert.ToInt32(Session["UserID"]);
+                int UserId = Convert.ToInt32(Session["CSPID"]);
+                    //Convert.ToInt32(Session["UserID"]);
                 long UserID = raiseRequest.AddDepositDetails(deposit, UserId);
                 string path = Path.Combine(UserFilePath, UserID.ToString());
                 if (deposit.Reciept != null)

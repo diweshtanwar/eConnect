@@ -85,5 +85,41 @@ namespace eConnect.Model
         public int Id { get; set; }
 
     }
+    public class ManageDeposit
+    {
+
+        public string RequestId { get; set; }
+        public string CSPName { get; set; }
+        public int Amount { get; set; }
+        public string AccountDetail { get; set; }
+        public string RequestedDate { get; set; }
+        public string CurrentStatus { get; set; }
+        public string CompletionDate { get; set; }
+        public bool VerifyReciept { get; set; }
+        public string Comment { get; set; }
+        public int Id { get; set; }
+        public string RecieptDetail { get; set; }
+
+        public string Recieptpic { get; set; }
+
+    }
+    public class ManageTechSupport
+    {
+
+        public string RequestId { get; set; }
+        public int ProblemType { get; set; }
+        public string Description { get; set; }
+        public string MobileNo { get; set; }
+        public string RequestedDate { get; set; }
+        public string CurrentStatus { get; set; }
+        public string CompletionDate { get; set; }
+        public string ResolutionDetail { get; set; }
+        public string Email { get; set; }
+        public int Id { get; set; }
+        public string ScreenShot { get; set; }
+
+        public string Recieptpic { get; set; }
+
+    }
 
 }

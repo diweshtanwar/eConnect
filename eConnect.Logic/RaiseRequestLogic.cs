@@ -32,7 +32,7 @@ namespace eConnect.Logic
                                 ? Path.GetFileName(deposit.Reciept.FileName).ToString() : null;
                     objDeposit.CreatedBy = UserId;
                     objDeposit.CreatedDate = DateTime.Now;
-                    objDeposit.Status = Convert.ToInt32(deposit.Status);
+                    objDeposit.Status = 1;
                     objDeposit.ResolutionDetail = "";
                     objDeposit.CompletionDate =null;
                     objDeposit.UpdatedDate = DateTime.Now;
@@ -117,7 +117,7 @@ namespace eConnect.Logic
                 var tblDepositDetail = unitOfWork.DepositRequests.Find(x => x.DepositeRequestId ==deposit.Id).FirstOrDefault();
                 tblDepositDetail.RequestType = deposit.RequestTypes;
                 tblDepositDetail.Amount = deposit.Amount;
-                tblDepositDetail.Status = deposit.Status;
+               // tblDepositDetail.Status = deposit.Status;
                 tblDepositDetail.ReceiptSource = deposit.Reciept != null
                                   ? Path.GetFileName(deposit.Reciept.FileName).ToString() : deposit.Recieptpic;
                 tblDepositDetail.CreatedBy = (int)HttpContext.Current.Session["UserId"];
@@ -155,7 +155,7 @@ namespace eConnect.Logic
                     objWithdrawal.Account = Convert.ToInt64(withdraw.Account);
                     objWithdrawal.CreatedBy = UserId;
                     objWithdrawal.CreatedDate = DateTime.Now;
-                    objWithdrawal.Status = Convert.ToInt32(withdraw.Status);
+                    objWithdrawal.Status =1;
                     objWithdrawal.ResolutionDetail = "";
                     objWithdrawal.CompletionDate = null;
                     objWithdrawal.UpdatedDate = DateTime.Now;
@@ -195,6 +195,13 @@ namespace eConnect.Logic
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
                 return unitOfWork.RaiseRequest.GetAllWithdrawDetailbyCSPID(CSPID).ToList();
+            }
+        }
+        public IList<tblDepositRequest> GetDepositDetailsByCSPID(int CSPID)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                return unitOfWork.RaiseRequest.GetAllDeposiDetailbyCSPID(CSPID).ToList();
             }
         }
         public IList<tblWithdrawalRequest> GetWithdrawDetailsSearch(int Requestid, int RequestType, string Requesteddte, string Completiondte,int Account)
@@ -252,7 +259,7 @@ namespace eConnect.Logic
                 var tblWithdrawDetail = unitOfWork.WithdrawRequests.Find(x => x.WithdrawalRequestId == withdraw.Id).FirstOrDefault();
                 tblWithdrawDetail.RequestType = Convert.ToInt32(withdraw.RequestTypes);
                 tblWithdrawDetail.Amount = withdraw.Amount;
-                tblWithdrawDetail.Status = withdraw.Status;
+               // tblWithdrawDetail.Status = withdraw.Status;
                 tblWithdrawDetail.Account = withdraw.Account;
                 tblWithdrawDetail.UpdatedDate = DateTime.Now;
                 tblWithdrawDetail.UpdatedBy = (int)HttpContext.Current.Session["CSPID"];
@@ -291,7 +298,20 @@ namespace eConnect.Logic
                 return unitOfWork.RaiseRequest.GetManageWithdrawalRequestDetails().ToList();
             }
         }
-
+        public IList<sp_GetManageDepositRequestDetails_Result> GetManageDepositDetails()
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                return unitOfWork.RaiseRequest.GetManageDepositRequestDetails().ToList();
+            }
+        }
+        public IList<sp_GetManageTechSupportRequestDetails_Result> GetManageTechDetails()
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                return unitOfWork.RaiseRequest.GetManageTechRequestDetails().ToList();
+            }
+        }
         public IList<sp_GetManageWithdrawalRequestDetails_Result> GetManageWithdrawDetailsSearch(int Requestid, string CspName, int CspID, int State, int City, int Status, string Requesteddte)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
@@ -333,7 +353,47 @@ namespace eConnect.Logic
                 return result;
             }
         }
+        public IList<sp_GetManageDepositRequestDetails_Result> GetManageDepositDetailsSearch(int Requestid, string CspName, int CspID, int State, int City, int Status, string Requesteddte)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var result = unitOfWork.RaiseRequest.GetManageDepositRequestDetails().ToList();
 
+                if (Requestid != 0)
+                {
+                    result = result.Where(d => d.DepositeRequestId == Requestid).ToList();
+                }
+                if (!string.IsNullOrEmpty(CspName))
+                {
+                    result = result.Where(d => d.CSPName.Contains(CspName)).ToList();
+                    result = result.Where(d => d.CSPName.StartsWith(CspName)).ToList();
+                    result = result.Where(d => d.CSPName.EndsWith(CspName)).ToList();
+                }
+                if (CspID != 0)
+                {
+                    result = result.Where(d => d.CSPId == CspID).ToList();
+                }
+                if (State != 0)
+                {
+                    result = result.Where(d => d.State == State).ToList();
+                }
+                if (City != 0)
+                {
+                    result = result.Where(d => d.City == City).ToList();
+                }
+                if (Status != 0)
+                {
+                    result = result.Where(d => d.Status == Status).ToList();
+                }
+                if (!string.IsNullOrEmpty(Requesteddte))
+                {
+
+                    result = result.Where(d => d.RequestedDate == Convert.ToDateTime(Requesteddte)).ToList();
+                }
+
+                return result;
+            }
+        }
         public ManageWithdrawal GetManageWithdrawDetailByID(int id)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
@@ -366,6 +426,70 @@ namespace eConnect.Logic
 
             }
         }
+        public ManageDeposit GetManageDepositDetailByID(int id)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                ManageDeposit deposit = new ManageDeposit();
+                var tblDepositDetail = unitOfWork.RaiseRequest.GetManageDepositRequestDetails().ToList();
+                var Query = from x in tblDepositDetail where x.DepositeRequestId == id select x;
+                var tblMDepositDetail = unitOfWork.DepositRequests.Find(x => x.DepositeRequestId == id).FirstOrDefault();
+
+                foreach (var x in Query)
+                {
+                    deposit.Id = Convert.ToInt32(x.DepositeRequestId);
+                    deposit.RequestId = x.DepositeRequestId.ToString();
+                    deposit.CSPName = x.CSPName.ToString();
+                    deposit.Amount = Convert.ToInt32(x.Amount);
+                    //deposit.AccountDetail = x.Account.ToString();
+                    deposit.RequestedDate = Convert.ToDateTime(x.RequestedDate).ToString("dd/MMM/yyyy");
+                    deposit.CurrentStatus = x.Status.ToString();
+                    if (!string.IsNullOrEmpty(x.CompletionDate.ToString()))
+                    {
+                        deposit.CompletionDate = Convert.ToDateTime(x.CompletionDate).ToString("dd/MMM/yyyy");
+                    }
+                    deposit.VerifyReciept = Convert.ToBoolean(x.IsVerified);
+                    deposit.RecieptDetail = tblMDepositDetail.ReceiptSource;
+                    deposit.Comment = x.Comment;
+                }
+                return deposit;
+
+            }
+        }
+
+        public ManageTechSupport GetManageTechDetailByID(int id)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                ManageTechSupport tech = new ManageTechSupport();
+                var tblTechSupport = unitOfWork.RaiseRequest.GetManageTechRequestDetails().ToList();
+                var Query = from x in tblTechSupport where x.TechRequestId == id select x;
+                var tblTech = unitOfWork.TechSupportRequestss.Find(x => x.TechRequestId == id).FirstOrDefault();
+               
+
+                foreach (var x in Query)
+                {
+                    tech.Id = Convert.ToInt32(x.TechRequestId);
+                    tech.RequestId = x.TechRequestId.ToString();
+                    tech.ProblemType = Convert.ToInt32(x.ProblemType);
+                    //deposit.Amount = Convert.ToInt32(x.Amount);
+                    tech.Description = x.Description.ToString();
+                    tech.MobileNo = x.MobileNo.ToString();
+                    tech.RequestedDate = Convert.ToDateTime(x.RequestedDate).ToString("dd/MMM/yyyy");
+                    tech.CurrentStatus = x.Status.ToString();
+                    if (!string.IsNullOrEmpty(x.CompletionDate.ToString()))
+                    {
+                        tech.CompletionDate = Convert.ToDateTime(x.CompletionDate).ToString("dd/MMM/yyyy");
+                    }
+                    tech.Recieptpic = x.AttachmentSource;
+                    tech.ResolutionDetail = x.ResolutionDetail;
+                    tech.Email = tblTech.Email;
+                   
+                }
+                return tech;
+
+            }
+        }
         public void UpdateManageWithdrawDetail(ManageWithdrawal withdraw)
         {
             var dateAndTime = DateTime.Now;
@@ -390,6 +514,99 @@ namespace eConnect.Logic
 
             }
         }
+        public void UpdateManageDepositDetail(ManageDeposit deposit)
+        {
+            var dateAndTime = DateTime.Now;
+            var date = dateAndTime.Date;
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var tblDepositDetail = unitOfWork.DepositRequests.Find(x => x.DepositeRequestId == deposit.Id).FirstOrDefault();
+                tblDepositDetail.Comment = deposit.Comment;
+       
+                if (deposit.VerifyReciept == true)
+                {
+                    tblDepositDetail.Status = 2;
+                    tblDepositDetail.CompletionDate = date;
+                    tblDepositDetail.IsVerified = true;
+                }
+                tblDepositDetail.UpdatedDate = DateTime.Now;
+                tblDepositDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
+                unitOfWork.DepositRequests.Update(tblDepositDetail);
+               
 
+            }
+        }
+        public void UpdateManageTechDetail(ManageTechSupport tech)
+        {
+            var dateAndTime = DateTime.Now;
+            var date = dateAndTime.Date;
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var tblTechDetail = unitOfWork.TechSupportRequestss.Find(x => x.TechRequestId == tech.Id).FirstOrDefault();
+              
+
+                if (!string.IsNullOrEmpty(tech.ResolutionDetail))
+                {
+                    tblTechDetail.Status = 2;
+                    tblTechDetail.CompletionDate = date;
+                    tblTechDetail.ResolutionDetail = tech.ResolutionDetail;
+                }
+                tblTechDetail.Email =tech.Email;
+                tblTechDetail.UpdatedDate = DateTime.Now;
+                tblTechDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
+                unitOfWork.TechSupportRequestss.Update(tblTechDetail);
+
+
+            }
+        }
+        public IList<tblTechRequest> GetTechRequestDetailsByCSPID(int CSPID)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                return unitOfWork.RaiseRequest.GetAllTechRequestbyCSPID(CSPID).ToList();
+            }
+        }
+
+        public IList<sp_GetManageTechSupportRequestDetails_Result> GetManageTechDetailsSearch(int Requestid, string CspName, int CspID, int State, int City, int Status, string Requesteddte)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var result = unitOfWork.RaiseRequest.GetManageTechRequestDetails().ToList();
+
+                if (Requestid != 0)
+                {
+                    result = result.Where(d => d.TechRequestId == Requestid).ToList();
+                }
+                if (!string.IsNullOrEmpty(CspName))
+                {
+                    result = result.Where(d => d.CSPName.Contains(CspName)).ToList();
+                    result = result.Where(d => d.CSPName.StartsWith(CspName)).ToList();
+                    result = result.Where(d => d.CSPName.EndsWith(CspName)).ToList();
+                }
+                if (CspID != 0)
+                {
+                    result = result.Where(d => d.CSPId == CspID).ToList();
+                }
+                if (State != 0)
+                {
+                    result = result.Where(d => d.State == State).ToList();
+                }
+                if (City != 0)
+                {
+                    result = result.Where(d => d.City == City).ToList();
+                }
+                if (Status != 0)
+                {
+                    result = result.Where(d => d.Status == Status).ToList();
+                }
+                if (!string.IsNullOrEmpty(Requesteddte))
+                {
+
+                    result = result.Where(d => d.RequestedDate == Convert.ToDateTime(Requesteddte)).ToList();
+                }
+
+                return result;
+            }
+        }
     }
 }

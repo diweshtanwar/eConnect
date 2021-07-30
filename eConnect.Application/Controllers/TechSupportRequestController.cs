@@ -25,15 +25,18 @@ namespace eConnect.Application.Controllers
                  new SelectListItem { Text = "Not Started", Value = "2" },
                 new SelectListItem { Text = "Completed", Value = "3" },
             };
+        RaiseRequestLogic raiseRequest = new RaiseRequestLogic();
         public ActionResult Index()
         {
 
             TechSupportProblemLogic techSupport = new TechSupportProblemLogic();
+           
             var ProblemList = techSupport.GetAllTechSupportProblems();
             ViewBag.ProblemList = ProblemList;
             ViewBag.Status = Status;
             TechSupportRequestLogic logic = new TechSupportRequestLogic();
-            var tblTechDetails = logic.GetAllTechSupportRequests();
+            //var tblTechDetails = logic.GetAllTechSupportRequests();
+            var tblTechDetails = raiseRequest.GetTechRequestDetailsByCSPID(Convert.ToInt32(Session["CSPID"].ToString()));
             bool flag = Convert.ToBoolean(TempData["flag"]);
             if (flag == true)
             {
@@ -90,7 +93,7 @@ namespace eConnect.Application.Controllers
             if (ModelState.IsValid)
             {
 
-                int UserId = Convert.ToInt32(Session["UserID"]);
+                int UserId = Convert.ToInt32(Session["CSPID"]);
                 TechSupportRequestLogic techSupportreq = new TechSupportRequestLogic();
                 long UserID = techSupportreq.InsertTechSupportRequest(supportRequest, UserId);
                 string path = Path.Combine(TechSupportPath, UserID.ToString());

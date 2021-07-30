@@ -91,54 +91,50 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DepositeRequestId)
-                                </td>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DepositeRequestId)
+                            </td>
 
-                                @if (item.RequestType.Equals(1))
-                                {
-                                    <td>Withdrawal</td>
+                            @if (item.RequestType.Equals(1))
+                            {
+                                <td>Withdrawal</td>
 
-                                }
-                                else
-                                {
-                                    <td>Deposit</td>
-                                }
-                                @*@Html.DisplayFor(modelItem => item.RequestType)*@
+                            }
+                            else
+                            {
+                                <td>Deposit</td>
+                            }
+                            @*@Html.DisplayFor(modelItem => item.RequestType)*@
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Amount)
-                                </td>
-                                <td>
-                                    @(item.RequestedDate?.ToString("MM/dd/yyyy"))
-                                    @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
-                                </td>
-                                <td>
-                                    @(item.CompletionDate?.ToString("MM/dd/yyyy"))
-                                    @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
-                                </td>
-                                @if (item.Status.Equals(1))
-                                {
-                                    <td>In-Progress</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>
+                                @(item.RequestedDate?.ToString("MM/dd/yyyy"))
+                                @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
+                            </td>
+                            <td>
+                                @(item.CompletionDate?.ToString("MM/dd/yyyy"))
+                                @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
+                            </td>
+                            @if (item.Status.Equals(1))
+                            {
+                                <td>Open</td>
 
-                                }
-                                else if (item.Status.Equals(2))
-                                {
-                                    <td>Not Started</td>
-                                }
-                                else if (item.Status.Equals(3))
-                                {
-                                    <td>Completed</td>
-                                }
+                            }
+                            else if (item.Status.Equals(2))
+                            {
+                                <td>Close</td>
+                            }
 
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.DepositeRequestId }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.DepositeRequestId }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.DepositeRequestId })
-                                </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.DepositeRequestId }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.DepositeRequestId }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.DepositeRequestId })
+                            </td>
 
-                            </tr>
+                        </tr>
                         }
                     </tbody>
                 </table>

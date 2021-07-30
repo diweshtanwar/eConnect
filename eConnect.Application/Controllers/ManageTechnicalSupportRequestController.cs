@@ -13,22 +13,21 @@ using System.IO;
 using System.Configuration;
 namespace eConnect.Application.Controllers
 {
-    public class ManageWithdrawalRequestController : Controller
+    public class ManageTechnicalSupportRequestController : Controller
     {
-        // GET: ManageWithdrawalRequest
         List<SelectListItem> Status = new List<SelectListItem>()
-            {
+        {
 
-                new SelectListItem { Text = "Select Status", Value = "" },
-                new SelectListItem { Text = "Open", Value = "1" },
-                 new SelectListItem { Text = "Close", Value = "2" },
-               
-            };
+            new SelectListItem { Text = "Select Status", Value = "" },
+            new SelectListItem { Text = "Open", Value = "1" },
+                new SelectListItem { Text = "Close", Value = "2" },
+
+        };
         List<SelectListItem> City = new List<SelectListItem>()
-            {
+        {
 
-                new SelectListItem { Text = "Select City", Value = "" },
-            };
+            new SelectListItem { Text = "Select City", Value = "" },
+        };
         RaiseRequestLogic raiseRequest = new RaiseRequestLogic();
         public ActionResult Index()
         {
@@ -39,18 +38,18 @@ namespace eConnect.Application.Controllers
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
             ViewBag.City = City;
             ViewBag.Status = Status;
-           
-            var tblWithdrawDetails = raiseRequest.GetManageWithdrawDetails();
+            var tblTechDetails = raiseRequest.GetManageTechDetails();
             bool flag = Convert.ToBoolean(TempData["flag"]);
             if (flag == true)
             {
-                tblWithdrawDetails = TempData["searchdataManage"] as List<sp_GetManageWithdrawalRequestDetails_Result>;
+                tblTechDetails = TempData["searchdataManageTech"] as List<sp_GetManageTechSupportRequestDetails_Result>;
             }
-            return View(tblWithdrawDetails.ToList());
+            return View(tblTechDetails.ToList());
         }
-        public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City,string Status,string Requesteddte)
+
+        public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City, string Status, string Requesteddte)
         {
-            int Reqid = 0,Cid=0,Sid=0, Cityid=0,Statusid=0;
+            int Reqid = 0, Cid = 0, Sid = 0, Cityid = 0, Statusid = 0;
             if (Requestid == "")
             {
                 Reqid = 0;
@@ -92,58 +91,18 @@ namespace eConnect.Application.Controllers
             {
                 Statusid = Convert.ToInt32(Status);
             }
-            var tblManageWithdrawDetails = raiseRequest.GetManageWithdrawDetailsSearch(Reqid,CspName,Cid,Sid,Cityid,Statusid,Requesteddte);
-            TempData["searchdataManage"] = tblManageWithdrawDetails.ToList();
+            var tblManageTechDetails = raiseRequest.GetManageTechDetailsSearch(Reqid, CspName, Cid, Sid, Cityid, Statusid, Requesteddte);
+            TempData["searchdataManageTech"] = tblManageTechDetails.ToList();
             TempData["flag"] = true;
             return RedirectToAction("Index");
         }
-         public JsonResult BindCity(long state_id)
-        {
-            CityLogic sl = new CityLogic();
-            IList<SelectListItem> citylist = new List<SelectListItem>();
-            var clist = sl.GetAllCitiesByStateID(state_id);
-            foreach (var dr in clist)
-            {
-                citylist.Add(new SelectListItem { Text = dr.Name.ToString(), Value = dr.CityId.ToString().ToString() });
-            }
-            return Json(citylist, JsonRequestBehavior.AllowGet);
-        }
 
         public ActionResult Edit(int? id)
+
         {
-           
+            TechSupportProblemLogic techSupport = new TechSupportProblemLogic();
             RaiseRequestLogic raiseRequestdetals = new RaiseRequestLogic();
-            ManageWithdrawal objMWithdraw = raiseRequestdetals.GetManageWithdrawDetailByID((int)id);
-           var Status = new[]
-           {
-
-                 new SelectListItem { Text = "Select Status", Value = "" },
-                  new SelectListItem { Text = "Open", Value = "1" },
-                 new SelectListItem { Text = "Close", Value = "2" },
-
-            };
-            var selectedStatus = Status.FirstOrDefault(d => d.Value == objMWithdraw.CurrentStatus.ToString());
-            if (selectedStatus != null)
-                selectedStatus.Selected = true;
-            ViewBag.EditedStatus = Status;
-            return View(objMWithdraw);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(ManageWithdrawal objMWithdraw)
-        {
-
-                RaiseRequestLogic raiseRequestLogic = new RaiseRequestLogic();
-                raiseRequestLogic.UpdateManageWithdrawDetail(objMWithdraw);
-                TempData["Message"] = "Record submitted successfully";
-                return RedirectToAction("Index");
-        }
-
-        public ActionResult Details(int? id)
-        {
-            RaiseRequestLogic raiseRequestdetals = new RaiseRequestLogic();
-            ManageWithdrawal objMWithdraw = raiseRequestdetals.GetManageWithdrawDetailByID((int)id);
+            ManageTechSupport objMTech = raiseRequestdetals.GetManageTechDetailByID((int)id);
             var Status = new[]
             {
 
@@ -152,11 +111,45 @@ namespace eConnect.Application.Controllers
                  new SelectListItem { Text = "Close", Value = "2" },
 
             };
-            var selectedStatus = Status.FirstOrDefault(d => d.Value == objMWithdraw.CurrentStatus.ToString());
+            var selectedStatus = Status.FirstOrDefault(d => d.Value == objMTech.CurrentStatus.ToString());
             if (selectedStatus != null)
                 selectedStatus.Selected = true;
             ViewBag.EditedStatus = Status;
-            return View(objMWithdraw);
+            var ProblemList = techSupport.GetAllTechSupportProblems();
+            ViewBag.ProblemList = ProblemList;
+
+            return View(objMTech);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ManageTechSupport tech)
+        {
+            RaiseRequestLogic raiseRequestLogic = new RaiseRequestLogic();
+            raiseRequestLogic.UpdateManageTechDetail(tech);
+            TempData["Message"] = "Record submitted successfully";
+            return RedirectToAction("Index");
+        }
+        public ActionResult Details(int? id)
+        {
+            TechSupportProblemLogic techSupport = new TechSupportProblemLogic();
+            RaiseRequestLogic raiseRequestdetals = new RaiseRequestLogic();
+            ManageTechSupport objMTech = raiseRequestdetals.GetManageTechDetailByID((int)id);
+            var Status = new[]
+            {
+
+                 new SelectListItem { Text = "Select Status", Value = "" },
+                  new SelectListItem { Text = "Open", Value = "1" },
+                 new SelectListItem { Text = "Close", Value = "2" },
+
+            };
+            var selectedStatus = Status.FirstOrDefault(d => d.Value == objMTech.CurrentStatus.ToString());
+            if (selectedStatus != null)
+                selectedStatus.Selected = true;
+            ViewBag.EditedStatus = Status;
+            var ProblemList = techSupport.GetAllTechSupportProblems();
+            ViewBag.ProblemList = ProblemList;
+
+            return View(objMTech);
         }
     }
 }

@@ -10,28 +10,33 @@
 namespace eConnect.DataAccess
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class tblDepositRequest
+    public partial class sp_GetManageTechSupportRequestDetails_Result
     {
-        public Nullable<decimal> Amount { get; set; }
+        public long TechRequestId { get; set; }
         public Nullable<int> RaisedBy { get; set; }
+        public int CSPId { get; set; }
+        public string CSPName { get; set; }
+        public string CSPCode { get; set; }
+        public string Summary { get; set; }
+        public Nullable<int> ProblemType { get; set; }
+        public string Description { get; set; }
+        public string MobileNo { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<System.DateTime> RequestedDate { get; set; }
         public Nullable<System.DateTime> CompletionDate { get; set; }
-        public Nullable<bool> HasReceipt { get; set; }
-        public string ReceiptSource { get; set; }
-        public Nullable<bool> IsVerified { get; set; }
+        public Nullable<int> ResolutionProvidedBy { get; set; }
         public string ResolutionDetail { get; set; }
+        public string Attachment { get; set; }
+        public string AttachmentSource { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
-        public Nullable<int> CreatedBy { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
-        public int DepositeRequestId { get; set; }
-        public Nullable<int> RequestType { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
         public string Comment { get; set; }
-    
-        public virtual tblUser tblUser { get; set; }
-        public virtual tblUser tblUser1 { get; set; }
+        public string AnyDeskDetail { get; set; }
+        public Nullable<int> Country { get; set; }
+        public Nullable<int> State { get; set; }
+        public Nullable<int> City { get; set; }
     }
 }

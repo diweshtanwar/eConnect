@@ -75,5 +75,26 @@ namespace eConnect.DataAccess
 
             return  eConnectAppEntities.sp_GetManageWithdrawalRequestDetails().ToList();
         }
+        public IList<tblDepositRequest> GetAllDeposiDetailbyCSPID(int id)
+        {
+
+            return eConnectAppEntities.tblDepositRequests.Where(x => x.RaisedBy == id).ToList();
+        }
+        public IList<sp_GetManageDepositRequestDetails_Result> GetManageDepositRequestDetails()
+        {
+
+            return eConnectAppEntities.sp_GetManageDepositRequestDetails().ToList();
+        }
+        public IList<tblTechRequest> GetAllTechRequestbyCSPID(int id)
+        {
+
+            return eConnectAppEntities.tblTechRequests.Where(x => x.RaisedBy == id).ToList();
+        }
+
+        public IList<sp_GetManageTechSupportRequestDetails_Result> GetManageTechRequestDetails()
+        {
+
+            return eConnectAppEntities.sp_GetManageTechSupportRequestDetails().ToList();
+        }
     }
 }

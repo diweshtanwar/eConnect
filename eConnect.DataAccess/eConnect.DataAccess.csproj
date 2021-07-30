@@ -111,6 +111,12 @@
     <Compile Include="sp_GetCommissionReportByYearMonthandCSPName_Result.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_GetManageDepositRequestDetails_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetManageTechSupportRequestDetails_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_GetManageWithdrawalRequestDetails_Result.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>

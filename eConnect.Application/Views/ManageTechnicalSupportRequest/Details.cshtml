@@ -1,0 +1,111 @@
+﻿@model eConnect.Model.ManageTechSupport
+@{ ViewBag.Title = "";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+
+    string Receipt = @System.Web.Configuration.WebConfigurationManager.AppSettings["TechFilePath"] + Model.Id + "\\TechSupportScreenshort\\" + Model.Recieptpic; }
+<h2>Details</h2>
+<section class="section">
+    <div class="card">
+        <div class="card-body">
+            <h6 class="text-primary mb-3"> Request Detail</h6>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RequestId, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.RequestId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProblemType, htmlAttributes: new { @class = "required-field" })
+                        @Html.DropDownList("TechProblemType", new SelectList(ViewBag.ProblemList, "ProblemTypeId", "Name"), new { id = "TechProblemType", @class = "form-control", @readonly = "readonly" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RequestedDate, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.RequestedDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CurrentStatus, htmlAttributes: new { @class = "" })
+                        @Html.DropDownList("Status", (SelectListItem[])ViewBag.EditedStatus, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompletionDate, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.CompletionDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+
+                @*</div>*@
+
+            </div>
+
+            <h6 class="text-primary mb-3"> Resolution Detail</h6>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ScreenShot, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.Recieptpic, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                        @if (!string.IsNullOrEmpty(Model.Recieptpic))
+                        {
+                            <a href="@Url.Content(Receipt)" target="_blank">PreviewImage</a> }
+                        else
+                        {
+                            <span style="color:red;">No image uploaded.</span>}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ResolutionDetail, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.ResolutionDetail, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+
+            </div>
+            @*<div class="my-4 text-right">
+                <button class="btn btn-primary px-4" type="submit">Save</button>
+            </div>*@
+            <div class="text-left">
+                @Html.ActionLink("Cancel", "Index")
+            </div>
+        </div>
+    </div>
+</section>
+

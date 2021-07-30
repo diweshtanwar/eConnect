@@ -126,17 +126,14 @@
                             </td>
                             @if (item.Status.Equals(1))
                             {
-                                <td>In-Progress</td>
+                                <td>Open</td>
 
                             }
                             else if (item.Status.Equals(2))
                             {
-                                <td>Not Started</td>
+                                <td>Close</td>
                             }
-                            else if (item.Status.Equals(3))
-                            {
-                                <td>Completed</td>
-                            }
+
 
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id = item.TechRequestId }) |

@@ -101,12 +101,13 @@ namespace eConnect.Logic
                             ? Path.GetFileName(model.Screenshot.FileName).ToString() : null;
                 sr.MobileNo = model.PhoneNumber.ToString();
                 sr.AnyDeskDetail = model.AnyDeskDetail;
-                sr.Status = model.Status;
+                sr.Status =1;
                 sr.CreatedBy = UserId;
                 sr.RequestedDate = date;
                 sr.CreatedDate= DateTime.Now;
                 sr.CompletionDate = null;
-                sr.UpdatedDate = DateTime.Now;
+                sr.RaisedBy = UserId;
+                //sr.UpdatedDate = DateTime.Now;
                 unitOfWork.TechSupportRequestss.Add(sr);
                  long id = sr.TechRequestId;
                 return id;
@@ -207,7 +208,7 @@ namespace eConnect.Logic
                 sr.ProblemType = model.TechProblemType;
                 sr.Description = model.Description;
                 sr.MobileNo = model.PhoneNumber.ToString();
-                sr.Status = model.Status;
+                //sr.Status = model.Status;
                 sr.AnyDeskDetail = model.AnyDeskDetail;
                 sr.AttachmentSource = model.Screenshot != null
                                   ? Path.GetFileName(model.Screenshot.FileName).ToString() : model.Screenpic; ;

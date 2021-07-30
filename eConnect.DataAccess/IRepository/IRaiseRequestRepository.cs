@@ -21,5 +21,9 @@ namespace eConnect.DataAccess
         IList<tblTechRequest> GetTechDetail();
         void DeleteTechDetail(int Id);
         IList<sp_GetManageWithdrawalRequestDetails_Result> GetManageWithdrawalRequestDetails();
+        IList<tblDepositRequest> GetAllDeposiDetailbyCSPID(int id);
+        IList<sp_GetManageDepositRequestDetails_Result> GetManageDepositRequestDetails();
+        IList<tblTechRequest> GetAllTechRequestbyCSPID(int id);
+        IList<sp_GetManageTechSupportRequestDetails_Result> GetManageTechRequestDetails();
     }
 }

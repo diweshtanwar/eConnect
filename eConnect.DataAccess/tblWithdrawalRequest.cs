@@ -33,7 +33,6 @@ namespace eConnect.DataAccess
         public string EmailAddress { get; set; }
         public string Comment { get; set; }
     
-        public virtual tblStatu tblStatu { get; set; }
         public virtual tblUser tblUser { get; set; }
         public virtual tblUser tblUser1 { get; set; }
     }
