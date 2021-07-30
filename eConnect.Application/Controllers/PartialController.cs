@@ -15,12 +15,15 @@ namespace eConnect.Application.Controllers
         [ChildActionOnly]
         public ActionResult _GetAppMenu()
         {
-            int UserTypeId = (int)Session["UserTypeId"];
-            MenuLogic objMenuLogic = new MenuLogic();
-            var data = objMenuLogic.GetAllMenuMainWithSubMenuByRoleId(UserTypeId);
-            if (!(data==null))
+            if (Session != null && Session["UserTypeId"] != null)
             {
-                return View(data);
+                int UserTypeId = (int)Session["UserTypeId"];
+                MenuLogic objMenuLogic = new MenuLogic();
+                var data = objMenuLogic.GetAllMenuMainWithSubMenuByRoleId(UserTypeId);
+                if (!(data == null))
+                {
+                    return View(data);
+                }
             }
             return View();
         }
