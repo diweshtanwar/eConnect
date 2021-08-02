@@ -2,11 +2,11 @@
 
 @model IEnumerable<eConnect.DataAccess.sp_GetManageWithdrawalRequestDetails_Result>
 
-@{ ViewBag.Title = "";
+@{ ViewBag.Title = "Manage Withdrawal";
     Layout = "~/Views/Shared/_LayoutMain.cshtml"; }
 
 <section class="section">
-    <h2>Manage Withdraw Request</h2>
+  
 
     @*<p>
         @Html.ActionLink("Create New", "Create")
@@ -41,7 +41,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>State</label>
-                        @Html.DropDownList("State", null,"Select State", htmlAttributes: new { @class = "form-control", @onchange = "return bindCity();" })
+                        @Html.DropDownList("State", null, "Select State", htmlAttributes: new { @class = "form-control", @onchange = "return bindCity();" })
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -52,23 +52,38 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
+                        <label>BranchCode</label>
+                        @Html.DropDownList("BranchCode",null, "Select BranchCode", htmlAttributes: new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Category</label>
+                        @Html.DropDownList("Category", null, "Select Category", htmlAttributes: new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
                         <label>Status</label>
                         @Html.DropDownList("Status", (IEnumerable<SelectListItem>)ViewBag.Status, new { @class = "form-control" })
                     </div>
                 </div>
+
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Requested Date</label>
                         <input type="date" id="Requesteddte" name="Requesteddte" class="form-control" value="@Request["Requesteddte"]">
                     </div>
                 </div>
-                @*<div class="col-md-3">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label>Completion Date</label>
                         <input type="date" id="Completiondte" name="Completiondte" class="form-control" value="@Request["Completiondte"]">
 
                     </div>
-                </div>*@
+                </div>
 
 
                 <div class="col-md-3 mt-md-4 pt-1">
@@ -160,7 +175,7 @@
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id = item.WithdrawalRequestId })
                                 |
-                                @Html.ActionLink("Go", "Details", new { id = item.WithdrawalRequestId }) @*|
+                                @Html.ActionLink("View Detail", "Details", new { id = item.WithdrawalRequestId }) @*|
                                 @Html.ActionLink("Delete", "Delete", new { id = item.WithdrawalRequestId })*@
                             </td>
 

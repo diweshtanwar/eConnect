@@ -1,10 +1,10 @@
 ﻿@model eConnect.Model.ManageTechSupport
 
-@{ ViewBag.Title = "";
+@{ ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
     string Receipt = @System.Web.Configuration.WebConfigurationManager.AppSettings["TechFilePath"] + Model.Id + "\\TechSupportScreenshort\\" + Model.Recieptpic; }
 
-<h2>Edit</h2>
+@*<h2></h2>*@
 
 @using (Html.BeginForm("Edit", "ManageTechnicalSupportRequest", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -28,7 +28,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         @Html.LabelFor(model => model.ProblemType, htmlAttributes: new { @class = "required-field" })
-                                                                        @Html.DropDownList("TechProblemType", new SelectList(ViewBag.ProblemList, "ProblemTypeId", "Name"),  new { id = "TechProblemType", @class = "form-control", @readonly = "readonly" })
+                                                                        @Html.DropDownList("TechProblemType", new SelectList(ViewBag.ProblemList, "ProblemTypeId", "Name"), new { id = "TechProblemType", @class = "form-control", disabled = "disabled" })
 
                                                                     </div>
                                                                 </div>
@@ -57,11 +57,11 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         @Html.LabelFor(model => model.CurrentStatus, htmlAttributes: new { @class = "" })
-                                                                        @Html.DropDownList("Status", (SelectListItem[])ViewBag.EditedStatus, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                                                                        @Html.DropDownList("Status", (SelectListItem[])ViewBag.EditedStatus, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
                                                                     </div>
                                                                 </div>
-                                                               
-                                                               
+
+
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         @Html.LabelFor(model => model.CompletionDate, htmlAttributes: new { @class = "" })
@@ -69,7 +69,13 @@
 
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        @Html.LabelFor(model => model.AnyDeskDetails, htmlAttributes: new { @class = "" })
+                                                                        @Html.EditorFor(model => model.AnyDeskDetails, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
+                                                                    </div>
+                                                                </div>
                                                                 @*</div>*@
 
                                                             </div>
@@ -83,19 +89,13 @@
 
                                                                         @if (!string.IsNullOrEmpty(Model.Recieptpic))
                                                                         {
-                                                            <a href="@Url.Content(Receipt)" target="_blank">PreviewImage</a> }
-                                                        else
-                                                        {
-                                                            <span style="color:red;">No image uploaded.</span>}
+                                                                            <a href="@Url.Content(Receipt)" target="_blank">PreviewImage</a> }
+                                                                        else
+                                                                        {
+                                                                            <span style="color:red;">No image uploaded.</span>}
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        @Html.LabelFor(model => model.ResolutionDetail, htmlAttributes: new { @class = "required-field" })
-                                                                        @Html.EditorFor(model => model.ResolutionDetail, new { htmlAttributes = new { @class = "form-control", } })
 
-                                                                    </div>
-                                                                </div>
 
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
@@ -104,14 +104,20 @@
 
                                                                     </div>
                                                                 </div>
-                                                                
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        @Html.LabelFor(model => model.ResolutionDetail, htmlAttributes: new { @class = "required-field" })
+                                                                        @Html.EditorFor(model => model.ResolutionDetail, new { htmlAttributes = new { @class = "form-control", @style = "height:80px" } })
+
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <div class="my-4 text-right">
-                                                                <button class="btn btn-primary px-4" type="submit">Save</button>
+                                                                <button class="btn btn-primary px-4" type="submit">Save</button> |  @Html.ActionLink("Cancel", "Index")
                                                             </div>
-                                                            <div class="text-left">
+                                                            @*<div class="text-left">
                                                                 @Html.ActionLink("Cancel", "Index")
-                                                            </div>
+                                                            </div>*@
                                                         </div>
                                                     </div>
                                                 </section>}

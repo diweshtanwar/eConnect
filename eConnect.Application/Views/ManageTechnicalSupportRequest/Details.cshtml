@@ -1,9 +1,9 @@
 ﻿@model eConnect.Model.ManageTechSupport
-@{ ViewBag.Title = "";
+@{ ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 
     string Receipt = @System.Web.Configuration.WebConfigurationManager.AppSettings["TechFilePath"] + Model.Id + "\\TechSupportScreenshort\\" + Model.Recieptpic; }
-<h2>Details</h2>
+@*<h2></h2>*@
 <section class="section">
     <div class="card">
         <div class="card-body">
@@ -62,7 +62,13 @@
 
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AnyDeskDetails, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.AnyDeskDetails, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
+                    </div>
+                </div>
                 @*</div>*@
 
             </div>
