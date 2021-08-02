@@ -2069,7 +2069,6 @@
             <Parameter Name="Id" Mode="In" Type="Int32" />
             <Parameter Name="Type" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_GetManageWithdrawalRequestDetails" ReturnType="Collection(eConnectAppModel.sp_GetManageWithdrawalRequestDetails_Result)" />
           <EntitySet Name="tblDepositRequests" EntityType="eConnectAppModel.tblDepositRequest" />
           <EntitySet Name="tblTechRequests" EntityType="eConnectAppModel.tblTechRequest" />
           <EntitySet Name="tblWithdrawalRequests" EntityType="eConnectAppModel.tblWithdrawalRequest" />
@@ -2107,6 +2106,7 @@
           </AssociationSet>
           <FunctionImport Name="sp_GetManageDepositRequestDetails" ReturnType="Collection(eConnectAppModel.sp_GetManageDepositRequestDetails_Result)" />
           <FunctionImport Name="sp_GetManageTechSupportRequestDetails" ReturnType="Collection(eConnectAppModel.sp_GetManageTechSupportRequestDetails_Result)" />
+          <FunctionImport Name="sp_GetManageWithdrawalRequestDetails" ReturnType="Collection(eConnectAppModel.sp_GetManageWithdrawalRequestDetails_Result)" />
         </EntityContainer>
         <ComplexType Name="sp_GetAppMenuWithSubMenu_Result">
           <Property Type="String" Name="Tittle" Nullable="true" MaxLength="20" />
@@ -2163,21 +2163,6 @@
           <Property Type="Int32" Name="Year" Nullable="true" />
           <Property Type="Int32" Name="UploaderId" Nullable="false" />
           <Property Type="String" Name="Category1" Nullable="true" MaxLength="50" />
-        </ComplexType>
-        <ComplexType Name="sp_GetManageWithdrawalRequestDetails_Result">
-          <Property Type="Int32" Name="WithdrawalRequestId" Nullable="false" />
-          <Property Type="Int32" Name="RaisedBy" Nullable="true" />
-          <Property Type="String" Name="CSPName" Nullable="true" MaxLength="200" />
-          <Property Type="Int32" Name="CSPId" Nullable="false" />
-          <Property Type="String" Name="CSPCode" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" Scale="6" />
-          <Property Type="DateTime" Name="CompletionDate" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="RequestedDate" Nullable="true" Precision="23" />
-          <Property Type="Int64" Name="Account" Nullable="true" />
-          <Property Type="Int32" Name="Status" Nullable="true" />
-          <Property Type="Int32" Name="State" Nullable="true" />
-          <Property Type="Int32" Name="City" Nullable="true" />
-          <Property Type="String" Name="Location" Nullable="true" MaxLength="50" />
         </ComplexType>
         <EntityType Name="tblDepositRequest">
           <Key>
@@ -2370,6 +2355,10 @@
           <Property Type="Int32" Name="City" Nullable="true" />
           <Property Type="String" Name="Location" Nullable="true" MaxLength="50" />
           <Property Type="Boolean" Name="IsVerified" Nullable="true" />
+          <Property Type="String" Name="CSPAccount" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Comment1" Nullable="true" />
+          <Property Type="String" Name="BranchCode" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="sp_GetManageTechSupportRequestDetails_Result">
           <Property Type="Int64" Name="TechRequestId" Nullable="false" />
@@ -2397,6 +2386,30 @@
           <Property Type="Int32" Name="Country" Nullable="true" />
           <Property Type="Int32" Name="State" Nullable="true" />
           <Property Type="Int32" Name="City" Nullable="true" />
+          <Property Type="Int32" Name="City1" Nullable="true" />
+          <Property Type="String" Name="Location" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CSPAccount" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchCode" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_GetManageWithdrawalRequestDetails_Result">
+          <Property Type="Int32" Name="WithdrawalRequestId" Nullable="false" />
+          <Property Type="Int32" Name="RaisedBy" Nullable="true" />
+          <Property Type="String" Name="CSPName" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="CSPId" Nullable="false" />
+          <Property Type="String" Name="CSPCode" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" Scale="6" />
+          <Property Type="DateTime" Name="CompletionDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="RequestedDate" Nullable="true" Precision="23" />
+          <Property Type="Int64" Name="Account" Nullable="true" />
+          <Property Type="Int32" Name="Status" Nullable="true" />
+          <Property Type="Int32" Name="State" Nullable="true" />
+          <Property Type="Int32" Name="City" Nullable="true" />
+          <Property Type="String" Name="Location" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CSPAccount" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Comment" Nullable="true" />
+          <Property Type="String" Name="BranchCode" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3002,25 +3015,6 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_PublishCommissionReport" FunctionName="eConnectAppModel.Store.sp_PublishCommissionReport" />
           <FunctionImportMapping FunctionImportName="sp_DeleteRequest" FunctionName="eConnectAppModel.Store.sp_DeleteRequest" />
-          <FunctionImportMapping FunctionImportName="sp_GetManageWithdrawalRequestDetails" FunctionName="eConnectAppModel.Store.sp_GetManageWithdrawalRequestDetails">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetManageWithdrawalRequestDetails_Result">
-                <ScalarProperty Name="WithdrawalRequestId" ColumnName="WithdrawalRequestId" />
-                <ScalarProperty Name="RaisedBy" ColumnName="RaisedBy" />
-                <ScalarProperty Name="CSPName" ColumnName="CSPName" />
-                <ScalarProperty Name="CSPId" ColumnName="CSPId" />
-                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
-                <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
-                <ScalarProperty Name="Account" ColumnName="Account" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="tblDepositRequests">
             <EntityTypeMapping TypeName="eConnectAppModel.tblDepositRequest">
               <MappingFragment StoreEntitySet="tblDepositRequest">
@@ -3113,6 +3107,10 @@
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
                 <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+                <ScalarProperty Name="CSPAccount" ColumnName="CSPAccount" />
+                <ScalarProperty Name="Comment1" ColumnName="Comment1" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -3144,6 +3142,34 @@
                 <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="City1" ColumnName="City1" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="CSPAccount" ColumnName="CSPAccount" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetManageWithdrawalRequestDetails" FunctionName="eConnectAppModel.Store.sp_GetManageWithdrawalRequestDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetManageWithdrawalRequestDetails_Result">
+                <ScalarProperty Name="WithdrawalRequestId" ColumnName="WithdrawalRequestId" />
+                <ScalarProperty Name="RaisedBy" ColumnName="RaisedBy" />
+                <ScalarProperty Name="CSPName" ColumnName="CSPName" />
+                <ScalarProperty Name="CSPId" ColumnName="CSPId" />
+                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="CSPAccount" ColumnName="CSPAccount" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
