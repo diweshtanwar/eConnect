@@ -31,6 +31,8 @@ namespace eConnect.Application.Controllers
         RaiseRequestLogic raiseRequest = new RaiseRequestLogic();
         public ActionResult Index()
         {
+            BranchCodeLogic objBranchCodeLogic = new BranchCodeLogic();
+            CategoryLogic objCategoryLogic = new CategoryLogic();
             UserLogic objUserDetailLogic = new UserLogic();
             StatusLogic objStatusLogic = new StatusLogic();
             StateLogic objStateLogic = new StateLogic();
@@ -38,6 +40,8 @@ namespace eConnect.Application.Controllers
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
             ViewBag.City = City;
             ViewBag.Status = Status;
+            ViewBag.BranchCode = new SelectList(objBranchCodeLogic.GetAllBranchCode(), "BranchCode", "BranchCode");
+            ViewBag.Category = new SelectList(objCategoryLogic.GetAllCategory(), "Category", "Category");
             var tblTechDetails = raiseRequest.GetManageTechDetails();
             bool flag = Convert.ToBoolean(TempData["flag"]);
             if (flag == true)
@@ -47,9 +51,9 @@ namespace eConnect.Application.Controllers
             return View(tblTechDetails.ToList());
         }
 
-        public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City, string Status, string Requesteddte)
+        public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City, string Status, string Requesteddte, string Completiondte, string BranchCode, string Category)
         {
-            int Reqid = 0, Cid = 0, Sid = 0, Cityid = 0, Statusid = 0;
+            int Reqid = 0, Cid = 0, Sid = 0, Cityid = 0, Statusid = 0, Bcode = 0, CategoryId = 0;
             if (Requestid == "")
             {
                 Reqid = 0;
@@ -58,7 +62,22 @@ namespace eConnect.Application.Controllers
             {
                 Reqid = Convert.ToInt32(Requestid);
             }
-
+            if (BranchCode == "" || BranchCode == "Select BranchCode")
+            {
+                Bcode = 0;
+            }
+            else
+            {
+                Bcode = Convert.ToInt32(BranchCode);
+            }
+            if (Category == "" || Category == "Select Category")
+            {
+                CategoryId = 0;
+            }
+            else
+            {
+                CategoryId = Convert.ToInt32(Category);
+            }
             if (CspID == "")
             {
                 Cid = 0;
@@ -91,7 +110,7 @@ namespace eConnect.Application.Controllers
             {
                 Statusid = Convert.ToInt32(Status);
             }
-            var tblManageTechDetails = raiseRequest.GetManageTechDetailsSearch(Reqid, CspName, Cid, Sid, Cityid, Statusid, Requesteddte);
+            var tblManageTechDetails = raiseRequest.GetManageTechDetailsSearch(Reqid, CspName, Cid, Sid, Cityid, Statusid, Requesteddte, Completiondte, Bcode, CategoryId);
             TempData["searchdataManageTech"] = tblManageTechDetails.ToList();
             TempData["flag"] = true;
             return RedirectToAction("Index");

@@ -212,16 +212,18 @@ namespace eConnect.Application.Controllers
             ViewBag.RequestType = RequestTypes;
 
             var Status = new[]
-            {
+          {
 
-                new SelectListItem { Text = "In-Progress", Value = "1" },
-                new SelectListItem { Text = "Not Started", Value = "2" },
-                new SelectListItem { Text = "Completed", Value = "3" },
+                 new SelectListItem { Text = "Select Status", Value = "" },
+                  new SelectListItem { Text = "Open", Value = "1" },
+                 new SelectListItem { Text = "Close", Value = "2" },
+
             };
-            var selectedStatus = Status.FirstOrDefault(d => d.Value == objDeposit.Status.ToString());
+            var selectedStatus = Status.FirstOrDefault(d => d.Value == objDeposit.CurrentStatus.ToString());
             if (selectedStatus != null)
                 selectedStatus.Selected = true;
-            ViewBag.EditStatus = Status;
+            ViewBag.EditedStatus = Status;
+
             return View(objDeposit);
 
         }

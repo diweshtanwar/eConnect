@@ -84,9 +84,14 @@ namespace eConnect.Application.Controllers
         }
         public ActionResult Create()
         {
+            Withdraw withdraw = new Withdraw();
+            string UserId = Session["CSPID"].ToString();
+            RaiseRequestLogic raiseRequestdetals = new RaiseRequestLogic();
+            string AccountNumber = raiseRequestdetals.WithdrawAccNumber(Convert.ToInt32(UserId));
+            withdraw.Account = AccountNumber;
             ViewBag.RequestType = RequestType;
             ViewBag.Status = Status;
-            return View();
+            return View(withdraw);
         }
 
         [HttpPost]
@@ -188,16 +193,17 @@ namespace eConnect.Application.Controllers
             ViewBag.RequestTypes = ReqType;
 
             var Status = new[]
-            {
+          {
 
-                new SelectListItem { Text = "In-Progress", Value = "1" },
-                new SelectListItem { Text = "Not Started", Value = "2" },
-                new SelectListItem { Text = "Completed", Value = "3" },
+                 new SelectListItem { Text = "Select Status", Value = "" },
+                  new SelectListItem { Text = "Open", Value = "1" },
+                 new SelectListItem { Text = "Close", Value = "2" },
+
             };
-            var selectedStatus = Status.FirstOrDefault(d => d.Value == withdraw.Status.ToString());
+            var selectedStatus = Status.FirstOrDefault(d => d.Value == withdraw.CurrentStatus.ToString());
             if (selectedStatus != null)
                 selectedStatus.Selected = true;
-            ViewBag.EditStatus = Status;
+            ViewBag.EditedStatus = Status;
             return View(withdraw);
 
         }
