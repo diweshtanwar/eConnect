@@ -62,22 +62,22 @@ namespace eConnect.Application.Controllers
             {
                 Reqid = Convert.ToInt32(Requestid);
             }
-            if ( BranchCode == "" || BranchCode == "Select BranchCode")
-            {
-                Bcode = 0;
-            }
-            else
-            {
-                Bcode = Convert.ToInt32(BranchCode);
-            }
-            if (Category == "" || Category == "Select Category")
-            {
-                 CategoryId = 0;
-            }
-            else
-            {
-                CategoryId = Convert.ToInt32(Category);
-            }
+            //if ( BranchCode == "" || BranchCode == "Select BranchCode")
+            //{
+            //    Bcode = 0;
+            //}
+            //else
+            //{
+            //    Bcode = Convert.ToInt32(BranchCode);
+            //}
+            //if (Category == "" || Category == "Select Category")
+            //{
+            //     CategoryId = 0;
+            //}
+            //else
+            //{
+            //    CategoryId = Convert.ToInt32(Category);
+            //}
             if (CspID == "")
             {
                 Cid = 0;
@@ -110,7 +110,7 @@ namespace eConnect.Application.Controllers
             {
                 Statusid = Convert.ToInt32(Status);
             }
-            var tblManageWithdrawDetails = raiseRequest.GetManageWithdrawDetailsSearch(Reqid,CspName,Cid,Sid,Cityid,Statusid,Requesteddte,Completiondte,Bcode,CategoryId);
+            var tblManageWithdrawDetails = raiseRequest.GetManageWithdrawDetailsSearch(Reqid,CspName,Cid,Sid,Cityid,Statusid,Requesteddte,Completiondte,BranchCode,Category);
             TempData["searchdataManage"] = tblManageWithdrawDetails.ToList();
             TempData["flag"] = true;
             return RedirectToAction("Index");
