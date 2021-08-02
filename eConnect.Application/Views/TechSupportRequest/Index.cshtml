@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<eConnect.DataAccess.tblTechRequest>
 
-@{ ViewBag.Title = "";
+@{ ViewBag.Title = "TechSupport Request";
     Layout = "~/Views/Shared/_LayoutMain.cshtml"; }
 
 <section class="section">
-    <h2>TechSupport Request</h2>
+   
 
     <p>
         @Html.ActionLink("Create New", "Create")
@@ -136,9 +136,9 @@
 
 
                             <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.TechRequestId }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.TechRequestId }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.TechRequestId })
+                                @*@Html.ActionLink("Edit", "Edit", new { id = item.TechRequestId }) |*@
+                                @Html.ActionLink("Details", "Details", new { id = item.TechRequestId }) @*|
+                                @Html.ActionLink("Delete", "Delete", new { id = item.TechRequestId })*@
                             </td>
 
                         </tr>
