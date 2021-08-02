@@ -1,7 +1,7 @@
 ﻿@model eConnect.Model.UserCSPDetail
 
 @{
-    ViewBag.Title = "CSP Update Profile";
+    ViewBag.Title = "CSP Profile Update";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 
     string PassportSizePhotoPath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\PassportSizePhoto\\" + Model.PassportSizePhotoName;
