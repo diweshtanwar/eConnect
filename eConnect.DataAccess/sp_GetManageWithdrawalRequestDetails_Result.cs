@@ -26,9 +26,5 @@ namespace eConnect.DataAccess
         public Nullable<int> State { get; set; }
         public Nullable<int> City { get; set; }
         public string Location { get; set; }
-        public string CSPAccount { get; set; }
-        public string Comment { get; set; }
-        public string BranchCode { get; set; }
-        public string Category { get; set; }
     }
 }

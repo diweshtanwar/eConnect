@@ -16,13 +16,13 @@
                 @*<h6 class="text-primary mb-3"> Personal Details</h6>*@
                 <div class="row">
 
-                    @*<div class="col-md-4">
+                    <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.RequestType, htmlAttributes: new { @class = "required-field" })
                             @Html.DropDownList("RequestType", null, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.RequestType, "", new { @class = "text-danger" })
                         </div>
-                    </div>*@
+                    </div>
 
                     <div class="col-md-4">
                         <div class="form-group">
@@ -41,9 +41,8 @@
                     @*<div class="row">*@
                     <div class="col-md-4">
                         <div class="form-group">
-                            Account Detail
-                            @*@Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "" })*@
-                            @Html.EditorFor(model => model.Account, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.Account, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Account, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -54,8 +53,6 @@
 
                 <div class="my-4 text-right">
                     <button class="btn btn-primary px-4" type="submit">Save</button>
-                    |
-                    @Html.ActionLink("Cancel", "Index")
                 </div>
             </div>
         </div>
@@ -68,6 +65,6 @@
         });
     </script>
 }
-@*<div>
+<div>
     @Html.ActionLink("Cancel", "Index")
-</div>*@
+</div>

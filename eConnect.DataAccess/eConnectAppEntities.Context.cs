@@ -29,8 +29,10 @@ namespace eConnect.DataAccess
     
         public virtual DbSet<tblAnnouncement> tblAnnouncements { get; set; }
         public virtual DbSet<tblApplicationSetting> tblApplicationSettings { get; set; }
+        public virtual DbSet<tblBranchCode> tblBranchCodes { get; set; }
         public virtual DbSet<tblBusiness> tblBusinesses { get; set; }
         public virtual DbSet<tblBusinessDetailReport> tblBusinessDetailReports { get; set; }
+        public virtual DbSet<tblCategory> tblCategories { get; set; }
         public virtual DbSet<tblCity> tblCities { get; set; }
         public virtual DbSet<tblCommissionReport> tblCommissionReports { get; set; }
         public virtual DbSet<tblCommissionReportMain> tblCommissionReportMains { get; set; }
@@ -47,6 +49,7 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblFolderDetail> tblFolderDetails { get; set; }
         public virtual DbSet<tblFolderImageDetail> tblFolderImageDetails { get; set; }
         public virtual DbSet<tblHoliday> tblHolidays { get; set; }
+        public virtual DbSet<tblLocation> tblLocations { get; set; }
         public virtual DbSet<tblMenuMain> tblMenuMains { get; set; }
         public virtual DbSet<tblMenuSub> tblMenuSubs { get; set; }
         public virtual DbSet<tblProblemType> tblProblemTypes { get; set; }
@@ -67,9 +70,6 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblDepositRequest> tblDepositRequests { get; set; }
         public virtual DbSet<tblTechRequest> tblTechRequests { get; set; }
         public virtual DbSet<tblWithdrawalRequest> tblWithdrawalRequests { get; set; }
-        public virtual DbSet<tblBranchCode> tblBranchCodes { get; set; }
-        public virtual DbSet<tblCategory> tblCategories { get; set; }
-        public virtual DbSet<tblLocation> tblLocations { get; set; }
     
         public virtual ObjectResult<sp_GetAppMenuWithSubMenu_Result> sp_GetAppMenuWithSubMenu(Nullable<int> roleId)
         {
@@ -144,11 +144,6 @@ namespace eConnect.DataAccess
         public virtual ObjectResult<sp_GetManageDepositRequestDetails_Result> sp_GetManageDepositRequestDetails()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageDepositRequestDetails_Result>("sp_GetManageDepositRequestDetails");
-        }
-    
-        public virtual ObjectResult<sp_GetManageTechnicalSupportRequestDetails_Result> sp_GetManageTechnicalSupportRequestDetails()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageTechnicalSupportRequestDetails_Result>("sp_GetManageTechnicalSupportRequestDetails");
         }
     
         public virtual ObjectResult<sp_GetManageTechSupportRequestDetails_Result> sp_GetManageTechSupportRequestDetails()

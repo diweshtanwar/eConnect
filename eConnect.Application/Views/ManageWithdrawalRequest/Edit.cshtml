@@ -1,8 +1,8 @@
 ﻿@model eConnect.Model.ManageWithdrawal
 
-@{ ViewBag.Title = "Edit";
+@{ ViewBag.Title = "";
     Layout = "~/Views/Shared/_LayoutMain.cshtml"; }
-
+<h2>Edit</h2>
 
 @using (Html.BeginForm("Edit", "ManageWithdrawalRequest", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -61,7 +61,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         @Html.LabelFor(model => model.CurrentStatus, htmlAttributes: new { @class = "" })
-                                                                        @Html.DropDownList("Status", (SelectListItem[])ViewBag.EditedStatus, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                                                                        @Html.DropDownList("Status", (SelectListItem[])ViewBag.EditedStatus, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
                                                                     </div>
                                                                 </div>
                                                                 @*<div class="row">*@
@@ -101,7 +101,13 @@
                                                                     </div>
                                                                 </div>
 
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "required-field" })
+                                                                        @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control", } })
 
+                                                                    </div>
+                                                                </div>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         @Html.LabelFor(model => model.EmailAddress, htmlAttributes: new { @class = "required-field" })
@@ -109,20 +115,13 @@
 
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-5">
-                                                                    <div class="form-group">
-                                                                        @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "required-field" })
-                                                                        @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control", @style = "height:80px" } })
-
-                                                                    </div>
-                                                                </div>
                                                             </div>
                                                             <div class="my-4 text-right">
-                                                                <button class="btn btn-primary px-4" type="submit">Save</button> |   @Html.ActionLink("Cancel", "Index")
+                                                                <button class="btn btn-primary px-4" type="submit">Save</button>
                                                             </div>
-                                                            @*<div class="text-left">
-                                                              
-                                                            </div>*@
+                                                            <div class="text-left">
+                                                                @Html.ActionLink("Cancel", "Index")
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </section>}

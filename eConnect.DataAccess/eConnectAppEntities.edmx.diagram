@@ -4,11 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="28e8e4db81d64f5298a395d820414916" Name="Diagram1" ZoomLevel="83">
+      <Diagram DiagramId="28e8e4db81d64f5298a395d820414916" Name="Diagram1" ZoomLevel="64">
         <EntityTypeShape EntityType="eConnectAppModel.tblAnnouncement" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblApplicationSetting" Width="1.5" PointX="14" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblBranchCode" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblBusiness" Width="1.5" PointX="11.75" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblBusinessDetailReport" Width="1.5" PointX="13.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblCategory" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblCity" Width="1.5" PointX="6.75" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblCommissionReport" Width="1.5" PointX="14" PointY="10" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblCommissionReportMain" Width="1.5" PointX="8.25" PointY="12.5" IsExpanded="true" />
@@ -25,6 +27,7 @@
         <EntityTypeShape EntityType="eConnectAppModel.tblFolderDetail" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblFolderImageDetail" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblHoliday" Width="1.5" PointX="15.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblLocation" Width="1.5" PointX="17.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblMenuMain" Width="1.5" PointX="6.75" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblMenuSub" Width="1.5" PointX="9" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblProblemType" Width="1.5" PointX="17.75" PointY="15.75" IsExpanded="true" />
@@ -75,9 +78,6 @@
         <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers3" />
         <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers" />
         <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers1" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblBranchCode" Width="1.5" PointX="3.375" PointY="4.75" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblCategory" Width="1.5" PointX="5.375" PointY="0.75" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblLocation" Width="1.5" PointX="13.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

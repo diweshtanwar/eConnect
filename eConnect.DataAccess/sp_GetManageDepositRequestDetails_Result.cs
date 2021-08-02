@@ -30,9 +30,5 @@ namespace eConnect.DataAccess
         public Nullable<int> City { get; set; }
         public string Location { get; set; }
         public Nullable<bool> IsVerified { get; set; }
-        public string CSPAccount { get; set; }
-        public string Comment1 { get; set; }
-        public string BranchCode { get; set; }
-        public string Category { get; set; }
     }
 }

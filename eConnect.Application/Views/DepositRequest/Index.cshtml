@@ -24,12 +24,12 @@
                         <input type="text" id="Requestid" name="Requestid" class="form-control" value="@Request["Requestid"]">
                     </div>
                 </div>
-                @*<div class="col-md-3">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label>Request Type</label>
                         @Html.DropDownList("RequestType", (IEnumerable<SelectListItem>)ViewBag.RequestType, new { @class = "form-control" })
                     </div>
-                </div>*@
+                </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Requested Date</label>
@@ -129,9 +129,9 @@
                             }
 
                             <td>
-                                @*@Html.ActionLink("Edit", "Edit", new { id = item.DepositeRequestId }) |*@
-                                @Html.ActionLink("Details", "Details", new { id = item.DepositeRequestId }) @*|
-                                @Html.ActionLink("Delete", "Delete", new { id = item.DepositeRequestId })*@
+                                @Html.ActionLink("Edit", "Edit", new { id = item.DepositeRequestId }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.DepositeRequestId }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.DepositeRequestId })
                             </td>
 
                         </tr>
