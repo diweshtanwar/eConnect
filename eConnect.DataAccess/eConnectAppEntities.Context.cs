@@ -136,11 +136,6 @@ namespace eConnect.DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteRequest", idParameter, typeParameter);
         }
     
-        public virtual ObjectResult<sp_GetManageWithdrawalRequestDetails_Result> sp_GetManageWithdrawalRequestDetails()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageWithdrawalRequestDetails_Result>("sp_GetManageWithdrawalRequestDetails");
-        }
-    
         public virtual ObjectResult<sp_GetManageDepositRequestDetails_Result> sp_GetManageDepositRequestDetails()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageDepositRequestDetails_Result>("sp_GetManageDepositRequestDetails");
@@ -149,6 +144,11 @@ namespace eConnect.DataAccess
         public virtual ObjectResult<sp_GetManageTechSupportRequestDetails_Result> sp_GetManageTechSupportRequestDetails()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageTechSupportRequestDetails_Result>("sp_GetManageTechSupportRequestDetails");
+        }
+    
+        public virtual ObjectResult<sp_GetManageWithdrawalRequestDetails_Result> sp_GetManageWithdrawalRequestDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageWithdrawalRequestDetails_Result>("sp_GetManageWithdrawalRequestDetails");
         }
     }
 }
