@@ -15,7 +15,7 @@ namespace eConnect.DataAccess
     public partial class tblCategory
     {
         public byte CategoryId { get; set; }
-        public string Category { get; set; }
+        public string Name { get; set; }
         public string Code { get; set; }
         public Nullable<bool> Status { get; set; }
     }

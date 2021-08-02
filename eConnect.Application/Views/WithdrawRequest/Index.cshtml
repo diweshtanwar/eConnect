@@ -1,11 +1,11 @@
 ﻿
 @model IEnumerable<eConnect.DataAccess.tblWithdrawalRequest>
 
-@{ ViewBag.Title = "";
+@{ ViewBag.Title = "Withdraw Request";
     Layout = "~/Views/Shared/_LayoutMain.cshtml"; }
 
 <section class="section">
-    <h2>Withdraw Request</h2>
+    
 
     <p>
         @Html.ActionLink("Create New", "Create")
@@ -25,18 +25,18 @@
                         <input type="text" id="Requestid" name="Requestid" class="form-control" value="@Request["Requestid"]">
                     </div>
                 </div>
-                <div class="col-md-3">
+                @*<div class="col-md-3">
                     <div class="form-group">
                         <label>Account Details</label>
                         <input type="text" id="Requestid" name="Requestid" class="form-control" value="@Request["Account"]">
                     </div>
-                </div>
-                <div class="col-md-3">
+                </div>*@
+                @*<div class="col-md-3">
                     <div class="form-group">
                         <label>Request Type</label>
                         @Html.DropDownList("RequestType", (IEnumerable<SelectListItem>)ViewBag.RequestType, new { @class = "form-control" })
                     </div>
-                </div>
+                </div>*@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Requested Date</label>
@@ -92,9 +92,9 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Status)
                             </th>
-                            <th>
+                            @*<th>
                                 @Html.DisplayNameFor(model => model.Account)
-                            </th>
+                            </th>*@
                             <th> Action </th>
                         </tr>
                     </thead>
@@ -138,13 +138,13 @@
                                 <td>Close</td>
                             }
                             
-                            <td>
+                            @*<td>
                                 @Html.DisplayFor(modelItem => item.Account)
-                            </td>
+                            </td>*@
                             <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.WithdrawalRequestId }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.WithdrawalRequestId }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.WithdrawalRequestId })
+                                @*@Html.ActionLink("Edit", "Edit", new { id = item.WithdrawalRequestId }) |*@
+                                @Html.ActionLink("Details", "Details", new { id = item.WithdrawalRequestId }) @*|
+                                @Html.ActionLink("Delete", "Delete", new { id = item.WithdrawalRequestId })*@
                             </td>
 
                         </tr>

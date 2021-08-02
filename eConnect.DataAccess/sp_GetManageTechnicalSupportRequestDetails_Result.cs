@@ -11,7 +11,7 @@ namespace eConnect.DataAccess
 {
     using System;
     
-    public partial class sp_GetManageTechSupportRequestDetails_Result
+    public partial class sp_GetManageTechnicalSupportRequestDetails_Result
     {
         public long TechRequestId { get; set; }
         public Nullable<int> RaisedBy { get; set; }
@@ -38,10 +38,5 @@ namespace eConnect.DataAccess
         public Nullable<int> Country { get; set; }
         public Nullable<int> State { get; set; }
         public Nullable<int> City { get; set; }
-        public Nullable<int> City1 { get; set; }
-        public string Location { get; set; }
-        public string CSPAccount { get; set; }
-        public string BranchCode { get; set; }
-        public string Category { get; set; }
     }
 }
