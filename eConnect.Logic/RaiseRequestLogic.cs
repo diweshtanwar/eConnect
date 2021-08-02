@@ -347,7 +347,7 @@ namespace eConnect.Logic
                 return unitOfWork.RaiseRequest.GetManageTechRequestDetails().ToList();
             }
         }
-        public IList<sp_GetManageWithdrawalRequestDetails_Result> GetManageWithdrawDetailsSearch(int Requestid, string CspName, int CspID, int State, int City, int Status, string Requesteddte,string  Completiondte, int BranchCode, int Category)
+        public IList<sp_GetManageWithdrawalRequestDetails_Result> GetManageWithdrawDetailsSearch(int Requestid, string CspName, int CspID, int State, int City, int Status, string Requesteddte,string  Completiondte, string BranchCode, string Category)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
@@ -389,18 +389,18 @@ namespace eConnect.Logic
 
                     result = result.Where(d => d.CompletionDate == Convert.ToDateTime(Completiondte)).ToList();
                 }
-                if (Category != 0)
+                if (!string.IsNullOrEmpty(Category))
                 {
                     result = result.Where(d => d.Category.Contains(Category.ToString())).ToList();
                 }
-                if (BranchCode != 0)
+                if (!string.IsNullOrEmpty(BranchCode))
                 {
                     result = result.Where(d => d.BranchCode.Contains(BranchCode.ToString())).ToList();
                 }
                 return result;
             }
         }
-        public IList<sp_GetManageDepositRequestDetails_Result> GetManageDepositDetailsSearch(int Requestid, string CspName, int CspID, int State, int City, int Status, string Requesteddte, string Completionedte, int BranchCode, int Category)
+        public IList<sp_GetManageDepositRequestDetails_Result> GetManageDepositDetailsSearch(int Requestid, string CspName, int CspID, int State, int City, int Status, string Requesteddte, string Completionedte, string BranchCode, string Category)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
@@ -442,11 +442,11 @@ namespace eConnect.Logic
 
                     result = result.Where(d => d.CompletionDate == Convert.ToDateTime(Completionedte)).ToList();
                 }
-                if (Category != 0)
+                if   (!string.IsNullOrEmpty(Category))
                 {
                     result = result.Where(d => d.Category.Contains(Category.ToString())).ToList();
                 }
-                if (BranchCode != 0)
+                if (!string.IsNullOrEmpty(BranchCode))
                 {
                     result = result.Where(d => d.BranchCode.Contains(BranchCode.ToString())).ToList();
                 }
@@ -650,7 +650,7 @@ namespace eConnect.Logic
             }
         }
 
-        public IList<sp_GetManageTechSupportRequestDetails_Result> GetManageTechDetailsSearch(int Requestid, string CspName, int CspID, int State, int City, int Status, string Requesteddte, string Completionedte, int BranchCode, int Category)
+        public IList<sp_GetManageTechSupportRequestDetails_Result> GetManageTechDetailsSearch(int Requestid, string CspName, int CspID, int State, int City, int Status, string Requesteddte, string Completionedte, string BranchCode, string Category)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
@@ -687,11 +687,11 @@ namespace eConnect.Logic
 
                     result = result.Where(d => d.RequestedDate == Convert.ToDateTime(Requesteddte)).ToList();
                 }
-                if (Category != 0)
+                if (!string.IsNullOrEmpty(Category))
                 {
                     result = result.Where(d => d.Category.Contains(Category.ToString())).ToList();
                 }
-                if (BranchCode != 0)
+                if (!string.IsNullOrEmpty(BranchCode))
                 {
                     result = result.Where(d => d.BranchCode.Contains(BranchCode.ToString())).ToList();
                 }
