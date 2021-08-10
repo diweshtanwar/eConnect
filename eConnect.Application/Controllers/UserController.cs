@@ -264,5 +264,53 @@ namespace eConnect.Application.Controllers
             }
             return Json(citylist, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult ResetPassword(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            UserLogic objUserDetailLogic = new UserLogic();
+            Userinput UserDetail = objUserDetailLogic.GetUserDetailByID((int)id);
+            if (UserDetail == null)
+            {
+                return HttpNotFound();
+            }
+            ResetPasswordViewModel objResetPasswordViewModel = new ResetPasswordViewModel();
+
+            objResetPasswordViewModel.UserName = UserDetail.Name;
+            objResetPasswordViewModel.UserID = objUserDetailLogic.EmailValidationforUser(UserDetail.EmailId);
+            ViewBag.SuccessMsg = "";
+            return View(objResetPasswordViewModel);
+        }
+        [HttpPost]
+        public ActionResult ResetPassword(ResetPasswordViewModel ResetPasswordViewModel)
+        {
+            //ResetPasswordViewModel.UserName = (string)Session["UserName"];
+            //ResetPasswordViewModel.UserType = (int)Session["UserTypeId"];
+            //ResetPasswordViewModel.UserID = (int)Session["UserId"];
+            if (ModelState.IsValid)
+            {
+                UserLogic objUserLogic = new UserLogic();
+                objUserLogic.ResetPasswordLogic(ResetPasswordViewModel);
+                ViewBag.SuccessMsg = "Password reset successfully!";
+            }
+
+            return View();
+        }
+        public JsonResult EmailExists(string EmailId)
+        {
+            string Msg = "";
+            UserLogic objUserDetailLogic = new UserLogic();
+            int UId = objUserDetailLogic.EmailValidationforUser(EmailId);
+            
+            if(UId != 0)
+            {
+                Msg = "Email address already exists";
+                
+            }
+            return Json(Msg, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
