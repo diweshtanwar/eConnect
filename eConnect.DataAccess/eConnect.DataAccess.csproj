@@ -177,7 +177,13 @@
     <Compile Include="tblDocument.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblDownloadDetail.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblEducation.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblEnquiry.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblErrorLog.cs">
@@ -189,16 +195,28 @@
     <Compile Include="tblFolderImageDetail.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblGalleryCategory.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblHoliday.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblLatestNew.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblLocation.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMailConfiguration.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblMenuMain.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblMenuSub.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblNotification.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblProblemType.cs">

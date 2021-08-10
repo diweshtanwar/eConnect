@@ -78,6 +78,12 @@
         <AssociationConnector Association="eConnectAppModel.FK_tblTechRequest_tblUsers3" />
         <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers" />
         <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers1" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblDownloadDetail" Width="1.5" PointX="13.375" PointY="19.75" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblEnquiry" Width="1.5" PointX="20.375" PointY="16.75" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblGalleryCategory" Width="1.5" PointX="20.375" PointY="20.75" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblLatestNew" Width="1.5" PointX="21.375" PointY="0.75" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblMailConfiguration" Width="1.5" PointX="21.375" PointY="4.75" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblNotification" Width="1.5" PointX="15.375" PointY="21.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -148,6 +148,7 @@ namespace eConnect.Model
         public Nullable<int> UserType { get; set; }
         public long UserID { get; set; }
         public string UserName { get; set; }
+        public string CSPName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
