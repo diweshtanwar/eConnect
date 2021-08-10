@@ -72,7 +72,7 @@
     <div class="col-md-4">
         <div class="form-group">
             @Html.LabelFor(model => model.CurrentStatus, htmlAttributes: new { @class = "" })
-            @Html.DropDownList("Status", (SelectListItem[])ViewBag.EditedStatus, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+            @Html.DropDownList("Status", (SelectListItem[])ViewBag.EditedStatus, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
         </div>
     </div>
     @*<div class="row">*@
@@ -92,8 +92,9 @@
     </div>
     <div class="col-md-4">
         <div class="form-group">
-            @Html.LabelFor(model => model.Reciept, htmlAttributes: new { @class = "required-field" })
-            <input type="file" id="Reciept" name="Reciept" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
+            @Html.LabelFor(model => model.Reciept, htmlAttributes: new { @class = "" })
+            @Html.EditorFor(model => model.Recieptpic, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @*<input type="file" id="Reciept" name="Reciept" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />*@
             @if (!string.IsNullOrEmpty(Model.Recieptpic))
             {
                 <a href="@Url.Content(Receipt)" target="_blank">PreviewImage</a> }
