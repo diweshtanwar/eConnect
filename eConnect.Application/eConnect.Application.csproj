@@ -204,6 +204,72 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\EgraminAssets\assets\css\bootstrap.min.css" />
+    <Content Include="Content\EgraminAssets\assets\css\font-awesome.min.css" />
+    <Content Include="Content\EgraminAssets\assets\css\simple-lightbox.css" />
+    <Content Include="Content\EgraminAssets\assets\css\style.css" />
+    <Content Include="Content\EgraminAssets\assets\DownloadsDocuments\BC-CSP-Agreement.txt" />
+    <Content Include="Content\EgraminAssets\assets\DownloadsDocuments\BC-Remurance-Chart.png" />
+    <Content Include="Content\EgraminAssets\assets\DownloadsDocuments\SUB-KO-Agreement.bmp" />
+    <Content Include="Content\EgraminAssets\assets\fonts\fontawesome-webfont5b62.html" />
+    <Content Include="Content\EgraminAssets\assets\fonts\fontawesome-webfont5b62.svg" />
+    <Content Include="Content\EgraminAssets\assets\images\about.png" />
+    <Content Include="Content\EgraminAssets\assets\images\airtel.png" />
+    <Content Include="Content\EgraminAssets\assets\images\aprb.png" />
+    <Content Include="Content\EgraminAssets\assets\images\banking.png" />
+    <Content Include="Content\EgraminAssets\assets\images\banner-1-Old.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\banner-1.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\banner-2-Old.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\banner-2.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\banner-3.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\banner.png" />
+    <Content Include="Content\EgraminAssets\assets\images\e-gramin-logo.png" />
+    <Content Include="Content\EgraminAssets\assets\images\folder-bg.png" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\bg.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\Collection-2020\01.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\Collection-2020\02.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\Collection-2020\03.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\Collection-2020\04.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\Collection-2020\05.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\Collection-2020\06.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\Collection-2021\01.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\Collection-2021\02.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\Collection-2021\03.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\Collection-2021\04.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\Collection-2021\05.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\Collection-2021\06.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\full\01.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\full\02.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\full\03.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\full\04.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\full\05.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\full\06.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\mouse.svg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\thumb\01.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\thumb\02.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\thumb\03.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\thumb\04.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\thumb\05.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\thumb\06.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\genInsurance.png" />
+    <Content Include="Content\EgraminAssets\assets\images\hdfc.png" />
+    <Content Include="Content\EgraminAssets\assets\images\healthInsurance.png" />
+    <Content Include="Content\EgraminAssets\assets\images\icici-bank-ne-logo.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\insurance.png" />
+    <Content Include="Content\EgraminAssets\assets\images\ldrb.png" />
+    <Content Include="Content\EgraminAssets\assets\images\LIC-Logo.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\logo_hdfcErgo.png" />
+    <Content Include="Content\EgraminAssets\assets\images\Logo_iciciLomard.PNG" />
+    <Content Include="Content\EgraminAssets\assets\images\map.jpg" />
+    <Content Include="Content\EgraminAssets\assets\images\new-pic.png" />
+    <Content Include="Content\EgraminAssets\assets\images\nicjpg.jpeg" />
+    <Content Include="Content\EgraminAssets\assets\images\others.png" />
+    <Content Include="Content\EgraminAssets\assets\images\pos.png" />
+    <Content Include="Content\EgraminAssets\assets\images\sbi.png" />
+    <Content Include="Content\EgraminAssets\assets\js\bootstrap.bundle.min.js" />
+    <Content Include="Content\EgraminAssets\assets\js\jquery-3.5.1.slim.min.js" />
+    <Content Include="Content\EgraminAssets\assets\js\menumaker.js" />
+    <Content Include="Content\EgraminAssets\assets\js\simple-lightbox.js" />
     <Content Include="Content\HTML\account-configuration.html" />
     <Content Include="Content\HTML\css\fileup.css" />
     <Content Include="Content\HTML\css\jquery.growl.css" />
@@ -279,6 +345,17 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\EgraminAssets\assets\css\Sample" />
+    <Content Include="Content\EgraminAssets\assets\DownloadsDocuments\Banking-Software.pdf" />
+    <Content Include="Content\EgraminAssets\assets\DownloadsDocuments\POS-Applications-forms.docx" />
+    <Content Include="Content\EgraminAssets\assets\fonts\fontawesome-webfont5b62.eot" />
+    <Content Include="Content\EgraminAssets\assets\fonts\fontawesome-webfont5b62.ttf" />
+    <Content Include="Content\EgraminAssets\assets\fonts\fontawesome-webfont5b62.woff" />
+    <Content Include="Content\EgraminAssets\assets\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="Content\EgraminAssets\assets\fonts\Sample" />
+    <Content Include="Content\EgraminAssets\assets\images\gallery-images\thumb\Sample" />
+    <Content Include="Content\EgraminAssets\assets\images\Sample" />
+    <Content Include="Content\EgraminAssets\assets\js\Sample" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -420,6 +497,23 @@
     <Content Include="Views\ManageTechnicalSupportRequest\Details.cshtml" />
     <Content Include="Views\ManageTechnicalSupportRequest\Edit.cshtml" />
     <Content Include="Views\ManageTechnicalSupportRequest\Index.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\Home\Careers.cshtml" />
+    <Content Include="Views\Home\ContactSuccess.cshtml" />
+    <Content Include="Views\Home\Downloads.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Home\FindBranch.cshtml" />
+    <Content Include="Views\Home\GalleryCategories.cshtml" />
+    <Content Include="Views\Home\GalleryImages.cshtml" />
+    <Content Include="Views\Home\NewsAll.cshtml" />
+    <Content Include="Views\Home\NewsDetails.cshtml" />
+    <Content Include="Views\Home\OurVision.cshtml" />
+    <Content Include="Views\Shared\_LayoutMainEgraminWeb.cshtml" />
+    <Content Include="Views\Partial\GetGalleryImagesForTittle.cshtml" />
+    <Content Include="Views\Partial\GetLatestNewsForHome.cshtml" />
+    <Content Include="Views\Partial\GetNotification.cshtml" />
+    <Content Include="Views\Partial\GetNotificationDetails.cshtml" />
+    <Content Include="Views\Partial\GetSubNewsForNewsDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -453,6 +547,9 @@
       <Project>{860603b4-1b14-4d16-b214-9ea2e180e70c}</Project>
       <Name>eConnect.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

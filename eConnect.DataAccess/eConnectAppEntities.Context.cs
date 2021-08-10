@@ -70,6 +70,12 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblDepositRequest> tblDepositRequests { get; set; }
         public virtual DbSet<tblTechRequest> tblTechRequests { get; set; }
         public virtual DbSet<tblWithdrawalRequest> tblWithdrawalRequests { get; set; }
+        public virtual DbSet<tblDownloadDetail> tblDownloadDetails { get; set; }
+        public virtual DbSet<tblEnquiry> tblEnquiries { get; set; }
+        public virtual DbSet<tblGalleryCategory> tblGalleryCategories { get; set; }
+        public virtual DbSet<tblLatestNew> tblLatestNews { get; set; }
+        public virtual DbSet<tblMailConfiguration> tblMailConfigurations { get; set; }
+        public virtual DbSet<tblNotification> tblNotifications { get; set; }
     
         public virtual ObjectResult<sp_GetAppMenuWithSubMenu_Result> sp_GetAppMenuWithSubMenu(Nullable<int> roleId)
         {

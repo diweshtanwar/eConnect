@@ -479,7 +479,8 @@ namespace eConnect.Application.Controllers
             }
             ResetPasswordViewModel objResetPasswordViewModel = new ResetPasswordViewModel();
 
-            objResetPasswordViewModel.UserName = UserCSPDetail.CSPName;     
+            objResetPasswordViewModel.CSPName = UserCSPDetail.CSPName;
+            objResetPasswordViewModel.UserName = UserCSPDetail.CSPCode;
             objResetPasswordViewModel.UserID = UserCSPDetail.CSPId;
             ViewBag.SuccessMsg = "";
             return View(objResetPasswordViewModel);
@@ -498,7 +499,7 @@ namespace eConnect.Application.Controllers
                 ViewBag.SuccessMsg = "Password reset successfully!";
             }
 
-            return View();
+            return View(ResetPasswordViewModel);
         }
 
         public string CheckDirectory(string CSPUserID, string path, string filetype, HttpPostedFileBase postedfile)
