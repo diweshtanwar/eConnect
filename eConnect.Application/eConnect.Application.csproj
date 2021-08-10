@@ -420,6 +420,7 @@
     <Content Include="Views\ManageTechnicalSupportRequest\Details.cshtml" />
     <Content Include="Views\ManageTechnicalSupportRequest\Edit.cshtml" />
     <Content Include="Views\ManageTechnicalSupportRequest\Index.cshtml" />
+    <Content Include="Views\User\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

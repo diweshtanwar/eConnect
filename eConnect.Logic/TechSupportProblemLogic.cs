@@ -195,6 +195,7 @@ namespace eConnect.Logic
                 sr.Status = Convert.ToInt32(tblTechRequest.Status);
                 sr.Screenpic = tblTechRequest.AttachmentSource;
                 sr.ID = Convert.ToInt32(tblTechRequest.TechRequestId);
+                sr.ResolutionDetails = Convert.ToString(tblTechRequest.ResolutionDetail);
                 return sr;
             }
            

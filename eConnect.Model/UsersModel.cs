@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Web;
+using System.Web.Mvc;
+
 namespace eConnect.Model
 {
     public class UsersModel
@@ -94,6 +96,7 @@ namespace eConnect.Model
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please enter a valid e-mail adress")]
         public string EmailId { get; set; }
         [Required(ErrorMessage = "MobileNumber is required.")]
+        //[Remote("EmailExists", "User", HttpMethod = "POST", ErrorMessage = "Email address already registered.")]
         [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Invalid Mobile Number.")]
         //[MaxLength(10)]
         public string MobileNumber { get; set; }
@@ -155,7 +158,7 @@ namespace eConnect.Model
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("NewPassword", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
     }

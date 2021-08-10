@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<eConnect.DataAccess.tblUserDetail>
 
-@{ ViewBag.Title = "";
+@{ ViewBag.Title = "Manage User";
     Layout = "~/Views/Shared/_LayoutMain.cshtml"; }
 
 <section class="section">
-    <h2>Manage User</h2>
+  
 
     <p>
         @Html.ActionLink("Create New", "Create")
@@ -190,11 +190,12 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Education)
                     </td>*@
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.UserDetailId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.UserDetailId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.UserDetailId })
-                </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.UserDetailId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.UserDetailId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserDetailId }) |
+                @Html.ActionLink("Account", "ResetPassword", new { id = item.UserDetailId })
+            </td>
 
             </tr>
 }

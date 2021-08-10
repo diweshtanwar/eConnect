@@ -80,7 +80,7 @@ namespace eConnect.Model
         public int Status { get; set; }
         public string Screenpic { get; set; }
 
-
+        public string ResolutionDetails { get; set; }
     }
 
 

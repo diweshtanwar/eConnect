@@ -355,8 +355,8 @@ namespace eConnect.Logic
 
 
                     tblUser.CreatedDate = DateTime.Now;
-                    tblUser.UpdatedDate = DateTime.Now;
-                    tblUser.CreaterdBy = 0;
+                    //tblUser.UpdatedDate = DateTime.Now;
+                    tblUser.CreaterdBy = (int)HttpContext.Current.Session["UserId"];
                     tblUser.UpdatedBy = 0;
                     unitOfWork.UserDetail.Add(tblUser);
                     long id = tblUser.UserDetailId;  //gives the newly generated 
@@ -397,11 +397,11 @@ namespace eConnect.Logic
                 tblUserDetail.Qualification = UserDetail.Qualification;
 
                 tblUserDetail.ProfilePicSource = UserDetail.PassportSizePhoto != null
-                            ? Path.GetFileName(UserDetail.PassportSizePhoto.FileName).ToString() : null;
-                tblUserDetail.CreatedDate = DateTime.Now;
+                            ? Path.GetFileName(UserDetail.PassportSizePhoto.FileName).ToString() : UserDetail.PassportSizePic;
+                //tblUserDetail.CreatedDate = DateTime.Now;
                 tblUserDetail.UpdatedDate = DateTime.Now;
-                tblUserDetail.CreaterdBy = 0;
-                tblUserDetail.UpdatedBy = 0;
+                //tblUserDetail.CreaterdBy = 0;
+                //tblUserDetail.UpdatedBy = 0;
                 tblUserDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
                 unitOfWork.UserDetail.Update(tblUserDetail);
                 //unitOfWork.UserCSPDetail.Save();
@@ -485,10 +485,7 @@ namespace eConnect.Logic
             {
                 Userinput UserDetail = new Userinput();
                 var tblUserDetail = unitOfWork.UserCSPDetail.GetUserDetailByID(id);
-                //UserDetail.Name = tblUserDetail.Name;
-                //UserDetail.CSPName = tblUserDetail.CSPName;
-                //UserDetail.CSPCode = tblUserDetail.CSPCode;
-                //UserDetail.BranchCode = tblUserDetail.BranchCode;
+             
                 UserDetail.Name = tblUserDetail.Name;
                 UserDetail.FatherName = tblUserDetail.FatherName;
                 UserDetail.MotherName = tblUserDetail.MotherName;
@@ -500,9 +497,27 @@ namespace eConnect.Logic
                 UserDetail.Department = tblUserDetail.DepartmentId.ToString();
                 UserDetail.Designation = tblUserDetail.DesignationId.ToString();
                 UserDetail.Qualification = tblUserDetail.Qualification;
+                UserDetail.PassportSizePic = tblUserDetail.ProfilePicSource;
+                UserDetail.Id = tblUserDetail.UserDetailId;
                 return UserDetail;
 
             }
+        }
+
+        public int EmailValidationforUser(string Eid)
+        {
+            int UserId = 0;
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var tblUser = unitOfWork.Userss.Find(x => x.UserName.Contains(Eid) && x.UserType==4).FirstOrDefault();
+                if (tblUser != null)
+                {
+                    UserId = tblUser.UserId;
+                }
+               
+
+            }
+            return UserId;
         }
 
     }

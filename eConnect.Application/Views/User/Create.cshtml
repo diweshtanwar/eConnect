@@ -3,7 +3,7 @@
 @{ ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_LayoutMain.cshtml"; }
 
-<h2>Create</h2>
+@*<h2>Create</h2>*@
 
 @using (Html.BeginForm("Create", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -38,8 +38,9 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "required-field" })
-                                        @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" ,@onchange = "return emailidValidate();" } })
                                         @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+                                        <label id="lblEmailmsg" class="text-danger"> </label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -124,7 +125,7 @@
 
                             </div>
                             <div class="my-4 text-right">
-                                <button class="btn btn-primary px-4" type="submit">Save</button>
+                                <button class="btn btn-primary px-4" type="submit">Save</button> |  @Html.ActionLink("Cancel", "Index")
                             </div>
                         </div>
                     </div>
@@ -134,7 +135,7 @@
 
 }
 <script>
-       
+
         debugger;
       /*  $(document).ready(function () {*/
 
@@ -148,9 +149,33 @@
                     });
                     $("#City").html(v);
                 });
+    }
+    debugger;
+    function emailidValidate() {
+        var Eid = $("#EmailId").val();
+       
+
+        $.ajax({
+            url: '@Url.Action("EmailExists", "User")',
+            data: { EmailId: Eid },
+            type: 'GET',
+            success: function (data)
+            {
+               /* alert(data);*/
+                
+                if (data == "Email address already exists")
+                {
+                 
+                    $("#EmailId").val("");
+                    $("#EmailId").focus();
+                }
+               
+                $("#lblEmailmsg").html(data);
             }
+        });
+    }
     /*    });*/
 </script>
-<div>
+@*<div>
     @Html.ActionLink("Cancel", "Index")
-</div>
+</div>*@
