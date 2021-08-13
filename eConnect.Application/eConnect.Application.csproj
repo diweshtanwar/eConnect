@@ -514,6 +514,7 @@
     <Content Include="Views\Partial\GetNotification.cshtml" />
     <Content Include="Views\Partial\GetNotificationDetails.cshtml" />
     <Content Include="Views\Partial\GetSubNewsForNewsDetails.cshtml" />
+    <Content Include="Views\CSP\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

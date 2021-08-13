@@ -121,8 +121,18 @@ namespace eConnect.Logic
             {
                 using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
                 {
-                    var tblUser = unitOfWork.Userss.Find(x => x.UserId == ResetPasswordViewModel.UserID).FirstOrDefault();
-                    tblUser.Password = ResetPasswordViewModel.NewPassword;
+                    var tblUser = unitOfWork.Userss.Find(d=>d.UserName == ResetPasswordViewModel.UserName).FirstOrDefault();
+                    var CSPData = unitOfWork.UserCSPDetail.Find(d => d.CSPCode == tblUser.UserName).FirstOrDefault();
+                    if (ResetPasswordViewModel.IsPasswordResetWithPan=="Yes")
+                    {
+                        tblUser.Password = CSPData.PAN;
+
+                    }
+                    else
+                    {
+                        tblUser.Password = ResetPasswordViewModel.NewPassword;
+
+                    }
                     tblUser.IsPasswordReset = true;
                     tblUser.UpdatedDate = DateTime.Now;
                     unitOfWork.Userss.Update(tblUser);

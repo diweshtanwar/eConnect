@@ -138,7 +138,7 @@ namespace eConnect.Logic
                     tblUserCSPDetail.City = UserCSPDetail.City;
                     tblUserCSPDetail.Location = UserCSPDetail.Location;
                     tblUserCSPDetail.Category = UserCSPDetail.Category;
-                    tblUserCSPDetail.PAN = UserCSPDetail.PAN;
+                    tblUserCSPDetail.PAN = UserCSPDetail.PAN.ToUpper();
                     tblUserCSPDetail.VoterId = UserCSPDetail.VoterId;
                     tblUserCSPDetail.AadharNo = UserCSPDetail.AadharNo;
                     tblUserCSPDetail.Education = UserCSPDetail.Education;
@@ -168,7 +168,7 @@ namespace eConnect.Logic
                     //Insert User Login data
                     tblUser tblUser = new tblUser();
                     tblUser.UserName = UserCSPDetail.CSPCode;
-                    tblUser.Password = "eConnect@" + UserCSPDetail.CSPCode;
+                    tblUser.Password =  UserCSPDetail.PAN;
                     tblUser.UserSourceId = (int?)id;
                     tblUser.UserType = 3;
                     tblUser.Status = 1;
