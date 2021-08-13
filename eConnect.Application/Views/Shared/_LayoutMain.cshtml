@@ -345,6 +345,19 @@
 
         });
 
+        $(function () {
+            var message = $('#IsPasswordResetWithPan').val();
+            //alert(message);
+            if ($('#IsPasswordResetWithPan').val() == 'No') {
+                $('#IsPasswordResetWithPanStatus1').show();
+                $('#IsPasswordResetWithPanStatus2').show();
+            } else {
+                $('#IsPasswordResetWithPanStatus1').hide();
+                $('#IsPasswordResetWithPanStatus2').hide();
+            }
+
+        });
+
     </script>
 </body>
 
