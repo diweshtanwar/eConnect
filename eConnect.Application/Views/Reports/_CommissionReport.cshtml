@@ -24,7 +24,7 @@
             @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
         </div>
         @*<table class="table table-striped" id="table-2">*@
-    @*<table id="example" class="display nowrap" style="width:100%">*@
+        @*<table id="example" class="display nowrap" style="width:100%">*@
         <table id="example" class="table table-striped">
             <thead>
                 <h6 class="text-primary mb-3">@Model.FirstOrDefault().Message </h6>
@@ -42,7 +42,8 @@
                         @Html.DisplayName("Commission")
                     </th>
                     <th>
-                        Including TDS 3.75%
+                        @Html.Raw("Including TDS 5%")
+
                     </th>
                     <th>
                         @Html.DisplayName("Commission Percentage to CSP")
@@ -52,12 +53,12 @@
                 </tr>
             </thead>
             <tbody style="overflow: hidden;">
-                @if (Model.FirstOrDefault().TotalCommission > 0)
+                @if (!string.IsNullOrEmpty(Model.FirstOrDefault().TransactionType))
                 {
                     int count = 1;
-                    decimal TotalCommission = 0;
-                    double TotalTDS = 0; double TotalTDSPercentage = 0;
-                    double TotalPayable = 0;
+                    decimal TotalCommission = 0; decimal GrossCommission = 0;
+                    decimal TotalTDS = 0; decimal TotalTDSPercentage = 0;
+                    decimal TotalPayable = 0;
                     foreach (var item in Model)
                     {
                         <tr>
@@ -85,8 +86,9 @@
                                 @Html.DisplayFor(modelItem => item.TotalCommission)
                             </td>
                         </tr>
+                        GrossCommission = @GrossCommission + Convert.ToDecimal(@item.Commission);
                         TotalCommission = @TotalCommission + Convert.ToDecimal(@item.TotalCommission);
-                        TotalTDS = @TotalTDS + Convert.ToDouble(@item.CommissionIncludingTDS);
+                        TotalTDS = @TotalTDS + @item.CommissionIncludingTDS;
                     }
                     <tr>
                         <td>Total</td>
@@ -96,7 +98,7 @@
                         <td></td>
                         <td></td>
                         <td>
-                            @TotalCommission.ToString("0.00"))
+                            @TotalCommission.ToString("0.00")
 
                         </td>
                     </tr>
@@ -108,23 +110,25 @@
                         <td style="display: none"></td>
                         <td colspan="4" style="text-align:center">
                             <table style="text-align:left;border:solid;">
-                                <tr><td>Total (Rs)</td><td> @TotalTDS.ToString("0.00")</td></tr>
+                                <tr><td>Total (Rs)</td><td> @GrossCommission.ToString("0.00")</td></tr>
                                 <tr>
-                                    <td style="text-align:right">TDS(-) - 3.75%</td>
+                                    <td style="text-align:right">TDS(-)</td>
                                     <td>
-                                        @{ double tds = 0.0375;
-                                            TotalTDSPercentage = (@TotalTDS * tds);
-                                            @TotalTDSPercentage.ToString("0.00")
-                                        }
+                                        @TotalTDS.ToString("0.00")
+
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>NET Payable</td>
                                     <td>
-                                        @{
-                                            TotalPayable = (@TotalTDS - @TotalTDSPercentage);
-                                        }
-                                        @TotalPayable.ToString("0.00")
+                                        <b>
+
+                                            @{
+                                                TotalPayable = (@GrossCommission - @TotalTDS);
+                                            }
+
+                                            @TotalPayable.ToString("0.00")
+                                        </b>
                                     </td>
                                 </tr>
                             </table>
@@ -160,7 +164,7 @@
                 </tr>
             </tfoot>
         </table>
-</div>
+    </div>
 </div>
 <div class="ajax-loader">
     <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />

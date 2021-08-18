@@ -131,10 +131,12 @@
                 var id = $(this).val();
                 if (id == 1) {
                     document.getElementById("trTDS").style.display = '';
+                    document.getElementById("ApplyTDS").required = true;
                 }
                 else {
               //      $('#ApplyTDS').val('');
                     document.getElementById("trTDS").style.display = 'none';
+                    document.getElementById("ApplyTDS").required = false;
                 }
             });
 

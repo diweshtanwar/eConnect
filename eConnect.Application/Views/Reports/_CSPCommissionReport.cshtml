@@ -52,8 +52,8 @@
                 {
                     int count = 1;
                     decimal TotalCommission = 0;
-                    double TotalTDS = 0; double TotalTDSPercentage = 0;
-                    double TotalPayable = 0;
+                    decimal TotalTDS = 0; decimal TotalTDSPercentage = 0;
+                    decimal TotalPayable = 0;
                     foreach (var item in Model)
                     {
                         <tr>
@@ -67,25 +67,38 @@
                                 @Html.DisplayFor(modelItem => item.NoOfTransaction)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.CommissionIncludingTDS)
+                                @Html.DisplayFor(modelItem => item.Commission)
                             </td>
                         </tr>
-                        TotalCommission = @TotalCommission + Convert.ToDecimal(@item.TotalCommission);
-                        TotalTDS = @TotalTDS + Convert.ToDouble(@item.CommissionIncludingTDS);
+                        TotalCommission = @TotalCommission + Convert.ToDecimal(@item.Commission);
+                        TotalTDS = @TotalTDS + @item.CommissionIncludingTDS;
                         count++;
                     }
                     <tr>
                         <td>Total</td>
                         <td></td>
                         <td></td>
-                        <td>@TotalTDS.ToString("0.00")</td>
+                        <td>@TotalCommission.ToString("0.00")</td>
                     </tr>
                     <tr style="background-color:lightgrey;">
 
-                        <td style="background-color:lightgrey;" colspan="2">Total (Rs) - <b> @TotalTDS.ToString("0.00")</b></td>
+                        <td style="background-color:lightgrey;" colspan="2">Total (Rs) - <b> @TotalCommission.ToString("0.00")</b></td>
                         <td style="display: none"></td>
-                        <td> TDS(Deducted) - 3.75% -  @{ double tds = 0.0375; TotalTDSPercentage = (@TotalTDS * tds); <b>@TotalTDSPercentage.ToString("0.00")</b> }</td>
-                        <td>NET Payable -  @{TotalPayable = (@TotalTDS - @TotalTDSPercentage);} <b>@TotalPayable.ToString("0.00")</b></td>
+                        <td>
+                            TDS(Deducted)-
+                            @TotalTDS.ToString("0.00")
+                        </td>
+                        <td>
+                            NET Payable -
+                            <b>
+
+                                @{
+                                    TotalPayable = (@TotalCommission - @TotalTDS);
+                                }
+
+                                @TotalPayable.ToString("0.00")
+                            </b>
+                        </td>
                         <!--<td style="text-align:center;font-weight:bold;vertical-align:middle;">-->
                         @*Total (Rs): @TotalTDS.ToString("0.00"); TDS(-) - 3.75%: @{ double tds = 0.0375; TotalTDSPercentage = (@TotalTDS * tds);@TotalTDSPercentage.ToString("0.00") }
                             NET Payable:  @{TotalPayable = (@TotalTDS - @TotalTDSPercentage);}@TotalPayable.ToString("0.00")*@
