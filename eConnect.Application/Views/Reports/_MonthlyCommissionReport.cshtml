@@ -26,7 +26,7 @@
             @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
         </div>
         @*<table class="table table-striped" id="table-2">*@
-        <table id="example" class="display nowrap" style="width:auto">
+        <table id="example" class="table table-striped">
             <thead>
                 <h6 class="text-primary mb-3">@Model.FirstOrDefault().Message </h6>
                 <tr>
@@ -37,7 +37,7 @@
                     <th colspan="4"></th>
                 </tr>
                 <tr>
-                    
+
                     <th>
                         @Html.DisplayNameFor(model => model.CSPCode)
                     </th>
@@ -71,14 +71,12 @@
 
                 </tr>
             </thead>
-            <tbody>
+            <tbody style="overflow: hidden;">
                 @if (Model.FirstOrDefault().MonthlyCommissionReportID > 0)
                 {
                     int count = 1;
-
                     decimal TotalTransaction = 0;
                     decimal TotalIncentive = 0;
-
                     decimal TotalRural = 0;
                     decimal TotalTotal = 0;
                     decimal TotalPayableToCSP = 0;
@@ -86,7 +84,6 @@
                         foreach (var item in Model)
                         {
                             <tr>
-                                
                                 <td style="text-align:center">
                                     @Html.DisplayFor(modelItem => item.CSPCode)
                                 </td>
@@ -95,7 +92,6 @@
                                 </td>
                                 <td style="text-align: left">
                                     @Html.DisplayFor(modelItem => item.CSPCategory)
-
                                 </td>
                                 <td style="text-align:center">
                                     @Html.DisplayFor(modelItem => item.Transation)
@@ -150,37 +146,16 @@
             </tbody>
             <tfoot>
                 <tr>
-                    
-                    <th style="height:45px;">
-                        @Html.DisplayNameFor(model => model.CSPCode)
-                    </th>
-                    <th style="height:45px;">
-                        @Html.DisplayNameFor(model => model.CSPName)
-                    </th>
-                    <th style="height:30px;">
-                        @Html.DisplayNameFor(model => model.CSPCategory)
-                    </th>
-                    <th style="height:45px;">
-                        @Html.DisplayNameFor(model => model.Transation)
-                    </th>
-                    <th style="height:45px;">
-                        @Html.DisplayNameFor(model => model.Incentive)
-                    </th>
-                    <th style="height:45px;">
-                        @Html.DisplayNameFor(model => model.Rural)
-                    </th>
-                    <th style="height:45px;">
-                        @Html.DisplayNameFor(model => model.Total)
-                    </th>
-                    <th style="height:45px;">
-                        @Html.DisplayNameFor(model => model.TDS)
-                    </th>
-                    <th style="height:45px;">
-                        @Html.DisplayNameFor(model => model.PayableToCSP)
-                    </th>
-                    <th style="height:45px;">
-                        @Html.DisplayNameFor(model => model.NetPayable)
-                    </th>
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
+                    <th style="display: none"></th>
                 </tr>
             </tfoot>
         </table>

@@ -116,8 +116,8 @@
           <Property Name="CSPCode" Type="nvarchar" MaxLength="50" />
           <Property Name="CSPName" Type="nvarchar" MaxLength="50" />
           <Property Name="TransactionType" Type="nvarchar(max)" />
-          <Property Name="NoOfTransactions" Type="decimal" Precision="18" Scale="4" />
-          <Property Name="Commission" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="NoOfTransactions" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="Commission" Type="decimal" Precision="19" Scale="6" />
           <Property Name="UploaderId" Type="int" />
         </EntityType>
         <EntityType Name="tblCommissionReportMonthly">
@@ -127,13 +127,13 @@
           <Property Name="MonthlyCommissionReportID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CSPCode" Type="varchar" MaxLength="100" />
           <Property Name="CSPName" Type="varchar" MaxLength="200" />
-          <Property Name="Transation" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Incentive" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Rural" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="TDS" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="PayableToCSP" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="NetPayable" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="Transation" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="Incentive" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="Rural" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="Total" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="TDS" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="PayableToCSP" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="NetPayable" Type="decimal" Precision="19" Scale="6" />
           <Property Name="Month" Type="int" />
           <Property Name="Year" Type="int" />
           <Property Name="UploaderId" Type="int" Nullable="false" />
@@ -149,8 +149,8 @@
           <Property Name="CSPCode" Type="nvarchar" MaxLength="50" />
           <Property Name="CSPName" Type="nvarchar" MaxLength="50" />
           <Property Name="TransactionType" Type="nvarchar(max)" />
-          <Property Name="NoOfTransactions" Type="decimal" Precision="18" Scale="4" />
-          <Property Name="Commission" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="NoOfTransactions" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="Commission" Type="decimal" Precision="19" Scale="6" />
           <Property Name="UploaderId" Type="int" />
         </EntityType>
         <EntityType Name="tblCommissionReportTransactionType">
@@ -159,8 +159,8 @@
           </Key>
           <Property Name="CommissionReportTransactionTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="200" />
-          <Property Name="HOCommission" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="CSPCommission" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="HOCommission" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="CSPCommission" Type="decimal" Precision="19" Scale="6" />
           <Property Name="Status" Type="bit" />
         </EntityType>
         <EntityType Name="tblConfiguration">
@@ -1335,8 +1335,8 @@
           <Property Name="CSPCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CSPName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TransactionType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NoOfTransactions" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="Commission" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="NoOfTransactions" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="Commission" Type="Decimal" Precision="19" Scale="6" />
           <Property Name="UploaderId" Type="Int32" />
           <NavigationProperty Name="tblUploader" Relationship="Self.FK_tblCommissionReportMain_tblUploader" FromRole="tblCommissionReportMain" ToRole="tblUploader" />
         </EntityType>
@@ -1347,13 +1347,13 @@
           <Property Name="MonthlyCommissionReportID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CSPCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CSPName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Transation" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Incentive" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Rural" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TDS" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PayableToCSP" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="NetPayable" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Transation" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="Incentive" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="Rural" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="TDS" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="PayableToCSP" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="NetPayable" Type="Decimal" Precision="19" Scale="6" />
           <Property Name="Month" Type="Int32" />
           <Property Name="Year" Type="Int32" />
           <Property Name="UploaderId" Type="Int32" Nullable="false" />
@@ -1370,8 +1370,8 @@
           <Property Name="CSPCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CSPName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TransactionType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NoOfTransactions" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="Commission" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="NoOfTransactions" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="Commission" Type="Decimal" Precision="19" Scale="6" />
           <Property Name="UploaderId" Type="Int32" />
           <NavigationProperty Name="tblUploader" Relationship="Self.FK_tblCommissionReportNew_tblUploader" FromRole="tblCommissionReportNew" ToRole="tblUploader" />
         </EntityType>
@@ -1381,8 +1381,8 @@
           </Key>
           <Property Name="CommissionReportTransactionTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="HOCommission" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="CSPCommission" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="HOCommission" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="CSPCommission" Type="Decimal" Precision="19" Scale="6" />
           <Property Name="Status" Type="Boolean" />
           <NavigationProperty Name="tblCommissionReports" Relationship="Self.FK_tblCommissionReport_tblCommissionReportTransactionType" FromRole="tblCommissionReportTransactionType" ToRole="tblCommissionReport" />
         </EntityType>
@@ -2159,11 +2159,6 @@
             <Parameter Name="Month" Mode="In" Type="Int32" />
             <Parameter Name="CSPCode" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_GetMonthlyCommissionReportByYearMonthandCSPCode" ReturnType="Collection(eConnectAppModel.sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result)">
-            <Parameter Name="Year" Mode="In" Type="Int32" />
-            <Parameter Name="Month" Mode="In" Type="Int32" />
-            <Parameter Name="CSPCode" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="sp_PublishCommissionReport">
           <Parameter Name="UploaderId" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -2215,6 +2210,11 @@
           <EntitySet Name="tblLatestNews" EntityType="eConnectAppModel.tblLatestNew" />
           <EntitySet Name="tblMailConfigurations" EntityType="eConnectAppModel.tblMailConfiguration" />
           <EntitySet Name="tblNotifications" EntityType="eConnectAppModel.tblNotification" />
+          <FunctionImport Name="sp_GetMonthlyCommissionReportByYearMonthandCSPCode" ReturnType="Collection(eConnectAppModel.sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result)">
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="Month" Mode="In" Type="Int32" />
+            <Parameter Name="CSPCode" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_GetAppMenuWithSubMenu_Result">
           <Property Type="String" Name="Tittle" Nullable="true" MaxLength="20" />
@@ -2254,23 +2254,6 @@
           <Property Type="Decimal" Name="IncludingTDS" Nullable="true" Precision="38" Scale="6" />
           <Property Type="Decimal" Name="CSPCommission" Nullable="true" Precision="18" Scale="0" />
           <Property Type="Decimal" Name="Total" Nullable="true" Precision="18" Scale="4" />
-        </ComplexType>
-        <ComplexType Name="sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result">
-          <Property Type="Int64" Name="MonthlyCommissionReportID" Nullable="false" />
-          <Property Type="String" Name="CSPCode" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="CSPName" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="Transation" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="Incentive" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="Rural" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="Total" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="TDS" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="PayableToCSP" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="NetPayable" Nullable="true" Precision="18" Scale="4" />
-          <Property Type="Int32" Name="Month" Nullable="true" />
-          <Property Type="Int32" Name="Year" Nullable="true" />
-          <Property Type="Int32" Name="UploaderId" Nullable="false" />
-          <Property Type="String" Name="Category1" Nullable="true" MaxLength="50" />
         </ComplexType>
         <EntityType Name="tblDepositRequest">
           <Key>
@@ -2615,6 +2598,22 @@
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Boolean" />
         </EntityType>
+        <ComplexType Name="sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result">
+          <Property Type="Int64" Name="MonthlyCommissionReportID" Nullable="false" />
+          <Property Type="String" Name="CSPCode" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="CSPName" Nullable="true" MaxLength="200" />
+          <Property Type="Decimal" Name="Transation" Nullable="true" Precision="19" Scale="6" />
+          <Property Type="Decimal" Name="Incentive" Nullable="true" Precision="19" Scale="6" />
+          <Property Type="Decimal" Name="Rural" Nullable="true" Precision="19" Scale="6" />
+          <Property Type="Decimal" Name="Total" Nullable="true" Precision="19" Scale="6" />
+          <Property Type="Decimal" Name="TDS" Nullable="true" Precision="19" Scale="6" />
+          <Property Type="Decimal" Name="PayableToCSP" Nullable="true" Precision="19" Scale="6" />
+          <Property Type="Decimal" Name="NetPayable" Nullable="true" Precision="19" Scale="6" />
+          <Property Type="Int32" Name="Month" Nullable="true" />
+          <Property Type="Int32" Name="Year" Nullable="true" />
+          <Property Type="Int32" Name="UploaderId" Nullable="false" />
+          <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3196,27 +3195,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_GetMonthlyCommissionReportByYearMonthandCSPCode" FunctionName="eConnectAppModel.Store.sp_GetMonthlyCommissionReportByYearMonthandCSPCode">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result">
-                <ScalarProperty Name="MonthlyCommissionReportID" ColumnName="MonthlyCommissionReportID" />
-                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
-                <ScalarProperty Name="CSPName" ColumnName="CSPName" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="Transation" ColumnName="Transation" />
-                <ScalarProperty Name="Incentive" ColumnName="Incentive" />
-                <ScalarProperty Name="Rural" ColumnName="Rural" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="TDS" ColumnName="TDS" />
-                <ScalarProperty Name="PayableToCSP" ColumnName="PayableToCSP" />
-                <ScalarProperty Name="NetPayable" ColumnName="NetPayable" />
-                <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="UploaderId" ColumnName="UploaderId" />
-                <ScalarProperty Name="Category1" ColumnName="Category1" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_PublishCommissionReport" FunctionName="eConnectAppModel.Store.sp_PublishCommissionReport" />
           <FunctionImportMapping FunctionImportName="sp_DeleteRequest" FunctionName="eConnectAppModel.Store.sp_DeleteRequest" />
           <EntitySetMapping Name="tblDepositRequests">
@@ -3479,6 +3457,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetMonthlyCommissionReportByYearMonthandCSPCode" FunctionName="eConnectAppModel.Store.sp_GetMonthlyCommissionReportByYearMonthandCSPCode">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result">
+                <ScalarProperty Name="MonthlyCommissionReportID" ColumnName="MonthlyCommissionReportID" />
+                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
+                <ScalarProperty Name="CSPName" ColumnName="CSPName" />
+                <ScalarProperty Name="Transation" ColumnName="Transation" />
+                <ScalarProperty Name="Incentive" ColumnName="Incentive" />
+                <ScalarProperty Name="Rural" ColumnName="Rural" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="TDS" ColumnName="TDS" />
+                <ScalarProperty Name="PayableToCSP" ColumnName="PayableToCSP" />
+                <ScalarProperty Name="NetPayable" ColumnName="NetPayable" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="UploaderId" ColumnName="UploaderId" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
