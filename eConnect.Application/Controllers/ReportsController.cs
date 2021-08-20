@@ -187,6 +187,11 @@ namespace eConnect.Application.Controllers
         {
             StatusLogic sl = new StatusLogic();
             var Statuslist = sl.GetAllStatus();
+            int cspid = Convert.ToInt32(Session["UserSourceId"]);
+            UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+            UserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID((int)cspid);
+            ViewBag.CSPcode = UserCSPDetail.CSPCode;
+
             ViewBag.Statuslist = Statuslist;
             ViewBag.Years = GetYears().OrderByDescending(x => x.Value);
             ViewBag.Months = GetMonths().OrderByDescending(x => x.Value);

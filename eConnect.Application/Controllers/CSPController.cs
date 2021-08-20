@@ -23,6 +23,12 @@ namespace eConnect.Application.Controllers
                 new SelectListItem { Text = "No", Value = "No" },            
 
             };
+        List<SelectListItem> IsPasswordResetWithPanList = new List<SelectListItem>()
+            {
+                new SelectListItem { Text = "Yes", Value = "Yes" },
+                new SelectListItem { Text = "No", Value = "No" },
+
+            };
         // GET: CSP
 
         public ActionResult Dashboard()
@@ -80,6 +86,35 @@ namespace eConnect.Application.Controllers
             return View(UserCSPDetail);
         }
 
+        public ActionResult View(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+            UserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID((int)id);
+            if (UserCSPDetail == null)
+            {
+                return HttpNotFound();
+            }
+            StatusLogic objStatusLogic = new StatusLogic();
+            CityLogic objCityLogic = new CityLogic();
+            CountryLogic objCountryLogic = new CountryLogic();
+            StateLogic objStateLogic = new StateLogic();
+            BranchCodeLogic objBranchCodeLogic = new BranchCodeLogic();
+            CategoryLogic objCategoryLogic = new CategoryLogic();
+            LocationLogic objLocationLogic = new LocationLogic();
+            ViewBag.Status = new SelectList(objStatusLogic.GetUserStatus(), "StatusId", "Name", UserCSPDetail.Status);
+            ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserCSPDetail.City);
+            ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserCSPDetail.Country);
+            ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserCSPDetail.State);
+            ViewBag.CertificateStatus = new SelectList(CertificateStatusList, "Text", "Value", UserCSPDetail.CertificateStatus);
+            ViewBag.BranchCode = new SelectList(objBranchCodeLogic.GetAllBranchCode(), "BranchCode", "BranchCode");
+            ViewBag.Category = new SelectList(objCategoryLogic.GetAllCategory(), "Category", "Category");
+            ViewBag.Location = new SelectList(objLocationLogic.GetAllLocation(), "Location", "Location");
+            return View(UserCSPDetail);
+        }
         public JsonResult IsCSPCodeExist( string CSPCode, int? id)
         {
 
@@ -465,14 +500,14 @@ namespace eConnect.Application.Controllers
             return View(UserCSPDetail);
         }
 
-        public ActionResult ResetPassword(int? id)
+        public ActionResult ResetPassword(string CSPCode)
         {
-            if (id == null)
+            if (CSPCode == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
-            UserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID((int)id);
+            tblUserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByCSPCode(CSPCode).FirstOrDefault();
             if (UserCSPDetail == null)
             {
                 return HttpNotFound();
@@ -483,6 +518,8 @@ namespace eConnect.Application.Controllers
             objResetPasswordViewModel.UserName = UserCSPDetail.CSPCode;
             objResetPasswordViewModel.UserID = UserCSPDetail.CSPId;
             ViewBag.SuccessMsg = "";
+            ViewBag.IsPasswordResetWithPan = new SelectList(IsPasswordResetWithPanList, "Text", "Value", objResetPasswordViewModel.IsPasswordResetWithPan);
+
             return View(objResetPasswordViewModel);
         }
 
@@ -492,14 +529,39 @@ namespace eConnect.Application.Controllers
             //ResetPasswordViewModel.UserName = (string)Session["UserName"];
             //ResetPasswordViewModel.UserType = (int)Session["UserTypeId"];
             //ResetPasswordViewModel.UserID = (int)Session["UserId"];
-            if (ModelState.IsValid)
+          
+            if (ResetPasswordViewModel.IsPasswordResetWithPan=="Yes")
             {
+
                 UserLogic objUserLogic = new UserLogic();
-                objUserLogic.ResetPasswordLogic(ResetPasswordViewModel);
+                objUserLogic.ResetPasswordLogic(ResetPasswordViewModel);               
                 ViewBag.SuccessMsg = "Password reset successfully!";
             }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    UserLogic objUserLogic = new UserLogic();
+                    objUserLogic.ResetPasswordLogic(ResetPasswordViewModel);              
+                    ViewBag.SuccessMsg = "Password reset successfully!";
+                }
+                else
+                {
+                    ViewBag.SuccessMsg = "Oops! Unable to Reset Password!";
+                }
+            }
 
-            return View(ResetPasswordViewModel);
+            UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+            tblUserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByCSPCode(ResetPasswordViewModel.UserName).FirstOrDefault();
+
+
+            ResetPasswordViewModel objResetPasswordViewModel = new ResetPasswordViewModel();
+            objResetPasswordViewModel.CSPName = UserCSPDetail.CSPName;
+            objResetPasswordViewModel.UserName = UserCSPDetail.CSPCode;
+            objResetPasswordViewModel.UserID = UserCSPDetail.CSPId;          
+            ViewBag.IsPasswordResetWithPan = new SelectList(IsPasswordResetWithPanList, "Text", "Value", ResetPasswordViewModel.IsPasswordResetWithPan);
+
+            return View(objResetPasswordViewModel);
         }
 
         public string CheckDirectory(string CSPUserID, string path, string filetype, HttpPostedFileBase postedfile)

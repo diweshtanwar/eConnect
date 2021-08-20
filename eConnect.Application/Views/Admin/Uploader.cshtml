@@ -63,8 +63,9 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.ApplyTDS, htmlAttributes: new { @class = "required-field" })
                             <div class="input-group ">
-                                @*@Html.EditorFor(model => model.ApplyTDS, new { htmlAttributes = new { @class = "form-control" } })*@
-                                @Html.TextBoxFor(model => model.ApplyTDS, new { @Value = "3.75", @class = "form-control", @readonly = "true" })
+                                @*@Html.TextBoxFor(model => model.ApplyTDS, new { @Value = "3.75", @class = "form-control", @readonly = "true" })*@
+                                <input class="form-control" type="text" value="3.75" pattern="(^[0-9]{0,2}$)|(^[0-9]{0,2}\.[0-9]{0,3}$)" step="any" maxlength="7"
+                                       validate="true" id="ApplyTDS" name="ApplyTDS" />
                                 @Html.ValidationMessageFor(model => model.ApplyTDS, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -131,10 +132,12 @@
                 var id = $(this).val();
                 if (id == 1) {
                     document.getElementById("trTDS").style.display = '';
+                    document.getElementById("ApplyTDS").required = true;
                 }
                 else {
               //      $('#ApplyTDS').val('');
                     document.getElementById("trTDS").style.display = 'none';
+                    document.getElementById("ApplyTDS").required = false;
                 }
             });
 

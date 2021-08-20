@@ -103,23 +103,6 @@ namespace eConnect.DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetCommissionReportByYearMonthandCSPName_Result>("sp_GetCommissionReportByYearMonthandCSPName", yearParameter, monthParameter, cSPCodeParameter);
         }
     
-        public virtual ObjectResult<sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result> sp_GetMonthlyCommissionReportByYearMonthandCSPCode(Nullable<int> year, Nullable<int> month, string cSPCode)
-        {
-            var yearParameter = year.HasValue ?
-                new ObjectParameter("Year", year) :
-                new ObjectParameter("Year", typeof(int));
-    
-            var monthParameter = month.HasValue ?
-                new ObjectParameter("Month", month) :
-                new ObjectParameter("Month", typeof(int));
-    
-            var cSPCodeParameter = cSPCode != null ?
-                new ObjectParameter("CSPCode", cSPCode) :
-                new ObjectParameter("CSPCode", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result>("sp_GetMonthlyCommissionReportByYearMonthandCSPCode", yearParameter, monthParameter, cSPCodeParameter);
-        }
-    
         public virtual int sp_PublishCommissionReport(Nullable<int> uploaderId)
         {
             var uploaderIdParameter = uploaderId.HasValue ?
@@ -155,6 +138,23 @@ namespace eConnect.DataAccess
         public virtual ObjectResult<sp_GetManageWithdrawalRequestDetails_Result> sp_GetManageWithdrawalRequestDetails()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageWithdrawalRequestDetails_Result>("sp_GetManageWithdrawalRequestDetails");
+        }
+    
+        public virtual ObjectResult<sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result> sp_GetMonthlyCommissionReportByYearMonthandCSPCode(Nullable<int> year, Nullable<int> month, string cSPCode)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            var cSPCodeParameter = cSPCode != null ?
+                new ObjectParameter("CSPCode", cSPCode) :
+                new ObjectParameter("CSPCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result>("sp_GetMonthlyCommissionReportByYearMonthandCSPCode", yearParameter, monthParameter, cSPCodeParameter);
         }
     }
 }

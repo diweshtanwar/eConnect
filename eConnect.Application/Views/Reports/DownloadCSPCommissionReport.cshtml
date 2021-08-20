@@ -40,23 +40,27 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.Label("Month")
-                        @*    @Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text"), new { id = "Month", @class = "form-control" })*@
-                            <select  id="Month" name="Month" class="form-control">
+                            @*    @Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text"), new { id = "Month", @class = "form-control" })*@
+                            <select id="Month" name="Month" class="form-control">
                             </select>
                         </div>
                     </div>
-                </div>
-                <div class="my-4 text-right">
-                    <button class="btn btn-primary px-4" type="button" onclick="LoadData()">Search</button>
+
+                    <div class="col-md-4">
+                        <div class="my-4 text-right">
+                            <button class="btn btn-primary px-4" type="button" onclick="LoadData()">Search</button>
+                            <input type="hidden" id="CSPCode" name="CSPCode" value="@ViewBag.CSPcode" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div id="RequestDetailsList">
+        </div> <div class="ajax-loader">
+            <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
         </div>
     </section>
-    <div class="ajax-loader">
-        <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
-    </div>
+
 }
 <div>
     @Html.ActionLink("Cancel", "DownloadCSPCommissionReport")

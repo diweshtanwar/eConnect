@@ -162,6 +162,8 @@ namespace eConnect.Model
         [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        public string IsPasswordResetWithPan { get; set; }
+
     }
     public class UsersLoginDetailsModel
     {

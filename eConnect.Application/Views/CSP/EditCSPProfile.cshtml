@@ -49,8 +49,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.BranchCode, htmlAttributes: new { @class = "required-field" })
-                            @*@Html.EditorFor(model => model.BranchCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })*@
-                            @Html.DropDownList("BranchCode", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+                            @Html.EditorFor(model => model.BranchCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @*@Html.DropDownList("BranchCode", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })*@
 
                             @Html.ValidationMessageFor(model => model.BranchCode, "", new { @class = "text-danger" })
                         </div>
@@ -209,8 +209,8 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "required-field" })
 
-                            @*@Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })*@
-                            @Html.DropDownList("Location", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+                            @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @*@Html.DropDownList("Location", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })*@
 
                             @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
 
@@ -220,8 +220,8 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "required-field" })
 
-                            @*@Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })*@
-                            @Html.DropDownList("Category", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+                            @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @*@Html.DropDownList("Category", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })*@
 
                             @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
 
