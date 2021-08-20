@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,7 @@ namespace eConnect.Model
         public string CSPCode { get; set; }
         public string CSPName { get; set; }
         public string TransactionType { get; set; }
+        [DisplayFormat(DataFormatString= "{0:G10}")]
         public Nullable<decimal> NoOfTransaction { get; set; }
         public decimal Commission { get; set; }
         public decimal CommissionIncludingTDS { get; set; }
