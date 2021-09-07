@@ -48,7 +48,9 @@ public class UserCSPDetailRepository : Repository<tblUserCSPDetail>, IUserCSPDet
         public void DeleteUserCSPDetail(int CSPId)
         {
             tblUserCSPDetail tblUserCSPDetail = eConnectAppEntities.tblUserCSPDetails.Find(CSPId);
-            eConnectAppEntities.tblUserCSPDetails.Remove(tblUserCSPDetail);
+            eConnectAppEntities.Entry(tblUserCSPDetail).State = EntityState.Deleted;
+            Save();
+            //eConnectAppEntities.tblUserCSPDetails.Remove(tblUserCSPDetail);
         }
 
         public void UpdateUserCSPDetail(tblUserCSPDetail tblUserCSPDetail)

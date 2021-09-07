@@ -183,6 +183,7 @@
     <Compile Include="Controllers\ManageDepositRequestController.cs" />
     <Compile Include="Controllers\ManageTechnicalSupportRequestController.cs" />
     <Compile Include="Controllers\ManageWithdrawalRequestController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\PartialController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SAdminController.cs" />
@@ -515,6 +516,11 @@
     <Content Include="Views\Partial\GetNotificationDetails.cshtml" />
     <Content Include="Views\Partial\GetSubNewsForNewsDetails.cshtml" />
     <Content Include="Views\CSP\View.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\Menu\Create.cshtml" />
+    <Content Include="Views\Menu\Delete.cshtml" />
+    <Content Include="Views\Menu\Details.cshtml" />
+    <Content Include="Views\Menu\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

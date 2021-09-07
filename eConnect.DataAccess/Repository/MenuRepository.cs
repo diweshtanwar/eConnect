@@ -1,6 +1,7 @@
 ﻿using eConnect.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,10 @@ namespace eConnect.DataAccess
             return eConnectAppEntities.tblMenuMains.Where(d => d.Status == true).ToList();
         }
 
+        public IEnumerable<tblMenuSub> GetAllSubMain()
+        {
+            return eConnectAppEntities.tblMenuSubs.Include(t => t.tblMenuMain).Include(t => t.tblRoleMaster).ToList();
+        }
         public IEnumerable<tblMenuMain> GetAllMenuMainWithSubMenu(int userTypeId)
         {        
             var data1 = eConnectAppEntities.tblMenuSubs.Where(d => d.RoleId == userTypeId && d.Status == true).OrderBy(d => d.Priority).Select(d=>d.MenuMainId).ToList();
@@ -38,6 +43,24 @@ namespace eConnect.DataAccess
         {
             var data = eConnectAppEntities.sp_GetAppMenuWithSubMenu(userTypeId).ToList();
             return data;
+        }
+
+        public void InsertSubMainWithMenuMenu(tblMenuSub tblMenuSub)
+        {
+            eConnectAppEntities.tblMenuSubs.Add(tblMenuSub);
+            eConnectAppEntities.SaveChanges();
+        }
+        public void UpdateSubMainWithMenuMenu(tblMenuSub tblMenuSub)
+        {
+            eConnectAppEntities.Entry(tblMenuSub).State = EntityState.Modified;
+            eConnectAppEntities.SaveChanges();
+        }
+
+        public void DeleteSubMainWithMenuMenu(int tblMenuSubId)
+        {
+            tblMenuSub tblMenuSub = eConnectAppEntities.tblMenuSubs.Find(tblMenuSubId);
+            eConnectAppEntities.tblMenuSubs.Remove(tblMenuSub);
+            eConnectAppEntities.SaveChanges();
         }
     }
 }
