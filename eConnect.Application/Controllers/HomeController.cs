@@ -232,7 +232,10 @@ namespace eConnect.Application.Controllers
                     Session["UserSourceId"] = userData.UserSourceId;
                     Session["UserRoleName"] = roleMasterData.Name;
                     tblUserLoginLog objtblUserLoginLog = new tblUserLoginLog();
-                    objtblUserLoginLog.UserId = userData.UserId;
+                    //objtblUserLoginLog.UserId = userData.UserId;
+                    objtblUserLoginLog.UserId = userData.UserSourceId;
+                    objtblUserLoginLog.UserName = userData.UserName;
+                    objtblUserLoginLog.UserType = userData.UserType;
                     objtblUserLoginLog.LoginTimeStamp = DateTime.Now;
                     objtblUserLoginLog.HostName = Dns.GetHostName();
                     objtblUserLoginLog.IpAddress= Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString();                  
