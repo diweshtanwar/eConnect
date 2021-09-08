@@ -1,0 +1,210 @@
+﻿
+
+@model IEnumerable<eConnect.DataAccess.tblAbsentismReport>
+
+@{ ViewBag.Title = "Absentism Report";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml"; }
+
+<section class="section">
+
+
+    @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+
+    @using (@Html.BeginForm("IndexSearch", "AbsentismReport", FormMethod.Get))
+    {@Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <h4><span class="toggle-collapse" id="toggle" data-toggle="collapse" href="#filter" role="button" aria-expanded="true" aria-controls="filter"></span> Filter</h4>
+        </div>
+        <div class="card-body collapse show" id="filter">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>CSPId</label>
+                        @Html.DropDownList("CSP", null, "Select CSPID", htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>From Date</label>
+                        <input type="date" id="Requestedfromdte" name="Requestedfromdte" class="form-control" value="@ViewBag.dteFrom" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>To Date</label>
+                        <input type="date" id="Requestedtodte" name="Requestedtodte" class="form-control" value="@ViewBag.dteTo">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Report Type</label>
+                        @Html.DropDownList("Type", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Absentism Count From</label>
+                        <input type="text" id="AbsFrom" onkeypress=" return isNumber(event)"  name="AbsFrom" class="form-control" value="@Request["AbsFrom"]">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Absentism Count To</label>
+                        <input type="text" id="AbsTo" onkeypress=" return isNumber(event)" name="AbsTo" class="form-control" value="@Request["AbsTo"]">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Continueos more than</label>
+                        <input type="text" onkeypress=" return isNumber(event)" id="Ctecount" name="Ctecount" class="form-control" value="@Request["Ctecount"]">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3 mt-md-4 pt-1">
+                @*<button class="btn btn-dark px-4 mr-2">Cancel</button>*@
+                <button type="submit" onclick="return Validate();" class="btn btn-primary px-4">Search</button>
+            </div>
+
+        </div>
+    </div>
+
+}
+
+    <div class="card">
+
+        <div class="card-body">
+
+
+            <div class="table-responsive">
+                <div class="table-actions">
+                    @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
+                </div>
+                <table class="table table-striped" id="table-2">
+                    <thead>
+                        <tr>
+                            <th>
+                                Sr No
+                            </th>
+                            <th>
+                                CSP Id
+                            </th>
+                            <th>
+                                CSP Name
+                            </th>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Attendeance
+                            </th>
+                            <th>
+                                TimeStamp
+                            </th>
+                            <th>
+                                Host Name
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @item.ID
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CSPCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CSPName)
+                            </td>
+                            <td>
+                                @(item.Date?.ToString("MM/dd/yyyy"))
+
+                            </td>
+                            @if (item.Attendeance.Equals("A"))
+                            {
+                                <td style="color:red">
+                                    <b> @Html.DisplayFor(modelItem => item.Attendeance)</b>
+                                </td>
+                            }
+                            else
+                            {
+                                <td style="color:green">
+                                    <b> @Html.DisplayFor(modelItem => item.Attendeance)</b>
+                                </td>
+                            }
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Time)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.HostName)
+
+                            </td>
+                        </tr>
+
+
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script>
+
+    debugger;
+    /*  $(document).ready(function () {*/
+    function Validate()
+    {
+        if ($("#Requestedfromdte").val() == '')
+        {
+            alert('Please Enter FromDate !!');
+            $("#Requestedfromdte").focus();
+            return false;
+        }
+        if ($("#Requestedtodte").val() == '') {
+            alert('Please Enter ToDate !!');
+            $("#Requestedtodte").focus();
+            return false;
+        }
+    }
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+    function bindCity() {
+        var sid = $("#State").val();
+        $("#City").empty();
+
+        $.ajax({
+            url: '@Url.Action("BindCity", "ManageWithdrawalRequest")',
+            data: { state_id: sid },
+            type: 'GET',
+            success: function (data)
+            {
+                var v = "<option>---Select---</option>";
+                $.each(data, function (i, v1) {
+                    v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                });
+                $("#City").html(v);
+            }
+        });
+    }
+    /*    });*/
+</script>
