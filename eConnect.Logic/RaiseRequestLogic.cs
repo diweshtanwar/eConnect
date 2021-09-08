@@ -715,6 +715,27 @@ namespace eConnect.Logic
             }
             return Account;
         }
+
+        public DashboardCSPModel GetDashboardCSPData(int id)
+        {
+            DashboardCSPModel objDashboardCSPModel = new DashboardCSPModel();
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                objDashboardCSPModel.WithdrawOpenCount = unitOfWork.RaiseRequest.GetAllWithdrawDetailbyCSPID(id).Where(d => d.Status == 1).Count();
+                objDashboardCSPModel.WithdrawInProgressCount = unitOfWork.RaiseRequest.GetAllWithdrawDetailbyCSPID(id).Where(d => d.Status ==2 ).Count();
+                objDashboardCSPModel.WithdrawCompletedCount = unitOfWork.RaiseRequest.GetAllWithdrawDetailbyCSPID(id).Where(d => d.Status ==3 ).Count();
+
+                objDashboardCSPModel.DepositOpenCount = unitOfWork.RaiseRequest.GetAllDeposiDetailbyCSPID(id).Where(d => d.Status == 1).Count();
+                objDashboardCSPModel.DepositInProgressCount = unitOfWork.RaiseRequest.GetAllDeposiDetailbyCSPID(id).Where(d => d.Status == 2).Count();
+                objDashboardCSPModel.DepositCompletedCount = unitOfWork.RaiseRequest.GetAllDeposiDetailbyCSPID(id).Where(d => d.Status == 3).Count();
+
+                objDashboardCSPModel.TechOpenCount = unitOfWork.RaiseRequest.GetAllTechRequestbyCSPID(id).Where(d => d.Status == 1).Count();
+                objDashboardCSPModel.TechInProgressCount = unitOfWork.RaiseRequest.GetAllTechRequestbyCSPID(id).Where(d => d.Status == 2).Count();
+                objDashboardCSPModel.TechCompletedCount = unitOfWork.RaiseRequest.GetAllTechRequestbyCSPID(id).Where(d => d.Status == 3).Count();
+
+            }
+            return objDashboardCSPModel;
+        }
     }
 
 }

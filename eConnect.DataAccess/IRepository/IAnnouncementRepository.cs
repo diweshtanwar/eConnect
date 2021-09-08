@@ -10,5 +10,7 @@ namespace eConnect.DataAccess
     {
        string GetAnnouncementMessage();
        string GetAnnouncementDetail();
+        IEnumerable<tblAnnouncement> GetAllAnnouncement();
+        void UpdateAnnouncement(tblAnnouncement tblAnnouncement);
     }
 }

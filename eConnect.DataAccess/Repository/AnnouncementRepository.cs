@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,15 @@ namespace eConnect.DataAccess
         public string GetAnnouncementDetail()
         {
             return eConnectAppEntities.tblAnnouncements.Where(d => d.Status == true).Select(d => d.Detail).FirstOrDefault().ToString();
+        }
+        public IEnumerable<tblAnnouncement> GetAllAnnouncement()
+        {
+            return eConnectAppEntities.tblAnnouncements.ToList();
+        }
+        public void UpdateAnnouncement(tblAnnouncement tblAnnouncement)
+        {
+            eConnectAppEntities.Entry(tblAnnouncement).State = EntityState.Modified;
+            eConnectAppEntities.SaveChanges();
         }
     }
 }
