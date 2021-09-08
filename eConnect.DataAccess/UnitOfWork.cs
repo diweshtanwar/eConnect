@@ -42,6 +42,7 @@ namespace eConnect.DataAccess
         public IBranchCodeRepository BranchCodes { get; private set; }
         public ICategoryRepository Categoress { get; private set; }
         public ILocationRepository Locations { get; private set; }
+        public IAbsentismReport AbsentismReport { get; private set; }
         public UnitOfWork(eConnectAppEntities context)
         {
             _context = context;
@@ -73,6 +74,7 @@ namespace eConnect.DataAccess
             BranchCodes = new BranchCodeRepository(_context);
             Categoress = new CategoryRepository(_context);
             Locations = new LocationRepository(_context);
+            AbsentismReport = new AbsentismReportRepository(_context);
         }
 
         public int Complete()
