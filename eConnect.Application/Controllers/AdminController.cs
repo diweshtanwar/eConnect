@@ -29,6 +29,30 @@ namespace eConnect.Application.Controllers
 
         public ActionResult Dashboard()
         {
+            DashboardLogic objDashboardLogic = new DashboardLogic();
+            var data = objDashboardLogic.GetDashboardAdminData();
+            ViewBag.WithdrawOpenCount = data.WithdrawOpenCount;
+            ViewBag.WithdrawInProgressCount = data.WithdrawInProgressCount;
+            ViewBag.WithdrawCompletedCount = data.WithdrawCompletedCount;
+
+            ViewBag.DepositOpenCount = data.DepositOpenCount;
+            ViewBag.DepositInProgressCount = data.DepositInProgressCount;
+            ViewBag.DepositCompletedCount = data.DepositCompletedCount;
+
+            ViewBag.TechOpenCount = data.TechOpenCount;
+            ViewBag.TechInProgressCount = data.TechInProgressCount;
+            ViewBag.TechCompletedCount = data.TechCompletedCount;
+
+            ViewBag.CSPActiveCount = data.CSPActiveCount;
+            ViewBag.CSPInActiveCount = data.CSPInActiveCount;
+            ViewBag.CSPBlockedCount = data.CSPBlockedCount;
+            ViewBag.CSPTotalCount = data.CSPTotalCount;
+
+            ViewBag.UserActiveCount = data.UserActiveCount;
+            ViewBag.UserInActiveCount = data.UserInActiveCount;
+            ViewBag.UserBlockedCount = data.UserBlockedCount;
+            ViewBag.UserTotalCount = data.UserTotalCount;
+
             return View();
         }
         public ActionResult ApproveCSP()

@@ -70,6 +70,7 @@
     <Compile Include="CityModel.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="CountryModel.cs" />
+    <Compile Include="DashboardAdminModel.cs" />
     <Compile Include="DashboardCSPModel.cs" />
     <Compile Include="EnquiryViewModels.cs" />
     <Compile Include="MenuModel.cs" />

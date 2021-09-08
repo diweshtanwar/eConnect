@@ -5,78 +5,7 @@
 }
 
 <section class="section">
-
-    <div class="card mb-3">
-        <div class="card-header">
-            <h4><span class="toggle-collapse" data-toggle="collapse" href="#filter" role="button" aria-expanded="false" aria-controls="filter"></span> Filter</h4>
-        </div>
-        <div class="card-body collapse" id="filter">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>From Date</label>
-                        <div class="input-group datepicker">
-                            <input type="text" class="form-control" value="10/24/1984" />
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="mdi mdi-calendar"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>To Date</label>
-                        <div class="input-group datepicker">
-                            <input type="text" class="form-control" value="10/24/1984" />
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="mdi mdi-calendar"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>State</label>
-                        <select class="form-control">
-                            <option>Select</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>District</label>
-                        <select class="form-control">
-                            <option>Select</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>CSP Code</label>
-                        <select class="form-control">
-                            <option>Select</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3 mt-md-4 pt-1">
-                    <button class="btn btn-dark px-4 mr-2">Cancel</button>
-                    <button class="btn btn-primary px-4">Search</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <div class="row">
+        <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-12">
             <div class="card card-statistic-2 mb-3">
                 <div class="card-icon bg-light-primary text-primary">
@@ -88,10 +17,11 @@
                     </div>
                     <div class="card-body">
                         <div class=" mt-3">
-                            <h6 class="mr-2">Open - <span>34848</span> </h6>
-                            <h6> Closed - <span>38838</span></h6>
+                            <h6 class="mr-2">Open - <span>@ViewBag.WithdrawOpenCount</span> </h6>
+                            <h6> In-Progress - <span>@ViewBag.WithdrawInProgressCount</span></h6>
+                            <h6> Closed - <span>@ViewBag.WithdrawCompletedCount</span></h6>
                         </div>
-                        <p><a href="#" class="small">Download Detailed Statement</a></p>
+                        @*<p><a href="#" class="small">Download Detailed Statement</a></p>*@
                     </div>
                 </div>
 
@@ -108,10 +38,11 @@
                     </div>
                     <div class="card-body">
                         <div class=" mt-3">
-                            <h6 class="mr-2">Open - <span>34848</span> </h6>
-                            <h6> Closed - <span>38838</span></h6>
+                            <h6 class="mr-2">Open - <span>@ViewBag.DepositOpenCount</span> </h6>
+                            <h6> In-Progress - <span>@ViewBag.DepositInProgressCount</span></h6>
+                            <h6> Closed - <span>@ViewBag.DepositCompletedCount</span></h6>
                         </div>
-                        <p><a href="#" class="small">Download Detailed Statement</a></p>
+                        @*<p><a href="#" class="small">Download Detailed Statement</a></p>*@
                     </div>
                 </div>
 
@@ -128,10 +59,11 @@
                     </div>
                     <div class="card-body">
                         <div class=" mt-3">
-                            <h6 class="mr-2">Open - <span>34848</span> </h6>
-                            <h6> Closed - <span>38838</span></h6>
+                            <h6 class="mr-2">Open - <span>@ViewBag.TechOpenCount</span> </h6>
+                            <h6> In-Progress - <span>@ViewBag.TechInProgressCount</span></h6>
+                            <h6> Closed - <span>@ViewBag.TechCompletedCount</span></h6>
                         </div>
-                        <p><a href="#" class="small">Download Detailed Statement</a></p>
+                        @*<p><a href="#" class="small">Download Detailed Statement</a></p>*@
                     </div>
                 </div>
 
@@ -147,21 +79,7 @@
                 <div class="card-header">
                     <h4>
                         CSP Count
-                    </h4>
-                    <div class="btn-group btn-group-toggle ml-auto" data-toggle="buttons">
-                        <label class="btn btn-secondary active">
-                            <input type="radio" name="options" id="option1" autocomplete="off" checked> Day
-                        </label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="options" id="option2" autocomplete="off"> Week
-                        </label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="options" id="option3" autocomplete="off"> Month
-                        </label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="options" id="option3" autocomplete="off"> Year
-                        </label>
-                    </div>
+                    </h4>                    
                 </div>
                 <div class="card-body">
                     <div class="chart">
@@ -184,16 +102,16 @@
                     <li class="d-flex">
                         <div class="bullet-icon"><i class="mdi mdi-circle text-info"></i></div>
                         <div class="des">
-                            <h4>Total Active User</h4>
-                            <p><sup><i class="mdi mdi-currency-inr"></i></sup> 842,12.00</p>
+                            <h4>Total Active HO User</h4>
+                            <p><sup><i></i></sup>@ViewBag.UserActiveCount</p>
                         </div>
 
                     </li>
-                    <li class="d-flex">
+                    @*<li class="d-flex">
                         <div class="bullet-icon"><i class="mdi mdi-circle text-primary"></i></div>
                         <div class="des">
                             <h4>Total Inactive User</h4>
-                            <p><sup><i class="mdi mdi-currency-inr"></i></sup> 502,17.00</p>
+                            <p><sup><i></i></sup> @ViewBag.UserInActiveCount</p>
                         </div>
 
                     </li>
@@ -201,10 +119,10 @@
                         <div class="bullet-icon"><i class="mdi mdi-circle text-warning"></i></div>
                         <div class="des">
                             <h4>Total Blocked User</h4>
-                            <p><sup><i class="mdi mdi-currency-inr"></i></sup> 321,00.00</p>
+                            <p><sup><i></i></sup> @ViewBag.UserBlockedCount</p>
                         </div>
 
-                    </li>
+                    </li>*@
                 </ul>
             </div>
 
@@ -221,10 +139,10 @@
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Active', 'Inactive', 'Blocked'],
+                labels: ['Active', 'InActive', 'Blocked'],
                 datasets: [{
-                    label: '# of CSP Counts',
-                    data: [1240, 390, 190],
+                    label: '# CSP Counts',                   
+                    data: [@ViewBag.CSPActiveCount, @ViewBag.CSPInActiveCount, @ViewBag.CSPBlockedCount],
                     barPercentage: 0.5,
                     barThickness: 50,
                     maxBarThickness: 60,

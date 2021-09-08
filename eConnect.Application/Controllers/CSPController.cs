@@ -33,8 +33,8 @@ namespace eConnect.Application.Controllers
 
         public ActionResult Dashboard()
         {
-            RaiseRequestLogic objRaiseRequestLogic = new RaiseRequestLogic();
-         var data= objRaiseRequestLogic.GetDashboardCSPData(Convert.ToInt32(Session["CSPID"].ToString()));
+            DashboardLogic objDashboardLogic = new DashboardLogic();
+         var data= objDashboardLogic.GetDashboardCSPData(Convert.ToInt32(Session["CSPID"].ToString()));
             ViewBag.WithdrawOpenCount = data.WithdrawOpenCount;
             ViewBag.WithdrawInProgressCount = data.WithdrawInProgressCount;
             ViewBag.WithdrawCompletedCount = data.WithdrawCompletedCount;
