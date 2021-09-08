@@ -41,7 +41,6 @@
         <EntityTypeShape EntityType="eConnectAppModel.tblUploader" Width="1.5" PointX="6" PointY="18.875" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblUserCSPDetail" Width="1.5" PointX="9" PointY="17.125" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblUserDetail" Width="1.5" PointX="9" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblUserLoginLog" Width="1.5" PointX="18.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblUser" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblUserStatu" Width="1.5" PointX="17.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblWebFeedback" Width="1.5" PointX="19.75" PointY="12.75" IsExpanded="true" />
@@ -84,6 +83,9 @@
         <EntityTypeShape EntityType="eConnectAppModel.tblLatestNew" Width="1.5" PointX="21.375" PointY="0.75" />
         <EntityTypeShape EntityType="eConnectAppModel.tblMailConfiguration" Width="1.5" PointX="21.375" PointY="4.75" />
         <EntityTypeShape EntityType="eConnectAppModel.tblNotification" Width="1.5" PointX="15.375" PointY="21.75" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblAbsentismReport" Width="1.5" PointX="17.375" PointY="21.75" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblHolidaysMaster" Width="1.5" PointX="22.375" PointY="10.75" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblUserLoginLog" Width="1.5" PointX="22.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

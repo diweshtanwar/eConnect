@@ -12,14 +12,11 @@ namespace eConnect.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class tblUserLoginLog
+    public partial class tblHolidaysMaster
     {
-        public int Id { get; set; }
-        public Nullable<int> UserId { get; set; }
-        public Nullable<System.DateTime> LoginTimeStamp { get; set; }
-        public string IpAddress { get; set; }
-        public string HostName { get; set; }
-        public string UserName { get; set; }
-        public Nullable<int> UserType { get; set; }
+        public int ID { get; set; }
+        public string HolidayName { get; set; }
+        public string HolidayDate { get; set; }
+        public Nullable<System.DateTime> CreatedBy { get; set; }
     }
 }

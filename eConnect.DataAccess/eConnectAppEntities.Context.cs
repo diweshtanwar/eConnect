@@ -63,7 +63,6 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblUploader> tblUploaders { get; set; }
         public virtual DbSet<tblUserCSPDetail> tblUserCSPDetails { get; set; }
         public virtual DbSet<tblUserDetail> tblUserDetails { get; set; }
-        public virtual DbSet<tblUserLoginLog> tblUserLoginLogs { get; set; }
         public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblUserStatu> tblUserStatus { get; set; }
         public virtual DbSet<tblWebFeedback> tblWebFeedbacks { get; set; }
@@ -76,6 +75,9 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblLatestNew> tblLatestNews { get; set; }
         public virtual DbSet<tblMailConfiguration> tblMailConfigurations { get; set; }
         public virtual DbSet<tblNotification> tblNotifications { get; set; }
+        public virtual DbSet<tblAbsentismReport> tblAbsentismReports { get; set; }
+        public virtual DbSet<tblHolidaysMaster> tblHolidaysMasters { get; set; }
+        public virtual DbSet<tblUserLoginLog> tblUserLoginLogs { get; set; }
     
         public virtual ObjectResult<sp_GetAppMenuWithSubMenu_Result> sp_GetAppMenuWithSubMenu(Nullable<int> roleId)
         {
@@ -155,6 +157,43 @@ namespace eConnect.DataAccess
                 new ObjectParameter("CSPCode", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result>("sp_GetMonthlyCommissionReportByYearMonthandCSPCode", yearParameter, monthParameter, cSPCodeParameter);
+        }
+    
+        public virtual int sp_Get_AbsentismReportDetails(string cSPCode, string startDate, string endDate, Nullable<int> absentismCountFrom, Nullable<int> absentismCountFTo, string reportType, Nullable<int> continueos, string filterType)
+        {
+            var cSPCodeParameter = cSPCode != null ?
+                new ObjectParameter("CSPCode", cSPCode) :
+                new ObjectParameter("CSPCode", typeof(string));
+    
+            var startDateParameter = startDate != null ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(string));
+    
+            var endDateParameter = endDate != null ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(string));
+    
+            var absentismCountFromParameter = absentismCountFrom.HasValue ?
+                new ObjectParameter("AbsentismCountFrom", absentismCountFrom) :
+                new ObjectParameter("AbsentismCountFrom", typeof(int));
+    
+            var absentismCountFToParameter = absentismCountFTo.HasValue ?
+                new ObjectParameter("AbsentismCountFTo", absentismCountFTo) :
+                new ObjectParameter("AbsentismCountFTo", typeof(int));
+    
+            var reportTypeParameter = reportType != null ?
+                new ObjectParameter("ReportType", reportType) :
+                new ObjectParameter("ReportType", typeof(string));
+    
+            var continueosParameter = continueos.HasValue ?
+                new ObjectParameter("Continueos", continueos) :
+                new ObjectParameter("Continueos", typeof(int));
+    
+            var filterTypeParameter = filterType != null ?
+                new ObjectParameter("FilterType", filterType) :
+                new ObjectParameter("FilterType", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Get_AbsentismReportDetails", cSPCodeParameter, startDateParameter, endDateParameter, absentismCountFromParameter, absentismCountFToParameter, reportTypeParameter, continueosParameter, filterTypeParameter);
         }
     }
 }

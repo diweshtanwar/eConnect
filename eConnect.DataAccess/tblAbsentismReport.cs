@@ -12,14 +12,15 @@ namespace eConnect.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class tblUserLoginLog
+    public partial class tblAbsentismReport
     {
-        public int Id { get; set; }
-        public Nullable<int> UserId { get; set; }
-        public Nullable<System.DateTime> LoginTimeStamp { get; set; }
-        public string IpAddress { get; set; }
+        public int ID { get; set; }
+        public string CSPCode { get; set; }
+        public string CSPName { get; set; }
         public string HostName { get; set; }
-        public string UserName { get; set; }
-        public Nullable<int> UserType { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+        public string Time { get; set; }
+        public Nullable<int> rownumber { get; set; }
+        public string Attendeance { get; set; }
     }
 }

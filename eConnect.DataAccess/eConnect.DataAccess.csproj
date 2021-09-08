@@ -65,6 +65,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>eConnectAppEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="IRepository\IAbsentismReport.cs" />
     <Compile Include="IRepository\IAnnouncementRepository.cs" />
     <Compile Include="IRepository\ICategoryRepository.cs" />
     <Compile Include="IRepository\ILocationRepository.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="IRepository\IRaiseRequestRepository.cs" />
     <Compile Include="IRepository\IReportsRepository.cs" />
     <Compile Include="IRepository\IRoleMasterRepository.cs" />
+    <Compile Include="Repository\AbsentismReportRepository.cs" />
     <Compile Include="Repository\AnnouncementRepository.cs" />
     <Compile Include="Repository\CityRepository.cs" />
     <Compile Include="Repository\CategoryRepository.cs" />
@@ -121,6 +123,9 @@
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAbsentismReport.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblAnnouncement.cs">
@@ -199,6 +204,9 @@
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblHoliday.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblHolidaysMaster.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblLatestNew.cs">

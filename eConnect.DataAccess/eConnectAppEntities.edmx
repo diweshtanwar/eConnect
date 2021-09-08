@@ -5,6 +5,19 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="eConnectAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblAbsentismReport">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CSPCode" Type="varchar" MaxLength="50" />
+          <Property Name="CSPName" Type="varchar" MaxLength="50" />
+          <Property Name="HostName" Type="varchar" MaxLength="50" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Time" Type="varchar" MaxLength="50" />
+          <Property Name="rownumber" Type="int" />
+          <Property Name="Attendeance" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tblAnnouncement">
           <Key>
             <PropertyRef Name="AnnouncementId" />
@@ -116,8 +129,8 @@
           <Property Name="CSPCode" Type="nvarchar" MaxLength="50" />
           <Property Name="CSPName" Type="nvarchar" MaxLength="50" />
           <Property Name="TransactionType" Type="nvarchar(max)" />
-          <Property Name="NoOfTransactions" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="Commission" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="NoOfTransactions" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="Commission" Type="decimal" Precision="18" Scale="4" />
           <Property Name="UploaderId" Type="int" />
         </EntityType>
         <EntityType Name="tblCommissionReportMonthly">
@@ -127,13 +140,13 @@
           <Property Name="MonthlyCommissionReportID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CSPCode" Type="varchar" MaxLength="100" />
           <Property Name="CSPName" Type="varchar" MaxLength="200" />
-          <Property Name="Transation" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="Incentive" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="Rural" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="Total" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="TDS" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="PayableToCSP" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="NetPayable" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="Transation" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Incentive" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Rural" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TDS" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PayableToCSP" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NetPayable" Type="decimal" Precision="18" Scale="4" />
           <Property Name="Month" Type="int" />
           <Property Name="Year" Type="int" />
           <Property Name="UploaderId" Type="int" Nullable="false" />
@@ -149,8 +162,8 @@
           <Property Name="CSPCode" Type="nvarchar" MaxLength="50" />
           <Property Name="CSPName" Type="nvarchar" MaxLength="50" />
           <Property Name="TransactionType" Type="nvarchar(max)" />
-          <Property Name="NoOfTransactions" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="Commission" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="NoOfTransactions" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="Commission" Type="decimal" Precision="18" Scale="4" />
           <Property Name="UploaderId" Type="int" />
         </EntityType>
         <EntityType Name="tblCommissionReportTransactionType">
@@ -159,8 +172,8 @@
           </Key>
           <Property Name="CommissionReportTransactionTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="200" />
-          <Property Name="HOCommission" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="CSPCommission" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="HOCommission" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="CSPCommission" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Status" Type="bit" />
         </EntityType>
         <EntityType Name="tblConfiguration">
@@ -322,6 +335,15 @@
           <Property Name="Name" Type="varchar" MaxLength="200" />
           <Property Name="Date" Type="date" />
           <Property Name="Status" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblHolidaysMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HolidayName" Type="varchar" MaxLength="50" />
+          <Property Name="HolidayDate" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="datetime" />
         </EntityType>
         <EntityType Name="tblLatestNews">
           <Key>
@@ -599,6 +621,8 @@
           <Property Name="LoginTimeStamp" Type="datetime" />
           <Property Name="IpAddress" Type="varchar" MaxLength="200" />
           <Property Name="HostName" Type="varchar" MaxLength="200" />
+          <Property Name="UserName" Type="varchar" MaxLength="60" />
+          <Property Name="UserType" Type="int" />
         </EntityType>
         <EntityType Name="tblUsers">
           <Key>
@@ -1023,6 +1047,16 @@
           <Parameter Name="Id" Type="int" Mode="In" />
           <Parameter Name="Type" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_Get_AbsentismReportDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CSPCode" Type="varchar" Mode="In" />
+          <Parameter Name="StartDate" Type="varchar" Mode="In" />
+          <Parameter Name="EndDate" Type="varchar" Mode="In" />
+          <Parameter Name="AbsentismCountFrom" Type="int" Mode="In" />
+          <Parameter Name="AbsentismCountFTo" Type="int" Mode="In" />
+          <Parameter Name="ReportType" Type="varchar" Mode="In" />
+          <Parameter Name="Continueos" Type="int" Mode="In" />
+          <Parameter Name="FilterType" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_GetAppMenuWithSubMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RoleId" Type="int" Mode="In" />
         </Function>
@@ -1043,6 +1077,7 @@
           <Parameter Name="UploaderId" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="eConnectAppModelStoreContainer">
+          <EntitySet Name="tblAbsentismReport" EntityType="Self.tblAbsentismReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAnnouncement" EntityType="Self.tblAnnouncement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblApplicationSettings" EntityType="Self.tblApplicationSettings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblBranchCode" EntityType="Self.tblBranchCode" Schema="dbo" store:Type="Tables" />
@@ -1069,6 +1104,7 @@
           <EntitySet Name="tblFolderImageDetails" EntityType="Self.tblFolderImageDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblGalleryCategory" EntityType="Self.tblGalleryCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblHoliday" EntityType="Self.tblHoliday" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblHolidaysMaster" EntityType="Self.tblHolidaysMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblLatestNews" EntityType="Self.tblLatestNews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblLocation" EntityType="Self.tblLocation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMailConfiguration" EntityType="Self.tblMailConfiguration" Schema="dbo" store:Type="Tables" />
@@ -1335,8 +1371,8 @@
           <Property Name="CSPCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CSPName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TransactionType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NoOfTransactions" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="Commission" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="NoOfTransactions" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Commission" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="UploaderId" Type="Int32" />
           <NavigationProperty Name="tblUploader" Relationship="Self.FK_tblCommissionReportMain_tblUploader" FromRole="tblCommissionReportMain" ToRole="tblUploader" />
         </EntityType>
@@ -1347,13 +1383,13 @@
           <Property Name="MonthlyCommissionReportID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CSPCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CSPName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Transation" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="Incentive" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="Rural" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="Total" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="TDS" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="PayableToCSP" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="NetPayable" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="Transation" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Incentive" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Rural" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TDS" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PayableToCSP" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NetPayable" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="Month" Type="Int32" />
           <Property Name="Year" Type="Int32" />
           <Property Name="UploaderId" Type="Int32" Nullable="false" />
@@ -1370,8 +1406,8 @@
           <Property Name="CSPCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CSPName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TransactionType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NoOfTransactions" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="Commission" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="NoOfTransactions" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Commission" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="UploaderId" Type="Int32" />
           <NavigationProperty Name="tblUploader" Relationship="Self.FK_tblCommissionReportNew_tblUploader" FromRole="tblCommissionReportNew" ToRole="tblUploader" />
         </EntityType>
@@ -1381,8 +1417,8 @@
           </Key>
           <Property Name="CommissionReportTransactionTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="HOCommission" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="CSPCommission" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="HOCommission" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CSPCommission" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Status" Type="Boolean" />
           <NavigationProperty Name="tblCommissionReports" Relationship="Self.FK_tblCommissionReport_tblCommissionReportTransactionType" FromRole="tblCommissionReportTransactionType" ToRole="tblCommissionReport" />
         </EntityType>
@@ -1700,16 +1736,6 @@
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UserId" Type="Int32" />
           <NavigationProperty Name="tblCity" Relationship="Self.FK_tblUserDetail_tblCity" FromRole="tblUserDetail" ToRole="tblCity" />
-        </EntityType>
-        <EntityType Name="tblUserLoginLog">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="LoginTimeStamp" Type="DateTime" Precision="3" />
-          <Property Name="IpAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="HostName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblUser">
           <Key>
@@ -2059,7 +2085,6 @@
           <EntitySet Name="tblUploaders" EntityType="Self.tblUploader" />
           <EntitySet Name="tblUserCSPDetails" EntityType="Self.tblUserCSPDetail" />
           <EntitySet Name="tblUserDetails" EntityType="Self.tblUserDetail" />
-          <EntitySet Name="tblUserLoginLogs" EntityType="Self.tblUserLoginLog" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
           <EntitySet Name="tblUserStatus" EntityType="Self.tblUserStatu" />
           <EntitySet Name="tblWebFeedbacks" EntityType="Self.tblWebFeedback" />
@@ -2214,6 +2239,19 @@
             <Parameter Name="Year" Mode="In" Type="Int32" />
             <Parameter Name="Month" Mode="In" Type="Int32" />
             <Parameter Name="CSPCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="tblAbsentismReports" EntityType="eConnectAppModel.tblAbsentismReport" />
+          <EntitySet Name="tblHolidaysMasters" EntityType="eConnectAppModel.tblHolidaysMaster" />
+          <EntitySet Name="tblUserLoginLogs" EntityType="eConnectAppModel.tblUserLoginLog" />
+          <FunctionImport Name="sp_Get_AbsentismReportDetails">
+            <Parameter Name="CSPCode" Mode="In" Type="String" />
+            <Parameter Name="StartDate" Mode="In" Type="String" />
+            <Parameter Name="EndDate" Mode="In" Type="String" />
+            <Parameter Name="AbsentismCountFrom" Mode="In" Type="Int32" />
+            <Parameter Name="AbsentismCountFTo" Mode="In" Type="Int32" />
+            <Parameter Name="ReportType" Mode="In" Type="String" />
+            <Parameter Name="Continueos" Mode="In" Type="Int32" />
+            <Parameter Name="FilterType" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_GetAppMenuWithSubMenu_Result">
@@ -2614,6 +2652,40 @@
           <Property Type="Int32" Name="UploaderId" Nullable="false" />
           <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="tblAbsentismReport">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CSPCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CSPName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HostName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="rownumber" Type="Int32" />
+          <Property Name="Attendeance" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblHolidaysMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HolidayName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HolidayDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblUserLoginLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="LoginTimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="IpAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="HostName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="UserType" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3098,17 +3170,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblUserLoginLogs">
-            <EntityTypeMapping TypeName="eConnectAppModel.tblUserLoginLog">
-              <MappingFragment StoreEntitySet="tblUserLoginLog">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="LoginTimeStamp" ColumnName="LoginTimeStamp" />
-                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
-                <ScalarProperty Name="HostName" ColumnName="HostName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblUsers">
             <EntityTypeMapping TypeName="eConnectAppModel.tblUser">
               <MappingFragment StoreEntitySet="tblUsers">
@@ -3477,6 +3538,44 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="tblAbsentismReports">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblAbsentismReport">
+              <MappingFragment StoreEntitySet="tblAbsentismReport">
+                <ScalarProperty Name="Attendeance" ColumnName="Attendeance" />
+                <ScalarProperty Name="rownumber" ColumnName="rownumber" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="CSPName" ColumnName="CSPName" />
+                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblHolidaysMasters">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblHolidaysMaster">
+              <MappingFragment StoreEntitySet="tblHolidaysMaster">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="HolidayDate" ColumnName="HolidayDate" />
+                <ScalarProperty Name="HolidayName" ColumnName="HolidayName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUserLoginLogs">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblUserLoginLog">
+              <MappingFragment StoreEntitySet="tblUserLoginLog">
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="LoginTimeStamp" ColumnName="LoginTimeStamp" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_Get_AbsentismReportDetails" FunctionName="eConnectAppModel.Store.sp_Get_AbsentismReportDetails" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
