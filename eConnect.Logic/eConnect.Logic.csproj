@@ -52,6 +52,7 @@
     <Compile Include="ApplicationSettingLogic.cs" />
     <Compile Include="CityLogic.cs" />
     <Compile Include="CommonLogic.cs" />
+    <Compile Include="DashboardLogic.cs" />
     <Compile Include="LocationLogic.cs" />
     <Compile Include="CategoryLogic.cs" />
     <Compile Include="BranchCodeLogic.cs" />

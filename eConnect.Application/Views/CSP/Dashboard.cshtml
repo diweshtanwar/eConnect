@@ -5,44 +5,77 @@
 }
 
     <section class="section">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="card card-statistic-2 mb-3">
+                    <div class="card-icon bg-light-primary text-primary">
+                        <i class="mdi mdi-cash-refund"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Withdrawal Request</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class=" mt-3">
+                                <h6 class="mr-2">Open - <span>@ViewBag.WithdrawOpenCount</span> </h6>
+                                <h6> In-Progress - <span>@ViewBag.WithdrawInProgressCount</span></h6>
+                                <h6> Closed - <span>@ViewBag.WithdrawCompletedCount</span></h6>
+                            </div>
+                            @*<p><a href="#" class="small">Download Detailed Statement</a></p>*@
+                        </div>
+                    </div>
 
-        <h4>Coming Soon......</h4>    
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="card card-statistic-2 mb-3">
+                    <div class="card-icon bg-light-danger text-danger">
+                        <i class="mdi mdi-cash-multiple"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Deposit Request</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class=" mt-3">
+                                <h6 class="mr-2">Open - <span>@ViewBag.DepositOpenCount</span> </h6>
+                                <h6> In-Progress - <span>@ViewBag.DepositInProgressCount</span></h6>
+                                <h6> Closed - <span>@ViewBag.DepositCompletedCount</span></h6>
+                            </div>
+                            @*<p><a href="#" class="small">Download Detailed Statement</a></p>*@
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="card card-statistic-2 mb-3">
+                    <div class="card-icon bg-light-warning text-warning">
+                        <i class="mdi mdi-headset"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Support Request</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class=" mt-3">
+                                <h6 class="mr-2">Open - <span>@ViewBag.TechOpenCount</span> </h6>
+                                <h6> In-Progress - <span>@ViewBag.TechInProgressCount</span></h6>
+                                <h6> Closed - <span>@ViewBag.TechCompletedCount</span></h6>
+                            </div>
+                            @*<p><a href="#" class="small">Download Detailed Statement</a></p>*@
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+        
+
+
+
 
     </section>
-@*<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"></script>
-<script>
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Active', 'Inactive', 'Blocked'],
-                datasets: [{
-                    label: '# of CSP Counts',
-                    data: [@ViewBag.ActiveUsers, 390, 190],
-                    barPercentage: 0.5,
-                    barThickness: 50,
-                    maxBarThickness: 60,
-                    minBarLength: 2,
-                    backgroundColor: [
-                        '#3cb330',
-                        '#0e3c2d',
-                        '#f68d0c',
-
-                    ],
-
-
-                }]
-            },
-            options: {
-                scales: {
-                    /* yAxes: [{
-                         ticks: {
-                             beginAtZero: true
-                         }
-                     }]*/
-
-                }
-            }
-        });
-</script>*@
-

@@ -33,7 +33,19 @@ namespace eConnect.Application.Controllers
 
         public ActionResult Dashboard()
         {
-            ViewBag.ActiveUsers = 350;
+            DashboardLogic objDashboardLogic = new DashboardLogic();
+         var data= objDashboardLogic.GetDashboardCSPData(Convert.ToInt32(Session["CSPID"].ToString()));
+            ViewBag.WithdrawOpenCount = data.WithdrawOpenCount;
+            ViewBag.WithdrawInProgressCount = data.WithdrawInProgressCount;
+            ViewBag.WithdrawCompletedCount = data.WithdrawCompletedCount;
+
+            ViewBag.DepositOpenCount = data.DepositOpenCount;
+            ViewBag.DepositInProgressCount = data.DepositInProgressCount;
+            ViewBag.DepositCompletedCount = data.DepositCompletedCount;
+
+            ViewBag.TechOpenCount = data.TechOpenCount;
+            ViewBag.TechInProgressCount = data.TechInProgressCount;
+            ViewBag.TechCompletedCount = data.TechCompletedCount;
             return View();
         }
         public ActionResult Index()

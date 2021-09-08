@@ -1,0 +1,58 @@
+﻿@model IEnumerable<eConnect.DataAccess.tblAnnouncement>
+
+@{
+    ViewBag.Title = "Manage Announcement";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<section class="section">
+    
+    <div class="card">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <div class="table-actions">
+                </div>
+                <table class="table table-striped" id="table-2">
+                    <thead>
+                        <tr>                         
+                            <th>
+                                @Html.DisplayNameFor(model => model.Message)
+                            </th>                        
+                            <th>
+                                @Html.DisplayNameFor(model=>model.Detail)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                          
+                            <th> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>                             
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Message)
+                                </td>                          
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Detail)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>                              
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.AnnouncementId })  
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
