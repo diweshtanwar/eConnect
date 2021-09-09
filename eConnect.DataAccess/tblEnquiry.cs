@@ -19,6 +19,7 @@ namespace eConnect.DataAccess
         public string Email { get; set; }
         public string Mobile { get; set; }
         public string Message { get; set; }
+        public string Feedback { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string UpdatedBy { get; set; }

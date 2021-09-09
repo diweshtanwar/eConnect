@@ -276,7 +276,8 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Mobile" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="Message" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Feedback" Type="nvarchar" MaxLength="500" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
@@ -2230,7 +2231,6 @@
           <FunctionImport Name="sp_GetManageTechSupportRequestDetails" ReturnType="Collection(eConnectAppModel.sp_GetManageTechSupportRequestDetails_Result)" />
           <FunctionImport Name="sp_GetManageWithdrawalRequestDetails" ReturnType="Collection(eConnectAppModel.sp_GetManageWithdrawalRequestDetails_Result)" />
           <EntitySet Name="tblDownloadDetails" EntityType="eConnectAppModel.tblDownloadDetail" />
-          <EntitySet Name="tblEnquiries" EntityType="eConnectAppModel.tblEnquiry" />
           <EntitySet Name="tblGalleryCategories" EntityType="eConnectAppModel.tblGalleryCategory" />
           <EntitySet Name="tblLatestNews" EntityType="eConnectAppModel.tblLatestNew" />
           <EntitySet Name="tblMailConfigurations" EntityType="eConnectAppModel.tblMailConfiguration" />
@@ -2253,6 +2253,7 @@
             <Parameter Name="Continueos" Mode="In" Type="Int32" />
             <Parameter Name="FilterType" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="tblEnquiries" EntityType="eConnectAppModel.tblEnquiry" />
         </EntityContainer>
         <ComplexType Name="sp_GetAppMenuWithSubMenu_Result">
           <Property Type="String" Name="Tittle" Nullable="true" MaxLength="20" />
@@ -2555,21 +2556,6 @@
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="tblEnquiry">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Message" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="Status" Type="Boolean" />
-        </EntityType>
         <EntityType Name="tblGalleryCategory">
           <Key>
             <PropertyRef Name="Id" />
@@ -2685,6 +2671,22 @@
           <Property Name="HostName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="UserName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="UserType" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblEnquiry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Feedback" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3432,22 +3434,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblEnquiries">
-            <EntityTypeMapping TypeName="eConnectAppModel.tblEnquiry">
-              <MappingFragment StoreEntitySet="tblEnquiry">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblGalleryCategories">
             <EntityTypeMapping TypeName="eConnectAppModel.tblGalleryCategory">
               <MappingFragment StoreEntitySet="tblGalleryCategory">
@@ -3576,6 +3562,23 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_Get_AbsentismReportDetails" FunctionName="eConnectAppModel.Store.sp_Get_AbsentismReportDetails" />
+          <EntitySetMapping Name="tblEnquiries">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblEnquiry">
+              <MappingFragment StoreEntitySet="tblEnquiry">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

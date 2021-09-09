@@ -43,6 +43,10 @@ namespace eConnect.DataAccess
         public ICategoryRepository Categoress { get; private set; }
         public ILocationRepository Locations { get; private set; }
         public IAbsentismReport AbsentismReport { get; private set; }
+        public IEnquiryRepository Enquiries { get; private set; }
+        public IGalleryDocumentRepository GalleryDocument { get; private set; }
+        public IDownloadDocumentRepository DownloadDocument { get; private set; }
+        public IEmailRepository Emails { get; private set; }
         public UnitOfWork(eConnectAppEntities context)
         {
             _context = context;
@@ -75,6 +79,10 @@ namespace eConnect.DataAccess
             Categoress = new CategoryRepository(_context);
             Locations = new LocationRepository(_context);
             AbsentismReport = new AbsentismReportRepository(_context);
+            Enquiries = new EnquiryRepository(_context);
+            GalleryDocument = new GalleryDocumentRepository(_context);
+            DownloadDocument = new DownloadDocumentRepository(_context);
+            Emails = new EmailRepository(_context);
         }
 
         public int Complete()

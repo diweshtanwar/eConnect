@@ -180,6 +180,9 @@
     <Compile Include="Controllers\AnnouncementsController.cs" />
     <Compile Include="Controllers\CSPController.cs" />
     <Compile Include="Controllers\DepositRequestController.cs" />
+    <Compile Include="Controllers\DownloadDocumentController.cs" />
+    <Compile Include="Controllers\EnquiryController.cs" />
+    <Compile Include="Controllers\GalleryDocumentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManageDepositRequestController.cs" />
@@ -526,6 +529,21 @@
     <Content Include="Views\Announcements\Index.cshtml" />
     <Content Include="Views\Announcements\Edit.cshtml" />
     <Content Include="Views\AbsentismReport\Index.cshtml" />
+    <Content Include="Views\Enquiry\Create.cshtml" />
+    <Content Include="Views\Enquiry\Delete.cshtml" />
+    <Content Include="Views\Enquiry\Details.cshtml" />
+    <Content Include="Views\Enquiry\Edit.cshtml" />
+    <Content Include="Views\Enquiry\Index.cshtml" />
+    <Content Include="Views\DownloadDocument\Create.cshtml" />
+    <Content Include="Views\DownloadDocument\Delete.cshtml" />
+    <Content Include="Views\DownloadDocument\Details.cshtml" />
+    <Content Include="Views\DownloadDocument\Edit.cshtml" />
+    <Content Include="Views\DownloadDocument\Index.cshtml" />
+    <Content Include="Views\GalleryDocument\Create.cshtml" />
+    <Content Include="Views\GalleryDocument\Delete.cshtml" />
+    <Content Include="Views\GalleryDocument\Details.cshtml" />
+    <Content Include="Views\GalleryDocument\Edit.cshtml" />
+    <Content Include="Views\GalleryDocument\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
