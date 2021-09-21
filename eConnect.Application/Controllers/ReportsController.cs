@@ -358,5 +358,80 @@ namespace eConnect.Application.Controllers
                 return Json(ddlMonths, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult DownloadBusinessReport()
+        {
+            CategoryLogic cl = new CategoryLogic();
+            var CategoryList = cl.GetAllCategory();
+            ViewBag.CategoryList = CategoryList;
+            StatusLogic sl = new StatusLogic();
+            var Statuslist = sl.GetAllStatus();
+            ViewBag.Statuslist = Statuslist;
+            ViewBag.Years = GetYears().OrderByDescending(x => x.Value);
+            ViewBag.Months = GetMonths().OrderByDescending(x => x.Value);
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DownloadBusinessReport(int year, int month, string cspcode, string category, string Avgtrans)
+        {
+            try
+            {
+                ReportsLogic cl = new ReportsLogic();
+                List<BusinessReportModel> products = new List<BusinessReportModel>();
+                var Reqlist = cl.DownloadBusinessReport(year, month, cspcode, category).ToList();
+                string monthname = CommonLogic.GetMonthName(Convert.ToInt32(month));
+                if (Reqlist.Count > 0)
+                {
+                    foreach (var item in Reqlist)
+                    {
+                        products.Add(
+                                      new BusinessReportModel
+                                      {
+                                          CSPCode = item.CSPCode,
+                                          CSPName = item.CSPName,
+                                          Category = item.Category,
+                                          Month = item.Month,
+                                          Year = item.Year,
+                                          UploaderId = item.UploaderId,
+                                          BusinessDetailReportId = item.BusinessDetailReportId,
+                                          SavingsAccountEnrollment = item.SavingsAccountEnrollment,
+                                          SavingsAccountOpen = item.SavingsAccountOpen,
+                                          SHGAccountEnrollment = item.SHGAccountEnrollment,
+                                          SHGAccountOpen = item.SHGAccountOpen,
+                                          StateATMCards = item.StateATMCards,
+                                          CashReceiptNo = item.CashReceiptNo,
+                                          CashReceiptAmount = item.CashReceiptAmount,
+                                          CashPaymentNo = item.CashPaymentNo,
+                                          CashPaymentAmount = item.CashPaymentAmount,
+                                          FundTransferNo = item.FundTransferNo,
+                                          FundTransferAmount = item.FundTransferAmount,
+                                          MoneyTransferNo = item.MoneyTransferNo,
+                                          MoneyTransferAmount = item.MoneyTransferAmount,
+                                          IMPSNo = item.IMPSNo,
+                                          NoOfTransaction = item.NoOfTransaction,
+                                          AverageTransaction = item.AverageTransaction,
+                                          Message = "Business Report " + " " + " Year: " + year + " , Month: " + monthname
+                                      });
+                    }
+                }
+                else
+                {
+                    //products.Add(
+                    //                    //new CommissionReportMonthlyModel
+                    //                    //{
+                    //                    //    //CSPCode = UserCSPDetail.CSPCode,
+                    //                    //    //CSPName = UserCSPDetail.CSPName,
+                    //                    //    Message = "Commission Report " + " " + " Year: " + year + " , Month: " + monthname
+                    //                    //}
+                    //                    );
+                }
+
+                return PartialView("_MonthlyBusinessReport", products);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
+        }
     }
 }

@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="AbsentismReportLogic.cs" />
     <Compile Include="AnnouncementLogic.cs" />
+    <Compile Include="CommissionReportTransactionTypeLogic.cs" />
     <Compile Include="EmailLogic.cs" />
     <Compile Include="GalleryDocumentLogic.cs" />
     <Compile Include="EnquiryLogic.cs" />

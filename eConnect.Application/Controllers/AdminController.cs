@@ -658,6 +658,7 @@ namespace eConnect.Application.Controllers
 
         private void InsertCommissionRecordsMonthly(string FilePath, int uploaderid, int year, int month)
         {
+            logger.Info("Insert CommissionReport Monthly with parameters:- FilePath =" + FilePath + " " + "UploaderId-" + uploaderid);
             ExcelConn(FilePath);
             Query = string.Format("Select [CSP CODE],[CSP NAME],[TRANSACTION],[INCENTIVE],[RURAL],[TOTAL],[TDS],[PAYABLE TO CSP],[NET PAYABLE]," + uploaderid + " as [uploaderid]," + year + " as [Year]," + month + " as [Month] FROM [{0}]", "Sheet1$");
             OleDbCommand Ecom = new OleDbCommand(Query, Econ);
@@ -697,6 +698,7 @@ namespace eConnect.Application.Controllers
                         }
                         catch (Exception ex)
                         {
+                            logger.Error("Insert CommissionReport Monthly with parameters:- FilePath =" + FilePath + " " + "UploaderId-" + uploaderid + " " + "Error:" + ex.Message);
                             tran.Rollback();
                             con.Close();
                         }
@@ -952,7 +954,7 @@ namespace eConnect.Application.Controllers
         public JsonResult BindMonths(int year)
         {
             int currentYear = DateTime.Now.Year;
-            if(year==currentYear)
+            if (year == currentYear)
             {
                 var months = Enumerable.Range(1, 12).Select(i => new
                 {
@@ -985,7 +987,201 @@ namespace eConnect.Application.Controllers
 
                 return Json(ddlMonths, JsonRequestBehavior.AllowGet);
             }
-           
+
+        }
+        public ActionResult UploadBReport()
+        {
+            RequestTypeLogic Rtypes = new RequestTypeLogic();
+            var RtypesList = Rtypes.GetAllRequestTypes();
+            ViewBag.RequestTypes = RtypesList;
+            ViewBag.Years = GetYears().OrderByDescending(x => x.Value);
+            ViewBag.Months = GetMonths().OrderByDescending(x => x.Value);
+            ViewBag.AllMonths = GetAllMonths();//.OrderByDescending(x => x.Value);
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult UploadBReport(UploaderModel model)
+        {
+            bool check = CheckUploadedFileExist(model.Year, model.Month, 4);
+            if (check == true)
+            {
+                string monthname = CommonLogic.GetMonthName(Convert.ToInt32(model.Month));
+                TempData["Message"] = "Record for " + model.Year + " " + "and month " + monthname + " has been already submitted.";
+            }
+            else
+            {
+                string path = UploaderFilePath;
+                string fpath = string.Empty;
+                UploaderLogic uploaderLogic = new UploaderLogic();
+                model.ReportType = 4;
+                model.FileName = model.fileupload.FileName;
+                int uploaderid = uploaderLogic.InsertUploader(model);
+                if (model.fileupload != null)
+                {
+                    fpath = CheckUploaderDirectory(path, model);
+                    model.fileupload.SaveAs(fpath);
+                }
+                TempData["Message"] = "Record submitted successfully.";
+            }
+            return RedirectToAction("UploadBReport");
+        }
+        public bool CheckUploadedFileExist(int year, int month, int RType)
+        {
+            UploaderLogic uploaderLogic = new UploaderLogic();
+            bool check = uploaderLogic.CheckExistingFile(year, month, RType);
+            return check;
+
+        }
+        public ActionResult _UploadeBReportTemp()
+        {
+
+            List<UploaderModel> reportsList = new List<UploaderModel>();
+            UploaderLogic upmodel = new UploaderLogic();
+            var Reqlist = upmodel.GetAllUploaderDetails().Where(x => x.ReportType == 4).ToList();
+            foreach (var item in Reqlist)
+            {
+                reportsList.Add(
+                               new UploaderModel
+                               {
+                                   UploaderId = item.UploaderId,
+                                   Year = (int)item.Year,
+                                   Month = (int)item.Month,
+                                   ReportType = (int)item.ReportType,
+                                   CreatedDate = item.CreatedDate,
+                                   FileName = item.FileName,
+                                   ReportTypeName = item.tblReportType.Name,
+                                   InActive = item.InActive,
+                                   StatusId = (int)item.StatusID,
+                                   ReportStatus = item.tblStatu.Name,
+                                   MonthName = CommonLogic.GetMonthName(Convert.ToInt32(item.Month)),
+                               });
+            }
+            return PartialView("_UploadeBReportTemp", reportsList);
+
+        }
+        public JsonResult PublishBusinessReport(int uploaderid)
+        {
+            try
+            {
+                UploaderLogic ul = new UploaderLogic();
+                var uploaderdetails = ul.GetAllUploaderDetailsById(uploaderid);
+                string path = UploaderFilePath;
+                string fullpath = string.Empty;
+                if (uploaderdetails.UploaderId > 0)
+                {
+                    try
+                    {
+                        int Reporttype = 4;
+                        fullpath = Path.Combine(path, Reporttype.ToString(), uploaderdetails.Year.ToString(), uploaderdetails.Month.ToString(), uploaderdetails.FileName);
+                        InsertBusinessRecord(fullpath, uploaderid, Convert.ToInt32(uploaderdetails.Year), Convert.ToInt32(uploaderdetails.Month));
+                        ul.UpdateUploaderStatus(uploaderid, 6);
+                        return Json("Record Published Successfully", JsonRequestBehavior.AllowGet);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        return Json("Report Not Published.There is some problem in uploaded file.", JsonRequestBehavior.AllowGet);
+                    }
+
+                }
+                else
+                {
+
+                    return Json("Report Not Published.There is some problem in uploaded file", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("Report Not Published.There is some problem in uploaded file", JsonRequestBehavior.AllowGet);
+
+            }
+        }
+
+
+        private void InsertBusinessRecord(string FilePath, int uploaderid, int year, int month)
+        {
+            logger.Info("Insert BusinessReport with parameters:- FilePath =" + FilePath + " " + "UploaderId-" + uploaderid);
+            logger.Info("Creation of Excel Connection");
+            ExcelConn(FilePath);
+            logger.Info("Excel Connection created");
+            Query = string.Format("Select [KO ID],[Savings A/C Enrollment],[Savings A/C Open],[SHG A/C Enrollment],[SHG A/C Open],[ATM Cards],[Cash ReceiptsNo],[Cash ReceiptsAmount],[Cash PaymentsNo],[Cash PaymentsAmount],[Fund TransferNo],[Fund TransferAmount],[Money TransferNo],[Money TransferAmount],[IMPSNo],[IMPSAmount],[STDRNo],[STDRAmount],[Loan DepositNo],[Loan DepositAmount],[RD RemittanceNo],[RD RemittanceAmount],[RD A/C OpenNo],[RD A/C OpenAmount]," + uploaderid + " as [uploaderid]," + year + " as [Year]," + month + " as [Month] FROM [{0}]", "BCKOTR$");
+            //Query = string.Format("Select [KO ID],[Savings A/C Enrollm],[Savings A/C Open],[SHG A/C Enrollment],[SHG A/C Open],[ATM Cards],[Cash ReceiptNo],[Cash ReceiptAmount],[Cash PaymentNo],[Cash PaymentAmount],[Fund TransferNo],[Fund TransferAmount],[Money TransferNo],[Money TransferAmount],[IMPSNo] FROM [{0}]", "Sheet1$");
+            OleDbCommand Ecom = new OleDbCommand(Query, Econ);
+            Econ.Open();
+            //try
+            {
+                DataSet ds = new DataSet();
+                OleDbDataAdapter oda = new OleDbDataAdapter(Query, Econ);
+                logger.Info("DataFill");
+                Econ.Close();
+                oda.Fill(ds);
+                DataTable Exceldt = ds.Tables[0];
+                logger.Info("SQL Connection");
+                connection();
+                con.Open();
+                using (var tran = con.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    using (var objbulk = new SqlBulkCopy(con, SqlBulkCopyOptions.Default, tran))
+                    {
+                        try
+                        {
+                            objbulk.DestinationTableName = "[dbo].[tblBusinessDetailReport]";
+                            objbulk.ColumnMappings.Add("KO ID", "CSPCode");
+                            objbulk.ColumnMappings.Add("Savings A/C Enrollment", "SavingsAccountEnrollment");
+                            objbulk.ColumnMappings.Add("Savings A/C Open", "SavingsAccountOpen");
+                            objbulk.ColumnMappings.Add("SHG A/C Enrollment", "SHGAccountEnrollment");
+                            objbulk.ColumnMappings.Add("SHG A/C Open", "SHGAccountOpen");
+                            objbulk.ColumnMappings.Add("ATM Cards", "StateATMCards");
+                            objbulk.ColumnMappings.Add("Cash ReceiptsNo", "CashReceiptNo");
+                            objbulk.ColumnMappings.Add("Cash ReceiptsAmount", "CashReceiptAmount");
+                            objbulk.ColumnMappings.Add("Cash PaymentsNo", "CashPaymentNo");
+                            objbulk.ColumnMappings.Add("Cash PaymentsAmount", "CashPaymentAmount");
+                            objbulk.ColumnMappings.Add("Fund TransferNo", "FundTransferNo");
+                            objbulk.ColumnMappings.Add("Fund TransferAmount", "FundTransferAmount");
+                            objbulk.ColumnMappings.Add("Money TransferNo", "MoneyTransferNo");
+                            objbulk.ColumnMappings.Add("Money TransferAmount", "MoneyTransferAmount");
+                            objbulk.ColumnMappings.Add("IMPSNo", "IMPSNo");
+                            objbulk.ColumnMappings.Add("IMPSAmount", "IMPSAmount");
+                            objbulk.ColumnMappings.Add("STDRNo", "STDRNo");
+                            objbulk.ColumnMappings.Add("STDRAmount", "STDRAmount");
+                            objbulk.ColumnMappings.Add("Loan DepositNo", "LoanDepositNo");
+                            objbulk.ColumnMappings.Add("Loan DepositAmount", "LoanDepositAmount");
+                            objbulk.ColumnMappings.Add("RD RemittanceNo", "RDRemittanceNo");
+                            objbulk.ColumnMappings.Add("RD RemittanceAmount", "RDRemittanceAmount");
+                            objbulk.ColumnMappings.Add("RD A/C OpenNo", "RDACOpenNo");
+                            objbulk.ColumnMappings.Add("RD A/C OpenAmount", "RDACOpenAmount");
+                            objbulk.ColumnMappings.Add("Year", "Year");
+                            objbulk.ColumnMappings.Add("Month", "Month");
+                            objbulk.ColumnMappings.Add("UploaderId", "UploaderId");
+                            objbulk.WriteToServerAsync(Exceldt);
+                            tran.Commit();
+                            con.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error("Publish Business Report error " + " " + ex.Message + " " + "uploaderid=" + " " + uploaderid);
+                            tran.Rollback();
+                            con.Close();
+                        }
+                    }
+                }
+            }
+        }
+        public JsonResult DeleteUploaderRecord(int uploaderid, int ReportType, int Status)
+        {
+            try
+            {
+                ReportsLogic rl = new ReportsLogic();
+                rl.DeleteUploadedRecordsByRTypeandStatus(uploaderid, Status, ReportType);
+                return Json("Record Deleted successfully", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("DeleteUploaderRecord:-" + " " + ex.Message + " ");
+                return Json("Record not Deleted successfully", JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

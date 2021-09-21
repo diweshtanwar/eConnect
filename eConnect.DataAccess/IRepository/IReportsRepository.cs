@@ -19,9 +19,9 @@ namespace eConnect.DataAccess
         IList<tblCommissionReportNew> GetAllCommissionReportByUploaderId(int id);
         void DeleteRecord(int id);
         void UpdateCommissionReport(tblCommissionReportNew model);
-
         IList<tblCommissionReportMonthly> GetAllMonthlyCommissionReport();
-
+         IList<sp_GetBusinessReportByYearMonthandCSPCode_Result> BusinessReport(int year, int month, string cspcode, string category);
+         void DeleteUploadedRecords(int UploadedId, int StatusID, int ReportType);
 
 
     }

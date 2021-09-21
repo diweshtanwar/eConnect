@@ -1,0 +1,153 @@
+﻿@model eConnect.Model.UploaderModel
+@{
+    ViewBag.Title = "Upload Business Report";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+@using (Html.BeginForm("UploadBReport", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <style type="text/css">
+        .ajax-loader {
+            visibility: hidden;
+            background-color: rgba(255,255,255,0.7);
+            position: absolute;
+            z-index: +100 !important;
+            width: 100%;
+            height: 100%;
+        }
+
+            .ajax-loader img {
+                position: relative;
+                top: 50%;
+                left: 50%;
+            }
+    </style>
+    @Html.AntiForgeryToken()
+    <section class="section">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-primary mb-3"> Upload Business Report</h6>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ReportType, htmlAttributes: new { @class = "required-field" })
+                            @Html.DropDownListFor(o => o.ReportType, new SelectList(ViewBag.RequestTypes, "ReportTypeId", "Name"), "Select Type", new { id = "ReportType", @class = "form-control", required = (string)null })
+                            @Html.ValidationMessageFor(model => model.ReportType, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.Label("Year", new { @class = "required-field" })
+                            @Html.DropDownList("Year", new SelectList(ViewBag.Years, "Text", "Text"), "YY", new { id = "Year", @class = "form-control", required = (string)null })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.Label("Month", new { @class = "required-field" })
+                            @*@Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text"), "MM", new { id = "Month", @class = "form-control", required = (string)null })
+                            *@
+                            <select required id="Month" name="Month" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.Label("Upload File", htmlAttributes: new { @class = "required-field" })
+                            <input type="file" id="fileupload" name="fileupload" class="btn btn-outline-primary btn-block fileup-btn" required onchange="CheckExcelFile(this)" />
+                            @Html.ValidationMessageFor(model => model.fileupload, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="my-4 text-right">
+                    <button class="btn btn-primary px-4" type="Submit">Upload</button>
+                    <button class="btn btn-primary px-4" type="button" onclick="location.href='@Url.Action("UploadBReport", "Admin")'" name="Cancel">Cancel</button>
+
+                </div>
+            </div>
+        </div>
+        <div class="ajax-loader">
+            <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
+        </div>
+        <div id="UploaderList" class="card" width="98%"></div>
+
+    </section>
+}
+
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+                $(function () {
+                    alert("@TempData["Message"]")
+                });
+    </script>
+}
+<script type="text/javascript">
+
+    function BindDefaultMonths() {
+        var d = new Date();
+        var n = d.getFullYear();
+        $.get("BindMonths", { year: n }, function (data) {
+            var v = "<option value=''>MM</option>";
+            $.each(data, function (i, v1) {
+                v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+            });
+            $("#Month").html(v);
+
+        });
+    }
+    function LoadTempData() {
+                $.ajax({
+                type: "POST",
+                url: '@Url.Action("_UploadeBReportTemp", "Admin")',
+            //data: { RequestType: reporttype, year: year, month: mo0nth},
+                    dataType: 'html',
+                    beforeSend: function () {
+                        $('.ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function () {
+                        $('.ajax-loader').css("visibility", "hidden");
+                    },
+                success: function (data) {
+                    $('#UploaderList').html(data);
+                }
+            });
+    }
+            $(document).ready(function () {
+                LoadTempData();
+                BindDefaultMonths();
+            $("#ReportType").change(function () {
+                var id = $(this).val();
+              //  if (id == 1) {
+              //      document.getElementById("trTDS").style.display = '';
+              //      document.getElementById("ApplyTDS").required = true;
+              //  }
+              //  else {
+              ////      $('#ApplyTDS').val('');
+              //      document.getElementById("trTDS").style.display = 'none';
+              //      document.getElementById("ApplyTDS").required = false;
+              //  }
+            });
+
+                $("#Year").change(function () {
+                    $("#Month").empty();
+                    var Yearid = $(this).val();
+                    if (Yearid >0) {
+                        $.get("BindMonths", { year: Yearid }, function (data) {
+                            var v = "<option value=''>MM</option>";
+                             $.each(data, function (i, v1) {
+                                v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                            });
+                            $("#Month").html(v);
+
+                        });
+                    }
+                    //else {
+
+                    //}
+                });
+
+        });
+
+</script>

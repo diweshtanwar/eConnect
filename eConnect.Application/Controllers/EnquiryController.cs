@@ -88,7 +88,7 @@ namespace eConnect.Application.Controllers
             if (ModelState.IsValid)
             {
                 objEnquiryLogic.UpdateEnquiry(tblEnquiry);
-                objEmailLogic.SendEmail(tblEnquiry.Email, tblEnquiry.Name, tblEnquiry.Feedback);
+                //objEmailLogic.SendEmail(tblEnquiry.Email, tblEnquiry.Name, tblEnquiry.Feedback);
                 return RedirectToAction("Index");
             }
             return View(tblEnquiry);

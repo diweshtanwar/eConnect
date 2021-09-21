@@ -10,9 +10,8 @@
 namespace eConnect.DataAccess
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class tblBusinessDetailReport
+    public partial class sp_GetBusinessReportByYearMonthandCSPCode_Result
     {
         public long BusinessDetailReportId { get; set; }
         public Nullable<int> UploaderId { get; set; }
@@ -42,5 +41,9 @@ namespace eConnect.DataAccess
         public Nullable<decimal> RDRemittanceAmount { get; set; }
         public Nullable<int> RDACOpenNo { get; set; }
         public Nullable<decimal> RDACOpenAmount { get; set; }
+        public string Category { get; set; }
+        public string CSPName { get; set; }
+        public Nullable<int> NoOfTransaction { get; set; }
+        public Nullable<int> AverageTransaction { get; set; }
     }
 }

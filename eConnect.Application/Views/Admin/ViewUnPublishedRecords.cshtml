@@ -6,12 +6,15 @@
 }
 
 <section class="section">
-    <h2>UnPublished Records</h2>
     @using (@Html.BeginForm("ViewUnPublishedRecords", "Admin", FormMethod.Get))
     {
         @Html.AntiForgeryToken()
+        <p>
+            @Html.ActionLink("Create New", "CreateTransactionType", "SAdmin", new { }, new { target = "_blank" })
+        </p>
         <div class="card">
             <div class="card-body">
+                <h6 class="text-primary mb-3"> UnPublished Records</h6>
                 <div class="table-responsive">
                     <div class="table-actions">
                         @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@

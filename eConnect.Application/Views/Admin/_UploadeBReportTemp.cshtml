@@ -81,7 +81,7 @@
                         <td>
                             @if (item.StatusId == 6)
                             {
-                                <span>Report Published</span>
+                                <span>Report  Published</span>
                             }
                             else if (item.StatusId == 5)
                             {
@@ -91,33 +91,17 @@
                                 else
                                 {
                                     <span>Report In Active </span>}
-
-
                             }
                         </td>
                         <td>
                             @if (item.StatusId == 6)
                             {
-                                if (item.UnPublishedCount > 0)
-                                {
-                                    @Html.ActionLink("View Unpublished Records", "ViewUnPublishedRecords", new { id = item.UploaderId }, null)
-                                }
-                                else
-                                {
-                                    <span style="color:forestgreen;"> @Html.ActionLink("View Report |", "DownloadCommissionReportMonthly", "Reports", new { }, new { target = "_blank" }) </span>
-
-                                }
+                                <span style="color:forestgreen;"> @Html.ActionLink("View Report |", "DownloadBusinessReport", "Reports", new { }, new { target = "_blank" }) </span>
                             }
-                            @*@if (item.StatusId == 5)
-                                {*@
                             @if (item.InActive == false)
                             {
                                 <a class="details" href="javascript:;" onclick="DeleteUploadRecord(@item.UploaderId,@item.ReportType,@item.StatusId)">Delete</a>
                             }
-                            @*else
-                                    {
-                                        <span>Report In Active </span>}
-                                }*@
                         </td>
                     </tr>
                     count++;
@@ -165,7 +149,7 @@
     function PublishReport(uploaderId) {
          $.ajax({
                 type: "POST",
-                url: '@Url.Action("PublishCommissionMonthlyReport", "Admin")',
+                url: '@Url.Action("PublishBusinessReport", "Admin")',
              data: { uploaderid: uploaderId},
              dataType: 'html',
              beforeSend: function () {
@@ -181,5 +165,6 @@
             });
     };
 </script>
+
 
 

@@ -1,0 +1,107 @@
+﻿@model IEnumerable<eConnect.Model.CommissionReportTransactionTypeModel>
+
+@{
+
+    Layout = null;
+}
+
+<section class="section">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <div class="table-actions">
+                    @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
+                </div>
+                <table id="example" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>SNo</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.HOCommission)
+                            </th>
+
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.CSPCommission)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int count = 1; }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>  @count</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.HOCommission)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CSPCommission)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+
+                                <td>
+                                    @Html.ActionLink("Edit | ", "EditTransactionType", new { id = @item.CommissionReportTransactionTypeId }, null)
+                                    <a class="details" href="javascript:;" onclick="DeleteRecord(@item.CommissionReportTransactionTypeId)">Delete</a>
+                                    @Html.HiddenFor(odelItem => item.CommissionReportTransactionTypeId)
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#example').DataTable({
+            // "pageLength": 30,
+            // "ordering": false,
+            //  dom: 'Bfrtip',
+        });
+    });
+    function DeleteRecord(transtypeid) {
+        if (confirm('Are you sure to delete this record ?')) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DeleteTransactionType", "SAdmin")',
+                data: { transid: transtypeid },
+                dataType: 'html',
+                success: function (data) {
+                    location.reload();
+                    alert("Record deleted successfully.")
+                }
+            });
+        };
+    };
+</script>
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+                $(function () {
+                    alert("@TempData["Message"]")
+                });
+    </script>
+}
+
+

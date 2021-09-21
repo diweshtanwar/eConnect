@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="CityModel.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="CommissionReportTransactionTypeModel.cs" />
     <Compile Include="CountryModel.cs" />
     <Compile Include="DashboardAdminModel.cs" />
     <Compile Include="DashboardCSPModel.cs" />

@@ -108,6 +108,21 @@ namespace eConnect.Logic
 
             }
         }
+        public IList<sp_GetBusinessReportByYearMonthandCSPCode_Result> DownloadBusinessReport(int year, int month, string cspcode, string category)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                IList<sp_GetBusinessReportByYearMonthandCSPCode_Result> sp = unitOfWork.CommissionReportNews.BusinessReport(year, month, cspcode, category);
+                return sp;
+            }
+        }
+        public void DeleteUploadedRecordsByRTypeandStatus(int UploadedId, int StatusID, int ReportType)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                unitOfWork.CommissionReportNews.DeleteUploadedRecords(UploadedId, StatusID, ReportType);
 
+            }
+        }
     }
 }

@@ -195,6 +195,78 @@ namespace eConnect.Application.Controllers
             return RedirectToAction("RoleDetails");
 
         }
+        public ActionResult CreateTransactionType()
+        {
+            return View();
+        }
+        public ActionResult _TransactionTypesDetails()
+        {
+            CommissionReportTransactionTypeLogic Translogic = new CommissionReportTransactionTypeLogic();
+            List<CommissionReportTransactionTypeModel> Transactions = new List<CommissionReportTransactionTypeModel>();
+            var TransactionTypes = Translogic.GetAllTransactionType();
+
+            foreach (var item in TransactionTypes)
+            {
+                Transactions.Add(
+                               new CommissionReportTransactionTypeModel
+                               {
+                                   Name = item.Name,
+                                   CommissionReportTransactionTypeId = item.CommissionReportTransactionTypeId,
+                                   HOCommission = (int)item.HOCommission,
+                                   CSPCommission = (int)item.CSPCommission,
+                                   Status = item.Status,
+                               });
+            }
+            return PartialView("_TransactionTypesDetails", Transactions);
+
+        }
+        [HttpPost]
+        public ActionResult CreateTransactionType(CommissionReportTransactionTypeModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                CommissionReportTransactionTypeLogic TransType = new CommissionReportTransactionTypeLogic();
+                TransType.InsertTransactionType(model);
+
+                TempData["Message"] = "Record submitted successfully.";
+                return RedirectToAction("CreateTransactionType");
+            }
+            else
+            {
+                return View();
+            }
+        }
+        public ActionResult EditTransactionType(int id)
+        {
+            CommissionReportTransactionTypeModel accm = new CommissionReportTransactionTypeModel();
+            CommissionReportTransactionTypeLogic cl = new CommissionReportTransactionTypeLogic();
+            var item = cl.GetTransactionTypeByID(id);
+            accm.Name = item.Name;
+            accm.CSPCommission = (int)item.CSPCommission;
+            accm.HOCommission = item.HOCommission;
+            accm.Status = item.Status;
+            accm.CommissionReportTransactionTypeId = item.CommissionReportTransactionTypeId;
+            return View(accm);
+        }
+        [HttpPost]
+        public ActionResult EditTransactionType(int id, CommissionReportTransactionTypeModel model)
+        {
+            CommissionReportTransactionTypeLogic cl = new CommissionReportTransactionTypeLogic();
+            cl.UpdateTransactionType(model);
+            TempData["Message"] = "Record Updated Successfully.";
+            return RedirectToAction("CreateTransactionType");
+        }
+
+
+        public JsonResult DeleteTransactionType(int transid)
+        {
+            CommissionReportTransactionTypeLogic translogic = new CommissionReportTransactionTypeLogic();
+            translogic.DeleteTransationType(transid);
+            TempData["Message"] = "Record Deleted successfully.";
+            return Json("Record Deleted successfully", JsonRequestBehavior.AllowGet);
+        }
+
+
 
     }
 }

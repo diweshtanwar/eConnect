@@ -1,0 +1,112 @@
+﻿@model eConnect.Model.CommissionReportTransactionTypeModel
+
+@{
+    ViewBag.Title = "CreateTransactionType";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+@using (Html.BeginForm("CreateTransactionType", "SAdmin"))
+{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <style type="text/css">
+        .ajax-loader {
+            visibility: hidden;
+            background-color: rgba(255,255,255,0.7);
+            position: absolute;
+            z-index: +100 !important;
+            width: 100%;
+            height: 100%;
+        }
+
+            .ajax-loader img {
+                position: relative;
+                top: 50%;
+                left: 50%;
+            }
+    </style>
+    @Html.AntiForgeryToken()
+    <section>
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-primary mb-3">Transaction Type</h6>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="required-field">Transaction Name</label>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = (string)null } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="required-field">HO Commission</label>
+                            @*@Html.EditorFor(model => model.HOCommission, new { htmlAttributes = new { @class = "form-control", required = (string)null } })*@
+                            <input class="form-control" type="text" pattern="(^[0-9]{0,2}$)|(^[0-9]{0,2}\.[0-9]{0,3}$)" step="any" maxlength="7"
+                                   required validate="true" id="HOCommission" name="HOCommission" />
+                            @Html.ValidationMessageFor(model => model.HOCommission, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="required-field">CSP Commission</label>
+                            @* @Html.EditorFor(model => model.CSPCommission, new { htmlAttributes = new { @class = "form-control", required = (string)null } })*@
+                            <input class="form-control" type="text" pattern="(^[0-9]{0,2}$)|(^[0-9]{0,2}\.[0-9]{0,3}$)" step="any" maxlength="7"
+                                   required validate="true" id="CSPCommission" name="CSPCommission" />
+                            @Html.ValidationMessageFor(model => model.CSPCommission, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <div class="form-group">
+
+                        </div>
+                    </div>
+                    <div class="my-4 text-right">
+                        <button class="btn btn-primary px-4" type="submit">Save</button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="ajax-loader">
+            <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
+        </div>
+        <div id="TransactionList" class="card"></div>
+    </section>
+
+}
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+                $(function () {
+                    alert("@TempData["Message"]")
+                });
+    </script>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+   
+        LoadData();
+    });
+    function LoadData() {
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("_TransactionTypesDetails", "SAdmin")',
+                //data: { btnname: "load"},
+                dataType: 'html',
+                beforeSend: function () {
+                    $('.ajax-loader').css("visibility", "visible");
+                },
+                complete: function () {
+                    $('.ajax-loader').css("visibility", "hidden");
+                },
+                success: function (data) {
+                    $('#TransactionList').html(data);
+                }
+            });
+        };
+    //});
+</script>

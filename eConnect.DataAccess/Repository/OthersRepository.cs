@@ -56,9 +56,23 @@ namespace eConnect.DataAccess
         }
         public void DeleteRecord(int id)
         {
-            var rec = eConnectAppEntities.tblUploaders.Where(x => x.UploaderId == id).SingleOrDefault();
-            eConnectAppEntities.tblUploaders.Remove(rec);
-            eConnectAppEntities.SaveChanges();
+           try
+            {
+                var ReporNew = eConnectAppEntities.tblCommissionReportNews.Where(x => x.UploaderId == id);
+                foreach (var item in ReporNew)
+                {
+                    eConnectAppEntities.tblCommissionReportNews.Remove(item);
+
+                }
+                eConnectAppEntities.SaveChanges();
+
+                var rec = eConnectAppEntities.tblUploaders.Where(x => x.UploaderId == id).SingleOrDefault();
+                eConnectAppEntities.tblUploaders.Remove(rec);
+                eConnectAppEntities.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+            }
         }
     }
 

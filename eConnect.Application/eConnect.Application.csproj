@@ -544,6 +544,12 @@
     <Content Include="Views\GalleryDocument\Details.cshtml" />
     <Content Include="Views\GalleryDocument\Edit.cshtml" />
     <Content Include="Views\GalleryDocument\Index.cshtml" />
+    <Content Include="Views\Admin\UploadBReport.cshtml" />
+    <Content Include="Views\Admin\_UploadeBReportTemp.cshtml" />
+    <Content Include="Views\Reports\DownloadBusinessReport.cshtml" />
+    <Content Include="Views\Reports\_MonthlyBusinessReport.cshtml" />
+    <Content Include="Views\SAdmin\CreateTransactionType.cshtml" />
+    <Content Include="Views\SAdmin\_TransactionTypesDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

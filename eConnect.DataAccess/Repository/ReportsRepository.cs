@@ -58,6 +58,12 @@ namespace eConnect.DataAccess
             var EE = eConnectAppEntities.sp_GetCommissionReportByYearMonthandCSPName(year, month, cspcode);
             return EE.ToList();
         }
+        public IList<sp_GetBusinessReportByYearMonthandCSPCode_Result> BusinessReport(int year, int month, string cspcode, string category)
+        {
+
+            var EE = eConnectAppEntities.sp_GetBusinessReportByYearMonthandCSPCode(year, month, cspcode, category);
+            return EE.ToList();
+        }
 
         public void DeleteRecord(int id)
         {
@@ -80,6 +86,11 @@ namespace eConnect.DataAccess
 
             var EE = eConnectAppEntities.tblCommissionReportMonthlies.ToList();
             return EE.ToList();
+        }
+        public void DeleteUploadedRecords(int UploadedId, int StatusID, int ReportType)
+        {
+            eConnectAppEntities.sp_DeleteUploadedReport(UploadedId, StatusID, ReportType);
+
         }
     }
 }

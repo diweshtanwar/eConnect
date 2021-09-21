@@ -11,7 +11,7 @@ namespace eConnect.DataAccess
 {
     using System;
     
-    public partial class sp_GetCommissionReportByYearMonthandCSPName_Result
+    public partial class sp_GetCommissionReportByYearMonthandCSPName_Test_Result
     {
         public string CSPCode { get; set; }
         public string CSPName { get; set; }
@@ -20,7 +20,9 @@ namespace eConnect.DataAccess
         public Nullable<decimal> ActualCommissionold { get; set; }
         public Nullable<decimal> IncludingTDSOLD { get; set; }
         public Nullable<decimal> ActualCommission { get; set; }
+        public Nullable<decimal> ActualCommission1 { get; set; }
         public Nullable<decimal> IncludingTDS { get; set; }
+        public Nullable<decimal> IncludingTDS1 { get; set; }
         public Nullable<decimal> CSPCommission { get; set; }
         public Nullable<decimal> Totalold { get; set; }
         public Nullable<decimal> Total { get; set; }

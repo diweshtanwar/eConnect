@@ -68,6 +68,7 @@
     <Compile Include="IRepository\IAbsentismReport.cs" />
     <Compile Include="IRepository\IAnnouncementRepository.cs" />
     <Compile Include="IRepository\ICategoryRepository.cs" />
+    <Compile Include="IRepository\ICommissionReportTransactionTypeRepository.cs" />
     <Compile Include="IRepository\IEmailRepository.cs" />
     <Compile Include="IRepository\IEnquiryRepository.cs" />
     <Compile Include="IRepository\IDownloadDocumentRepository.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="IRepository\IRoleMasterRepository.cs" />
     <Compile Include="Repository\AbsentismReportRepository.cs" />
     <Compile Include="Repository\AnnouncementRepository.cs" />
+    <Compile Include="Repository\CommissionReportTransactionTypeRepository.cs" />
     <Compile Include="Repository\EmailRepository.cs" />
     <Compile Include="Repository\GalleryDocumentRepository.cs" />
     <Compile Include="Repository\EnquiryRepository.cs" />
@@ -118,7 +120,13 @@
     <Compile Include="sp_GetAppMenuWithSubMenu_Result.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_GetBusinessReportByYearMonthandCSPCode_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_GetCommissionReportByYearMonthandCSPName_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetCommissionReportByYearMonthandCSPName_Test_Result.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_GetManageDepositRequestDetails_Result.cs">

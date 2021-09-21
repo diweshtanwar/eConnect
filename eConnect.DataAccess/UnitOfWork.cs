@@ -47,6 +47,8 @@ namespace eConnect.DataAccess
         public IGalleryDocumentRepository GalleryDocument { get; private set; }
         public IDownloadDocumentRepository DownloadDocument { get; private set; }
         public IEmailRepository Emails { get; private set; }
+        public ICommissionReportTransactionTypeRepository TransactionTypes { get; set; }
+
         public UnitOfWork(eConnectAppEntities context)
         {
             _context = context;
@@ -83,6 +85,7 @@ namespace eConnect.DataAccess
             GalleryDocument = new GalleryDocumentRepository(_context);
             DownloadDocument = new DownloadDocumentRepository(_context);
             Emails = new EmailRepository(_context);
+            TransactionTypes = new CommissionReportTransactionTypeRepository(_context);
         }
 
         public int Complete()

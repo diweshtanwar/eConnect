@@ -42,16 +42,22 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblConfiguration> tblConfigurations { get; set; }
         public virtual DbSet<tblCountry> tblCountries { get; set; }
         public virtual DbSet<tblDepartment> tblDepartments { get; set; }
+        public virtual DbSet<tblDepositRequest> tblDepositRequests { get; set; }
         public virtual DbSet<tblDesignation> tblDesignations { get; set; }
         public virtual DbSet<tblDocument> tblDocuments { get; set; }
+        public virtual DbSet<tblDownloadDetail> tblDownloadDetails { get; set; }
         public virtual DbSet<tblEducation> tblEducations { get; set; }
         public virtual DbSet<tblErrorLog> tblErrorLogs { get; set; }
         public virtual DbSet<tblFolderDetail> tblFolderDetails { get; set; }
         public virtual DbSet<tblFolderImageDetail> tblFolderImageDetails { get; set; }
+        public virtual DbSet<tblGalleryCategory> tblGalleryCategories { get; set; }
         public virtual DbSet<tblHoliday> tblHolidays { get; set; }
+        public virtual DbSet<tblLatestNew> tblLatestNews { get; set; }
         public virtual DbSet<tblLocation> tblLocations { get; set; }
+        public virtual DbSet<tblMailConfiguration> tblMailConfigurations { get; set; }
         public virtual DbSet<tblMenuMain> tblMenuMains { get; set; }
         public virtual DbSet<tblMenuSub> tblMenuSubs { get; set; }
+        public virtual DbSet<tblNotification> tblNotifications { get; set; }
         public virtual DbSet<tblProblemType> tblProblemTypes { get; set; }
         public virtual DbSet<tblReportType> tblReportTypes { get; set; }
         public virtual DbSet<tblRequestType> tblRequestTypes { get; set; }
@@ -60,24 +66,48 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblScreenRole> tblScreenRoles { get; set; }
         public virtual DbSet<tblState> tblStates { get; set; }
         public virtual DbSet<tblStatu> tblStatus { get; set; }
+        public virtual DbSet<tblTechRequest> tblTechRequests { get; set; }
         public virtual DbSet<tblUploader> tblUploaders { get; set; }
         public virtual DbSet<tblUserCSPDetail> tblUserCSPDetails { get; set; }
         public virtual DbSet<tblUserDetail> tblUserDetails { get; set; }
         public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblUserStatu> tblUserStatus { get; set; }
         public virtual DbSet<tblWebFeedback> tblWebFeedbacks { get; set; }
-        public virtual DbSet<tblDepositRequest> tblDepositRequests { get; set; }
-        public virtual DbSet<tblTechRequest> tblTechRequests { get; set; }
         public virtual DbSet<tblWithdrawalRequest> tblWithdrawalRequests { get; set; }
-        public virtual DbSet<tblDownloadDetail> tblDownloadDetails { get; set; }
-        public virtual DbSet<tblGalleryCategory> tblGalleryCategories { get; set; }
-        public virtual DbSet<tblLatestNew> tblLatestNews { get; set; }
-        public virtual DbSet<tblMailConfiguration> tblMailConfigurations { get; set; }
-        public virtual DbSet<tblNotification> tblNotifications { get; set; }
         public virtual DbSet<tblAbsentismReport> tblAbsentismReports { get; set; }
         public virtual DbSet<tblHolidaysMaster> tblHolidaysMasters { get; set; }
         public virtual DbSet<tblUserLoginLog> tblUserLoginLogs { get; set; }
         public virtual DbSet<tblEnquiry> tblEnquiries { get; set; }
+    
+        public virtual int sp_DeleteRequest(Nullable<int> id, Nullable<int> type)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteRequest", idParameter, typeParameter);
+        }
+    
+        public virtual int sp_DeleteUploadedReport(Nullable<int> uploadedId, Nullable<int> statusID, Nullable<int> reportType)
+        {
+            var uploadedIdParameter = uploadedId.HasValue ?
+                new ObjectParameter("UploadedId", uploadedId) :
+                new ObjectParameter("UploadedId", typeof(int));
+    
+            var statusIDParameter = statusID.HasValue ?
+                new ObjectParameter("StatusID", statusID) :
+                new ObjectParameter("StatusID", typeof(int));
+    
+            var reportTypeParameter = reportType.HasValue ?
+                new ObjectParameter("ReportType", reportType) :
+                new ObjectParameter("ReportType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteUploadedReport", uploadedIdParameter, statusIDParameter, reportTypeParameter);
+        }
     
         public virtual ObjectResult<sp_GetAppMenuWithSubMenu_Result> sp_GetAppMenuWithSubMenu(Nullable<int> roleId)
         {
@@ -86,6 +116,27 @@ namespace eConnect.DataAccess
                 new ObjectParameter("RoleId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetAppMenuWithSubMenu_Result>("sp_GetAppMenuWithSubMenu", roleIdParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetBusinessReportByYearMonthandCSPCode_Result> sp_GetBusinessReportByYearMonthandCSPCode(Nullable<int> year, Nullable<int> month, string cSPCode, string cSPCategory)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            var cSPCodeParameter = cSPCode != null ?
+                new ObjectParameter("CSPCode", cSPCode) :
+                new ObjectParameter("CSPCode", typeof(string));
+    
+            var cSPCategoryParameter = cSPCategory != null ?
+                new ObjectParameter("CSPCategory", cSPCategory) :
+                new ObjectParameter("CSPCategory", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetBusinessReportByYearMonthandCSPCode_Result>("sp_GetBusinessReportByYearMonthandCSPCode", yearParameter, monthParameter, cSPCodeParameter, cSPCategoryParameter);
         }
     
         public virtual ObjectResult<sp_GetCommissionReportByYearMonthandCSPName_Result> sp_GetCommissionReportByYearMonthandCSPName(Nullable<int> year, Nullable<int> month, string cSPCode)
@@ -105,26 +156,21 @@ namespace eConnect.DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetCommissionReportByYearMonthandCSPName_Result>("sp_GetCommissionReportByYearMonthandCSPName", yearParameter, monthParameter, cSPCodeParameter);
         }
     
-        public virtual int sp_PublishCommissionReport(Nullable<int> uploaderId)
+        public virtual ObjectResult<sp_GetCommissionReportByYearMonthandCSPName_Test_Result> sp_GetCommissionReportByYearMonthandCSPName_Test(Nullable<int> year, Nullable<int> month, string cSPCode)
         {
-            var uploaderIdParameter = uploaderId.HasValue ?
-                new ObjectParameter("UploaderId", uploaderId) :
-                new ObjectParameter("UploaderId", typeof(int));
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_PublishCommissionReport", uploaderIdParameter);
-        }
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
     
-        public virtual int sp_DeleteRequest(Nullable<int> id, Nullable<int> type)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("Id", id) :
-                new ObjectParameter("Id", typeof(int));
+            var cSPCodeParameter = cSPCode != null ?
+                new ObjectParameter("CSPCode", cSPCode) :
+                new ObjectParameter("CSPCode", typeof(string));
     
-            var typeParameter = type.HasValue ?
-                new ObjectParameter("Type", type) :
-                new ObjectParameter("Type", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteRequest", idParameter, typeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetCommissionReportByYearMonthandCSPName_Test_Result>("sp_GetCommissionReportByYearMonthandCSPName_Test", yearParameter, monthParameter, cSPCodeParameter);
         }
     
         public virtual ObjectResult<sp_GetManageDepositRequestDetails_Result> sp_GetManageDepositRequestDetails()
@@ -157,6 +203,15 @@ namespace eConnect.DataAccess
                 new ObjectParameter("CSPCode", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result>("sp_GetMonthlyCommissionReportByYearMonthandCSPCode", yearParameter, monthParameter, cSPCodeParameter);
+        }
+    
+        public virtual int sp_PublishCommissionReport(Nullable<int> uploaderId)
+        {
+            var uploaderIdParameter = uploaderId.HasValue ?
+                new ObjectParameter("UploaderId", uploaderId) :
+                new ObjectParameter("UploaderId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_PublishCommissionReport", uploaderIdParameter);
         }
     
         public virtual int sp_Get_AbsentismReportDetails(string cSPCode, string startDate, string endDate, Nullable<int> absentismCountFrom, Nullable<int> absentismCountFTo, string reportType, Nullable<int> continueos, string filterType)
