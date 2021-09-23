@@ -41,25 +41,25 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Report Type</label>
-                        @Html.DropDownList("Type", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownList("Type", null, htmlAttributes: new { @class = "form-control", @onchange = "return ValidateReport();" })
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" id="ab1">
                     <div class="form-group">
                         <label>Absentism Count From</label>
-                        <input type="text" id="AbsFrom" onkeypress=" return isNumber(event)"  name="AbsFrom" class="form-control" value="@Request["AbsFrom"]">
+                        <input type="text" id="AbsFrom" onkeypress=" return isNumber(event)" disabled  name="AbsFrom" class="form-control" value="@Request["AbsFrom"]">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" id="ab2">
                     <div class="form-group">
                         <label>Absentism Count To</label>
-                        <input type="text" id="AbsTo" onkeypress=" return isNumber(event)" name="AbsTo" class="form-control" value="@Request["AbsTo"]">
+                        <input type="text" id="AbsTo" onkeypress=" return isNumber(event)" disabled name="AbsTo" class="form-control" value="@Request["AbsTo"]">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" id="abc">
                     <div class="form-group">
                         <label>Continueos more than</label>
-                        <input type="text" onkeypress=" return isNumber(event)" id="Ctecount" name="Ctecount" class="form-control" value="@Request["Ctecount"]">
+                        <input type="text" onkeypress=" return isNumber(event)" id="Ctecount" disabled name="Ctecount" class="form-control" value="@Request["Ctecount"]">
                     </div>
                 </div>
             </div>
@@ -163,7 +163,7 @@
 </section>
 
 <script>
-
+   
     debugger;
     /*  $(document).ready(function () {*/
     function Validate()
@@ -178,6 +178,30 @@
             alert('Please Enter ToDate !!');
             $("#Requestedtodte").focus();
             return false;
+        }
+    }
+    function ValidateReport() {
+        debugger;
+        if ($("#Type").val() == '')
+        {
+
+            $("#AbsFrom").attr("disabled", "disabled");
+            $("#AbsTo").attr("disabled", "disabled")
+            $("#Ctecount").attr("disabled", "disabled")
+        }
+        if ($("#Type").val() == 'A')
+        {
+            $("#AbsFrom").removeAttr("disabled");
+            $("#AbsTo").removeAttr("disabled");
+            $("#Ctecount").removeAttr("disabled");
+
+           
+        }
+        if ($("#Type").val() == 'P') {
+
+            $("#AbsFrom").attr("disabled", "disabled");
+            $("#AbsTo").attr("disabled", "disabled")
+            $("#Ctecount").attr("disabled", "disabled")
         }
     }
     function isNumber(evt) {
