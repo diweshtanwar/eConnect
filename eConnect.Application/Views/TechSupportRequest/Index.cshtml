@@ -86,8 +86,12 @@
                                 @Html.DisplayNameFor(model => model.MobileNo)
                             </th>
                             <th>
+                                Resolved By
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.Status)
                             </th>
+
                             <th> Action </th>
                         </tr>
                     </thead>
@@ -124,6 +128,19 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.MobileNo)
                             </td>
+                            @if (item.UpdatedBy.Equals(1))
+                            {
+                                <td>SuperAdmin</td>
+
+                            }
+                            else if (item.UpdatedBy.Equals(2))
+                            {
+                                <td>Admin</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
                             @if (item.Status.Equals(1))
                             {
                                 <td>Open</td>
@@ -134,11 +151,10 @@
                                 <td>Close</td>
                             }
 
-
                             <td>
                                 @*@Html.ActionLink("Edit", "Edit", new { id = item.TechRequestId }) |*@
                                 @Html.ActionLink("Details", "Details", new { id = item.TechRequestId }) @*|
-                                @Html.ActionLink("Delete", "Delete", new { id = item.TechRequestId })*@
+            @Html.ActionLink("Delete", "Delete", new { id = item.TechRequestId })*@
                             </td>
 
                         </tr>
