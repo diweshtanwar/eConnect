@@ -278,7 +278,7 @@ namespace eConnect.Application.Controllers
             }
             ResetPasswordViewModel objResetPasswordViewModel = new ResetPasswordViewModel();
 
-            objResetPasswordViewModel.UserName = UserDetail.Name;
+            objResetPasswordViewModel.UserName = UserDetail.EmailId;
             objResetPasswordViewModel.UserID = objUserDetailLogic.EmailValidationforUser(UserDetail.EmailId);
             ViewBag.SuccessMsg = "";
             return View(objResetPasswordViewModel);
