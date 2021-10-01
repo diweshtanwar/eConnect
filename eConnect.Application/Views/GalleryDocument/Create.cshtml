@@ -1,11 +1,11 @@
 ﻿@model eConnect.Model.GalleryCategoryModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Gallery Manage";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-<h2>Create</h2>
+
 @using (Html.BeginForm("Create", "GalleryDocument", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
