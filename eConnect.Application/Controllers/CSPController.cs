@@ -48,6 +48,7 @@ namespace eConnect.Application.Controllers
             ViewBag.TechCompletedCount = data.TechCompletedCount;
             return View();
         }
+   
         public ActionResult Index()
         {
             UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();

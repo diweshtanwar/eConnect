@@ -38,6 +38,7 @@ namespace eConnect.DataAccess
         public void InsertDownloadDocument(tblDownloadDetail tblDownloadDetail)
         {
             eConnectAppEntities.tblDownloadDetails.Add(tblDownloadDetail);
+            Save();
         }
 
         public void DeleteDownloadDocument(int id)
@@ -49,6 +50,7 @@ namespace eConnect.DataAccess
         public void UpdateDownloadDocument(tblDownloadDetail tblDownloadDetail)
         {
             eConnectAppEntities.Entry(tblDownloadDetail).State = EntityState.Modified;
+            Save();
         }
 
         public void Save()

@@ -3,9 +3,68 @@
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
+@using (@Html.BeginForm("DashboardSearch", "Admin", FormMethod.Get))
+{@Html.AntiForgeryToken()
 
-<section class="section">
+<div class="card">
+    <div class="card-header">
+        <h4><span class="toggle-collapse" data-toggle="collapse" href="#filter" role="button" aria-expanded="false" aria-controls="filter"></span> Filter</h4>
+    </div>
+    <div class="card-body collapse" id="filter">
         <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Start Date</label>
+                    <input type="date" id="StartDate" name="StartDate" class="form-control" value="@Request["StartDate"]">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>End Date</label>
+                    <input type="date" id="EndDate" name="EndDate" class="form-control" value="@Request["EndDate"]">
+
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>CSP Code</label>
+                    <input type="text" id="CSPCode" name="CSPCode" class="form-control" value="@Request["CSPCode"]">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Country</label>
+                    @Html.DropDownList("Country", null,"", htmlAttributes: new { @class = "form-control", @onchange = "return bindState();" })
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>State</label>
+                    @Html.DropDownList("State", Enumerable.Empty<SelectListItem>(),  htmlAttributes: new { @class = "form-control", @onchange = "return bindCity();" })
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>City</label>
+                    @Html.DropDownList("City", Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control" })
+
+                </div>
+            </div>
+
+            <div class="col-md-3 mt-md-4 pt-1">
+                @*<button class="btn btn-dark px-4 mr-2">Cancel</button>*@
+                <button type="submit" class="btn btn-primary px-4">Search</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+}
+<section class="section">
+    <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-12">
             <div class="card card-statistic-2 mb-3">
                 <div class="card-icon bg-light-primary text-primary">
@@ -79,7 +138,7 @@
                 <div class="card-header">
                     <h4>
                         CSP Count
-                    </h4>                    
+                    </h4>
                 </div>
                 <div class="card-body">
                     <div class="chart">
@@ -108,21 +167,21 @@
 
                     </li>
                     @*<li class="d-flex">
-                        <div class="bullet-icon"><i class="mdi mdi-circle text-primary"></i></div>
-                        <div class="des">
-                            <h4>Total Inactive User</h4>
-                            <p><sup><i></i></sup> @ViewBag.UserInActiveCount</p>
-                        </div>
+                            <div class="bullet-icon"><i class="mdi mdi-circle text-primary"></i></div>
+                            <div class="des">
+                                <h4>Total Inactive User</h4>
+                                <p><sup><i></i></sup> @ViewBag.UserInActiveCount</p>
+                            </div>
 
-                    </li>
-                    <li class="d-flex">
-                        <div class="bullet-icon"><i class="mdi mdi-circle text-warning"></i></div>
-                        <div class="des">
-                            <h4>Total Blocked User</h4>
-                            <p><sup><i></i></sup> @ViewBag.UserBlockedCount</p>
-                        </div>
+                        </li>
+                        <li class="d-flex">
+                            <div class="bullet-icon"><i class="mdi mdi-circle text-warning"></i></div>
+                            <div class="des">
+                                <h4>Total Blocked User</h4>
+                                <p><sup><i></i></sup> @ViewBag.UserBlockedCount</p>
+                            </div>
 
-                    </li>*@
+                        </li>*@
                 </ul>
             </div>
 
@@ -141,7 +200,7 @@
             data: {
                 labels: ['Active', 'InActive', 'Blocked'],
                 datasets: [{
-                    label: '# CSP Counts',                   
+                    label: '# CSP Counts',
                     data: [@ViewBag.CSPActiveCount, @ViewBag.CSPInActiveCount, @ViewBag.CSPBlockedCount],
                     barPercentage: 0.5,
                     barThickness: 50,
@@ -168,5 +227,44 @@
                 }
             }
         });
+</script>
+<script>
+   
+            function bindState() {
+            var sid = $("#Country").val();
+        $("#City").empty();
+
+        $.ajax({
+            url: '@Url.Action("BindStates", "CSP")',
+            data: { country_id: sid },
+            type: 'GET',
+            success: function (data)
+            {
+                var v = "<option></option>";
+                $.each(data, function (i, v1) {
+                    v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                });
+                $("#State").html(v);
+            }
+        });
+    }
+            function bindCity() {
+        var sid = $("#State").val();
+        $("#City").empty();
+
+        $.ajax({
+            url: '@Url.Action("BindCity", "CSP")',
+            data: { state_id: sid },
+            type: 'GET',
+            success: function (data)
+            {
+                var v = "<option></option>";
+                $.each(data, function (i, v1) {
+                    v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                });
+                $("#City").html(v);
+            }
+        });
+    }
 </script>
 

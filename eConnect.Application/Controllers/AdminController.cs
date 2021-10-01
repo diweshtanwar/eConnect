@@ -53,7 +53,52 @@ namespace eConnect.Application.Controllers
             ViewBag.UserBlockedCount = data.UserBlockedCount;
             ViewBag.UserTotalCount = data.UserTotalCount;
 
+
+            CountryLogic objCountryLogic = new CountryLogic();
+            StateLogic objStateLogic = new StateLogic();
+            CityLogic objCityLogic = new CityLogic();
+
+            ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name");
+            ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
+            ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name");
             return View();
+        }
+        public ActionResult DashboardSearch(DateTime? StartDate, DateTime? EndDate, string CSPCode, string Country, string State, string City) 
+        {
+            DashboardLogic objDashboardLogic = new DashboardLogic();
+            var data = objDashboardLogic.GetDashboardAdminDataSearch( StartDate,  EndDate,  CSPCode,  Country,  State,  City);
+            ViewBag.WithdrawOpenCount = data.WithdrawOpenCount;
+            ViewBag.WithdrawInProgressCount = data.WithdrawInProgressCount;
+            ViewBag.WithdrawCompletedCount = data.WithdrawCompletedCount;
+
+            ViewBag.DepositOpenCount = data.DepositOpenCount;
+            ViewBag.DepositInProgressCount = data.DepositInProgressCount;
+            ViewBag.DepositCompletedCount = data.DepositCompletedCount;
+
+            ViewBag.TechOpenCount = data.TechOpenCount;
+            ViewBag.TechInProgressCount = data.TechInProgressCount;
+            ViewBag.TechCompletedCount = data.TechCompletedCount;
+
+            ViewBag.CSPActiveCount = data.CSPActiveCount;
+            ViewBag.CSPInActiveCount = data.CSPInActiveCount;
+            ViewBag.CSPBlockedCount = data.CSPBlockedCount;
+            ViewBag.CSPTotalCount = data.CSPTotalCount;
+
+            ViewBag.UserActiveCount = data.UserActiveCount;
+            ViewBag.UserInActiveCount = data.UserInActiveCount;
+            ViewBag.UserBlockedCount = data.UserBlockedCount;
+            ViewBag.UserTotalCount = data.UserTotalCount;
+
+            CountryLogic objCountryLogic = new CountryLogic();
+            StateLogic objStateLogic = new StateLogic();
+            CityLogic objCityLogic = new CityLogic();
+          
+            ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", Country);
+            ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name",State);
+            ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name",City);
+           
+           
+            return View("Dashboard");
         }
         public ActionResult ApproveCSP()
         {

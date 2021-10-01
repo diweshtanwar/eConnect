@@ -35,6 +35,7 @@ namespace eConnect.DataAccess
         public void InsertGalleryDocument(tblGalleryCategory tblGalleryCategory)
         {
             eConnectAppEntities.tblGalleryCategories.Add(tblGalleryCategory);
+            Save();
         }
 
         public void DeleteGalleryDocument(int id)

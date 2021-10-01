@@ -37,7 +37,10 @@ namespace eConnect.Application.Controllers
         public ActionResult GetGalleryImagesForTittle(int? id)
         {
             tblGalleryCategory tblGalleryCategory = db.tblGalleryCategories.Find(id);
+            var fileCount = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory + tblGalleryCategory.CategoryImagesPath.ToString()).Count();
             List<string> getImgesList = new List<string>();
+            if (fileCount>0)
+            {           
             getImgesList = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + tblGalleryCategory.CategoryImagesPath.ToString(), "*.jpg", SearchOption.AllDirectories).Take(4).ToList();
             List<string> ImgesListWithPath = new List<string>();
             foreach (string file in getImgesList)
@@ -45,8 +48,8 @@ namespace eConnect.Application.Controllers
                 var fileName = Path.GetFileName(file);
                 ImgesListWithPath.Add("~\\" + tblGalleryCategory.CategoryImagesPath.ToString() + "\\" + fileName);
             }
-
-            ViewBag.ImgesListWithPath = ImgesListWithPath;
+                ViewBag.ImgesListWithPath = ImgesListWithPath;
+            }          
             return View();
         }
         [ChildActionOnly]

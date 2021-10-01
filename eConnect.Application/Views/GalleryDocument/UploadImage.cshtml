@@ -1,12 +1,12 @@
 ﻿@model eConnect.Model.GalleryCategoryModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "UploadImage";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
 <h2>Create</h2>
-@using (Html.BeginForm("Edit", "GalleryDocument", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("UploadImage", "GalleryDocument", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.Id)
@@ -19,23 +19,31 @@
 
                     <div class="col-md-4">
                         @Html.LabelFor(model => model.CategoryTittle, htmlAttributes: new { @class = "required-field" })
-                        @Html.EditorFor(model => model.CategoryTittle, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
+                        @Html.EditorFor(model => model.CategoryTittle, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                         @Html.ValidationMessageFor(model => model.CategoryTittle, "", new { @class = "text-danger" })
                     </div>
 
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "required-field" })
-                        @Html.EditorFor(model => model.Priority, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
+                        @Html.EditorFor(model => model.Priority, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                         @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "required-field" })
-                                @Html.DropDownList("Status", ViewBag.Status as SelectList, htmlAttributes: new { @class = "form-control" })
+                                @Html.DropDownList("Status", ViewBag.Status as SelectList, htmlAttributes: new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
                                 @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CategoryImage, htmlAttributes: new { @class = "" })
+                            <input type="file" id="CategoryImage" name="CategoryImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
+                            @Html.ValidationMessageFor(model => model.CategoryImage, "", new { @class = "text-danger" })
+                   
                         </div>
                     </div>
 
