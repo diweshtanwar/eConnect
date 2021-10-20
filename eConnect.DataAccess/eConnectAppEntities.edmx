@@ -138,8 +138,8 @@
           <Property Name="CSPCode" Type="nvarchar" MaxLength="50" />
           <Property Name="CSPName" Type="nvarchar" MaxLength="50" />
           <Property Name="TransactionType" Type="nvarchar(max)" />
-          <Property Name="NoOfTransactions" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="Commission" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="NoOfTransactions" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="Commission" Type="decimal" Precision="18" Scale="4" />
           <Property Name="UploaderId" Type="int" />
         </EntityType>
         <EntityType Name="tblCommissionReportMonthly">
@@ -149,13 +149,13 @@
           <Property Name="MonthlyCommissionReportID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CSPCode" Type="varchar" MaxLength="100" />
           <Property Name="CSPName" Type="varchar" MaxLength="200" />
-          <Property Name="Transation" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="Incentive" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="Rural" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="Total" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="TDS" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="PayableToCSP" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="NetPayable" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="Transation" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Incentive" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Rural" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TDS" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PayableToCSP" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NetPayable" Type="decimal" Precision="18" Scale="4" />
           <Property Name="Month" Type="int" />
           <Property Name="Year" Type="int" />
           <Property Name="UploaderId" Type="int" Nullable="false" />
@@ -171,8 +171,8 @@
           <Property Name="CSPCode" Type="nvarchar" MaxLength="50" />
           <Property Name="CSPName" Type="nvarchar" MaxLength="50" />
           <Property Name="TransactionType" Type="nvarchar(max)" />
-          <Property Name="NoOfTransactions" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="Commission" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="NoOfTransactions" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="Commission" Type="decimal" Precision="18" Scale="4" />
           <Property Name="UploaderId" Type="int" />
         </EntityType>
         <EntityType Name="tblCommissionReportTransactionType">
@@ -181,8 +181,8 @@
           </Key>
           <Property Name="CommissionReportTransactionTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="200" />
-          <Property Name="HOCommission" Type="decimal" Precision="19" Scale="6" />
-          <Property Name="CSPCommission" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="HOCommission" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="CSPCommission" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Status" Type="bit" />
         </EntityType>
         <EntityType Name="tblConfiguration">
@@ -285,7 +285,8 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Mobile" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="Message" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Feedback" Type="nvarchar" MaxLength="500" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
@@ -1056,11 +1057,6 @@
           <Parameter Name="Id" Type="int" Mode="In" />
           <Parameter Name="Type" Type="int" Mode="In" />
         </Function>
-        <Function Name="sp_DeleteUploadedReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UploadedId" Type="int" Mode="In" />
-          <Parameter Name="StatusID" Type="int" Mode="In" />
-          <Parameter Name="ReportType" Type="int" Mode="In" />
-        </Function>
         <Function Name="sp_Get_AbsentismReportDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CSPCode" Type="varchar" Mode="In" />
           <Parameter Name="StartDate" Type="varchar" Mode="In" />
@@ -1074,18 +1070,7 @@
         <Function Name="sp_GetAppMenuWithSubMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RoleId" Type="int" Mode="In" />
         </Function>
-        <Function Name="sp_GetBusinessReportByYearMonthandCSPCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Year" Type="int" Mode="In" />
-          <Parameter Name="Month" Type="int" Mode="In" />
-          <Parameter Name="CSPCode" Type="nvarchar" Mode="In" />
-          <Parameter Name="CSPCategory" Type="nvarchar" Mode="In" />
-        </Function>
         <Function Name="sp_GetCommissionReportByYearMonthandCSPName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Year" Type="int" Mode="In" />
-          <Parameter Name="Month" Type="int" Mode="In" />
-          <Parameter Name="CSPCode" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_GetCommissionReportByYearMonthandCSPName_Test" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Year" Type="int" Mode="In" />
           <Parameter Name="Month" Type="int" Mode="In" />
           <Parameter Name="CSPCode" Type="nvarchar" Mode="In" />
@@ -1326,39 +1311,6 @@
           <NavigationProperty Name="tblApplicationSettings" Relationship="Self.FK_tblApplicationSettings_tblBusiness" FromRole="tblBusiness" ToRole="tblApplicationSettings" />
           <NavigationProperty Name="tblConfigurations" Relationship="Self.FK_tblConfiguration_tblBusiness" FromRole="tblBusiness" ToRole="tblConfiguration" />
         </EntityType>
-        <EntityType Name="tblBusinessDetailReport">
-          <Key>
-            <PropertyRef Name="BusinessDetailReportId" />
-          </Key>
-          <Property Name="BusinessDetailReportId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UploaderId" Type="Int32" />
-          <Property Name="Month" Type="Int32" />
-          <Property Name="Year" Type="Int32" />
-          <Property Name="CSPCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SavingsAccountEnrollment" Type="Int32" />
-          <Property Name="SavingsAccountOpen" Type="Int32" />
-          <Property Name="SHGAccountEnrollment" Type="Int32" />
-          <Property Name="SHGAccountOpen" Type="Int32" />
-          <Property Name="StateATMCards" Type="Int32" />
-          <Property Name="CashReceiptNo" Type="Int32" />
-          <Property Name="CashReceiptAmount" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="CashPaymentNo" Type="Int32" />
-          <Property Name="CashPaymentAmount" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="FundTransferNo" Type="Int32" />
-          <Property Name="FundTransferAmount" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="MoneyTransferNo" Type="Int32" />
-          <Property Name="MoneyTransferAmount" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="IMPSNo" Type="Int32" />
-          <Property Name="IMPSAmount" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="STDRNo" Type="Int32" />
-          <Property Name="STDRAmount" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="LoanDepositNo" Type="Int32" />
-          <Property Name="LoanDepositAmount" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="RDRemittanceNo" Type="Int32" />
-          <Property Name="RDRemittanceAmount" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="RDACOpenNo" Type="Int32" />
-          <Property Name="RDACOpenAmount" Type="Decimal" Precision="19" Scale="6" />
-        </EntityType>
         <EntityType Name="tblCategory">
           <Key>
             <PropertyRef Name="CategoryId" />
@@ -1405,8 +1357,8 @@
           <Property Name="CSPCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CSPName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TransactionType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NoOfTransactions" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="Commission" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="NoOfTransactions" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Commission" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="UploaderId" Type="Int32" />
           <NavigationProperty Name="tblUploader" Relationship="Self.FK_tblCommissionReportMain_tblUploader" FromRole="tblCommissionReportMain" ToRole="tblUploader" />
         </EntityType>
@@ -1417,13 +1369,13 @@
           <Property Name="MonthlyCommissionReportID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CSPCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CSPName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Transation" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="Incentive" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="Rural" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="Total" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="TDS" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="PayableToCSP" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="NetPayable" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="Transation" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Incentive" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Rural" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TDS" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PayableToCSP" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NetPayable" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="Month" Type="Int32" />
           <Property Name="Year" Type="Int32" />
           <Property Name="UploaderId" Type="Int32" Nullable="false" />
@@ -1440,8 +1392,8 @@
           <Property Name="CSPCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CSPName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TransactionType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NoOfTransactions" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="Commission" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="NoOfTransactions" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Commission" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="UploaderId" Type="Int32" />
           <NavigationProperty Name="tblUploader" Relationship="Self.FK_tblCommissionReportNew_tblUploader" FromRole="tblCommissionReportNew" ToRole="tblUploader" />
         </EntityType>
@@ -1451,8 +1403,8 @@
           </Key>
           <Property Name="CommissionReportTransactionTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="HOCommission" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="CSPCommission" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="HOCommission" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CSPCommission" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Status" Type="Boolean" />
           <NavigationProperty Name="tblCommissionReports" Relationship="Self.FK_tblCommissionReport_tblCommissionReportTransactionType" FromRole="tblCommissionReportTransactionType" ToRole="tblCommissionReport" />
         </EntityType>
@@ -2341,7 +2293,6 @@
           <EntitySet Name="tblApplicationSettings" EntityType="Self.tblApplicationSetting" />
           <EntitySet Name="tblBranchCodes" EntityType="Self.tblBranchCode" />
           <EntitySet Name="tblBusinesses" EntityType="Self.tblBusiness" />
-          <EntitySet Name="tblBusinessDetailReports" EntityType="Self.tblBusinessDetailReport" />
           <EntitySet Name="tblCategories" EntityType="Self.tblCategory" />
           <EntitySet Name="tblCities" EntityType="Self.tblCity" />
           <EntitySet Name="tblCommissionReports" EntityType="Self.tblCommissionReport" />
@@ -2557,6 +2508,7 @@
             <Parameter Name="FilterType" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="tblEnquiries" EntityType="eConnectAppModel.tblEnquiry" />
+          <EntitySet Name="tblBusinessDetailReports" EntityType="eConnectAppModel.tblBusinessDetailReport" />
         </EntityContainer>
         <ComplexType Name="sp_GetAppMenuWithSubMenu_Result">
           <Property Type="String" Name="Tittle" Nullable="true" MaxLength="20" />
@@ -2783,12 +2735,46 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Mobile" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Message" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Feedback" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblBusinessDetailReport">
+          <Key>
+            <PropertyRef Name="BusinessDetailReportId" />
+          </Key>
+          <Property Name="BusinessDetailReportId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UploaderId" Type="Int32" />
+          <Property Name="Month" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="CSPCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SavingsAccountEnrollment" Type="Int32" />
+          <Property Name="SavingsAccountOpen" Type="Int32" />
+          <Property Name="SHGAccountEnrollment" Type="Int32" />
+          <Property Name="SHGAccountOpen" Type="Int32" />
+          <Property Name="StateATMCards" Type="Int32" />
+          <Property Name="CashReceiptNo" Type="Int32" />
+          <Property Name="CashReceiptAmount" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="CashPaymentNo" Type="Int32" />
+          <Property Name="CashPaymentAmount" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="FundTransferNo" Type="Int32" />
+          <Property Name="FundTransferAmount" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="MoneyTransferNo" Type="Int32" />
+          <Property Name="MoneyTransferAmount" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="IMPSNo" Type="Int32" />
+          <Property Name="IMPSAmount" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="STDRNo" Type="Int32" />
+          <Property Name="STDRAmount" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="LoanDepositNo" Type="Int32" />
+          <Property Name="LoanDepositAmount" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="RDRemittanceNo" Type="Int32" />
+          <Property Name="RDRemittanceAmount" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="RDACOpenNo" Type="Int32" />
+          <Property Name="RDACOpenAmount" Type="Decimal" Precision="19" Scale="6" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2842,40 +2828,6 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblBusinessDetailReports">
-            <EntityTypeMapping TypeName="eConnectAppModel.tblBusinessDetailReport">
-              <MappingFragment StoreEntitySet="tblBusinessDetailReport">
-                <ScalarProperty Name="BusinessDetailReportId" ColumnName="BusinessDetailReportId" />
-                <ScalarProperty Name="UploaderId" ColumnName="UploaderId" />
-                <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
-                <ScalarProperty Name="SavingsAccountEnrollment" ColumnName="SavingsAccountEnrollment" />
-                <ScalarProperty Name="SavingsAccountOpen" ColumnName="SavingsAccountOpen" />
-                <ScalarProperty Name="SHGAccountEnrollment" ColumnName="SHGAccountEnrollment" />
-                <ScalarProperty Name="SHGAccountOpen" ColumnName="SHGAccountOpen" />
-                <ScalarProperty Name="StateATMCards" ColumnName="StateATMCards" />
-                <ScalarProperty Name="CashReceiptNo" ColumnName="CashReceiptNo" />
-                <ScalarProperty Name="CashReceiptAmount" ColumnName="CashReceiptAmount" />
-                <ScalarProperty Name="CashPaymentNo" ColumnName="CashPaymentNo" />
-                <ScalarProperty Name="CashPaymentAmount" ColumnName="CashPaymentAmount" />
-                <ScalarProperty Name="FundTransferNo" ColumnName="FundTransferNo" />
-                <ScalarProperty Name="FundTransferAmount" ColumnName="FundTransferAmount" />
-                <ScalarProperty Name="MoneyTransferNo" ColumnName="MoneyTransferNo" />
-                <ScalarProperty Name="MoneyTransferAmount" ColumnName="MoneyTransferAmount" />
-                <ScalarProperty Name="IMPSNo" ColumnName="IMPSNo" />
-                <ScalarProperty Name="IMPSAmount" ColumnName="IMPSAmount" />
-                <ScalarProperty Name="STDRNo" ColumnName="STDRNo" />
-                <ScalarProperty Name="STDRAmount" ColumnName="STDRAmount" />
-                <ScalarProperty Name="LoanDepositNo" ColumnName="LoanDepositNo" />
-                <ScalarProperty Name="LoanDepositAmount" ColumnName="LoanDepositAmount" />
-                <ScalarProperty Name="RDRemittanceNo" ColumnName="RDRemittanceNo" />
-                <ScalarProperty Name="RDRemittanceAmount" ColumnName="RDRemittanceAmount" />
-                <ScalarProperty Name="RDACOpenNo" ColumnName="RDACOpenNo" />
-                <ScalarProperty Name="RDACOpenAmount" ColumnName="RDACOpenAmount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3481,7 +3433,6 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_DeleteRequest" FunctionName="eConnectAppModel.Store.sp_DeleteRequest" />
-          <FunctionImportMapping FunctionImportName="sp_DeleteUploadedReport" FunctionName="eConnectAppModel.Store.sp_DeleteUploadedReport" />
           <FunctionImportMapping FunctionImportName="sp_GetAppMenuWithSubMenu" FunctionName="eConnectAppModel.Store.sp_GetAppMenuWithSubMenu">
             <ResultMapping>
               <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetAppMenuWithSubMenu_Result">
@@ -3515,44 +3466,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_GetBusinessReportByYearMonthandCSPCode" FunctionName="eConnectAppModel.Store.sp_GetBusinessReportByYearMonthandCSPCode">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetBusinessReportByYearMonthandCSPCode_Result">
-                <ScalarProperty Name="BusinessDetailReportId" ColumnName="BusinessDetailReportId" />
-                <ScalarProperty Name="UploaderId" ColumnName="UploaderId" />
-                <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
-                <ScalarProperty Name="SavingsAccountEnrollment" ColumnName="SavingsAccountEnrollment" />
-                <ScalarProperty Name="SavingsAccountOpen" ColumnName="SavingsAccountOpen" />
-                <ScalarProperty Name="SHGAccountEnrollment" ColumnName="SHGAccountEnrollment" />
-                <ScalarProperty Name="SHGAccountOpen" ColumnName="SHGAccountOpen" />
-                <ScalarProperty Name="StateATMCards" ColumnName="StateATMCards" />
-                <ScalarProperty Name="CashReceiptNo" ColumnName="CashReceiptNo" />
-                <ScalarProperty Name="CashReceiptAmount" ColumnName="CashReceiptAmount" />
-                <ScalarProperty Name="CashPaymentNo" ColumnName="CashPaymentNo" />
-                <ScalarProperty Name="CashPaymentAmount" ColumnName="CashPaymentAmount" />
-                <ScalarProperty Name="FundTransferNo" ColumnName="FundTransferNo" />
-                <ScalarProperty Name="FundTransferAmount" ColumnName="FundTransferAmount" />
-                <ScalarProperty Name="MoneyTransferNo" ColumnName="MoneyTransferNo" />
-                <ScalarProperty Name="MoneyTransferAmount" ColumnName="MoneyTransferAmount" />
-                <ScalarProperty Name="IMPSNo" ColumnName="IMPSNo" />
-                <ScalarProperty Name="IMPSAmount" ColumnName="IMPSAmount" />
-                <ScalarProperty Name="STDRNo" ColumnName="STDRNo" />
-                <ScalarProperty Name="STDRAmount" ColumnName="STDRAmount" />
-                <ScalarProperty Name="LoanDepositNo" ColumnName="LoanDepositNo" />
-                <ScalarProperty Name="LoanDepositAmount" ColumnName="LoanDepositAmount" />
-                <ScalarProperty Name="RDRemittanceNo" ColumnName="RDRemittanceNo" />
-                <ScalarProperty Name="RDRemittanceAmount" ColumnName="RDRemittanceAmount" />
-                <ScalarProperty Name="RDACOpenNo" ColumnName="RDACOpenNo" />
-                <ScalarProperty Name="RDACOpenAmount" ColumnName="RDACOpenAmount" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="CSPName" ColumnName="CSPName" />
-                <ScalarProperty Name="NoOfTransaction" ColumnName="NoOfTransaction" />
-                <ScalarProperty Name="AverageTransaction" ColumnName="AverageTransaction" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_GetCommissionReportByYearMonthandCSPName" FunctionName="eConnectAppModel.Store.sp_GetCommissionReportByYearMonthandCSPName">
             <ResultMapping>
               <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetCommissionReportByYearMonthandCSPName_Result">
@@ -3564,26 +3477,6 @@
                 <ScalarProperty Name="IncludingTDSOLD" ColumnName="IncludingTDSOLD" />
                 <ScalarProperty Name="ActualCommission" ColumnName="ActualCommission" />
                 <ScalarProperty Name="IncludingTDS" ColumnName="IncludingTDS" />
-                <ScalarProperty Name="CSPCommission" ColumnName="CSPCommission" />
-                <ScalarProperty Name="Totalold" ColumnName="Totalold" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="ApplyTDS" ColumnName="ApplyTDS" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_GetCommissionReportByYearMonthandCSPName_Test" FunctionName="eConnectAppModel.Store.sp_GetCommissionReportByYearMonthandCSPName_Test">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetCommissionReportByYearMonthandCSPName_Test_Result">
-                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
-                <ScalarProperty Name="CSPName" ColumnName="CSPName" />
-                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
-                <ScalarProperty Name="NoOfTransactions" ColumnName="NoOfTransactions" />
-                <ScalarProperty Name="ActualCommissionold" ColumnName="ActualCommissionold" />
-                <ScalarProperty Name="IncludingTDSOLD" ColumnName="IncludingTDSOLD" />
-                <ScalarProperty Name="ActualCommission" ColumnName="ActualCommission" />
-                <ScalarProperty Name="ActualCommission1" ColumnName="ActualCommission1" />
-                <ScalarProperty Name="IncludingTDS" ColumnName="IncludingTDS" />
-                <ScalarProperty Name="IncludingTDS1" ColumnName="IncludingTDS1" />
                 <ScalarProperty Name="CSPCommission" ColumnName="CSPCommission" />
                 <ScalarProperty Name="Totalold" ColumnName="Totalold" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
@@ -3744,11 +3637,46 @@
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="Mobile" ColumnName="Mobile" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBusinessDetailReports">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblBusinessDetailReport">
+              <MappingFragment StoreEntitySet="tblBusinessDetailReport">
+                <ScalarProperty Name="RDACOpenAmount" ColumnName="RDACOpenAmount" />
+                <ScalarProperty Name="RDACOpenNo" ColumnName="RDACOpenNo" />
+                <ScalarProperty Name="RDRemittanceAmount" ColumnName="RDRemittanceAmount" />
+                <ScalarProperty Name="RDRemittanceNo" ColumnName="RDRemittanceNo" />
+                <ScalarProperty Name="LoanDepositAmount" ColumnName="LoanDepositAmount" />
+                <ScalarProperty Name="LoanDepositNo" ColumnName="LoanDepositNo" />
+                <ScalarProperty Name="STDRAmount" ColumnName="STDRAmount" />
+                <ScalarProperty Name="STDRNo" ColumnName="STDRNo" />
+                <ScalarProperty Name="IMPSAmount" ColumnName="IMPSAmount" />
+                <ScalarProperty Name="IMPSNo" ColumnName="IMPSNo" />
+                <ScalarProperty Name="MoneyTransferAmount" ColumnName="MoneyTransferAmount" />
+                <ScalarProperty Name="MoneyTransferNo" ColumnName="MoneyTransferNo" />
+                <ScalarProperty Name="FundTransferAmount" ColumnName="FundTransferAmount" />
+                <ScalarProperty Name="FundTransferNo" ColumnName="FundTransferNo" />
+                <ScalarProperty Name="CashPaymentAmount" ColumnName="CashPaymentAmount" />
+                <ScalarProperty Name="CashPaymentNo" ColumnName="CashPaymentNo" />
+                <ScalarProperty Name="CashReceiptAmount" ColumnName="CashReceiptAmount" />
+                <ScalarProperty Name="CashReceiptNo" ColumnName="CashReceiptNo" />
+                <ScalarProperty Name="StateATMCards" ColumnName="StateATMCards" />
+                <ScalarProperty Name="SHGAccountOpen" ColumnName="SHGAccountOpen" />
+                <ScalarProperty Name="SHGAccountEnrollment" ColumnName="SHGAccountEnrollment" />
+                <ScalarProperty Name="SavingsAccountOpen" ColumnName="SavingsAccountOpen" />
+                <ScalarProperty Name="SavingsAccountEnrollment" ColumnName="SavingsAccountEnrollment" />
+                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="UploaderId" ColumnName="UploaderId" />
+                <ScalarProperty Name="BusinessDetailReportId" ColumnName="BusinessDetailReportId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

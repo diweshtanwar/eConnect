@@ -4,12 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c34e8687b31942b8b8d24fcfe8c00c67" Name="Diagram1" ZoomLevel="74">
+      <Diagram DiagramId="c34e8687b31942b8b8d24fcfe8c00c67" Name="Diagram1" ZoomLevel="55">
         <EntityTypeShape EntityType="eConnectAppModel.tblAnnouncement" Width="1.5" PointX="5.75" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblApplicationSetting" Width="1.5" PointX="10" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblBranchCode" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblBusiness" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblBusinessDetailReport" Width="1.5" PointX="10.75" PointY="14.875" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblCategory" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblCity" Width="1.5" PointX="3.75" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblCommissionReport" Width="1.5" PointX="15" PointY="2.125" IsExpanded="true" />
@@ -86,6 +85,7 @@
         <EntityTypeShape EntityType="eConnectAppModel.tblHolidaysMaster" Width="1.5" PointX="21.375" PointY="0.75" />
         <EntityTypeShape EntityType="eConnectAppModel.tblUserLoginLog" Width="1.5" PointX="21.375" PointY="14.75" />
         <EntityTypeShape EntityType="eConnectAppModel.tblEnquiry" Width="1.5" PointX="15.375" PointY="21.75" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblBusinessDetailReport" Width="1.5" PointX="10.375" PointY="20.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

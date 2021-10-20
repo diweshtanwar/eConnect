@@ -551,6 +551,8 @@
     <Content Include="Views\SAdmin\CreateTransactionType.cshtml" />
     <Content Include="Views\SAdmin\_TransactionTypesDetails.cshtml" />
     <Content Include="Views\GalleryDocument\UploadImage.cshtml" />
+    <Content Include="Views\User\ResetPassword.cshtml" />
+    <Content Include="Views\SAdmin\EditTransactionType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

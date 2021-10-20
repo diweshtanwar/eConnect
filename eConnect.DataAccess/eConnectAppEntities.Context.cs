@@ -31,7 +31,6 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblApplicationSetting> tblApplicationSettings { get; set; }
         public virtual DbSet<tblBranchCode> tblBranchCodes { get; set; }
         public virtual DbSet<tblBusiness> tblBusinesses { get; set; }
-        public virtual DbSet<tblBusinessDetailReport> tblBusinessDetailReports { get; set; }
         public virtual DbSet<tblCategory> tblCategories { get; set; }
         public virtual DbSet<tblCity> tblCities { get; set; }
         public virtual DbSet<tblCommissionReport> tblCommissionReports { get; set; }
@@ -78,6 +77,7 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblHolidaysMaster> tblHolidaysMasters { get; set; }
         public virtual DbSet<tblUserLoginLog> tblUserLoginLogs { get; set; }
         public virtual DbSet<tblEnquiry> tblEnquiries { get; set; }
+        public virtual DbSet<tblBusinessDetailReport> tblBusinessDetailReports { get; set; }
     
         public virtual int sp_DeleteRequest(Nullable<int> id, Nullable<int> type)
         {
