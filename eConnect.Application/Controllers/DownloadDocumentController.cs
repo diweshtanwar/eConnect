@@ -18,8 +18,8 @@ namespace eConnect.Application.Controllers
         private eConnectAppEntities db = new eConnectAppEntities();
         List<SelectListItem> DocumenStatusList = new List<SelectListItem>()
             {
-                new SelectListItem { Text = "Enable", Value = "True" },
-                new SelectListItem { Text = "Disable", Value = "False" },
+                new SelectListItem { Text = "Active", Value = "True" },
+                new SelectListItem { Text = "InActive", Value = "False" },
 
             };
         // GET: DownloadDocument

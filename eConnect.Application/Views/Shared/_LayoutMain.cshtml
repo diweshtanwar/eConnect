@@ -282,7 +282,7 @@
         }
         function show(input) {
             if (input.files[0] != null) {
-                var validExtensions = ['jpg', 'png', 'jpeg'];
+                var validExtensions = ['jpg', 'png', 'jpeg','zip'];
                 var fileName = input.files[0].name;
                 var fileNameExt = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
                 if ($.inArray(fileNameExt, validExtensions) == -1) {

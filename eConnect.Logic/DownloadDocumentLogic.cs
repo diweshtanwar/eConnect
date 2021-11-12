@@ -47,7 +47,7 @@ namespace eConnect.Logic
                 tblDownloadDetail.DocumentPath = DownloadDocumentDetailModel.DocumentPath;
                 tblDownloadDetail.Description = DownloadDocumentDetailModel.Description;
                 tblDownloadDetail.Priority = DownloadDocumentDetailModel.Priority;
-                tblDownloadDetail.Status = Convert.ToBoolean(DownloadDocumentDetailModel.DocumentStatus);
+                tblDownloadDetail.Status = Convert.ToBoolean(DownloadDocumentDetailModel.Status);
                 tblDownloadDetail.CreatedDate = DateTime.Now;
                 tblDownloadDetail.UpdatedDate = DateTime.Now;
                 unitOfWork.DownloadDocument.InsertDownloadDocument(tblDownloadDetail);

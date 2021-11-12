@@ -8,8 +8,8 @@
 <section class="section">
 
     <p>
-        @Html.ActionLink("Create New", "Create")
-
+        @Html.ActionLink("Create New", "CreateNew", "Menu", new { @class = "btn btn-primary px-4" })
+        @*<a href='@Url.Action("CreateNew", "Menu")' class="btn btn-primary px-4">Create New</a>*@
     </p>
     @using (@Html.BeginForm("IndexSearch", "Menu", FormMethod.Get))
     {@Html.AntiForgeryToken()
@@ -115,7 +115,7 @@
                                 @Html.DisplayFor(modelItem => item.Priority)
                             </td>
                             <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.MenuSubId }) |
+                                @Html.ActionLink("Edit", "EditNew", new { id = item.MenuSubId }) |
                                 @Html.ActionLink("View", "Details", new { id = item.MenuSubId })
                                 @*@Html.ActionLink("View", "View", new { id = item.MenuSubId }) |*@
                                 @*@Html.ActionLink("Delete", "Delete", new { id = item.MenuSubId }) |*@
