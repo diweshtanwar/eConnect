@@ -113,8 +113,11 @@ namespace eConnect.Application.Controllers
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name");
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name");
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
+    
             if (ModelState.IsValid)
             {
+             string URoleName=   objRoleLogic.GetRoleMasterByID(objUser.UserType).Name;
+                objUser.RoleName = URoleName;
                 string fpath = string.Empty;
                 UserLogic objUserDetailLogic = new UserLogic();
                 long UserID = objUserDetailLogic.InsertUserDetail(objUser);
