@@ -33,6 +33,7 @@ namespace eConnect.DataAccess
         public Nullable<int> UpdatedBy { get; set; }
         public Nullable<int> UserId { get; set; }
         public Nullable<int> StateId { get; set; }
+        public string RoleName { get; set; }
     
         public virtual tblCity tblCity { get; set; }
     }

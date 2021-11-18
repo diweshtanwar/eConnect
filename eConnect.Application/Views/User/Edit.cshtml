@@ -9,15 +9,19 @@
 
 @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.UserId)
-    
+
     <section class="section">
         <div class="card">
             <div class="card-body">
                 <h6 class="text-primary mb-3"> Personal Details</h6>
+                <input type="hidden" id="RoleName" name="RoleName" value="@Model.RoleName" />
+
+
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -30,6 +34,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.FatherName, htmlAttributes: new { @class = "required-field" })
                             @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "form-control" } })
+
                             @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -149,10 +154,17 @@
                     </div>*@
             </div>
         </div>
-    </section>}
+    </section>
+}
 
 <script>
+    $(document).ready(function () {
 
+        $("#UserType").on("change", function () {
+
+            $("#RoleName").val($(this).find("option:selected").text());
+        });
+    });
     debugger;
     /*  $(document).ready(function () {*/
 

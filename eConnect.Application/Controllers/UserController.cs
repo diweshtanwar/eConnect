@@ -41,6 +41,10 @@ namespace eConnect.Application.Controllers
         public ActionResult Index()
         
         {
+            RoleMasterLogic objRoleLogic = new RoleMasterLogic();
+            var AllRoles = objRoleLogic.GetAllRolesForHO();
+            ViewBag.RoleName = AllRoles;
+
             UserLogic objUserDetailLogic = new UserLogic();
             var tblUserDetails = objUserDetailLogic.GetAllUserDetail();
             StatusLogic objStatusLogic = new StatusLogic();
@@ -61,14 +65,14 @@ namespace eConnect.Application.Controllers
             return View(tblUserDetails.ToList());
         }
 
-        public ActionResult IndexSearch(string Name, string Qualification, string Designation, string Country, string State, string City)
+        public ActionResult IndexSearch(string Name, string Qualification, string Designation, string Country, string State, string City,string RoleName)
         {
             StatusLogic objStatusLogic = new StatusLogic();
             CityLogic objCityLogic = new CityLogic();
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
             UserLogic objUserDetailLogic = new UserLogic();
-            var tblUserDetails = objUserDetailLogic.GetAllUserDetailSearch( Name,  Qualification,  Designation,  Country,  State,City);
+            var tblUserDetails = objUserDetailLogic.GetAllUserDetailSearch( Name,  Qualification,  Designation,  Country,  State,City, RoleName);
             TempData["searchdata"] = tblUserDetails.ToList();
             TempData["flag"] = true;
             //return RedirectToAction("Index", tblUserDetails.ToList());

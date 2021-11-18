@@ -395,6 +395,7 @@ namespace eConnect.Logic
                     //tblUser.UpdatedDate = DateTime.Now;
                     tblUser.CreaterdBy = (int)HttpContext.Current.Session["UserId"];
                     tblUser.UpdatedBy = 0;
+                    tblUser.RoleName = userinput.RoleName;
                     unitOfWork.UserDetail.Add(tblUser);
                     long id = tblUser.UserDetailId;  //gives the newly generated 
 
@@ -440,7 +441,7 @@ namespace eConnect.Logic
                 tblUserDetail.DepartmentId = Convert.ToInt32(UserDetail.Department);
                 tblUserDetail.DesignationId = Convert.ToInt32(UserDetail.Designation);
                 tblUserDetail.Qualification = UserDetail.Qualification;
-
+                tblUserDetail.RoleName = UserDetail.RoleName;
                 tblUserDetail.ProfilePicSource = UserDetail.PassportSizePhoto != null
                             ? Path.GetFileName(UserDetail.PassportSizePhoto.FileName).ToString() : UserDetail.PassportSizePic;
                 //tblUserDetail.CreatedDate = DateTime.Now;
@@ -511,13 +512,12 @@ namespace eConnect.Logic
             }
         }
 
-        public IList<tblUserDetail> GetAllUserDetailSearch(string Name, string Qualification, string Designation, string Country, string State, string City)
+        public IList<tblUserDetail> GetAllUserDetailSearch(string Name, string Qualification, string Designation, string Country, string State, string City, string Role)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
                 var result = unitOfWork.UserCSPDetail.GetAllUserDetail().ToList();
-
-                if (Name != null)
+                if (!string.IsNullOrEmpty(Name))
                 {
                     result = result.Where(d => d.Name == Name).ToList();
                 }
@@ -538,7 +538,10 @@ namespace eConnect.Logic
                 {
                     result = result.Where(d => d.StateId == Convert.ToInt32(State)).ToList();
                 }
-
+                if (!string.IsNullOrEmpty(Role))
+                {
+                    result = result.Where(d => d.RoleName == Role).ToList();
+                }
                 return result;
             }
         }
@@ -560,6 +563,7 @@ namespace eConnect.Logic
                 UserDetail.EmergencyContactNumber = tblUserDetail.EmergencyContactNumber;
                 UserDetail.Department = tblUserDetail.DepartmentId.ToString();
                 UserDetail.Designation = tblUserDetail.DesignationId.ToString();
+                UserDetail.RoleName  = tblUserDetail.RoleName.ToString();
                 UserDetail.Qualification = tblUserDetail.Qualification;
                 UserDetail.PassportSizePic = tblUserDetail.ProfilePicSource;
                 UserDetail.Id = tblUserDetail.UserDetailId;

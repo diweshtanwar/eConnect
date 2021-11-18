@@ -128,7 +128,7 @@ namespace eConnect.Model
         [Display(Name = "Role")]
         [Required(ErrorMessage = "User Role is required..")]
         public int UserType { get; set; }
-
+        public string RoleName { get; set; }
         public int UserId { get; set; }
     }
 

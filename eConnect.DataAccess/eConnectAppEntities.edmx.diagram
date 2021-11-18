@@ -84,7 +84,7 @@
         <EntityTypeShape EntityType="eConnectAppModel.tblUserLoginLog" Width="1.5" PointX="21.375" PointY="14.75" />
         <EntityTypeShape EntityType="eConnectAppModel.tblEnquiry" Width="1.5" PointX="15.375" PointY="21.75" />
         <EntityTypeShape EntityType="eConnectAppModel.tblBusinessDetailReport" Width="1.5" PointX="10.375" PointY="20.75" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblUserDetail" Width="1.5" PointX="6" PointY="48.375" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblUserDetail" Width="1.5" PointX="6" PointY="48.25" />
         <AssociationConnector Association="eConnectAppModel.FK_tblUserDetail_tblCity" />
       </Diagram>
     </edmx:Diagrams>
