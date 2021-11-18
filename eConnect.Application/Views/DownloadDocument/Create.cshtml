@@ -46,7 +46,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.DocumentImage, htmlAttributes: new { @class = "" })
-                            <input type="file" id="DocumentImage" name="DocumentImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
+                            <input type="file" id="DocumentImage" name="DocumentImage" class="btn btn-outline-primary btn-block fileup-btn" onchange="showDocument(this)" />
                             @Html.ValidationMessageFor(model => model.DocumentImage, "", new { @class = "text-danger" })
 
                         </div>

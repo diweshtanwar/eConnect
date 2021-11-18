@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+
 using eConnect.DataAccess;
 using eConnect.Model;
 using eConnect.Logic;
@@ -54,7 +55,7 @@ namespace eConnect.Application.Controllers
             }
             else
             {
-              tblAbsentismReports = absentismReport.GetAbsentismReportsSearch("", ViewBag.dteFrom, ViewBag.dteTo, "", 0, 0, 0);
+             // tblAbsentismReports = absentismReport.GetAbsentismReportsSearch("", ViewBag.dteFrom, ViewBag.dteTo, "", 0, 0, 0);
             }
             return View(tblAbsentismReports);
         }

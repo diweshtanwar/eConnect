@@ -1,6 +1,6 @@
 ﻿
 @{
-   
+
     Layout = "~/Views/Shared/_LayoutMainEgraminWeb.cshtml";
 }
 
@@ -12,21 +12,26 @@
 
         <div class="gallery">
             @foreach (var item in ViewBag.ImgesListWithPath)
-            {              
+            {
                 <a href="@Url.Content(item)"><img src="@Url.Content(item)" alt="" title="Beautiful Image" /></a>
                 @*<a href="~/Content/EgraminAssets/assets/images/gallery-images/full/01.jpg"><img src="~/Content/EgraminAssets/assets/images/gallery-images/thumb/01.jpg" alt="" title="Beautiful Image" /></a>
-            <a href="~/Content/EgraminAssets/assets/images/gallery-images/full/02.jpg"><img src="~/Content/EgraminAssets/assets/images/gallery-images/thumb/02.jpg" alt="" title="" /></a>
-            <a href="~/Content/EgraminAssets/assets/images/gallery-images/full/03.jpg"><img src="~/Content/EgraminAssets/assets/images/gallery-images/thumb/03.jpg" alt="" title="Beautiful Image" /></a>
-            <a href="~/Content/EgraminAssets/assets/images/gallery-images/full/04.jpg"><img src="~/Content/EgraminAssets/assets/images/gallery-images/thumb/04.jpg" alt="" title="" /></a>
-            <a href="~/Content/EgraminAssets/assets/images/gallery-images/full/05.jpg"><img src="~/Content/EgraminAssets/assets/images/gallery-images/thumb/05.jpg" alt="" title="" /></a>
+                    <a href="~/Content/EgraminAssets/assets/images/gallery-images/full/02.jpg"><img src="~/Content/EgraminAssets/assets/images/gallery-images/thumb/02.jpg" alt="" title="" /></a>
+                    <a href="~/Content/EgraminAssets/assets/images/gallery-images/full/03.jpg"><img src="~/Content/EgraminAssets/assets/images/gallery-images/thumb/03.jpg" alt="" title="Beautiful Image" /></a>
+                    <a href="~/Content/EgraminAssets/assets/images/gallery-images/full/04.jpg"><img src="~/Content/EgraminAssets/assets/images/gallery-images/thumb/04.jpg" alt="" title="" /></a>
+                    <a href="~/Content/EgraminAssets/assets/images/gallery-images/full/05.jpg"><img src="~/Content/EgraminAssets/assets/images/gallery-images/thumb/05.jpg" alt="" title="" /></a>
 
-            <a href="~/Content/EgraminAssets/assets/images/gallery-images/full/06.jpg"><img src="~/Content/EgraminAssets/assets/images/gallery-images/thumb/06.jpg" alt="" title="" /></a>*@
+                    <a href="~/Content/EgraminAssets/assets/images/gallery-images/full/06.jpg"><img src="~/Content/EgraminAssets/assets/images/gallery-images/thumb/06.jpg" alt="" title="" /></a>*@
             }
             <div class="clear"></div>
         </div>
         <div class="clearfix"></div>
 
     </div>
+    <div style="float:right;padding-bottom:4px;">
+        @Html.ActionLink("Back To Gallery", "GalleryCategories", "Home", new { @class = "btn btn-dark px-2 mr-2" })
+
+
+    </div>
 </div>
-<li>@Html.ActionLink("Back To Gallery", "GalleryCategories", "Home")</li>
+
 <!--end of downloads-->

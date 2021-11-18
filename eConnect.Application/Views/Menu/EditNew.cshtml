@@ -1,7 +1,7 @@
 ﻿@model eConnect.DataAccess.tblMenuSub
 
 @{
-    ViewBag.Title = "Menu Edit";
+    ViewBag.Title = "Edit Screen";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            @Html.Label("SubMenu", htmlAttributes: new { @class = "required-field" })
+                            @Html.Label("Screen", htmlAttributes: new { @class = "required-field" })
                             @Html.DropDownList("MenuSubIdSelect", null, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.MenuSubId, "", new { @class = "text-danger" })
                         </div>
