@@ -11,6 +11,8 @@ using eConnect.Model;
 using eConnect.Logic;
 using System.IO;
 using System.Configuration;
+//using OfficeOpenXml;
+//using MongoDB.Driver;
 
 namespace eConnect.Application.Controllers
 {
@@ -28,7 +30,15 @@ namespace eConnect.Application.Controllers
         {
            
             UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
-            ViewBag.CSP = new SelectList(objUserCSPDetailLogic.GetAllUserCSPDetail(), "CSPCode", "CSPName");
+
+            var dropDownList = objUserCSPDetailLogic.GetAllUserCSPDetail().Select(x => new
+            {
+                Id = x.CSPCode,
+                Name = x.CSPCode.ToString() +"-"+x.CSPName.ToString()
+            }).ToList();
+
+
+            ViewBag.CSP = new SelectList(dropDownList, "Id", "Name");
             ViewBag.Type = ReportType;
             ViewBag.dteFrom = new DateTime(DateTime.Now.Year,DateTime.Now.Month,1).ToString("yyyy-MM-dd"); //"2010-12-25"
             ViewBag.dteTo = DateTime.Now.ToString("yyyy-MM-dd");
@@ -66,6 +76,11 @@ namespace eConnect.Application.Controllers
             TempData["searchdata"] = tblAbsentismReport.ToList();
             TempData["flag"] = true;
             return RedirectToAction("Index");
+        }
+
+        public void DownloadExcel()
+        {
+           
         }
     }
 }
