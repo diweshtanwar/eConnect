@@ -7,7 +7,8 @@
     @*<h2></h2>*@
 
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @*@Html.ActionLink("Create New", "Create")*@
+        @Html.ActionLink("Create New", "Create", "Menu", new { @class = "btn btn-primary px-4" })
     </p>
 
     @using (@Html.BeginForm("IndexSearch", "DepositRequest", FormMethod.Get))

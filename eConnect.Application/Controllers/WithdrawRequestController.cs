@@ -87,8 +87,10 @@ namespace eConnect.Application.Controllers
             Withdraw withdraw = new Withdraw();
             string UserId = Session["CSPID"].ToString();
             RaiseRequestLogic raiseRequestdetals = new RaiseRequestLogic();
-            string AccountNumber = raiseRequestdetals.WithdrawAccNumber(Convert.ToInt32(UserId));
-            withdraw.Account = AccountNumber;
+            UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+            UserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID(Convert.ToInt32(UserId));
+            //string AccountNumber = raiseRequestdetals.WithdrawAccNumber(Convert.ToInt32(UserId));
+            withdraw.Account = UserCSPDetail.BankAccount;
             ViewBag.RequestType = RequestType;
             ViewBag.Status = Status;
             return View(withdraw);

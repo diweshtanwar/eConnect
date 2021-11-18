@@ -621,7 +621,7 @@ namespace eConnect.Logic
                 var tblTechDetail = unitOfWork.TechSupportRequestss.Find(x => x.TechRequestId == tech.Id).FirstOrDefault();
               
 
-                if (!string.IsNullOrEmpty(tech.ResolutionDetail))
+                if (tech.CurrentStatus=="2")
                 {
                     tblTechDetail.Status = 2;
                     tblTechDetail.CompletionDate = date;
@@ -629,10 +629,10 @@ namespace eConnect.Logic
                 }
                 else
                 {
-                        tblTechDetail.Status = 1;
+                        tblTechDetail.Status = Convert.ToInt32(tech.CurrentStatus);
                         tblTechDetail.CompletionDate = null;
-                        tblTechDetail.ResolutionDetail = "";
-                    
+                        tblTechDetail.ResolutionDetail = tech.ResolutionDetail;
+
                 }
                 tblTechDetail.Email =tech.Email;
                 tblTechDetail.UpdatedDate = DateTime.Now;
@@ -715,7 +715,6 @@ namespace eConnect.Logic
             }
             return Account;
         }
-
     }
 
 }

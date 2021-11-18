@@ -7,7 +7,8 @@
    
 
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @*@Html.ActionLink("Create New", "Create")*@
+        @Html.ActionLink("Create New", "Create", "Menu", new { @class = "btn btn-primary px-4" })
     </p>
 
     @using (@Html.BeginForm("IndexSearch", "TechSupportRequest", FormMethod.Get))
@@ -150,7 +151,10 @@
                             {
                                 <td>Close</td>
                             }
-
+                            else if (item.Status.Equals(3))
+                            {
+                                <td>InProgress</td>
+                            }
                             <td>
                                 @*@Html.ActionLink("Edit", "Edit", new { id = item.TechRequestId }) |*@
                                 @Html.ActionLink("Details", "Details", new { id = item.TechRequestId }) @*|

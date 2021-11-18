@@ -19,14 +19,23 @@ namespace eConnect.Application.Controllers
         string UserFilePath = System.Web.HttpContext.Current.Server.MapPath(Convert.ToString(ConfigurationManager.AppSettings["UserFilePath"]));
         List<SelectListItem> Department = new List<SelectListItem>()
             {
-                new SelectListItem { Text = "OPS", Value = "1" },
-                new SelectListItem { Text = "BAT", Value = "2" },
-
+                new SelectListItem { Text = "Management", Value = "1" },
+                new SelectListItem { Text = "Operation", Value = "2" },
+                new SelectListItem { Text = "Finance", Value = "3" },
+                new SelectListItem { Text = "Technical", Value = "4" },
+                new SelectListItem { Text = "Head Office Staff", Value = "5" },
+                new SelectListItem { Text = "Field Coordinator", Value = "6" },
             };
         List<SelectListItem> Designation = new List<SelectListItem>()
             {
-                new SelectListItem { Text = "Programmer I", Value = "1" },
-                new SelectListItem { Text = "Programmer II", Value = "2" },
+                new SelectListItem { Text = "Director", Value = "1" },
+                new SelectListItem { Text = "Manager", Value = "2" },
+                new SelectListItem { Text = "Consultant", Value = "3" },
+                new SelectListItem { Text = "IT Executive", Value = "4" },
+                new SelectListItem { Text = "Accountant", Value = "5" },
+                new SelectListItem { Text = "Assistant", Value = "6" },
+                new SelectListItem { Text = "Messenger", Value = "7" },
+                new SelectListItem { Text = "Coordinator", Value = "8" },
 
             };
         public ActionResult Index()

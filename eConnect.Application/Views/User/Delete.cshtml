@@ -128,10 +128,10 @@
                 {
                        @Html.AntiForgeryToken()
 
-                            <div class="form-actions no-color">
-                                <input type="submit" value="Delete" class="btn btn-danger px-4" /> |
-                                @Html.ActionLink("Cancel", "Index")
-                            </div>
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-danger px-4" /> |
+                    @Html.ActionLink("Cancel", "Index", "Menu", new { @class = "btn btn-dark px-4 mr-2" })
+                </div>
                             }
             </div>
         </div>
