@@ -38,7 +38,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "required-field" })
-                                        @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" ,@onchange = "return emailidValidate();" } })
+                                        @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control", @onchange = "return emailidValidate();" } })
                                         @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
                                         <label id="lblEmailmsg" class="text-danger"> </label>
                                     </div>
@@ -53,9 +53,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "required-field"  })
+                                        @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "required-field" })
 
-                                        @Html.DropDownList("State", null, htmlAttributes: new { @class = "form-control" , @onchange = "return bindCity();" })
+                                        @Html.DropDownList("State", null, htmlAttributes: new { @class = "form-control", @onchange = "return bindCity();" })
                                         @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -100,6 +100,13 @@
                                         @Html.LabelFor(model => model.Designation, htmlAttributes: new { @class = "required-field" })
                                         @Html.DropDownList("Designation", null, htmlAttributes: new { @class = "form-control" })
                                         @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.UserType, htmlAttributes: new { @class = "required-field" })
+                                        @Html.DropDownList("UserType", new SelectList(ViewBag.Roles, "RoleId", "Name"), new { id = "UserType", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.UserType, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="col-md-4">

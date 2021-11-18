@@ -9,8 +9,8 @@
 @using (@Html.BeginForm("RoleDetails", "SAdmin", FormMethod.Get))
 {@Html.AntiForgeryToken()
 <section class="section">
-    <p>
-        @Html.ActionLink("Create New", "CreateRole")
+       <p>
+        @Html.ActionLink("Create New", "CreateRole", "Menu", new { @class = "btn btn-primary px-4" })
 
     </p>
     <div class="card">
@@ -22,7 +22,7 @@
                         <input type="text" id="Name" name="Name" class="form-control" />
                     </div>
                 </div>
-                <div class="my-4 text-right">
+                   <div class="my-4 text-right" style="vertical-align:top;">
                     <button class="btn btn-primary px-4" type="button" onclick="LoadData()">Search</button>
                 </div>
             </div>

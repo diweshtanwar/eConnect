@@ -81,7 +81,9 @@ namespace eConnect.Application.Controllers
             CityLogic objCityLogic = new CityLogic();
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
-
+            RoleMasterLogic objRoleLogic = new RoleMasterLogic();
+            var AllRoles = objRoleLogic.GetAllRolesForHO();
+            ViewBag.Roles= AllRoles;
             ViewBag.Department = Department;
             ViewBag.Designation = Designation;
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name");
@@ -95,6 +97,9 @@ namespace eConnect.Application.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Userinput objUser)
         {
+            RoleMasterLogic objRoleLogic = new RoleMasterLogic();
+            var AllRoles = objRoleLogic.GetAllRolesForHO();
+            ViewBag.Roles = AllRoles;
             StatusLogic objStatusLogic = new StatusLogic();
             CityLogic objCityLogic = new CityLogic();
             CountryLogic objCountryLogic = new CountryLogic();
@@ -128,6 +133,7 @@ namespace eConnect.Application.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             UserLogic objUserDetailLogic = new UserLogic();
             Userinput UserDetail = objUserDetailLogic.GetUserDetailByID((int)id);
             Session["Image"]= UserDetail.PassportSizePic;
@@ -135,16 +141,34 @@ namespace eConnect.Application.Controllers
             {
                 return HttpNotFound();
             }
+            UserLogic ul = new UserLogic();
+         var UserType=   ul.GetUsersDetailsByid(UserDetail.UserId).SingleOrDefault().UserType;
+
+
             StatusLogic objStatusLogic = new StatusLogic();
             CityLogic objCityLogic = new CityLogic();
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
 
+            var selectedDepartment = Department.FirstOrDefault(d => d.Value == UserDetail.Department.ToString());
+            if (selectedDepartment != null)
+                selectedDepartment.Selected = true;
+            var selectedDesignation = Designation.FirstOrDefault(d => d.Value == UserDetail.Designation.ToString());
+            if (selectedDesignation != null)
+                selectedDesignation.Selected = true;
             ViewBag.Department = Department;
             ViewBag.Designation = Designation;
-            ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name");
-            ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name");
-            ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
+            //ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name");
+            //ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name");
+            //ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
+            ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserDetail.City);
+            ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserDetail.Country);
+            ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserDetail.State);
+
+
+            RoleMasterLogic objRoleLogic = new RoleMasterLogic();
+        
+            ViewBag.UserType = new SelectList(objRoleLogic.GetAllRolesForHO(),"RoleId", "Name", UserType);
             return View(UserDetail);
         }
 
@@ -159,7 +183,10 @@ namespace eConnect.Application.Controllers
                  objUser.PassportSizePic = Image;
                  ModelState.Remove("PassportSizePhoto");
             }
-                
+
+            RoleMasterLogic objRoleLogic = new RoleMasterLogic();
+            ViewBag.UserType = new SelectList(objRoleLogic.GetAllRolesForHO(), "RoleId", "Name");
+
             StatusLogic objStatusLogic = new StatusLogic();
             CityLogic objCityLogic = new CityLogic();
             CountryLogic objCountryLogic = new CountryLogic();
@@ -201,16 +228,28 @@ namespace eConnect.Application.Controllers
             {
                 return HttpNotFound();
             }
+            UserLogic ul = new UserLogic();
+            var UserType = ul.GetUsersDetailsByid(UserDetail.UserId).SingleOrDefault().UserType;
+            RoleMasterLogic objRoleLogic = new RoleMasterLogic();
+
+            ViewBag.UserType = new SelectList(objRoleLogic.GetAllRolesForHO(), "RoleId", "Name", UserType);
+
             StatusLogic objStatusLogic = new StatusLogic();
             CityLogic objCityLogic = new CityLogic();
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
-
+            var selectedDepartment = Department.FirstOrDefault(d => d.Value == UserDetail.Department.ToString());
+            if (selectedDepartment != null)
+                selectedDepartment.Selected = true;
+            var selectedDesignation = Designation.FirstOrDefault(d => d.Value == UserDetail.Designation.ToString());
+            if (selectedDesignation != null)
+                selectedDesignation.Selected = true;
             ViewBag.Department = Department;
             ViewBag.Designation = Designation;
-            ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name");
-            ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name");
-            ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
+        
+            ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserDetail.City);
+            ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserDetail.Country);
+            ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserDetail.State);
             return View(UserDetail);
            
         }
@@ -226,17 +265,28 @@ namespace eConnect.Application.Controllers
             if (UserDetail == null)
             {
                 return HttpNotFound();
+
             }
+
             StatusLogic objStatusLogic = new StatusLogic();
             CityLogic objCityLogic = new CityLogic();
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
 
+            var selectedDepartment = Department.FirstOrDefault(d => d.Value == UserDetail.Department.ToString());
+            if (selectedDepartment != null)
+                selectedDepartment.Selected = true;
+            var selectedDesignation = Designation.FirstOrDefault(d => d.Value == UserDetail.Designation.ToString());
+            if (selectedDesignation != null)
+                selectedDesignation.Selected = true;
             ViewBag.Department = Department;
             ViewBag.Designation = Designation;
-            ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name");
-            ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name");
-            ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
+            //ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name");
+            //ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name");
+            //ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
+            ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserDetail.City);
+            ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserDetail.Country);
+            ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserDetail.State);
             return View(UserDetail);
         }
 

@@ -25,45 +25,45 @@
             }
     </style>
     @Html.AntiForgeryToken()
-<section class="section">
-    <div class="card">
-        <div class="card-body">
-            <h6 class="text-primary mb-3"> Upload Summary Report </h6>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        @Html.Label("Year")
-                        @Html.DropDownList("Year", new SelectList(ViewBag.Years, "Text", "Text"), "YY", new { id = "Year", @class = "form-control", required = (string)null })
+    <section class="section">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-primary mb-3"> Upload Summary Report </h6>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.Label("Year")
+                            @Html.DropDownList("Year", new SelectList(ViewBag.Years, "Text", "Text"), "YY", new { id = "Year", @class = "form-control", required = (string)null })
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        @Html.Label("Month")
-                        @Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text"), "MM", new { id = "Month", @class = "form-control", required = (string)null })
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.Label("Month")
+                            @Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text"), "MM", new { id = "Month", @class = "form-control", required = (string)null })
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        @Html.Label("Upload File", htmlAttributes: new { @class = "required-field" })
-                        <input type="file" id="fileupload" name="fileupload" required class="btn btn-outline-primary btn-block fileup-btn" onchange="CheckExcelFile(this)" />
-                        @Html.ValidationMessageFor(model => model.fileupload, "", new { @class = "text-danger" })
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.Label("Upload File", htmlAttributes: new { @class = "required-field" })
+                            <input type="file" id="fileupload" name="fileupload" required class="btn btn-outline-primary btn-block fileup-btn" onchange="CheckExcelFile(this)" />
+                            @Html.ValidationMessageFor(model => model.fileupload, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
-            </div>
-            <div class="my-4 text-right">
-                <button class="btn btn-primary px-4" type="Submit">Upload</button>
-                <button class="btn btn-primary px-4" type="button" onclick="location.href='@Url.Action("UploadCommissionReport", "Admin")'" name="Cancel">Cancel</button>
+                </div>
+                <div class="my-4 text-right">
+                    <button class="btn btn-primary px-4" type="Submit">Upload</button>
+                    <button class="btn btn-dark px-4 mr-2" type="button" onclick="location.href='@Url.Action("UploadCommissionReport", "Admin")'" name="Cancel">Cancel</button>
 
+                </div>
             </div>
         </div>
-    </div>
-    <div class="ajax-loader">
-        <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
-    </div>
-    <div id="UploaderList" class="card"></div>
+        <div class="ajax-loader">
+            <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
+        </div>
+        <div id="UploaderList" class="card"></div>
 
-</section>
+    </section>
 }
 
 @if (TempData["Message"] != null)

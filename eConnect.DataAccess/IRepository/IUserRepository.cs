@@ -15,6 +15,7 @@ namespace eConnect.DataAccess
         IEnumerable<tblUser> GetAllUsersByStatus(int statusid);
         IEnumerable<tblUser> GetAllUsersDetailsByid(long id);
         void InsertUser(tblUser tblUser);
+         void UpdateUser(tblUser Userdetail); void Save();
     }
   
 }

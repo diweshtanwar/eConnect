@@ -18,6 +18,14 @@ namespace eConnect.Logic
                 return data;
             }
         }
+        public IList<tblRoleMaster> GetAllRolesForHO()
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var data = unitOfWork.RoleMasters.GetAllRoleMaster().Where(x=>x.Name !="CSP").ToList();
+                return data;
+            }
+        }
         public void InsertRoleMaster(RoleMasterModel model)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))

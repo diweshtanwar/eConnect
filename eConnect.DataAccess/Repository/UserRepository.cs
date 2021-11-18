@@ -57,6 +57,16 @@ namespace eConnect.DataAccess
             eConnectAppEntities.tblUsers.Add(tblUser);
         }
 
+         public void UpdateUser(tblUser Userdetail)
+        {
+            eConnectAppEntities.Entry(Userdetail).State = EntityState.Modified;
+            eConnectAppEntities.SaveChanges();
+        }
+        public void Save()
+        {
+            eConnectAppEntities.SaveChanges();
+        }
+
         private bool disposed = false;
         protected virtual void Dispose(bool disposing)
         {

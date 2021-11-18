@@ -138,8 +138,8 @@
           <Property Name="CSPCode" Type="nvarchar" MaxLength="50" />
           <Property Name="CSPName" Type="nvarchar" MaxLength="50" />
           <Property Name="TransactionType" Type="nvarchar(max)" />
-          <Property Name="NoOfTransactions" Type="decimal" Precision="18" Scale="4" />
-          <Property Name="Commission" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="NoOfTransactions" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="Commission" Type="decimal" Precision="19" Scale="6" />
           <Property Name="UploaderId" Type="int" />
         </EntityType>
         <EntityType Name="tblCommissionReportMonthly">
@@ -149,13 +149,13 @@
           <Property Name="MonthlyCommissionReportID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CSPCode" Type="varchar" MaxLength="100" />
           <Property Name="CSPName" Type="varchar" MaxLength="200" />
-          <Property Name="Transation" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Incentive" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Rural" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="TDS" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="PayableToCSP" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="NetPayable" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="Transation" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="Incentive" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="Rural" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="Total" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="TDS" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="PayableToCSP" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="NetPayable" Type="decimal" Precision="19" Scale="6" />
           <Property Name="Month" Type="int" />
           <Property Name="Year" Type="int" />
           <Property Name="UploaderId" Type="int" Nullable="false" />
@@ -171,8 +171,8 @@
           <Property Name="CSPCode" Type="nvarchar" MaxLength="50" />
           <Property Name="CSPName" Type="nvarchar" MaxLength="50" />
           <Property Name="TransactionType" Type="nvarchar(max)" />
-          <Property Name="NoOfTransactions" Type="decimal" Precision="18" Scale="4" />
-          <Property Name="Commission" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="NoOfTransactions" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="Commission" Type="decimal" Precision="19" Scale="6" />
           <Property Name="UploaderId" Type="int" />
         </EntityType>
         <EntityType Name="tblCommissionReportTransactionType">
@@ -181,8 +181,8 @@
           </Key>
           <Property Name="CommissionReportTransactionTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="200" />
-          <Property Name="HOCommission" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="CSPCommission" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="HOCommission" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="CSPCommission" Type="decimal" Precision="19" Scale="6" />
           <Property Name="Status" Type="bit" />
         </EntityType>
         <EntityType Name="tblConfiguration">
@@ -242,6 +242,7 @@
           </Key>
           <Property Name="DesignationId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="DepartmentId" Type="tinyint" />
         </EntityType>
         <EntityType Name="tblDocuments">
           <Key>
@@ -285,7 +286,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Mobile" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="Message" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Feedback" Type="nvarchar" MaxLength="500" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="datetime" />
@@ -621,6 +622,7 @@
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
           <Property Name="UserId" Type="int" />
+          <Property Name="StateId" Type="int" />
         </EntityType>
         <EntityType Name="tblUserLoginLog">
           <Key>
@@ -1331,7 +1333,7 @@
           <Property Name="Status" Type="Boolean" />
           <NavigationProperty Name="tblState" Relationship="Self.FK_tblCity_tblState" FromRole="tblCity" ToRole="tblState" />
           <NavigationProperty Name="tblUserCSPDetails" Relationship="Self.FK_tblUserCSPDetail_tblCity" FromRole="tblCity" ToRole="tblUserCSPDetail" />
-          <NavigationProperty Name="tblUserDetails" Relationship="Self.FK_tblUserDetail_tblCity" FromRole="tblCity" ToRole="tblUserDetail" />
+          <NavigationProperty Name="tblUserDetails" Relationship="eConnectAppModel.FK_tblUserDetail_tblCity" FromRole="tblCity" ToRole="tblUserDetail" />
         </EntityType>
         <EntityType Name="tblCommissionReport">
           <Key>
@@ -1357,8 +1359,8 @@
           <Property Name="CSPCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CSPName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TransactionType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NoOfTransactions" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="Commission" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="NoOfTransactions" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="Commission" Type="Decimal" Precision="19" Scale="6" />
           <Property Name="UploaderId" Type="Int32" />
           <NavigationProperty Name="tblUploader" Relationship="Self.FK_tblCommissionReportMain_tblUploader" FromRole="tblCommissionReportMain" ToRole="tblUploader" />
         </EntityType>
@@ -1369,13 +1371,13 @@
           <Property Name="MonthlyCommissionReportID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CSPCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CSPName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Transation" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Incentive" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Rural" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TDS" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PayableToCSP" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="NetPayable" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Transation" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="Incentive" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="Rural" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="TDS" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="PayableToCSP" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="NetPayable" Type="Decimal" Precision="19" Scale="6" />
           <Property Name="Month" Type="Int32" />
           <Property Name="Year" Type="Int32" />
           <Property Name="UploaderId" Type="Int32" Nullable="false" />
@@ -1392,8 +1394,8 @@
           <Property Name="CSPCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CSPName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TransactionType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NoOfTransactions" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="Commission" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="NoOfTransactions" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="Commission" Type="Decimal" Precision="19" Scale="6" />
           <Property Name="UploaderId" Type="Int32" />
           <NavigationProperty Name="tblUploader" Relationship="Self.FK_tblCommissionReportNew_tblUploader" FromRole="tblCommissionReportNew" ToRole="tblUploader" />
         </EntityType>
@@ -1403,8 +1405,8 @@
           </Key>
           <Property Name="CommissionReportTransactionTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="HOCommission" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="CSPCommission" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="HOCommission" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="CSPCommission" Type="Decimal" Precision="19" Scale="6" />
           <Property Name="Status" Type="Boolean" />
           <NavigationProperty Name="tblCommissionReports" Relationship="Self.FK_tblCommissionReport_tblCommissionReportTransactionType" FromRole="tblCommissionReportTransactionType" ToRole="tblCommissionReport" />
         </EntityType>
@@ -1470,6 +1472,7 @@
           </Key>
           <Property Name="DesignationId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="Byte" />
         </EntityType>
         <EntityType Name="tblDocument">
           <Key>
@@ -1832,30 +1835,6 @@
           <NavigationProperty Name="tblState" Relationship="Self.FK_tblUserCSPDetail_tblState" FromRole="tblUserCSPDetail" ToRole="tblState" />
           <NavigationProperty Name="tblStatu" Relationship="Self.FK_tblUserCSPDetail_tblStatus" FromRole="tblUserCSPDetail" ToRole="tblStatus" />
         </EntityType>
-        <EntityType Name="tblUserDetail">
-          <Key>
-            <PropertyRef Name="UserDetailId" />
-          </Key>
-          <Property Name="UserDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="FatherName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="MotherName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="EmailId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CityId" Type="Int32" />
-          <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyContactNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="DepartmentId" Type="Int32" />
-          <Property Name="DesignationId" Type="Int32" />
-          <Property Name="Qualification" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ProfilePicSource" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreaterdBy" Type="Int32" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="UserId" Type="Int32" />
-          <NavigationProperty Name="tblCity" Relationship="Self.FK_tblUserDetail_tblCity" FromRole="tblUserDetail" ToRole="tblCity" />
-        </EntityType>
         <EntityType Name="tblUser">
           <Key>
             <PropertyRef Name="UserId" />
@@ -1973,18 +1952,6 @@
             </Principal>
             <Dependent Role="tblUserCSPDetail">
               <PropertyRef Name="City" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblUserDetail_tblCity">
-          <End Role="tblCity" Type="Self.tblCity" Multiplicity="0..1" />
-          <End Role="tblUserDetail" Type="Self.tblUserDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCity">
-              <PropertyRef Name="CityId" />
-            </Principal>
-            <Dependent Role="tblUserDetail">
-              <PropertyRef Name="CityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2330,7 +2297,6 @@
           <EntitySet Name="tblTechRequests" EntityType="Self.tblTechRequest" />
           <EntitySet Name="tblUploaders" EntityType="Self.tblUploader" />
           <EntitySet Name="tblUserCSPDetails" EntityType="Self.tblUserCSPDetail" />
-          <EntitySet Name="tblUserDetails" EntityType="Self.tblUserDetail" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
           <EntitySet Name="tblUserStatus" EntityType="Self.tblUserStatu" />
           <EntitySet Name="tblWebFeedbacks" EntityType="Self.tblWebFeedback" />
@@ -2350,10 +2316,6 @@
           <AssociationSet Name="FK_tblUserCSPDetail_tblCity" Association="Self.FK_tblUserCSPDetail_tblCity">
             <End Role="tblCity" EntitySet="tblCities" />
             <End Role="tblUserCSPDetail" EntitySet="tblUserCSPDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUserDetail_tblCity" Association="Self.FK_tblUserDetail_tblCity">
-            <End Role="tblCity" EntitySet="tblCities" />
-            <End Role="tblUserDetail" EntitySet="tblUserDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCommissionReport_tblCommissionReportTransactionType" Association="Self.FK_tblCommissionReport_tblCommissionReportTransactionType">
             <End Role="tblCommissionReportTransactionType" EntitySet="tblCommissionReportTransactionTypes" />
@@ -2509,6 +2471,11 @@
           </FunctionImport>
           <EntitySet Name="tblEnquiries" EntityType="eConnectAppModel.tblEnquiry" />
           <EntitySet Name="tblBusinessDetailReports" EntityType="eConnectAppModel.tblBusinessDetailReport" />
+          <EntitySet Name="tblUserDetails" EntityType="eConnectAppModel.tblUserDetail" />
+          <AssociationSet Name="FK_tblUserDetail_tblCity" Association="eConnectAppModel.FK_tblUserDetail_tblCity">
+            <End Role="tblCity" EntitySet="tblCities" />
+            <End Role="tblUserDetail" EntitySet="tblUserDetails" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_GetAppMenuWithSubMenu_Result">
           <Property Type="String" Name="Tittle" Nullable="true" MaxLength="20" />
@@ -2735,7 +2702,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Mobile" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Message" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Feedback" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
@@ -2776,6 +2743,43 @@
           <Property Name="RDACOpenNo" Type="Int32" />
           <Property Name="RDACOpenAmount" Type="Decimal" Precision="19" Scale="6" />
         </EntityType>
+        <EntityType Name="tblUserDetail">
+          <Key>
+            <PropertyRef Name="UserDetailId" />
+          </Key>
+          <Property Name="UserDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="FatherName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MotherName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyContactNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="DesignationId" Type="Int32" />
+          <Property Name="Qualification" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ProfilePicSource" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreaterdBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="StateId" Type="Int32" />
+          <NavigationProperty Name="tblCity" Relationship="eConnectAppModel.FK_tblUserDetail_tblCity" FromRole="tblUserDetail" ToRole="tblCity" />
+        </EntityType>
+        <Association Name="FK_tblUserDetail_tblCity">
+          <End Type="eConnectAppModel.tblCity" Role="tblCity" Multiplicity="0..1" />
+          <End Type="eConnectAppModel.tblUserDetail" Role="tblUserDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCity">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="tblUserDetail">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2985,6 +2989,7 @@
           <EntitySetMapping Name="tblDesignations">
             <EntityTypeMapping TypeName="eConnectAppModel.tblDesignation">
               <MappingFragment StoreEntitySet="tblDesignation">
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
                 <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
@@ -3345,30 +3350,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblUserDetails">
-            <EntityTypeMapping TypeName="eConnectAppModel.tblUserDetail">
-              <MappingFragment StoreEntitySet="tblUserDetail">
-                <ScalarProperty Name="UserDetailId" ColumnName="UserDetailId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
-                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="EmergencyContactNumber" ColumnName="EmergencyContactNumber" />
-                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
-                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
-                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
-                <ScalarProperty Name="ProfilePicSource" ColumnName="ProfilePicSource" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreaterdBy" ColumnName="CreaterdBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblUsers">
             <EntityTypeMapping TypeName="eConnectAppModel.tblUser">
               <MappingFragment StoreEntitySet="tblUsers">
@@ -3677,6 +3658,31 @@
                 <ScalarProperty Name="Month" ColumnName="Month" />
                 <ScalarProperty Name="UploaderId" ColumnName="UploaderId" />
                 <ScalarProperty Name="BusinessDetailReportId" ColumnName="BusinessDetailReportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUserDetails">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblUserDetail">
+              <MappingFragment StoreEntitySet="tblUserDetail">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreaterdBy" ColumnName="CreaterdBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ProfilePicSource" ColumnName="ProfilePicSource" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="EmergencyContactNumber" ColumnName="EmergencyContactNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserDetailId" ColumnName="UserDetailId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

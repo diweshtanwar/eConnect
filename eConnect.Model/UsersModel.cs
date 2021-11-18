@@ -125,7 +125,11 @@ namespace eConnect.Model
         //public HttpPostedFileBase PassportSizePhotoforedit { get; set; }
         public string PassportSizePic { get; set; }
 
+        [Display(Name = "Role")]
+        [Required(ErrorMessage = "User Role is required..")]
+        public int UserType { get; set; }
 
+        public int UserId { get; set; }
     }
 
 
@@ -152,7 +156,7 @@ namespace eConnect.Model
 
         [Required]
         [DataType(DataType.Password)]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]      
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [Display(Name = " New Password")]
         public string NewPassword { get; set; }
 

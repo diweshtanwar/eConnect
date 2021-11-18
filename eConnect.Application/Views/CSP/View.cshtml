@@ -39,62 +39,62 @@
                         </div>
                     </div>
                     @*<div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "" })
-                   @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "" })
+                       @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.BankName, htmlAttributes: new { @class = "required-field" })
+                    @Html.EditorFor(model => model.BankName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
 
                 </div>
-            </div>
-            <div class="col-md-4">
-                @Html.LabelFor(model => model.BankName, htmlAttributes: new { @class = "required-field" })
-                @Html.EditorFor(model => model.BankName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-
-
-            </div>
-            <div class="col-md-4">
-                @Html.LabelFor(model => model.BankAccount, htmlAttributes: new { @class = "" })
-                @Html.EditorFor(model => model.BankAccount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.IFSC, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(model => model.IFSC, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.BankAccount, htmlAttributes: new { @class = "" })
+                    @Html.EditorFor(model => model.BankAccount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.CertificateStatus, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(model => model.CertificateStatus, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IFSC, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.IFSC, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "" })
-                    @Html.DropDownList("Status", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly",@disabled = "disabled" })
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CertificateStatus, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.CertificateStatus, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
                 </div>
-            </div>*@
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "" })
+                        @Html.DropDownList("Status", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly",@disabled = "disabled" })
+                    </div>
+                </div>*@
                 </div>
                 <h6 class="text-primary mb-3"> Personal Detail</h6>
 
                 <div class="row">
                     @*<div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FatherName, htmlAttributes: new { @class = "" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FatherName, htmlAttributes: new { @class = "" })
 
-                    @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
-                </div>
-            </div>*@
+                    </div>
+                </div>*@
                     @*<div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.MotherName, htmlAttributes: new { @class = "" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MotherName, htmlAttributes: new { @class = "" })
 
-                    @Html.EditorFor(model => model.MotherName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.EditorFor(model => model.MotherName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
-                </div>
-            </div>*@
+                    </div>
+                </div>*@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "" })
@@ -117,44 +117,44 @@
                         </div>
                     </div>
                     @*<div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.PAN, htmlAttributes: new { @class = "" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PAN, htmlAttributes: new { @class = "" })
 
-                    @Html.EditorFor(model => model.PAN, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                </div>
+                        @Html.EditorFor(model => model.PAN, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
 
-            </div>*@
+                </div>*@
                     @*<div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.VoterId, htmlAttributes: new { @class = "" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VoterId, htmlAttributes: new { @class = "" })
 
-                    @Html.EditorFor(model => model.VoterId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                </div>
-            </div>*@
+                        @Html.EditorFor(model => model.VoterId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                </div>*@
                     @*<div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.AadharNo, htmlAttributes: new { @class = "" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AadharNo, htmlAttributes: new { @class = "" })
 
-                    @Html.EditorFor(model => model.AadharNo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.EditorFor(model => model.AadharNo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
-                </div>
-            </div>*@
+                    </div>
+                </div>*@
                     @*<div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Education, htmlAttributes: new { @class = "" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Education, htmlAttributes: new { @class = "" })
 
-                    @Html.EditorFor(model => model.Education, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.EditorFor(model => model.Education, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
-                </div>
-            </div>*@
+                    </div>
+                </div>*@
                     @*<div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "" })
 
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
-                </div>
-            </div>*@
+                    </div>
+                </div>*@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "" })
@@ -164,13 +164,13 @@
                         </div>
                     </div>
                     @*<div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EmergencyContactNumber, htmlAttributes: new { @class = "" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmergencyContactNumber, htmlAttributes: new { @class = "" })
 
-                    @Html.EditorFor(model => model.EmergencyContactNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.EditorFor(model => model.EmergencyContactNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
-                </div>
-            </div>*@
+                    </div>
+                </div>*@
                     <div class="col-md-4">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "" })
@@ -210,85 +210,89 @@
                         </div>
                     </div>
                     @*<div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.VoterIdImage, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(model => model.VoterIdImageName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-
-                    @if (!string.IsNullOrEmpty(Model.VoterIdImageName))
-                    {
-                        <a href="@Url.Content(VoterIdImagePath)" target="_blank">PreviewImage</a>
-                    }
-                    else
-                    { <span style="color:red;">No image uploaded.</span>
-                    }
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.PANImage, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(model => model.PANImageName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-
-                    @if (!string.IsNullOrEmpty(Model.PANImageName))
-                    {
-                        <a href="@Url.Content(PANImagePath)" target="_blank">PreviewImage</a>
-                    }
-                    else
-                    { <span style="color:red;">No image uploaded.</span>
-                    }
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.AadharImage, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(model => model.AadharImageName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-
-                    @if (!string.IsNullOrEmpty(Model.AadharImageName))
-                    {
-                        <a href="@Url.Content(AadharImagePath)" target="_blank">PreviewImage</a>
-                    }
-                    else
-                    { <span style="color:red;">No image uploaded.</span>
-                    }
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.LatestEducationProofImage, htmlAttributes: new { @class = "" })
-                    @Html.EditorFor(model => model.LatestEducationProofImageName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-
-                    @if (!string.IsNullOrEmpty(Model.LatestEducationProofImageName))
-                    {
-                        <a href="@Url.Content(LatestEducationProofImagePath)" target="_blank">PreviewImage</a>
-                    }
-                    else
-                    { <span style="color:red;">No image uploaded.</span>
-                    }
-                </div>
-            </div>
-            @if (Model.CertificateStatus == "Yes")
-            {
-                <div id="CertificationImageStatus" class="col-md-4">
                     <div class="form-group">
-                        @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "" })
+                        @Html.LabelFor(model => model.VoterIdImage, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.VoterIdImageName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
-                        @Html.EditorFor(model => model.IIBFCertificationImageName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-
-                        @if (!string.IsNullOrEmpty(Model.IIBFCertificationImageName))
+                        @if (!string.IsNullOrEmpty(Model.VoterIdImageName))
                         {
-                            <a href="@Url.Content(IIBFCertificationImagePath)" target="_blank">PreviewImage</a>
+                            <a href="@Url.Content(VoterIdImagePath)" target="_blank">PreviewImage</a>
                         }
                         else
                         { <span style="color:red;">No image uploaded.</span>
                         }
                     </div>
                 </div>
-            }*@
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PANImage, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.PANImageName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                        @if (!string.IsNullOrEmpty(Model.PANImageName))
+                        {
+                            <a href="@Url.Content(PANImagePath)" target="_blank">PreviewImage</a>
+                        }
+                        else
+                        { <span style="color:red;">No image uploaded.</span>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AadharImage, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.AadharImageName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                        @if (!string.IsNullOrEmpty(Model.AadharImageName))
+                        {
+                            <a href="@Url.Content(AadharImagePath)" target="_blank">PreviewImage</a>
+                        }
+                        else
+                        { <span style="color:red;">No image uploaded.</span>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LatestEducationProofImage, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.LatestEducationProofImageName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                        @if (!string.IsNullOrEmpty(Model.LatestEducationProofImageName))
+                        {
+                            <a href="@Url.Content(LatestEducationProofImagePath)" target="_blank">PreviewImage</a>
+                        }
+                        else
+                        { <span style="color:red;">No image uploaded.</span>
+                        }
+                    </div>
+                </div>
+                @if (Model.CertificateStatus == "Yes")
+                {
+                    <div id="CertificationImageStatus" class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IIBFCertificationImage, htmlAttributes: new { @class = "" })
+
+                            @Html.EditorFor(model => model.IIBFCertificationImageName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                            @if (!string.IsNullOrEmpty(Model.IIBFCertificationImageName))
+                            {
+                                <a href="@Url.Content(IIBFCertificationImagePath)" target="_blank">PreviewImage</a>
+                            }
+                            else
+                            { <span style="color:red;">No image uploaded.</span>
+                            }
+                        </div>
+                    </div>
+                }*@
 
                 </div>
-                <div>
-                    @*@Html.ActionLink("Edit", "Edit", new { id = Model.CSPId }) |*@
-                    @Html.ActionLink("Back", "Index")
-                </div>
+              
+            </div>
+
+            <div class="my-4 text-right">
+
+
+                @Html.ActionLink("Back", "Index", "Menu", new { @class = "btn btn-dark px-4 mr-2" })
+
             </div>
         </div>
     </section>

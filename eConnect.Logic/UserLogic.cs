@@ -22,7 +22,7 @@ namespace eConnect.Logic
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
                 objtblUser = unitOfWork.Userss.GetUsersByUserName(userName);
-              
+
             }
             if (objtblUser != null)
             {
@@ -32,7 +32,7 @@ namespace eConnect.Logic
                 }
             }
 
-            return null;          
+            return null;
         }
         public tblUser GetUsersInfo()
         {
@@ -95,7 +95,7 @@ namespace eConnect.Logic
                 }
             }
 
-            catch (Exception )
+            catch (Exception)
             {
                 return 0;
             }
@@ -121,9 +121,9 @@ namespace eConnect.Logic
             {
                 using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
                 {
-                    var tblUser = unitOfWork.Userss.Find(d=>d.UserName == ResetPasswordViewModel.UserName).FirstOrDefault();
+                    var tblUser = unitOfWork.Userss.Find(d => d.UserName == ResetPasswordViewModel.UserName).FirstOrDefault();
                     var CSPData = unitOfWork.UserCSPDetail.Find(d => d.CSPCode == tblUser.UserName).FirstOrDefault();
-                    if (ResetPasswordViewModel.IsPasswordResetWithPan=="Yes")
+                    if (ResetPasswordViewModel.IsPasswordResetWithPan == "Yes")
                     {
                         tblUser.Password = CSPData.PAN;
 
@@ -188,7 +188,7 @@ namespace eConnect.Logic
                     tblUserCSPDetail.Email = UserCSPDetail.Email;
                     tblUserCSPDetail.Mobile = UserCSPDetail.Mobile;
                     tblUserCSPDetail.EmergencyContactNumber = UserCSPDetail.EmergencyContactNumber;
-                    tblUserCSPDetail.ExpiryDate = Convert.ToDateTime(UserCSPDetail.ExpiryDate);                
+                    tblUserCSPDetail.ExpiryDate = Convert.ToDateTime(UserCSPDetail.ExpiryDate);
                     tblUserCSPDetail.PassportSizePhoto = UserCSPDetail.PassportSizePhoto != null
                                 ? Path.GetFileName(UserCSPDetail.PassportSizePhoto.FileName).ToString() : null;
                     tblUserCSPDetail.VoterIdImage = UserCSPDetail.VoterIdImage != null
@@ -201,7 +201,7 @@ namespace eConnect.Logic
                                ? Path.GetFileName(UserCSPDetail.LatestEducationProofImage.FileName).ToString() : null;
                     tblUserCSPDetail.IIBFCertificationImage = UserCSPDetail.IIBFCertificationImage != null
                              ? Path.GetFileName(UserCSPDetail.IIBFCertificationImage.FileName).ToString() : null;
-                                     
+
                     tblUserCSPDetail.CreatedDate = DateTime.Now;
                     tblUserCSPDetail.UpdatedDate = DateTime.Now;
                     tblUserCSPDetail.CreatedBy = 0;
@@ -215,8 +215,18 @@ namespace eConnect.Logic
             {
                 return 0;
             }
-            
+
         }
+
+        public tblUser GetUsersInfoByUserSourceId(int userType, int userId)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var usersList = unitOfWork.Userss.Find(x => x.UserType == userType && x.UserId == userId).SingleOrDefault();
+                return usersList;
+            }
+        }
+
         public IEnumerable<tblUser> GetUsersInfoByStatus(int id)
         {
             UsersModel um = new UsersModel();
@@ -371,6 +381,7 @@ namespace eConnect.Logic
                     tblUser.MotherName = userinput.MotherName;
                     tblUser.EmailId = userinput.EmailId;
                     tblUser.MobileNumber = userinput.MobileNumber;
+                    tblUser.StateId = userinput.State;
                     tblUser.CityId = userinput.City;
                     tblUser.Address = userinput.Address;
                     tblUser.EmergencyContactNumber = userinput.EmergencyContactNumber;
@@ -380,22 +391,27 @@ namespace eConnect.Logic
 
                     tblUser.ProfilePicSource = userinput.PassportSizePhoto != null
                                 ? Path.GetFileName(userinput.PassportSizePhoto.FileName).ToString() : null;
-
-
                     tblUser.CreatedDate = DateTime.Now;
                     //tblUser.UpdatedDate = DateTime.Now;
                     tblUser.CreaterdBy = (int)HttpContext.Current.Session["UserId"];
                     tblUser.UpdatedBy = 0;
                     unitOfWork.UserDetail.Add(tblUser);
                     long id = tblUser.UserDetailId;  //gives the newly generated 
-                     //Insert User Login data
+
+                    //Insert User Login data
                     tblUser objtblUser = new tblUser();
                     objtblUser.UserName = userinput.EmailId;
                     objtblUser.Password = "eConnect@" + userinput.MobileNumber;
                     objtblUser.UserSourceId = (int?)id;
-                    objtblUser.UserType = 4;
+                    objtblUser.UserType = userinput.UserType;// 4;
+
                     objtblUser.Status = 1;
                     unitOfWork.Userss.Add(objtblUser);
+                    int Userid = objtblUser.UserId;
+
+                    var tblUserDetail = unitOfWork.UserDetail.Find(x => x.UserDetailId == id).FirstOrDefault();
+                    tblUserDetail.UserId = Userid;
+                    unitOfWork.UserDetail.Update(tblUserDetail);
                     return id;
                 }
             }
@@ -418,6 +434,7 @@ namespace eConnect.Logic
                 tblUserDetail.EmailId = UserDetail.EmailId;
                 tblUserDetail.MobileNumber = UserDetail.MobileNumber;
                 tblUserDetail.CityId = UserDetail.City;
+                tblUserDetail.StateId = UserDetail.State;
                 tblUserDetail.Address = UserDetail.Address;
                 tblUserDetail.EmergencyContactNumber = UserDetail.EmergencyContactNumber;
                 tblUserDetail.DepartmentId = Convert.ToInt32(UserDetail.Department);
@@ -432,9 +449,24 @@ namespace eConnect.Logic
                 //tblUserDetail.UpdatedBy = 0;
                 tblUserDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
                 unitOfWork.UserDetail.Update(tblUserDetail);
-                //unitOfWork.UserCSPDetail.Save();
-
             }
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                if (UserDetail.UserId > 0)
+                {
+                    var tblUser = unitOfWork.Userss.Find(x => x.UserId == UserDetail.UserId).FirstOrDefault();
+                    {
+                        tblUser.UserId = UserDetail.UserId;
+                        tblUser.UserType = UserDetail.UserType;
+                        tblUser.UpdatedDate = DateTime.Now;
+                        unitOfWork.Userss.Update(tblUser);
+
+                    }
+                }
+            }
+            //unitOfWork.UserCSPDetail.Save();
+
+
         }
 
         public Userinput GetUserDetailsById(int id)
@@ -502,6 +534,10 @@ namespace eConnect.Logic
                 {
                     result = result.Where(d => d.CityId == Convert.ToInt32(City)).ToList();
                 }
+                if (!string.IsNullOrEmpty(State))
+                {
+                    result = result.Where(d => d.StateId == Convert.ToInt32(State)).ToList();
+                }
 
                 return result;
             }
@@ -513,7 +549,7 @@ namespace eConnect.Logic
             {
                 Userinput UserDetail = new Userinput();
                 var tblUserDetail = unitOfWork.UserCSPDetail.GetUserDetailByID(id);
-             
+
                 UserDetail.Name = tblUserDetail.Name;
                 UserDetail.FatherName = tblUserDetail.FatherName;
                 UserDetail.MotherName = tblUserDetail.MotherName;
@@ -527,6 +563,13 @@ namespace eConnect.Logic
                 UserDetail.Qualification = tblUserDetail.Qualification;
                 UserDetail.PassportSizePic = tblUserDetail.ProfilePicSource;
                 UserDetail.Id = tblUserDetail.UserDetailId;
+                if (tblUserDetail.UserId > 0)
+                    UserDetail.UserId = (int)tblUserDetail.UserId;
+
+                if (tblUserDetail.StateId != null)
+                {
+                    UserDetail.State = Convert.ToInt32(tblUserDetail.StateId);
+                }
                 return UserDetail;
 
             }
@@ -537,12 +580,12 @@ namespace eConnect.Logic
             int UserId = 0;
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                var tblUser = unitOfWork.Userss.Find(x => x.UserName.Contains(Eid) && x.UserType==4).FirstOrDefault();
+                var tblUser = unitOfWork.Userss.Find(x => x.UserName.Contains(Eid) && x.UserType == 4).FirstOrDefault();
                 if (tblUser != null)
                 {
                     UserId = tblUser.UserId;
                 }
-               
+
 
             }
             return UserId;

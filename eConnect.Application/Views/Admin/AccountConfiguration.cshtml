@@ -27,7 +27,8 @@
     @Html.AntiForgeryToken()
 <section class="section">
     <p>
-        @Html.ActionLink("Create New", "AddAccountConfiguration")
+ 
+        @Html.ActionLink("Create New", "AddAccountConfiguration", "Menu", new { @class = "btn btn-primary px-4" })
 
     </p>
     <div class="card">

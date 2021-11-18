@@ -1,6 +1,6 @@
 ﻿@model eConnect.Model.ManageTechSupport
 
-@{ ViewBag.Title = "Edit";
+@{ ViewBag.Title = "Edit Technical Support Request";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
     string Receipt = @System.Web.Configuration.WebConfigurationManager.AppSettings["TechFilePath"] + Model.Id + "\\TechSupportScreenshort\\" + Model.Recieptpic; }
 
@@ -14,7 +14,7 @@
                                                 <section class="section">
                                                     <div class="card">
                                                         <div class="card-body">
-                                                            <h6 class="text-primary mb-3"> Request Detail</h6>
+                                                            @*<h6 class="text-primary mb-3"> Request Detail</h6>*@
                                                             <div class="row">
 
                                                                 <div class="col-md-4">

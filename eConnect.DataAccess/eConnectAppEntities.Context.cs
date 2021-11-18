@@ -68,7 +68,6 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblTechRequest> tblTechRequests { get; set; }
         public virtual DbSet<tblUploader> tblUploaders { get; set; }
         public virtual DbSet<tblUserCSPDetail> tblUserCSPDetails { get; set; }
-        public virtual DbSet<tblUserDetail> tblUserDetails { get; set; }
         public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblUserStatu> tblUserStatus { get; set; }
         public virtual DbSet<tblWebFeedback> tblWebFeedbacks { get; set; }
@@ -78,6 +77,7 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblUserLoginLog> tblUserLoginLogs { get; set; }
         public virtual DbSet<tblEnquiry> tblEnquiries { get; set; }
         public virtual DbSet<tblBusinessDetailReport> tblBusinessDetailReports { get; set; }
+        public virtual DbSet<tblUserDetail> tblUserDetails { get; set; }
     
         public virtual int sp_DeleteRequest(Nullable<int> id, Nullable<int> type)
         {
