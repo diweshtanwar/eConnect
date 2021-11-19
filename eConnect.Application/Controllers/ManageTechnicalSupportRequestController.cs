@@ -20,8 +20,8 @@ namespace eConnect.Application.Controllers
 
             new SelectListItem { Text = "Select Status", Value = "" },
             new SelectListItem { Text = "Open", Value = "1" },
-            new SelectListItem { Text = "In-Progress", Value = "3" },
-            new SelectListItem { Text = "Close", Value = "2" },
+            new SelectListItem { Text = "In-Progress", Value = "2" },
+            new SelectListItem { Text = "Close", Value = "3" },
                 
 
         };
@@ -129,8 +129,8 @@ namespace eConnect.Application.Controllers
 
                  new SelectListItem { Text = "Select Status", Value = "" },
                   new SelectListItem { Text = "Open", Value = "1" },
-                   new SelectListItem { Text = "In-Progress", Value = "3" },
-                 new SelectListItem { Text = "Close", Value = "2" },
+                   new SelectListItem { Text = "In-Progress", Value = "2" },
+                 new SelectListItem { Text = "Close", Value = "3" },
 
             };
             var selectedStatus = Status.FirstOrDefault(d => d.Value == objMTech.CurrentStatus.ToString());
@@ -161,8 +161,8 @@ namespace eConnect.Application.Controllers
 
                  new SelectListItem { Text = "Select Status", Value = "" },
                   new SelectListItem { Text = "Open", Value = "1" },
-                   new SelectListItem { Text = "In-Progress", Value = "3" },
-                 new SelectListItem { Text = "Close", Value = "2" },
+                   new SelectListItem { Text = "In-Progress", Value = "2" },
+                 new SelectListItem { Text = "Close", Value = "3" },
 
             };
             var selectedStatus = Status.FirstOrDefault(d => d.Value == objMTech.CurrentStatus.ToString());

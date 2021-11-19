@@ -27,8 +27,8 @@ namespace eConnect.Application.Controllers
             {
 
                 new SelectListItem { Text = "Select Status", Value = "" },
-                new SelectListItem { Text = "In-Progress", Value = "1" },
-                 new SelectListItem { Text = "Not Started", Value = "2" },
+                 new SelectListItem { Text = "In-Progress", Value = "2" },
+                new SelectListItem { Text = "Not Started", Value = "5" },
                 new SelectListItem { Text = "Completed", Value = "3" },
 
             };
@@ -143,8 +143,8 @@ namespace eConnect.Application.Controllers
             var Status = new[]
             {
 
-                new SelectListItem { Text = "In-Progress", Value = "1" },
-                new SelectListItem { Text = "Not Started", Value = "2" },
+                new SelectListItem { Text = "In-Progress", Value = "2" },
+                new SelectListItem { Text = "Not Started", Value = "5" },
                 new SelectListItem { Text = "Completed", Value = "3" },
             };
             var selectedStatus = Status.FirstOrDefault(d => d.Value == objWithdraw.Status.ToString());
@@ -199,7 +199,7 @@ namespace eConnect.Application.Controllers
 
                  new SelectListItem { Text = "Select Status", Value = "" },
                   new SelectListItem { Text = "Open", Value = "1" },
-                 new SelectListItem { Text = "Close", Value = "2" },
+                 new SelectListItem { Text = "Close", Value = "3" },
 
             };
             var selectedStatus = Status.FirstOrDefault(d => d.Value == withdraw.CurrentStatus.ToString());
@@ -236,8 +236,8 @@ namespace eConnect.Application.Controllers
             var Status = new[]
             {
 
-                new SelectListItem { Text = "In-Progress", Value = "1" },
-                new SelectListItem { Text = "Not Started", Value = "2" },
+                 new SelectListItem { Text = "In-Progress", Value = "2" },
+                new SelectListItem { Text = "Not Started", Value = "5" },
                 new SelectListItem { Text = "Completed", Value = "3" },
             };
             var selectedStatus = Status.FirstOrDefault(d => d.Value == withdraw.Status.ToString());

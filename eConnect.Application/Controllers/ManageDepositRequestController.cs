@@ -22,7 +22,7 @@ namespace eConnect.Application.Controllers
 
                 new SelectListItem { Text = "Select Status", Value = "" },
                 new SelectListItem { Text = "Open", Value = "1" },
-                 new SelectListItem { Text = "Close", Value = "2" },
+                 new SelectListItem { Text = "Close", Value = "3" },
 
             };
         List<SelectListItem> City = new List<SelectListItem>()
@@ -127,7 +127,7 @@ namespace eConnect.Application.Controllers
 
                  new SelectListItem { Text = "Select Status", Value = "" },
                   new SelectListItem { Text = "Open", Value = "1" },
-                 new SelectListItem { Text = "Close", Value = "2" },
+                 new SelectListItem { Text = "Close", Value = "3" },
 
             };
             var selectedStatus = Status.FirstOrDefault(d => d.Value == objMDeposit.CurrentStatus.ToString());
@@ -155,7 +155,7 @@ namespace eConnect.Application.Controllers
 
                  new SelectListItem { Text = "Select Status", Value = "" },
                   new SelectListItem { Text = "Open", Value = "1" },
-                 new SelectListItem { Text = "Close", Value = "2" },
+                 new SelectListItem { Text = "Close", Value = "3" },
 
             };
             var selectedStatus = Status.FirstOrDefault(d => d.Value == objMDeposit.CurrentStatus.ToString());
