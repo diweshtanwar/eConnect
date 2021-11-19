@@ -18,7 +18,7 @@
                 <ul class="dropdown-menu">
                     @foreach (var itemSub in itemMain.tblMenuSubs)
                     {
-                        if (itemSub.Status == true)
+                        if (itemSub.Status == true && itemSub.RoleId == ((int)Session["UserTypeId"]))
                         {
                             <li><a class="nav-link" href="/@itemSub.Controller/@itemSub.Action">@itemSub.Tittle</a></li>
 
