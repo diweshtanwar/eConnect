@@ -259,7 +259,9 @@ namespace eConnect.Application.Controllers
                     //User
                     else if (userData.UserType == 4)
                     {
-                        return RedirectToAction("About");
+                        //return RedirectToAction("About");
+
+                        return RedirectToAction("Dashboard", "Admin");
                     }
 
                 
