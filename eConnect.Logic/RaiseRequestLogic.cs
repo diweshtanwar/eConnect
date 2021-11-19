@@ -34,7 +34,7 @@ namespace eConnect.Logic
                     objDeposit.CreatedDate = DateTime.Now;
                     objDeposit.Status = 1;
                     objDeposit.ResolutionDetail = "";
-                    objDeposit.CompletionDate =null;
+                    objDeposit.CompletionDate = null;
                     objDeposit.UpdatedDate = DateTime.Now;
                     objDeposit.HasReceipt = true;
                     objDeposit.RequestType = 2;
@@ -77,14 +77,14 @@ namespace eConnect.Logic
                 {
                     result = result.Where(d => d.DepositeRequestId == Requestid).ToList();
                 }
-                if (RequestType != 0 )
+                if (RequestType != 0)
                 {
-                    result = result.Where(d => d.RequestType== RequestType).ToList();
+                    result = result.Where(d => d.RequestType == RequestType).ToList();
                 }
                 if (!string.IsNullOrEmpty(Requesteddte))
                 {
-                  
-                    result = result.Where(d => d.RequestedDate ==Convert.ToDateTime(Requesteddte)).ToList();
+
+                    result = result.Where(d => d.RequestedDate == Convert.ToDateTime(Requesteddte)).ToList();
                 }
                 if (!string.IsNullOrEmpty(Completiondte))
                 {
@@ -99,7 +99,7 @@ namespace eConnect.Logic
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
                 Deposit deposit = new Deposit();
-               
+
                 var tblMSDepositDetail = unitOfWork.RaiseRequest.GetManageDepositRequestDetails().ToList();
 
                 var Query = from x in tblMSDepositDetail where x.DepositeRequestId == id select x;
@@ -132,10 +132,10 @@ namespace eConnect.Logic
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                var tblDepositDetail = unitOfWork.DepositRequests.Find(x => x.DepositeRequestId ==deposit.Id).FirstOrDefault();
+                var tblDepositDetail = unitOfWork.DepositRequests.Find(x => x.DepositeRequestId == deposit.Id).FirstOrDefault();
                 tblDepositDetail.RequestType = deposit.RequestTypes;
                 tblDepositDetail.Amount = deposit.Amount;
-               // tblDepositDetail.Status = deposit.Status;
+                // tblDepositDetail.Status = deposit.Status;
                 tblDepositDetail.ReceiptSource = deposit.Reciept != null
                                   ? Path.GetFileName(deposit.Reciept.FileName).ToString() : deposit.Recieptpic;
                 tblDepositDetail.CreatedBy = (int)HttpContext.Current.Session["UserId"];
@@ -170,17 +170,17 @@ namespace eConnect.Logic
                     objWithdrawal.Amount = withdraw.Amount;
                     objWithdrawal.RaisedBy = UserId;//Passing Csp id in Raised by from session
                     objWithdrawal.RequestedDate = date;
-                   // objWithdrawal.Account = Convert.ToInt64(withdraw.Account);
+                    // objWithdrawal.Account = Convert.ToInt64(withdraw.Account);
                     objWithdrawal.CreatedBy = UserId;
                     objWithdrawal.CreatedDate = DateTime.Now;
-                    objWithdrawal.Status =1;
+                    objWithdrawal.Status = 1;
                     objWithdrawal.ResolutionDetail = "";
                     objWithdrawal.CompletionDate = null;
                     objWithdrawal.UpdatedDate = DateTime.Now;
                     objWithdrawal.IsConfigured = false;
                     objWithdrawal.IsConfigured = false;
                     objWithdrawal.IsMake = false;
-                    objWithdrawal.RequestType =1;
+                    objWithdrawal.RequestType = 1;
                     unitOfWork.WithdrawRequests.Add(objWithdrawal);
                     long id = objWithdrawal.WithdrawalRequestId;
                     return id;
@@ -208,7 +208,7 @@ namespace eConnect.Logic
                 return unitOfWork.RaiseRequest.GetAllWithdrawDetail().ToList();
             }
         }
-       public IList<tblWithdrawalRequest> GetWithdrawDetailsByCSPID(int CSPID)
+        public IList<tblWithdrawalRequest> GetWithdrawDetailsByCSPID(int CSPID)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
@@ -222,11 +222,11 @@ namespace eConnect.Logic
                 return unitOfWork.RaiseRequest.GetAllDeposiDetailbyCSPID(CSPID).ToList();
             }
         }
-        public IList<tblWithdrawalRequest> GetWithdrawDetailsSearch(int Requestid, int RequestType, string Requesteddte, string Completiondte,int Account)
+        public IList<tblWithdrawalRequest> GetWithdrawDetailsSearch(int Requestid, int RequestType, string Requesteddte, string Completiondte, int Account)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                var result =  unitOfWork.RaiseRequest.GetAllWithdrawDetail().ToList();
+                var result = unitOfWork.RaiseRequest.GetAllWithdrawDetail().ToList();
 
                 if (Requestid != 0)
                 {
@@ -265,9 +265,9 @@ namespace eConnect.Logic
                 withdraw.RequestType = Convert.ToInt32(tblWithdrawDetail.RequestType);
                 withdraw.Amount = Convert.ToInt32(tblWithdrawDetail.Amount);
                 withdraw.Status = Convert.ToInt32(tblWithdrawDetail.Status);
-               // withdraw.Account =Convert.ToInt64(tblWithdrawDetail.Account);
+                // withdraw.Account =Convert.ToInt64(tblWithdrawDetail.Account);
                 withdraw.Id = tblWithdrawDetail.WithdrawalRequestId;
-                foreach ( var x in Query)
+                foreach (var x in Query)
                 {
                     withdraw.CSPID = x.CSPCode;
                     withdraw.CSPName = x.CSPName;
@@ -278,10 +278,10 @@ namespace eConnect.Logic
                     {
                         withdraw.CompletionDate = Convert.ToDateTime(x.CompletionDate).ToString("dd/MMM/yyyy");
                     }
-                    withdraw.CurrentStatus =x.Status.ToString();
+                    withdraw.CurrentStatus = x.Status.ToString();
                     withdraw.Comment = x.Comment;
                 }
-         
+
                 return withdraw;
 
             }
@@ -294,7 +294,7 @@ namespace eConnect.Logic
                 var tblWithdrawDetail = unitOfWork.WithdrawRequests.Find(x => x.WithdrawalRequestId == withdraw.Id).FirstOrDefault();
                 tblWithdrawDetail.RequestType = Convert.ToInt32(withdraw.RequestTypes);
                 tblWithdrawDetail.Amount = withdraw.Amount;
-               // tblWithdrawDetail.Status = withdraw.Status;
+                // tblWithdrawDetail.Status = withdraw.Status;
                 //tblWithdrawDetail.Account = withdraw.Account;
                 tblWithdrawDetail.UpdatedDate = DateTime.Now;
                 tblWithdrawDetail.UpdatedBy = (int)HttpContext.Current.Session["CSPID"];
@@ -320,7 +320,7 @@ namespace eConnect.Logic
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-               
+
                 unitOfWork.RaiseRequest.DeleteTechDetail(id);
                 unitOfWork.RaiseRequest.Save();
             }
@@ -347,7 +347,7 @@ namespace eConnect.Logic
                 return unitOfWork.RaiseRequest.GetManageTechRequestDetails().ToList();
             }
         }
-        public IList<sp_GetManageWithdrawalRequestDetails_Result> GetManageWithdrawDetailsSearch(int Requestid, string CspName, int CspID, int State, int City, int Status, string Requesteddte,string  Completiondte, string BranchCode, string Category)
+        public IList<sp_GetManageWithdrawalRequestDetails_Result> GetManageWithdrawDetailsSearch(int Requestid, string CspName, int CspID, int State, int City, int Status, string Requesteddte, string Completiondte, string BranchCode, string Category)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
@@ -363,7 +363,7 @@ namespace eConnect.Logic
                     result = result.Where(d => d.CSPName.StartsWith(CspName)).ToList();
                     result = result.Where(d => d.CSPName.EndsWith(CspName)).ToList();
                 }
-                if (CspID !=0)
+                if (CspID != 0)
                 {
                     result = result.Where(d => d.CSPId == CspID).ToList();
                 }
@@ -442,7 +442,7 @@ namespace eConnect.Logic
 
                     result = result.Where(d => d.CompletionDate == Convert.ToDateTime(Completionedte)).ToList();
                 }
-                if   (!string.IsNullOrEmpty(Category))
+                if (!string.IsNullOrEmpty(Category))
                 {
                     result = result.Where(d => d.Category.Contains(Category.ToString())).ToList();
                 }
@@ -466,12 +466,12 @@ namespace eConnect.Logic
                     withdraw.Id = Convert.ToInt32(x.WithdrawalRequestId);
                     withdraw.RequestId = x.WithdrawalRequestId.ToString();
                     withdraw.CSPName = x.CSPName.ToString();
-                    withdraw.Amount =Convert.ToInt32(x.Amount);
+                    withdraw.Amount = Convert.ToInt32(x.Amount);
                     withdraw.AccountDetail = x.Account.ToString();
                     withdraw.RequestedDate = Convert.ToDateTime(x.RequestedDate).ToString("dd/MMM/yyyy");
                     withdraw.CurrentStatus = x.Status.ToString();
                     withdraw.CurrentStatus = x.Status.ToString();
-                    if(!string.IsNullOrEmpty(x.CompletionDate.ToString()))
+                    if (!string.IsNullOrEmpty(x.CompletionDate.ToString()))
                     {
                         withdraw.CompletionDate = Convert.ToDateTime(x.CompletionDate).ToString("dd/MMM/yyyy");
                     }
@@ -524,7 +524,7 @@ namespace eConnect.Logic
                 var tblTechSupport = unitOfWork.RaiseRequest.GetManageTechRequestDetails().ToList();
                 var Query = from x in tblTechSupport where x.TechRequestId == id select x;
                 var tblTech = unitOfWork.TechSupportRequestss.Find(x => x.TechRequestId == id).FirstOrDefault();
-               
+
 
                 foreach (var x in Query)
                 {
@@ -560,9 +560,9 @@ namespace eConnect.Logic
                 var tblWithdrawDetail = unitOfWork.WithdrawRequests.Find(x => x.WithdrawalRequestId == withdraw.Id).FirstOrDefault();
                 tblWithdrawDetail.Comment = withdraw.Comment;
                 tblWithdrawDetail.EmailAddress = withdraw.EmailAddress;
-                if(withdraw.Make ==true && withdraw.Authorize==true && withdraw.Configure==true)
+                if (withdraw.Make == true && withdraw.Authorize == true && withdraw.Configure == true)
                 {
-                    tblWithdrawDetail.Status = 2;
+                    tblWithdrawDetail.Status = 3;
                     tblWithdrawDetail.CompletionDate = date;
                     tblWithdrawDetail.IsMake = true;
                     tblWithdrawDetail.IsAuthorized = true;
@@ -578,7 +578,7 @@ namespace eConnect.Logic
 
                 }
                 tblWithdrawDetail.UpdatedDate = DateTime.Now;
-                tblWithdrawDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"]; 
+                tblWithdrawDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
                 unitOfWork.WithdrawRequests.Update(tblWithdrawDetail);
                 //unitOfWork.UserCSPDetail.Save();
 
@@ -592,10 +592,10 @@ namespace eConnect.Logic
             {
                 var tblDepositDetail = unitOfWork.DepositRequests.Find(x => x.DepositeRequestId == deposit.Id).FirstOrDefault();
                 tblDepositDetail.Comment = deposit.Comment;
-       
+
                 if (deposit.VerifyReciept == true)
                 {
-                    tblDepositDetail.Status = 2;
+                    tblDepositDetail.Status = 3;
                     tblDepositDetail.CompletionDate = date;
                     tblDepositDetail.IsVerified = true;
                 }
@@ -608,7 +608,7 @@ namespace eConnect.Logic
                 tblDepositDetail.UpdatedDate = DateTime.Now;
                 tblDepositDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
                 unitOfWork.DepositRequests.Update(tblDepositDetail);
-               
+
 
             }
         }
@@ -619,22 +619,22 @@ namespace eConnect.Logic
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
                 var tblTechDetail = unitOfWork.TechSupportRequestss.Find(x => x.TechRequestId == tech.Id).FirstOrDefault();
-              
 
-                if (tech.CurrentStatus=="2")
+
+                if (tech.CurrentStatus == "3")
                 {
-                    tblTechDetail.Status = 2;
+                    tblTechDetail.Status = 3;
                     tblTechDetail.CompletionDate = date;
                     tblTechDetail.ResolutionDetail = tech.ResolutionDetail;
                 }
                 else
                 {
-                        tblTechDetail.Status = Convert.ToInt32(tech.CurrentStatus);
-                        tblTechDetail.CompletionDate = null;
-                        tblTechDetail.ResolutionDetail = tech.ResolutionDetail;
+                    tblTechDetail.Status = Convert.ToInt32(tech.CurrentStatus);
+                    tblTechDetail.CompletionDate = null;
+                    tblTechDetail.ResolutionDetail = tech.ResolutionDetail;
 
                 }
-                tblTechDetail.Email =tech.Email;
+                tblTechDetail.Email = tech.Email;
                 tblTechDetail.UpdatedDate = DateTime.Now;
                 tblTechDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
                 unitOfWork.TechSupportRequestss.Update(tblTechDetail);
@@ -701,14 +701,14 @@ namespace eConnect.Logic
 
         public string WithdrawAccNumber(int id)
         {
-            string Account="";
+            string Account = "";
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
 
                 var tblWithdrawDetail = unitOfWork.RaiseRequest.GetManageWithdrawalRequestDetails().ToList();
                 var Query = from x in tblWithdrawDetail where x.RaisedBy == id select x;
-                
-                foreach(var x in Query)
+
+                foreach (var x in Query)
                 {
                     Account = x.CSPAccount;
                 }
