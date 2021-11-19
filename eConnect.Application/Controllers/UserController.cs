@@ -138,7 +138,9 @@ namespace eConnect.Application.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+           
+                    id = (int)HttpContext.Session["UserSourceId"];
+          
             }
 
             UserLogic objUserDetailLogic = new UserLogic();
