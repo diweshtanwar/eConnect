@@ -150,7 +150,7 @@
                     <button class="btn btn-primary px-4" type="submit">Update</button>
                    @if(Session["UserTypeId"].ToString() =="1" || Session["UserTypeId"].ToString()=="2")
                    {
-                    |  @Html.ActionLink("Cancel", "Index", "Menu", new { @class = "btn btn-dark px-4 mr-2" })
+                     @Html.ActionLink("Cancel", "Index", "Menu", new { @class = "btn btn-dark px-4 mr-2" })
                     }
                 </div>
                 @*<div class="text-left">
