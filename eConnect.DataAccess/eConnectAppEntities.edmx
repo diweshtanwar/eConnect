@@ -1466,6 +1466,14 @@
           <NavigationProperty Name="tblUser" Relationship="eConnectAppModel.FK_tblDepositRequest_tblUsers" FromRole="tblDepositRequest" ToRole="tblUser" />
           <NavigationProperty Name="tblUser1" Relationship="eConnectAppModel.FK_tblDepositRequest_tblUsers1" FromRole="tblDepositRequest" ToRole="tblUser" />
           </EntityType>
+        <EntityType Name="tblDesignation">
+          <Key>
+            <PropertyRef Name="DesignationId" />
+          </Key>
+          <Property Name="DesignationId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="Byte" />
+        </EntityType>
         <EntityType Name="tblDocument">
           <Key>
             <PropertyRef Name="DocumentId" />
@@ -2263,52 +2271,6 @@
             <End Role="tblCity" EntitySet="tblCities" />
             <End Role="tblUserDetail" EntitySet="tblUserDetails" />
           </AssociationSet>
-          <EntitySet Name="tblUsers" EntityType="eConnectAppModel.tblUser" />
-          <AssociationSet Name="FK_tblDepositRequest_tblUsers" Association="eConnectAppModel.FK_tblDepositRequest_tblUsers">
-            <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblDepositRequest" EntitySet="tblDepositRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblDepositRequest_tblUsers1" Association="eConnectAppModel.FK_tblDepositRequest_tblUsers1">
-            <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblDepositRequest" EntitySet="tblDepositRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUsers_tblRoleMaster" Association="eConnectAppModel.FK_tblUsers_tblRoleMaster">
-            <End Role="tblRoleMaster" EntitySet="tblRoleMasters" />
-            <End Role="tblUser" EntitySet="tblUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUsers_tblStatus" Association="eConnectAppModel.FK_tblUsers_tblStatus">
-            <End Role="tblStatu" EntitySet="tblStatus" />
-            <End Role="tblUser" EntitySet="tblUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblTechRequest_tblUsers1" Association="eConnectAppModel.FK_tblTechRequest_tblUsers1">
-            <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblTechRequest" EntitySet="tblTechRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblTechRequest_tblUsers2" Association="eConnectAppModel.FK_tblTechRequest_tblUsers2">
-            <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblTechRequest" EntitySet="tblTechRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblTechRequest_tblUsers3" Association="eConnectAppModel.FK_tblTechRequest_tblUsers3">
-            <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblTechRequest" EntitySet="tblTechRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUploader_tblUsers" Association="eConnectAppModel.FK_tblUploader_tblUsers">
-            <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblUploader" EntitySet="tblUploaders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUploader_tblUsers1" Association="eConnectAppModel.FK_tblUploader_tblUsers1">
-            <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblUploader" EntitySet="tblUploaders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblWithdrawalRequest_tblUsers" Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers">
-            <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblWithdrawalRequest" EntitySet="tblWithdrawalRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblWithdrawalRequest_tblUsers1" Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers1">
-            <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblWithdrawalRequest" EntitySet="tblWithdrawalRequests" />
-          </AssociationSet>
-          <EntitySet Name="tblDesignations" EntityType="eConnectAppModel.tblDesignation" />
         </EntityContainer>
         <ComplexType Name="sp_GetAppMenuWithSubMenu_Result">
           <Property Type="String" Name="Tittle" Nullable="true" MaxLength="20" />
@@ -2614,172 +2576,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tblUser">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UserType" Type="Int32" />
-          <Property Name="UserSourceId" Type="Int32" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="IsPasswordReset" Type="Boolean" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <NavigationProperty Name="tblDepositRequests" Relationship="eConnectAppModel.FK_tblDepositRequest_tblUsers" FromRole="tblUser" ToRole="tblDepositRequest" />
-          <NavigationProperty Name="tblDepositRequests1" Relationship="eConnectAppModel.FK_tblDepositRequest_tblUsers1" FromRole="tblUser" ToRole="tblDepositRequest" />
-          <NavigationProperty Name="tblRoleMaster" Relationship="eConnectAppModel.FK_tblUsers_tblRoleMaster" FromRole="tblUser" ToRole="tblRoleMaster" />
-          <NavigationProperty Name="tblStatu" Relationship="eConnectAppModel.FK_tblUsers_tblStatus" FromRole="tblUser" ToRole="tblStatu" />
-          <NavigationProperty Name="tblTechRequests" Relationship="eConnectAppModel.FK_tblTechRequest_tblUsers1" FromRole="tblUser" ToRole="tblTechRequest" />
-          <NavigationProperty Name="tblTechRequests1" Relationship="eConnectAppModel.FK_tblTechRequest_tblUsers2" FromRole="tblUser" ToRole="tblTechRequest" />
-          <NavigationProperty Name="tblTechRequests2" Relationship="eConnectAppModel.FK_tblTechRequest_tblUsers3" FromRole="tblUser" ToRole="tblTechRequest" />
-          <NavigationProperty Name="tblUploaders" Relationship="eConnectAppModel.FK_tblUploader_tblUsers" FromRole="tblUser" ToRole="tblUploader" />
-          <NavigationProperty Name="tblUploaders1" Relationship="eConnectAppModel.FK_tblUploader_tblUsers1" FromRole="tblUser" ToRole="tblUploader" />
-          <NavigationProperty Name="tblWithdrawalRequests" Relationship="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers" FromRole="tblUser" ToRole="tblWithdrawalRequest" />
-          <NavigationProperty Name="tblWithdrawalRequests1" Relationship="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers1" FromRole="tblUser" ToRole="tblWithdrawalRequest" />
-        </EntityType>
-        <Association Name="FK_tblDepositRequest_tblUsers">
-          <End Type="eConnectAppModel.tblUser" Role="tblUser" Multiplicity="0..1" />
-          <End Type="eConnectAppModel.tblDepositRequest" Role="tblDepositRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblDepositRequest">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblDepositRequest_tblUsers1">
-          <End Type="eConnectAppModel.tblUser" Role="tblUser" Multiplicity="0..1" />
-          <End Type="eConnectAppModel.tblDepositRequest" Role="tblDepositRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblDepositRequest">
-              <PropertyRef Name="UpdatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblUsers_tblRoleMaster">
-          <End Type="eConnectAppModel.tblRoleMaster" Role="tblRoleMaster" Multiplicity="0..1" />
-          <End Type="eConnectAppModel.tblUser" Role="tblUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblRoleMaster">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="tblUser">
-              <PropertyRef Name="UserType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblUsers_tblStatus">
-          <End Type="eConnectAppModel.tblStatu" Role="tblStatu" Multiplicity="0..1" />
-          <End Type="eConnectAppModel.tblUser" Role="tblUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblStatu">
-              <PropertyRef Name="StatusId" />
-            </Principal>
-            <Dependent Role="tblUser">
-              <PropertyRef Name="Status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblTechRequest_tblUsers1">
-          <End Type="eConnectAppModel.tblUser" Role="tblUser" Multiplicity="0..1" />
-          <End Type="eConnectAppModel.tblTechRequest" Role="tblTechRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblTechRequest">
-              <PropertyRef Name="ResolutionProvidedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblTechRequest_tblUsers2">
-          <End Type="eConnectAppModel.tblUser" Role="tblUser" Multiplicity="0..1" />
-          <End Type="eConnectAppModel.tblTechRequest" Role="tblTechRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblTechRequest">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblTechRequest_tblUsers3">
-          <End Type="eConnectAppModel.tblUser" Role="tblUser" Multiplicity="0..1" />
-          <End Type="eConnectAppModel.tblTechRequest" Role="tblTechRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblTechRequest">
-              <PropertyRef Name="UpdatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblUploader_tblUsers">
-          <End Type="eConnectAppModel.tblUser" Role="tblUser" Multiplicity="0..1" />
-          <End Type="eConnectAppModel.tblUploader" Role="tblUploader" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblUploader">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblUploader_tblUsers1">
-          <End Type="eConnectAppModel.tblUser" Role="tblUser" Multiplicity="0..1" />
-          <End Type="eConnectAppModel.tblUploader" Role="tblUploader" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblUploader">
-              <PropertyRef Name="UpdatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblWithdrawalRequest_tblUsers">
-          <End Type="eConnectAppModel.tblUser" Role="tblUser" Multiplicity="0..1" />
-          <End Type="eConnectAppModel.tblWithdrawalRequest" Role="tblWithdrawalRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblWithdrawalRequest">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblWithdrawalRequest_tblUsers1">
-          <End Type="eConnectAppModel.tblUser" Role="tblUser" Multiplicity="0..1" />
-          <End Type="eConnectAppModel.tblWithdrawalRequest" Role="tblWithdrawalRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblWithdrawalRequest">
-              <PropertyRef Name="UpdatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="tblDesignation">
-          <Key>
-            <PropertyRef Name="DesignationId" />
-          </Key>
-          <Property Name="DesignationId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3658,31 +3454,6 @@
                 <ScalarProperty Name="FatherName" ColumnName="FatherName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="UserDetailId" ColumnName="UserDetailId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblUsers">
-            <EntityTypeMapping TypeName="eConnectAppModel.tblUser">
-              <MappingFragment StoreEntitySet="tblUsers">
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="IsPasswordReset" ColumnName="IsPasswordReset" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="UserSourceId" ColumnName="UserSourceId" />
-                <ScalarProperty Name="UserType" ColumnName="UserType" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblDesignations">
-            <EntityTypeMapping TypeName="eConnectAppModel.tblDesignation">
-              <MappingFragment StoreEntitySet="tblDesignation">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
