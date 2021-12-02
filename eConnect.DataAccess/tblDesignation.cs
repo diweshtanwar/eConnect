@@ -16,6 +16,5 @@ namespace eConnect.DataAccess
     {
         public byte DesignationId { get; set; }
         public string Name { get; set; }
-        public Nullable<byte> DepartmentId { get; set; }
     }
 }

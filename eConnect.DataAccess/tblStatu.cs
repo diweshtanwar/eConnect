@@ -19,8 +19,8 @@ namespace eConnect.DataAccess
         {
             this.tblUploaders = new HashSet<tblUploader>();
             this.tblUserCSPDetails = new HashSet<tblUserCSPDetail>();
-            this.tblUsers = new HashSet<tblUser>();
             this.tblTechRequests = new HashSet<tblTechRequest>();
+            this.tblUsers = new HashSet<tblUser>();
         }
     
         public int StatusId { get; set; }
@@ -32,8 +32,8 @@ namespace eConnect.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblUserCSPDetail> tblUserCSPDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblUser> tblUsers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblTechRequest> tblTechRequests { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblUser> tblUsers { get; set; }
     }
 }
