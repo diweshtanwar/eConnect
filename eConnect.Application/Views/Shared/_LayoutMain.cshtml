@@ -248,13 +248,13 @@
     <script>
 
         function Checksize(filesize) {
-            if (filesize > 2097152) // 2 MiB for bytes.
+            if (filesize > 209715200) // 200 MB for bytes.
             {
-                alert("File size must under 2MB!");
+                alert("File size must under 200MB!");
                 return;
             }
             else {
-                //    alert("File size less than 2MB!");
+                //    alert("File size less than 200MB!");
             }
         }
         function CheckFile(input) {
