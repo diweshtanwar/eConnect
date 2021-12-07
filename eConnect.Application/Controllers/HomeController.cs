@@ -263,6 +263,10 @@ namespace eConnect.Application.Controllers
 
                         return RedirectToAction("Dashboard", "Admin");
                     }
+                    else
+                    {
+                        return RedirectToAction("Dashboard", "CSP");
+                    }
 
                 
                 }
