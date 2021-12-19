@@ -6,11 +6,11 @@
     Layout = "~/Views/Shared/_LayoutMain.cshtml"; }
 
 <section class="section">
-  
+
 
     @*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
 
     @using (@Html.BeginForm("IndexSearch", "ManageWithdrawalRequest", FormMethod.Get))
     {@Html.AntiForgeryToken()
@@ -53,7 +53,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>BranchCode</label>
-                        @Html.DropDownList("BranchCode",null, "Select BranchCode", htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownList("BranchCode", null, "Select BranchCode", htmlAttributes: new { @class = "form-control" })
 
                     </div>
                 </div>
@@ -94,6 +94,12 @@
             </div>
         </div>
     </div>}
+    <div style="margin-left:4px">
+        <span class="label info">Open - @ViewBag.Opencount</span>
+        <span class="label success">Closed - @ViewBag.Closecount</span>
+        @*<span class="label warning">In-Progress - @ViewBag.InProgresscount</span>*@
+        <span class="label danger">Rejected - @ViewBag.Rejectcount</span>
+    </div>
     <div class="card">
 
         <div class="card-body">
@@ -106,30 +112,32 @@
                 <table class="table table-striped" id="table-2">
                     <thead>
                         <tr>
+                            <!--<th>
+        RequestedID-->
+                            @*@Html.DisplayNameFor(model => model.RequestId)*@
+                            <!--</th>-->
                             <th>
-                                RequestedID
-                                @*@Html.DisplayNameFor(model => model.RequestId)*@
+                                Name
                             </th>
                             <th>
                                 CSPId
                                 @*@Html.DisplayNameFor(model => model.RequestId)*@
                             </th>
-                            <th>
-                               Name
-                            </th>
+
                             <th>
                                 @Html.DisplayNameFor(model => model.Amount)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.RequestedDate)
                             </th>
+                            <th>Remarks</th>
                             @*<th>
-                                @Html.DisplayNameFor(model => model.CompletionDate)
-                            </th>*@
+            @Html.DisplayNameFor(model => model.CompletionDate)
+        </th>*@
                             <th>
                                 @Html.DisplayNameFor(model => model.Status)
                             </th>
-                            
+
                             <th> Action </th>
                         </tr>
                     </thead>
@@ -137,29 +145,30 @@
                         @foreach (var item in Model)
                         {
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.WithdrawalRequestId)
-                            </td>
+                            @*<td>
+            @Html.DisplayFor(modelItem => item.WithdrawalRequestId)
+        </td>*@
 
                             @*@Html.DisplayFor(modelItem => item.RequestType)*@
-
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CSPCode)
-                            </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.CSPName)
                             </td>
                             <td>
+                                @Html.DisplayFor(modelItem => item.CSPCode)
+                            </td>
+
+                            <td>
                                 @Html.DisplayFor(modelItem => item.Amount)
                             </td>
                             <td>
-                                @(item.RequestedDate?.ToString("MM/dd/yyyy"))
+                                @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
                                 @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
                             </td>
+                            <td style="min-width:100px;word-break:break-word">@item.Comment</td>
                             <!--<td>
-                                @(item.CompletionDate?.ToString("MM/dd/yyyy"))-->
-                                @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
-                            <!--</td>-->
+
+        @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
+    <!--</td>-->
                             @if (item.Status.Equals(1))
                             {
                                 <td>Open</td>
@@ -169,14 +178,18 @@
                             {
                                 <td>Close</td>
                             }
+                            else if (item.Status.Equals(7))
+                            {
+                                <td>Rejected</td>
+                            }
                             @*<td>
-                                @Html.DisplayFor(modelItem => item.Account)
-                            </td>*@
+            @Html.DisplayFor(modelItem => item.Account)
+        </td>*@
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id = item.WithdrawalRequestId })
                                 |
-                                @Html.ActionLink("View Detail", "Details", new { id = item.WithdrawalRequestId }) @*|
-                                @Html.ActionLink("Delete", "Delete", new { id = item.WithdrawalRequestId })*@
+                                @Html.ActionLink("View", "Details", new { id = item.WithdrawalRequestId }) @*|
+            @Html.ActionLink("Delete", "Delete", new { id = item.WithdrawalRequestId })*@
                             </td>
 
                         </tr>
@@ -215,3 +228,32 @@
     }
     /*    });*/
 </script>
+<style>
+    .label {
+        color: white;
+        padding: 8px;
+        font-family: Arial;
+    }
+
+    .success {
+        background-color: #04AA6D;
+    }
+    /* Green */
+    .info {
+        background-color: #2196F3;
+    }
+    /* Blue */
+    .warning {
+        background-color: #ff9800;
+    }
+    /* Orange */
+    .danger {
+        background-color: #f44336;
+    }
+    /* Red */
+    .other {
+        background-color: #e7e7e7;
+        color: black;
+    }
+    /* Gray */
+</style>

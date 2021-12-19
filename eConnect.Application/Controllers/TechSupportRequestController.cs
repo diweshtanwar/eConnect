@@ -43,7 +43,7 @@ namespace eConnect.Application.Controllers
             {
                 tblTechDetails = TempData["searchdata"] as List<tblTechRequest>;
             }
-            return View(tblTechDetails.ToList());
+            return View(tblTechDetails.ToList().OrderByDescending(x =>x.TechRequestId));
         }
         public ActionResult IndexSearch(string TechRequestid, string TechProblemType, string Requesteddte, string Completiondte)
         {
@@ -249,6 +249,7 @@ namespace eConnect.Application.Controllers
                 new SelectListItem { Text = "In-Progress", Value = "1" },
                 new SelectListItem { Text = "Not Started", Value = "2" },
                 new SelectListItem { Text = "Completed", Value = "3" },
+                new SelectListItem { Text = "Rejected", Value = "7" },
             };
             var selectedStatus = Status.FirstOrDefault(d => d.Value == objReq.Status.ToString());
             if (selectedStatus != null)

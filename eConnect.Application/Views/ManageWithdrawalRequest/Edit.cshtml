@@ -39,6 +39,14 @@
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
+                                                                        @Html.LabelFor(model => model.AuthorizedAmount, htmlAttributes: new { @class = "" })
+                                                                        @Html.EditorFor(model => model.AuthorizedAmount, new { htmlAttributes = new { @class = "form-control"} })
+                                                                        @*@Html.ValidationMessageFor(model => model.AuthorizedAmount, "", new { @class = "text-danger" })*@
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
                                                                         @Html.LabelFor(model => model.AccountDetail, htmlAttributes: new { @class = "" })
                                                                         @Html.EditorFor(model => model.AccountDetail, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
@@ -52,16 +60,16 @@
                                                                     </div>
                                                                 </div>
                                                                 @*<div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "" })
-                                                                        @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
-                                                                    </div>
-                                                                </div>*@
+            </div>
+        </div>*@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         @Html.LabelFor(model => model.CurrentStatus, htmlAttributes: new { @class = "" })
-                                                                        @Html.DropDownList("Status", (SelectListItem[])ViewBag.EditedStatus, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                                                                        @Html.DropDownList("CurrentStatus", (SelectListItem[])ViewBag.EditedStatus, htmlAttributes: new { @class = "form-control" })
                                                                     </div>
                                                                 </div>
                                                                 @*<div class="row">*@
@@ -81,21 +89,24 @@
                                                             <div class="row">
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
-                                                                        @Html.LabelFor(model => model.Configure, htmlAttributes: new { @class = "" })
+                                                                        Configure [C]
+                                                                        @*@Html.LabelFor(model => model.Configure[], htmlAttributes: new { @class = "" })*@
                                                                         @Html.CheckBoxFor(model => model.Configure)
 
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
-                                                                        @Html.LabelFor(model => model.Make, htmlAttributes: new { @class = "" })
+                                                                        Make [M]
+                                                                        @*@Html.LabelFor(model => model.Make, htmlAttributes: new { @class = "" })*@
                                                                         @Html.CheckBoxFor(model => model.Make)
 
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
-                                                                        @Html.LabelFor(model => model.Authorize, htmlAttributes: new { @class = "" })
+                                                                        Authorize [A]
+                                                                        @*@Html.LabelFor(model => model.Authorize, htmlAttributes: new { @class = "" })*@
                                                                         @Html.CheckBoxFor(model => model.Authorize)
 
                                                                     </div>
@@ -111,7 +122,7 @@
                                                                 </div>
                                                                 <div class="col-md-5">
                                                                     <div class="form-group">
-                                                                        @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "required-field" })
+                                                                        @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "" })
                                                                         @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control", @style = "height:80px" } })
 
                                                                     </div>

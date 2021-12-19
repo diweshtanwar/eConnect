@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="eConnectAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="eConnectAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblAbsentismReport">
           <Key>
             <PropertyRef Name="ID" />
@@ -242,6 +242,7 @@
           </Key>
           <Property Name="DesignationId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="DepartmentId" Type="tinyint" />
         </EntityType>
         <EntityType Name="tblDocuments">
           <Key>
@@ -694,6 +695,7 @@
           <Property Name="RequestType" Type="int" />
           <Property Name="EmailAddress" Type="varchar" MaxLength="200" />
           <Property Name="Comment" Type="varchar(max)" />
+          <Property Name="AuthorizedAmount" Type="decimal" Precision="19" Scale="6" />
         </EntityType>
         <Association Name="FK_tblApplicationSettings_tblBusiness">
           <End Role="tblBusiness" Type="Self.tblBusiness" Multiplicity="0..1" />
@@ -1059,6 +1061,11 @@
           <Parameter Name="Id" Type="int" Mode="In" />
           <Parameter Name="Type" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_DeleteUploadedReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UploadedId" Type="int" Mode="In" />
+          <Parameter Name="StatusID" Type="int" Mode="In" />
+          <Parameter Name="ReportType" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_Get_AbsentismReportDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CSPCode" Type="varchar" Mode="In" />
           <Parameter Name="StartDate" Type="varchar" Mode="In" />
@@ -1072,7 +1079,18 @@
         <Function Name="sp_GetAppMenuWithSubMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RoleId" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_GetBusinessReportByYearMonthandCSPCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Year" Type="int" Mode="In" />
+          <Parameter Name="Month" Type="int" Mode="In" />
+          <Parameter Name="CSPCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="CSPCategory" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_GetCommissionReportByYearMonthandCSPName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Year" Type="int" Mode="In" />
+          <Parameter Name="Month" Type="int" Mode="In" />
+          <Parameter Name="CSPCode" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_GetCommissionReportByYearMonthandCSPName_Test" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Year" Type="int" Mode="In" />
           <Parameter Name="Month" Type="int" Mode="In" />
           <Parameter Name="CSPCode" Type="nvarchar" Mode="In" />
@@ -1261,10 +1279,24 @@
             <End Role="tblTechRequest" EntitySet="tblTechRequest" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="eConnectAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblAbsentismReport">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CSPCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CSPName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HostName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="rownumber" Type="Int32" />
+          <Property Name="Attendeance" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="tblAnnouncement">
           <Key>
             <PropertyRef Name="AnnouncementId" />
@@ -1313,6 +1345,39 @@
           <NavigationProperty Name="tblApplicationSettings" Relationship="Self.FK_tblApplicationSettings_tblBusiness" FromRole="tblBusiness" ToRole="tblApplicationSettings" />
           <NavigationProperty Name="tblConfigurations" Relationship="Self.FK_tblConfiguration_tblBusiness" FromRole="tblBusiness" ToRole="tblConfiguration" />
         </EntityType>
+        <EntityType Name="tblBusinessDetailReport">
+          <Key>
+            <PropertyRef Name="BusinessDetailReportId" />
+          </Key>
+          <Property Name="BusinessDetailReportId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UploaderId" Type="Int32" />
+          <Property Name="Month" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="CSPCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SavingsAccountEnrollment" Type="Int32" />
+          <Property Name="SavingsAccountOpen" Type="Int32" />
+          <Property Name="SHGAccountEnrollment" Type="Int32" />
+          <Property Name="SHGAccountOpen" Type="Int32" />
+          <Property Name="StateATMCards" Type="Int32" />
+          <Property Name="CashReceiptNo" Type="Int32" />
+          <Property Name="CashReceiptAmount" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="CashPaymentNo" Type="Int32" />
+          <Property Name="CashPaymentAmount" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="FundTransferNo" Type="Int32" />
+          <Property Name="FundTransferAmount" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="MoneyTransferNo" Type="Int32" />
+          <Property Name="MoneyTransferAmount" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="IMPSNo" Type="Int32" />
+          <Property Name="IMPSAmount" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="STDRNo" Type="Int32" />
+          <Property Name="STDRAmount" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="LoanDepositNo" Type="Int32" />
+          <Property Name="LoanDepositAmount" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="RDRemittanceNo" Type="Int32" />
+          <Property Name="RDRemittanceAmount" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="RDACOpenNo" Type="Int32" />
+          <Property Name="RDACOpenAmount" Type="Decimal" Precision="19" Scale="6" />
+        </EntityType>
         <EntityType Name="tblCategory">
           <Key>
             <PropertyRef Name="CategoryId" />
@@ -1333,7 +1398,7 @@
           <Property Name="Status" Type="Boolean" />
           <NavigationProperty Name="tblState" Relationship="Self.FK_tblCity_tblState" FromRole="tblCity" ToRole="tblState" />
           <NavigationProperty Name="tblUserCSPDetails" Relationship="Self.FK_tblUserCSPDetail_tblCity" FromRole="tblCity" ToRole="tblUserCSPDetail" />
-          <NavigationProperty Name="tblUserDetails" Relationship="eConnectAppModel.FK_tblUserDetail_tblCity" FromRole="tblCity" ToRole="tblUserDetail" />
+          <NavigationProperty Name="tblUserDetails" Relationship="Self.FK_tblUserDetail_tblCity" FromRole="tblCity" ToRole="tblUserDetail" />
         </EntityType>
         <EntityType Name="tblCommissionReport">
           <Key>
@@ -1463,9 +1528,9 @@
           <Property Name="DepositeRequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RequestType" Type="Int32" />
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblUser" Relationship="eConnectAppModel.FK_tblDepositRequest_tblUsers" FromRole="tblDepositRequest" ToRole="tblUser" />
-          <NavigationProperty Name="tblUser1" Relationship="eConnectAppModel.FK_tblDepositRequest_tblUsers1" FromRole="tblDepositRequest" ToRole="tblUser" />
-          </EntityType>
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblDepositRequest_tblUsers" FromRole="tblDepositRequest" ToRole="tblUsers" />
+          <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblDepositRequest_tblUsers1" FromRole="tblDepositRequest" ToRole="tblUsers" />
+        </EntityType>
         <EntityType Name="tblDesignation">
           <Key>
             <PropertyRef Name="DesignationId" />
@@ -1506,6 +1571,22 @@
           </Key>
           <Property Name="EducationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblEnquiry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mobile" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Feedback" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Boolean" />
         </EntityType>
         <EntityType Name="tblErrorLog">
@@ -1562,6 +1643,15 @@
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Status" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="tblHolidaysMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HolidayName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HolidayDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tblLatestNew">
           <Key>
@@ -1693,7 +1783,7 @@
           <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblMenuSubs" Relationship="Self.FK_tblMenuSub_tblRoleMaster" FromRole="tblRoleMaster" ToRole="tblMenuSub" />
-          <NavigationProperty Name="tblUsers" Relationship="eConnectAppModel.FK_tblUsers_tblRoleMaster" FromRole="tblRoleMaster" ToRole="tblUser" />
+          <NavigationProperty Name="tblUsers" Relationship="Self.FK_tblUsers_tblRoleMaster" FromRole="tblRoleMaster" ToRole="tblUsers" />
         </EntityType>
         <EntityType Name="tblScreen">
           <Key>
@@ -1735,8 +1825,8 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblUploaders" Relationship="Self.FK_tblUploader_tblStatus" FromRole="tblStatus" ToRole="tblUploader" />
           <NavigationProperty Name="tblUserCSPDetails" Relationship="Self.FK_tblUserCSPDetail_tblStatus" FromRole="tblStatus" ToRole="tblUserCSPDetail" />
+          <NavigationProperty Name="tblUsers" Relationship="Self.FK_tblUsers_tblStatus" FromRole="tblStatus" ToRole="tblUsers" />
           <NavigationProperty Name="tblTechRequests" Relationship="Self.fkey_Status_Detail" FromRole="tblStatus" ToRole="tblTechRequest" />
-          <NavigationProperty Name="tblUsers" Relationship="eConnectAppModel.FK_tblUsers_tblStatus" FromRole="tblStatu" ToRole="tblUser" />
         </EntityType>
         <EntityType Name="tblTechRequest">
           <Key>
@@ -1763,9 +1853,9 @@
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblStatu" Relationship="Self.fkey_Status_Detail" FromRole="tblTechRequest" ToRole="tblStatus" />
-          <NavigationProperty Name="tblUser" Relationship="eConnectAppModel.FK_tblTechRequest_tblUsers1" FromRole="tblTechRequest" ToRole="tblUser" />
-          <NavigationProperty Name="tblUser1" Relationship="eConnectAppModel.FK_tblTechRequest_tblUsers2" FromRole="tblTechRequest" ToRole="tblUser" />
-          <NavigationProperty Name="tblUser2" Relationship="eConnectAppModel.FK_tblTechRequest_tblUsers3" FromRole="tblTechRequest" ToRole="tblUser" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblTechRequest_tblUsers1" FromRole="tblTechRequest" ToRole="tblUsers" />
+          <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblTechRequest_tblUsers2" FromRole="tblTechRequest" ToRole="tblUsers" />
+          <NavigationProperty Name="tblUser2" Relationship="Self.FK_tblTechRequest_tblUsers3" FromRole="tblTechRequest" ToRole="tblUsers" />
         </EntityType>
         <EntityType Name="tblUploader">
           <Key>
@@ -1789,8 +1879,8 @@
           <NavigationProperty Name="tblCommissionReportNews" Relationship="Self.FK_tblCommissionReportNew_tblUploader" FromRole="tblUploader" ToRole="tblCommissionReportNew" />
           <NavigationProperty Name="tblReportType" Relationship="Self.FK_tblUploader_tblReportType" FromRole="tblUploader" ToRole="tblReportType" />
           <NavigationProperty Name="tblStatu" Relationship="Self.FK_tblUploader_tblStatus" FromRole="tblUploader" ToRole="tblStatus" />
-          <NavigationProperty Name="tblUser" Relationship="eConnectAppModel.FK_tblUploader_tblUsers" FromRole="tblUploader" ToRole="tblUser" />
-          <NavigationProperty Name="tblUser1" Relationship="eConnectAppModel.FK_tblUploader_tblUsers1" FromRole="tblUploader" ToRole="tblUser" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblUploader_tblUsers" FromRole="tblUploader" ToRole="tblUsers" />
+          <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblUploader_tblUsers1" FromRole="tblUploader" ToRole="tblUsers" />
         </EntityType>
         <EntityType Name="tblUserCSPDetail">
           <Key>
@@ -1835,6 +1925,71 @@
           <NavigationProperty Name="tblState" Relationship="Self.FK_tblUserCSPDetail_tblState" FromRole="tblUserCSPDetail" ToRole="tblState" />
           <NavigationProperty Name="tblStatu" Relationship="Self.FK_tblUserCSPDetail_tblStatus" FromRole="tblUserCSPDetail" ToRole="tblStatus" />
         </EntityType>
+        <EntityType Name="tblUserDetail">
+          <Key>
+            <PropertyRef Name="UserDetailId" />
+          </Key>
+          <Property Name="UserDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="FatherName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MotherName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyContactNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="DesignationId" Type="Int32" />
+          <Property Name="Qualification" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ProfilePicSource" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreaterdBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="StateId" Type="Int32" />
+          <Property Name="RoleName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblCity" Relationship="Self.FK_tblUserDetail_tblCity" FromRole="tblUserDetail" ToRole="tblCity" />
+        </EntityType>
+        <EntityType Name="tblUserLoginLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="LoginTimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="IpAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="HostName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="UserType" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserType" Type="Int32" />
+          <Property Name="UserSourceId" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="IsPasswordReset" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <NavigationProperty Name="tblDepositRequests" Relationship="Self.FK_tblDepositRequest_tblUsers" FromRole="tblUsers" ToRole="tblDepositRequest" />
+          <NavigationProperty Name="tblDepositRequests1" Relationship="Self.FK_tblDepositRequest_tblUsers1" FromRole="tblUsers" ToRole="tblDepositRequest" />
+          <NavigationProperty Name="tblRoleMaster" Relationship="Self.FK_tblUsers_tblRoleMaster" FromRole="tblUsers" ToRole="tblRoleMaster" />
+          <NavigationProperty Name="tblStatu" Relationship="Self.FK_tblUsers_tblStatus" FromRole="tblUsers" ToRole="tblStatus" />
+          <NavigationProperty Name="tblTechRequests" Relationship="Self.FK_tblTechRequest_tblUsers1" FromRole="tblUsers" ToRole="tblTechRequest" />
+          <NavigationProperty Name="tblTechRequests1" Relationship="Self.FK_tblTechRequest_tblUsers2" FromRole="tblUsers" ToRole="tblTechRequest" />
+          <NavigationProperty Name="tblTechRequests2" Relationship="Self.FK_tblTechRequest_tblUsers3" FromRole="tblUsers" ToRole="tblTechRequest" />
+          <NavigationProperty Name="tblUploaders" Relationship="Self.FK_tblUploader_tblUsers" FromRole="tblUsers" ToRole="tblUploader" />
+          <NavigationProperty Name="tblUploaders1" Relationship="Self.FK_tblUploader_tblUsers1" FromRole="tblUsers" ToRole="tblUploader" />
+          <NavigationProperty Name="tblWithdrawalRequests" Relationship="Self.FK_tblWithdrawalRequest_tblUsers" FromRole="tblUsers" ToRole="tblWithdrawalRequest" />
+          <NavigationProperty Name="tblWithdrawalRequests1" Relationship="Self.FK_tblWithdrawalRequest_tblUsers1" FromRole="tblUsers" ToRole="tblWithdrawalRequest" />
+        </EntityType>
         <EntityType Name="tblUserStatu">
           <Key>
             <PropertyRef Name="StatusId" />
@@ -1877,8 +2032,9 @@
           <Property Name="RequestType" Type="Int32" />
           <Property Name="EmailAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblUser" Relationship="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers" FromRole="tblWithdrawalRequest" ToRole="tblUser" />
-          <NavigationProperty Name="tblUser1" Relationship="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers1" FromRole="tblWithdrawalRequest" ToRole="tblUser" />
+          <Property Name="AuthorizedAmount" Type="Decimal" Precision="19" Scale="6" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblWithdrawalRequest_tblUsers" FromRole="tblWithdrawalRequest" ToRole="tblUsers" />
+          <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblWithdrawalRequest_tblUsers1" FromRole="tblWithdrawalRequest" ToRole="tblUsers" />
         </EntityType>
         <Association Name="FK_tblApplicationSettings_tblBusiness">
           <End Role="tblBusiness" Type="Self.tblBusiness" Multiplicity="0..1" />
@@ -1925,6 +2081,18 @@
             </Principal>
             <Dependent Role="tblUserCSPDetail">
               <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUserDetail_tblCity">
+          <End Role="tblCity" Type="Self.tblCity" Multiplicity="0..1" />
+          <End Role="tblUserDetail" Type="Self.tblUserDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCity">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="tblUserDetail">
+              <PropertyRef Name="CityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2000,6 +2168,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblDepositRequest_tblUsers">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblDepositRequest" Type="Self.tblDepositRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblDepositRequest">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDepositRequest_tblUsers1">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblDepositRequest" Type="Self.tblDepositRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblDepositRequest">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblFolderImageDetails_tblFolderDetails">
           <End Role="tblFolderDetails" Type="Self.tblFolderDetail" Multiplicity="1" />
           <End Role="tblFolderImageDetails" Type="Self.tblFolderImageDetail" Multiplicity="*" />
@@ -2048,6 +2240,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblUsers_tblRoleMaster">
+          <End Role="tblRoleMaster" Type="Self.tblRoleMaster" Multiplicity="0..1" />
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="tblUsers">
+              <PropertyRef Name="UserType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblUserCSPDetail_tblState">
           <End Role="tblState" Type="Self.tblState" Multiplicity="0..1" />
           <End Role="tblUserCSPDetail" Type="Self.tblUserCSPDetail" Multiplicity="*" />
@@ -2084,6 +2288,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblUsers_tblStatus">
+          <End Role="tblStatus" Type="Self.tblStatu" Multiplicity="0..1" />
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblStatus">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="tblUsers">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fkey_Status_Detail">
           <End Role="tblStatus" Type="Self.tblStatu" Multiplicity="0..1" />
           <End Role="tblTechRequest" Type="Self.tblTechRequest" Multiplicity="*" />
@@ -2096,11 +2312,97 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblTechRequest_tblUsers1">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblTechRequest" Type="Self.tblTechRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblTechRequest">
+              <PropertyRef Name="ResolutionProvidedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTechRequest_tblUsers2">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblTechRequest" Type="Self.tblTechRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblTechRequest">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTechRequest_tblUsers3">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblTechRequest" Type="Self.tblTechRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblTechRequest">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUploader_tblUsers">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblUploader" Type="Self.tblUploader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblUploader">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUploader_tblUsers1">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblUploader" Type="Self.tblUploader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblUploader">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblWithdrawalRequest_tblUsers">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblWithdrawalRequest" Type="Self.tblWithdrawalRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblWithdrawalRequest">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblWithdrawalRequest_tblUsers1">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblWithdrawalRequest" Type="Self.tblWithdrawalRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblWithdrawalRequest">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="eConnectAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblAbsentismReports" EntityType="Self.tblAbsentismReport" />
           <EntitySet Name="tblAnnouncements" EntityType="Self.tblAnnouncement" />
           <EntitySet Name="tblApplicationSettings" EntityType="Self.tblApplicationSetting" />
           <EntitySet Name="tblBranchCodes" EntityType="Self.tblBranchCode" />
           <EntitySet Name="tblBusinesses" EntityType="Self.tblBusiness" />
+          <EntitySet Name="tblBusinessDetailReports" EntityType="Self.tblBusinessDetailReport" />
           <EntitySet Name="tblCategories" EntityType="Self.tblCategory" />
           <EntitySet Name="tblCities" EntityType="Self.tblCity" />
           <EntitySet Name="tblCommissionReports" EntityType="Self.tblCommissionReport" />
@@ -2112,14 +2414,17 @@
           <EntitySet Name="tblCountries" EntityType="Self.tblCountry" />
           <EntitySet Name="tblDepartments" EntityType="Self.tblDepartment" />
           <EntitySet Name="tblDepositRequests" EntityType="Self.tblDepositRequest" />
+          <EntitySet Name="tblDesignations" EntityType="Self.tblDesignation" />
           <EntitySet Name="tblDocuments" EntityType="Self.tblDocument" />
           <EntitySet Name="tblDownloadDetails" EntityType="Self.tblDownloadDetail" />
           <EntitySet Name="tblEducations" EntityType="Self.tblEducation" />
+          <EntitySet Name="tblEnquiries" EntityType="Self.tblEnquiry" />
           <EntitySet Name="tblErrorLogs" EntityType="Self.tblErrorLog" />
           <EntitySet Name="tblFolderDetails" EntityType="Self.tblFolderDetail" />
           <EntitySet Name="tblFolderImageDetails" EntityType="Self.tblFolderImageDetail" />
           <EntitySet Name="tblGalleryCategories" EntityType="Self.tblGalleryCategory" />
           <EntitySet Name="tblHolidays" EntityType="Self.tblHoliday" />
+          <EntitySet Name="tblHolidaysMasters" EntityType="Self.tblHolidaysMaster" />
           <EntitySet Name="tblLatestNews" EntityType="Self.tblLatestNew" />
           <EntitySet Name="tblLocations" EntityType="Self.tblLocation" />
           <EntitySet Name="tblMailConfigurations" EntityType="Self.tblMailConfiguration" />
@@ -2137,6 +2442,9 @@
           <EntitySet Name="tblTechRequests" EntityType="Self.tblTechRequest" />
           <EntitySet Name="tblUploaders" EntityType="Self.tblUploader" />
           <EntitySet Name="tblUserCSPDetails" EntityType="Self.tblUserCSPDetail" />
+          <EntitySet Name="tblUserDetails" EntityType="Self.tblUserDetail" />
+          <EntitySet Name="tblUserLoginLogs" EntityType="Self.tblUserLoginLog" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
           <EntitySet Name="tblUserStatus" EntityType="Self.tblUserStatu" />
           <EntitySet Name="tblWebFeedbacks" EntityType="Self.tblWebFeedback" />
           <EntitySet Name="tblWithdrawalRequests" EntityType="Self.tblWithdrawalRequest" />
@@ -2155,6 +2463,10 @@
           <AssociationSet Name="FK_tblUserCSPDetail_tblCity" Association="Self.FK_tblUserCSPDetail_tblCity">
             <End Role="tblCity" EntitySet="tblCities" />
             <End Role="tblUserCSPDetail" EntitySet="tblUserCSPDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUserDetail_tblCity" Association="Self.FK_tblUserDetail_tblCity">
+            <End Role="tblCity" EntitySet="tblCities" />
+            <End Role="tblUserDetail" EntitySet="tblUserDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCommissionReport_tblCommissionReportTransactionType" Association="Self.FK_tblCommissionReport_tblCommissionReportTransactionType">
             <End Role="tblCommissionReportTransactionType" EntitySet="tblCommissionReportTransactionTypes" />
@@ -2180,6 +2492,14 @@
             <End Role="tblCountry" EntitySet="tblCountries" />
             <End Role="tblUserCSPDetail" EntitySet="tblUserCSPDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblDepositRequest_tblUsers" Association="Self.FK_tblDepositRequest_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblDepositRequest" EntitySet="tblDepositRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDepositRequest_tblUsers1" Association="Self.FK_tblDepositRequest_tblUsers1">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblDepositRequest" EntitySet="tblDepositRequests" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblFolderImageDetails_tblFolderDetails" Association="Self.FK_tblFolderImageDetails_tblFolderDetails">
             <End Role="tblFolderDetails" EntitySet="tblFolderDetails" />
             <End Role="tblFolderImageDetails" EntitySet="tblFolderImageDetails" />
@@ -2196,6 +2516,10 @@
             <End Role="tblReportType" EntitySet="tblReportTypes" />
             <End Role="tblUploader" EntitySet="tblUploaders" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblUsers_tblRoleMaster" Association="Self.FK_tblUsers_tblRoleMaster">
+            <End Role="tblRoleMaster" EntitySet="tblRoleMasters" />
+            <End Role="tblUsers" EntitySet="tblUsers" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblUserCSPDetail_tblState" Association="Self.FK_tblUserCSPDetail_tblState">
             <End Role="tblState" EntitySet="tblStates" />
             <End Role="tblUserCSPDetail" EntitySet="tblUserCSPDetails" />
@@ -2208,9 +2532,41 @@
             <End Role="tblStatus" EntitySet="tblStatus" />
             <End Role="tblUserCSPDetail" EntitySet="tblUserCSPDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblUsers_tblStatus" Association="Self.FK_tblUsers_tblStatus">
+            <End Role="tblStatus" EntitySet="tblStatus" />
+            <End Role="tblUsers" EntitySet="tblUsers" />
+          </AssociationSet>
           <AssociationSet Name="fkey_Status_Detail" Association="Self.fkey_Status_Detail">
             <End Role="tblStatus" EntitySet="tblStatus" />
             <End Role="tblTechRequest" EntitySet="tblTechRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTechRequest_tblUsers1" Association="Self.FK_tblTechRequest_tblUsers1">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblTechRequest" EntitySet="tblTechRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTechRequest_tblUsers2" Association="Self.FK_tblTechRequest_tblUsers2">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblTechRequest" EntitySet="tblTechRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTechRequest_tblUsers3" Association="Self.FK_tblTechRequest_tblUsers3">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblTechRequest" EntitySet="tblTechRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUploader_tblUsers" Association="Self.FK_tblUploader_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblUploader" EntitySet="tblUploaders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUploader_tblUsers1" Association="Self.FK_tblUploader_tblUsers1">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblUploader" EntitySet="tblUploaders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblWithdrawalRequest_tblUsers" Association="Self.FK_tblWithdrawalRequest_tblUsers">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblWithdrawalRequest" EntitySet="tblWithdrawalRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblWithdrawalRequest_tblUsers1" Association="Self.FK_tblWithdrawalRequest_tblUsers1">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblWithdrawalRequest" EntitySet="tblWithdrawalRequests" />
           </AssociationSet>
           <FunctionImport Name="sp_DeleteRequest">
             <Parameter Name="Id" Mode="In" Type="Int32" />
@@ -2221,8 +2577,18 @@
             <Parameter Name="StatusID" Mode="In" Type="Int32" />
             <Parameter Name="ReportType" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_Get_AbsentismReportDetails">
+            <Parameter Name="CSPCode" Mode="In" Type="String" />
+            <Parameter Name="StartDate" Mode="In" Type="String" />
+            <Parameter Name="EndDate" Mode="In" Type="String" />
+            <Parameter Name="AbsentismCountFrom" Mode="In" Type="Int32" />
+            <Parameter Name="AbsentismCountFTo" Mode="In" Type="Int32" />
+            <Parameter Name="ReportType" Mode="In" Type="String" />
+            <Parameter Name="Continueos" Mode="In" Type="Int32" />
+            <Parameter Name="FilterType" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="sp_GetAppMenuWithSubMenu" ReturnType="Collection(eConnectAppModel.sp_GetAppMenuWithSubMenu_Result)">
-          <Parameter Name="RoleId" Mode="In" Type="Int32" />
+            <Parameter Name="RoleId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_GetBusinessReportByYearMonthandCSPCode" ReturnType="Collection(eConnectAppModel.sp_GetBusinessReportByYearMonthandCSPCode_Result)">
             <Parameter Name="Year" Mode="In" Type="Int32" />
@@ -2249,28 +2615,8 @@
             <Parameter Name="CSPCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_PublishCommissionReport">
-          <Parameter Name="UploaderId" Mode="In" Type="Int32" />
+            <Parameter Name="UploaderId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="tblAbsentismReports" EntityType="eConnectAppModel.tblAbsentismReport" />
-          <EntitySet Name="tblHolidaysMasters" EntityType="eConnectAppModel.tblHolidaysMaster" />
-          <EntitySet Name="tblUserLoginLogs" EntityType="eConnectAppModel.tblUserLoginLog" />
-          <FunctionImport Name="sp_Get_AbsentismReportDetails">
-            <Parameter Name="CSPCode" Mode="In" Type="String" />
-            <Parameter Name="StartDate" Mode="In" Type="String" />
-            <Parameter Name="EndDate" Mode="In" Type="String" />
-            <Parameter Name="AbsentismCountFrom" Mode="In" Type="Int32" />
-            <Parameter Name="AbsentismCountFTo" Mode="In" Type="Int32" />
-            <Parameter Name="ReportType" Mode="In" Type="String" />
-            <Parameter Name="Continueos" Mode="In" Type="Int32" />
-            <Parameter Name="FilterType" Mode="In" Type="String" />
-          </FunctionImport>
-          <EntitySet Name="tblEnquiries" EntityType="eConnectAppModel.tblEnquiry" />
-          <EntitySet Name="tblBusinessDetailReports" EntityType="eConnectAppModel.tblBusinessDetailReport" />
-          <EntitySet Name="tblUserDetails" EntityType="eConnectAppModel.tblUserDetail" />
-          <AssociationSet Name="FK_tblUserDetail_tblCity" Association="eConnectAppModel.FK_tblUserDetail_tblCity">
-            <End Role="tblCity" EntitySet="tblCities" />
-            <End Role="tblUserDetail" EntitySet="tblUserDetails" />
-          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_GetAppMenuWithSubMenu_Result">
           <Property Type="String" Name="Tittle" Nullable="true" MaxLength="20" />
@@ -2455,133 +2801,26 @@
           <Property Type="Int32" Name="UploaderId" Nullable="false" />
           <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
         </ComplexType>
-        <EntityType Name="tblAbsentismReport">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CSPCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CSPName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="HostName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
-          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="rownumber" Type="Int32" />
-          <Property Name="Attendeance" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="tblHolidaysMaster">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HolidayName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="HolidayDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="tblUserLoginLog">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="LoginTimeStamp" Type="DateTime" Precision="3" />
-          <Property Name="IpAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="HostName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="UserName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="UserType" Type="Int32" />
-        </EntityType>
-        <EntityType Name="tblEnquiry">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Message" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Feedback" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="Status" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="tblBusinessDetailReport">
-          <Key>
-            <PropertyRef Name="BusinessDetailReportId" />
-          </Key>
-          <Property Name="BusinessDetailReportId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UploaderId" Type="Int32" />
-          <Property Name="Month" Type="Int32" />
-          <Property Name="Year" Type="Int32" />
-          <Property Name="CSPCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SavingsAccountEnrollment" Type="Int32" />
-          <Property Name="SavingsAccountOpen" Type="Int32" />
-          <Property Name="SHGAccountEnrollment" Type="Int32" />
-          <Property Name="SHGAccountOpen" Type="Int32" />
-          <Property Name="StateATMCards" Type="Int32" />
-          <Property Name="CashReceiptNo" Type="Int32" />
-          <Property Name="CashReceiptAmount" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="CashPaymentNo" Type="Int32" />
-          <Property Name="CashPaymentAmount" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="FundTransferNo" Type="Int32" />
-          <Property Name="FundTransferAmount" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="MoneyTransferNo" Type="Int32" />
-          <Property Name="MoneyTransferAmount" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="IMPSNo" Type="Int32" />
-          <Property Name="IMPSAmount" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="STDRNo" Type="Int32" />
-          <Property Name="STDRAmount" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="LoanDepositNo" Type="Int32" />
-          <Property Name="LoanDepositAmount" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="RDRemittanceNo" Type="Int32" />
-          <Property Name="RDRemittanceAmount" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="RDACOpenNo" Type="Int32" />
-          <Property Name="RDACOpenAmount" Type="Decimal" Precision="19" Scale="6" />
-        </EntityType>
-        <EntityType Name="tblUserDetail">
-          <Key>
-            <PropertyRef Name="UserDetailId" />
-          </Key>
-          <Property Name="UserDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="FatherName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="MotherName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="EmailId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CityId" Type="Int32" />
-          <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyContactNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="DepartmentId" Type="Int32" />
-          <Property Name="DesignationId" Type="Int32" />
-          <Property Name="Qualification" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ProfilePicSource" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreaterdBy" Type="Int32" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="StateId" Type="Int32" />
-          <Property Name="RoleName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblCity" Relationship="eConnectAppModel.FK_tblUserDetail_tblCity" FromRole="tblUserDetail" ToRole="tblCity" />
-        </EntityType>
-        <Association Name="FK_tblUserDetail_tblCity">
-          <End Type="eConnectAppModel.tblCity" Role="tblCity" Multiplicity="0..1" />
-          <End Type="eConnectAppModel.tblUserDetail" Role="tblUserDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCity">
-              <PropertyRef Name="CityId" />
-            </Principal>
-            <Dependent Role="tblUserDetail">
-              <PropertyRef Name="CityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="eConnectAppModelStoreContainer" CdmEntityContainer="eConnectAppEntities">
+          <EntitySetMapping Name="tblAbsentismReports">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblAbsentismReport">
+              <MappingFragment StoreEntitySet="tblAbsentismReport">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
+                <ScalarProperty Name="CSPName" ColumnName="CSPName" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="rownumber" ColumnName="rownumber" />
+                <ScalarProperty Name="Attendeance" ColumnName="Attendeance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblAnnouncements">
             <EntityTypeMapping TypeName="eConnectAppModel.tblAnnouncement">
               <MappingFragment StoreEntitySet="tblAnnouncement">
@@ -2628,6 +2867,40 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBusinessDetailReports">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblBusinessDetailReport">
+              <MappingFragment StoreEntitySet="tblBusinessDetailReport">
+                <ScalarProperty Name="BusinessDetailReportId" ColumnName="BusinessDetailReportId" />
+                <ScalarProperty Name="UploaderId" ColumnName="UploaderId" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
+                <ScalarProperty Name="SavingsAccountEnrollment" ColumnName="SavingsAccountEnrollment" />
+                <ScalarProperty Name="SavingsAccountOpen" ColumnName="SavingsAccountOpen" />
+                <ScalarProperty Name="SHGAccountEnrollment" ColumnName="SHGAccountEnrollment" />
+                <ScalarProperty Name="SHGAccountOpen" ColumnName="SHGAccountOpen" />
+                <ScalarProperty Name="StateATMCards" ColumnName="StateATMCards" />
+                <ScalarProperty Name="CashReceiptNo" ColumnName="CashReceiptNo" />
+                <ScalarProperty Name="CashReceiptAmount" ColumnName="CashReceiptAmount" />
+                <ScalarProperty Name="CashPaymentNo" ColumnName="CashPaymentNo" />
+                <ScalarProperty Name="CashPaymentAmount" ColumnName="CashPaymentAmount" />
+                <ScalarProperty Name="FundTransferNo" ColumnName="FundTransferNo" />
+                <ScalarProperty Name="FundTransferAmount" ColumnName="FundTransferAmount" />
+                <ScalarProperty Name="MoneyTransferNo" ColumnName="MoneyTransferNo" />
+                <ScalarProperty Name="MoneyTransferAmount" ColumnName="MoneyTransferAmount" />
+                <ScalarProperty Name="IMPSNo" ColumnName="IMPSNo" />
+                <ScalarProperty Name="IMPSAmount" ColumnName="IMPSAmount" />
+                <ScalarProperty Name="STDRNo" ColumnName="STDRNo" />
+                <ScalarProperty Name="STDRAmount" ColumnName="STDRAmount" />
+                <ScalarProperty Name="LoanDepositNo" ColumnName="LoanDepositNo" />
+                <ScalarProperty Name="LoanDepositAmount" ColumnName="LoanDepositAmount" />
+                <ScalarProperty Name="RDRemittanceNo" ColumnName="RDRemittanceNo" />
+                <ScalarProperty Name="RDRemittanceAmount" ColumnName="RDRemittanceAmount" />
+                <ScalarProperty Name="RDACOpenNo" ColumnName="RDACOpenNo" />
+                <ScalarProperty Name="RDACOpenAmount" ColumnName="RDACOpenAmount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2782,6 +3055,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblDesignations">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblDesignation">
+              <MappingFragment StoreEntitySet="tblDesignation">
+                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblDocuments">
             <EntityTypeMapping TypeName="eConnectAppModel.tblDocument">
               <MappingFragment StoreEntitySet="tblDocuments">
@@ -2815,6 +3097,23 @@
               <MappingFragment StoreEntitySet="tblEducation">
                 <ScalarProperty Name="EducationId" ColumnName="EducationId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEnquiries">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblEnquiry">
+              <MappingFragment StoreEntitySet="tblEnquiry">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2874,6 +3173,16 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblHolidaysMasters">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblHolidaysMaster">
+              <MappingFragment StoreEntitySet="tblHolidaysMaster">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="HolidayName" ColumnName="HolidayName" />
+                <ScalarProperty Name="HolidayDate" ColumnName="HolidayDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3137,6 +3446,62 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblUserDetails">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblUserDetail">
+              <MappingFragment StoreEntitySet="tblUserDetail">
+                <ScalarProperty Name="UserDetailId" ColumnName="UserDetailId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="EmergencyContactNumber" ColumnName="EmergencyContactNumber" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="ProfilePicSource" ColumnName="ProfilePicSource" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreaterdBy" ColumnName="CreaterdBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUserLoginLogs">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblUserLoginLog">
+              <MappingFragment StoreEntitySet="tblUserLoginLog">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LoginTimeStamp" ColumnName="LoginTimeStamp" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserSourceId" ColumnName="UserSourceId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsPasswordReset" ColumnName="IsPasswordReset" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblUserStatus">
             <EntityTypeMapping TypeName="eConnectAppModel.tblUserStatu">
               <MappingFragment StoreEntitySet="tblUserStatus">
@@ -3180,10 +3545,13 @@
                 <ScalarProperty Name="RequestType" ColumnName="RequestType" />
                 <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="AuthorizedAmount" ColumnName="AuthorizedAmount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_DeleteRequest" FunctionName="eConnectAppModel.Store.sp_DeleteRequest" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteUploadedReport" FunctionName="eConnectAppModel.Store.sp_DeleteUploadedReport" />
+          <FunctionImportMapping FunctionImportName="sp_Get_AbsentismReportDetails" FunctionName="eConnectAppModel.Store.sp_Get_AbsentismReportDetails" />
           <FunctionImportMapping FunctionImportName="sp_GetAppMenuWithSubMenu" FunctionName="eConnectAppModel.Store.sp_GetAppMenuWithSubMenu">
             <ResultMapping>
               <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetAppMenuWithSubMenu_Result">
@@ -3217,6 +3585,44 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetBusinessReportByYearMonthandCSPCode" FunctionName="eConnectAppModel.Store.sp_GetBusinessReportByYearMonthandCSPCode">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetBusinessReportByYearMonthandCSPCode_Result">
+                <ScalarProperty Name="BusinessDetailReportId" ColumnName="BusinessDetailReportId" />
+                <ScalarProperty Name="UploaderId" ColumnName="UploaderId" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
+                <ScalarProperty Name="SavingsAccountEnrollment" ColumnName="SavingsAccountEnrollment" />
+                <ScalarProperty Name="SavingsAccountOpen" ColumnName="SavingsAccountOpen" />
+                <ScalarProperty Name="SHGAccountEnrollment" ColumnName="SHGAccountEnrollment" />
+                <ScalarProperty Name="SHGAccountOpen" ColumnName="SHGAccountOpen" />
+                <ScalarProperty Name="StateATMCards" ColumnName="StateATMCards" />
+                <ScalarProperty Name="CashReceiptNo" ColumnName="CashReceiptNo" />
+                <ScalarProperty Name="CashReceiptAmount" ColumnName="CashReceiptAmount" />
+                <ScalarProperty Name="CashPaymentNo" ColumnName="CashPaymentNo" />
+                <ScalarProperty Name="CashPaymentAmount" ColumnName="CashPaymentAmount" />
+                <ScalarProperty Name="FundTransferNo" ColumnName="FundTransferNo" />
+                <ScalarProperty Name="FundTransferAmount" ColumnName="FundTransferAmount" />
+                <ScalarProperty Name="MoneyTransferNo" ColumnName="MoneyTransferNo" />
+                <ScalarProperty Name="MoneyTransferAmount" ColumnName="MoneyTransferAmount" />
+                <ScalarProperty Name="IMPSNo" ColumnName="IMPSNo" />
+                <ScalarProperty Name="IMPSAmount" ColumnName="IMPSAmount" />
+                <ScalarProperty Name="STDRNo" ColumnName="STDRNo" />
+                <ScalarProperty Name="STDRAmount" ColumnName="STDRAmount" />
+                <ScalarProperty Name="LoanDepositNo" ColumnName="LoanDepositNo" />
+                <ScalarProperty Name="LoanDepositAmount" ColumnName="LoanDepositAmount" />
+                <ScalarProperty Name="RDRemittanceNo" ColumnName="RDRemittanceNo" />
+                <ScalarProperty Name="RDRemittanceAmount" ColumnName="RDRemittanceAmount" />
+                <ScalarProperty Name="RDACOpenNo" ColumnName="RDACOpenNo" />
+                <ScalarProperty Name="RDACOpenAmount" ColumnName="RDACOpenAmount" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="CSPName" ColumnName="CSPName" />
+                <ScalarProperty Name="NoOfTransaction" ColumnName="NoOfTransaction" />
+                <ScalarProperty Name="AverageTransaction" ColumnName="AverageTransaction" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_GetCommissionReportByYearMonthandCSPName" FunctionName="eConnectAppModel.Store.sp_GetCommissionReportByYearMonthandCSPName">
             <ResultMapping>
               <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetCommissionReportByYearMonthandCSPName_Result">
@@ -3228,6 +3634,26 @@
                 <ScalarProperty Name="IncludingTDSOLD" ColumnName="IncludingTDSOLD" />
                 <ScalarProperty Name="ActualCommission" ColumnName="ActualCommission" />
                 <ScalarProperty Name="IncludingTDS" ColumnName="IncludingTDS" />
+                <ScalarProperty Name="CSPCommission" ColumnName="CSPCommission" />
+                <ScalarProperty Name="Totalold" ColumnName="Totalold" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="ApplyTDS" ColumnName="ApplyTDS" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetCommissionReportByYearMonthandCSPName_Test" FunctionName="eConnectAppModel.Store.sp_GetCommissionReportByYearMonthandCSPName_Test">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetCommissionReportByYearMonthandCSPName_Test_Result">
+                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
+                <ScalarProperty Name="CSPName" ColumnName="CSPName" />
+                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+                <ScalarProperty Name="NoOfTransactions" ColumnName="NoOfTransactions" />
+                <ScalarProperty Name="ActualCommissionold" ColumnName="ActualCommissionold" />
+                <ScalarProperty Name="IncludingTDSOLD" ColumnName="IncludingTDSOLD" />
+                <ScalarProperty Name="ActualCommission" ColumnName="ActualCommission" />
+                <ScalarProperty Name="ActualCommission1" ColumnName="ActualCommission1" />
+                <ScalarProperty Name="IncludingTDS" ColumnName="IncludingTDS" />
+                <ScalarProperty Name="IncludingTDS1" ColumnName="IncludingTDS1" />
                 <ScalarProperty Name="CSPCommission" ColumnName="CSPCommission" />
                 <ScalarProperty Name="Totalold" ColumnName="Totalold" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
@@ -3342,121 +3768,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_PublishCommissionReport" FunctionName="eConnectAppModel.Store.sp_PublishCommissionReport" />
-          <EntitySetMapping Name="tblAbsentismReports">
-            <EntityTypeMapping TypeName="eConnectAppModel.tblAbsentismReport">
-              <MappingFragment StoreEntitySet="tblAbsentismReport">
-                <ScalarProperty Name="Attendeance" ColumnName="Attendeance" />
-                <ScalarProperty Name="rownumber" ColumnName="rownumber" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="HostName" ColumnName="HostName" />
-                <ScalarProperty Name="CSPName" ColumnName="CSPName" />
-                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblHolidaysMasters">
-            <EntityTypeMapping TypeName="eConnectAppModel.tblHolidaysMaster">
-              <MappingFragment StoreEntitySet="tblHolidaysMaster">
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="HolidayDate" ColumnName="HolidayDate" />
-                <ScalarProperty Name="HolidayName" ColumnName="HolidayName" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblUserLoginLogs">
-            <EntityTypeMapping TypeName="eConnectAppModel.tblUserLoginLog">
-              <MappingFragment StoreEntitySet="tblUserLoginLog">
-                <ScalarProperty Name="UserType" ColumnName="UserType" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="HostName" ColumnName="HostName" />
-                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
-                <ScalarProperty Name="LoginTimeStamp" ColumnName="LoginTimeStamp" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_Get_AbsentismReportDetails" FunctionName="eConnectAppModel.Store.sp_Get_AbsentismReportDetails" />
-          <EntitySetMapping Name="tblEnquiries">
-            <EntityTypeMapping TypeName="eConnectAppModel.tblEnquiry">
-              <MappingFragment StoreEntitySet="tblEnquiry">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblBusinessDetailReports">
-            <EntityTypeMapping TypeName="eConnectAppModel.tblBusinessDetailReport">
-              <MappingFragment StoreEntitySet="tblBusinessDetailReport">
-                <ScalarProperty Name="RDACOpenAmount" ColumnName="RDACOpenAmount" />
-                <ScalarProperty Name="RDACOpenNo" ColumnName="RDACOpenNo" />
-                <ScalarProperty Name="RDRemittanceAmount" ColumnName="RDRemittanceAmount" />
-                <ScalarProperty Name="RDRemittanceNo" ColumnName="RDRemittanceNo" />
-                <ScalarProperty Name="LoanDepositAmount" ColumnName="LoanDepositAmount" />
-                <ScalarProperty Name="LoanDepositNo" ColumnName="LoanDepositNo" />
-                <ScalarProperty Name="STDRAmount" ColumnName="STDRAmount" />
-                <ScalarProperty Name="STDRNo" ColumnName="STDRNo" />
-                <ScalarProperty Name="IMPSAmount" ColumnName="IMPSAmount" />
-                <ScalarProperty Name="IMPSNo" ColumnName="IMPSNo" />
-                <ScalarProperty Name="MoneyTransferAmount" ColumnName="MoneyTransferAmount" />
-                <ScalarProperty Name="MoneyTransferNo" ColumnName="MoneyTransferNo" />
-                <ScalarProperty Name="FundTransferAmount" ColumnName="FundTransferAmount" />
-                <ScalarProperty Name="FundTransferNo" ColumnName="FundTransferNo" />
-                <ScalarProperty Name="CashPaymentAmount" ColumnName="CashPaymentAmount" />
-                <ScalarProperty Name="CashPaymentNo" ColumnName="CashPaymentNo" />
-                <ScalarProperty Name="CashReceiptAmount" ColumnName="CashReceiptAmount" />
-                <ScalarProperty Name="CashReceiptNo" ColumnName="CashReceiptNo" />
-                <ScalarProperty Name="StateATMCards" ColumnName="StateATMCards" />
-                <ScalarProperty Name="SHGAccountOpen" ColumnName="SHGAccountOpen" />
-                <ScalarProperty Name="SHGAccountEnrollment" ColumnName="SHGAccountEnrollment" />
-                <ScalarProperty Name="SavingsAccountOpen" ColumnName="SavingsAccountOpen" />
-                <ScalarProperty Name="SavingsAccountEnrollment" ColumnName="SavingsAccountEnrollment" />
-                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="UploaderId" ColumnName="UploaderId" />
-                <ScalarProperty Name="BusinessDetailReportId" ColumnName="BusinessDetailReportId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblUserDetails">
-            <EntityTypeMapping TypeName="eConnectAppModel.tblUserDetail">
-              <MappingFragment StoreEntitySet="tblUserDetail">
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-                <ScalarProperty Name="StateId" ColumnName="StateId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="CreaterdBy" ColumnName="CreaterdBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ProfilePicSource" ColumnName="ProfilePicSource" />
-                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
-                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
-                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
-                <ScalarProperty Name="EmergencyContactNumber" ColumnName="EmergencyContactNumber" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
-                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="UserDetailId" ColumnName="UserDetailId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

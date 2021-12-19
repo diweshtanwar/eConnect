@@ -35,6 +35,14 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
+                        @Html.LabelFor(model => model.AuthorizedAmount, htmlAttributes: new { @class = "" })
+                        @Html.EditorFor(model => model.AuthorizedAmount, new { htmlAttributes = new { @class = "form-control" , @readonly = "readonly" } })
+                        @*@Html.ValidationMessageFor(model => model.AuthorizedAmount, "", new { @class = "text-danger" })*@
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
                         @Html.LabelFor(model => model.AccountDetail, htmlAttributes: new { @class = "" })
                         @Html.EditorFor(model => model.AccountDetail, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
@@ -48,12 +56,12 @@
                     </div>
                 </div>
                 @*<div class="col-md-4">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "" })
-                            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
-                        </div>
-                    </div>*@
+            </div>
+        </div>*@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(model => model.CurrentStatus, htmlAttributes: new { @class = "" })

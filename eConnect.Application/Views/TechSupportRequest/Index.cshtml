@@ -66,10 +66,10 @@
                 <table class="table table-striped" id="table-2">
                     <thead>
                         <tr>
-                            <th>
-                                RequestedID
+                            <!--<th>
+                                RequestedID-->
                                 @*@Html.DisplayNameFor(model => model.RequestId)*@
-                            </th>
+                            <!--</th>-->
                             <th>
                                 ProblemType
                                 @*@Html.DisplayNameFor(model => model.RequestId)*@
@@ -100,9 +100,11 @@
                         @foreach (var item in Model)
                         {
                         <tr>
-                            <td>
+                            @*<td>
                                 @Html.DisplayFor(modelItem => item.TechRequestId)
-                            </td>
+                            </td>*@ @*<td>
+                                @Html.DisplayFor(modelItem => item.TechRequestId)
+                            </td>*@
 
                             @if (item.ProblemType.Equals(1))
                             {
@@ -119,12 +121,17 @@
                                 @Html.DisplayFor(modelItem => item.Description)
                             </td>
                             <td>
-                                @(item.RequestedDate?.ToString("MM/dd/yyyy"))
+                                @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
+
                                 @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
                             </td>
                             <td>
-                                @(item.CompletionDate?.ToString("MM/dd/yyyy"))
-                                @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
+                                @if (item.CompletionDate != null)
+                                {
+                                    @Html.Label(@item.CompletionDate.Value.ToString("dd MMM yyyy"))
+                                }
+
+
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.MobileNo)
@@ -154,6 +161,10 @@
                             else if (item.Status.Equals(2))
                             {
                                 <td>InProgress</td>
+                            }
+                            else if (item.Status.Equals(7))
+                            {
+                                <td>Rejected</td>
                             }
                             <td>
                                 @*@Html.ActionLink("Edit", "Edit", new { id = item.TechRequestId }) |*@

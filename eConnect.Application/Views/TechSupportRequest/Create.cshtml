@@ -18,7 +18,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.TechProblemType, htmlAttributes: new { @class = "required-field" })
+                            @Html.LabelFor(model => model.ProblemType, htmlAttributes: new { @class = "required-field" })
                             @Html.DropDownList("TechProblemType", new SelectList(ViewBag.ProblemList, "ProblemTypeId", "Name"), "Select Problem", new { id = "TechProblemType", @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.TechProblemType, "", new { @class = "text-danger" })
                         </div>

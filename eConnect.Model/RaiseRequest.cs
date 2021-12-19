@@ -33,6 +33,7 @@ namespace eConnect.Model
         public string CompletionDate { get; set; }
         public string CurrentStatus { get; set; }
         public string Comment { get; set; }
+        public string BankDepositReceipt { get; set; }
     }
     public class Withdraw
     {
@@ -81,6 +82,8 @@ namespace eConnect.Model
         public string Screenpic { get; set; }
 
         public string ResolutionDetails { get; set; }
+
+        public string ProblemType { get; set; }
     }
 
 
@@ -102,6 +105,8 @@ namespace eConnect.Model
         public string Comment { get; set; }
         public string EmailAddress { get; set; }
         public int Id { get; set; }
+        [RegularExpression("([0-9]+)")]
+        public int AuthorizedAmount { get; set; }
 
     }
     public class ManageDeposit

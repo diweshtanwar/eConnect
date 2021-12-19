@@ -15,6 +15,7 @@ namespace eConnect.Application.Controllers
 {
     public class ManageTechnicalSupportRequestController : Controller
     {
+        string TechSupportPath = Convert.ToString(ConfigurationManager.AppSettings["TechFilePath"]);
         List<SelectListItem> Status = new List<SelectListItem>()
         {
 
@@ -22,7 +23,8 @@ namespace eConnect.Application.Controllers
             new SelectListItem { Text = "Open", Value = "1" },
             new SelectListItem { Text = "In-Progress", Value = "2" },
             new SelectListItem { Text = "Close", Value = "3" },
-                
+            new SelectListItem { Text = "Rejected", Value = "7" }
+
 
         };
         List<SelectListItem> City = new List<SelectListItem>()
@@ -50,7 +52,14 @@ namespace eConnect.Application.Controllers
             {
                 tblTechDetails = TempData["searchdataManageTech"] as List<sp_GetManageTechSupportRequestDetails_Result>;
             }
-            return View(tblTechDetails.ToList());
+
+            tblTechDetails = tblTechDetails.Where(w => w.TechRequestId == w.TechRequestId).Select(w => { w.Attachment = TechSupportPath.Replace("~", "")+w.TechRequestId+"\\TechSupportScreenshort\\"+w.AttachmentSource; return w; }).ToList();
+
+            ViewBag.Opencount = tblTechDetails.Count(x => x.Status == 1);//Open
+            ViewBag.InProgresscount = tblTechDetails.Count(x => x.Status == 2);//In-Progress
+            ViewBag.Closecount = tblTechDetails.Count(x => x.Status == 3);//Close
+            ViewBag.Rejectcount = tblTechDetails.Count(x => x.Status == 7);//Reject
+            return View(tblTechDetails.ToList().OrderByDescending(x => x.TechRequestId));
         }
 
         public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City, string Status, string Requesteddte, string Completiondte, string BranchCode, string Category)
@@ -131,6 +140,7 @@ namespace eConnect.Application.Controllers
                   new SelectListItem { Text = "Open", Value = "1" },
                    new SelectListItem { Text = "In-Progress", Value = "2" },
                  new SelectListItem { Text = "Close", Value = "3" },
+                 new SelectListItem { Text = "Rejected", Value = "7" }
 
             };
             var selectedStatus = Status.FirstOrDefault(d => d.Value == objMTech.CurrentStatus.ToString());
@@ -163,6 +173,7 @@ namespace eConnect.Application.Controllers
                   new SelectListItem { Text = "Open", Value = "1" },
                    new SelectListItem { Text = "In-Progress", Value = "2" },
                  new SelectListItem { Text = "Close", Value = "3" },
+                 new SelectListItem { Text = "Rejected", Value = "7" }
 
             };
             var selectedStatus = Status.FirstOrDefault(d => d.Value == objMTech.CurrentStatus.ToString());

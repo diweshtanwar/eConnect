@@ -17,13 +17,14 @@ namespace eConnect.Application.Controllers
     public class ManageDepositRequestController : Controller
     {
         // GET: ManageWithdrawalRequest
+        string ReceiptPath = Convert.ToString(ConfigurationManager.AppSettings["DepositFilePath"]);
         List<SelectListItem> Status = new List<SelectListItem>()
             {
 
                 new SelectListItem { Text = "Select Status", Value = "" },
                 new SelectListItem { Text = "Open", Value = "1" },
                  new SelectListItem { Text = "Close", Value = "3" },
-
+                 new SelectListItem { Text = "Rejected", Value = "7" }
             };
         List<SelectListItem> City = new List<SelectListItem>()
             {
@@ -50,7 +51,14 @@ namespace eConnect.Application.Controllers
             {
                 tblDepositDetails = TempData["searchdataManagedeposit"] as List<sp_GetManageDepositRequestDetails_Result>;
             }
-            return View(tblDepositDetails.ToList());
+
+            tblDepositDetails = tblDepositDetails.Where(w => w.DepositeRequestId == w.DepositeRequestId).Select(w => { w.ReceiptSource = ReceiptPath.Replace("~", "") + w.DepositeRequestId + "\\DepositReceipt\\" + w.ReceiptSource; return w; }).ToList();
+            
+            ViewBag.Opencount = tblDepositDetails.Count(x => x.Status == 1);//Open
+            //ViewBag.InProgresscount = tblDepositDetails.Count(x => x.Status == 2);//In-Progres
+            ViewBag.Closecount = tblDepositDetails.Count(x => x.Status == 3);//Close
+            ViewBag.Rejectcount = tblDepositDetails.Count(x => x.Status == 7);//Reject
+            return View(tblDepositDetails.ToList().OrderByDescending(x => x.DepositeRequestId));
         }
         public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City, string Status, string Requesteddte,string Completiondte,string BranchCode, string Category)
         {
@@ -128,6 +136,7 @@ namespace eConnect.Application.Controllers
                  new SelectListItem { Text = "Select Status", Value = "" },
                   new SelectListItem { Text = "Open", Value = "1" },
                  new SelectListItem { Text = "Close", Value = "3" },
+                 new SelectListItem { Text = "Rejected", Value = "7" }
 
             };
             var selectedStatus = Status.FirstOrDefault(d => d.Value == objMDeposit.CurrentStatus.ToString());
@@ -156,6 +165,7 @@ namespace eConnect.Application.Controllers
                  new SelectListItem { Text = "Select Status", Value = "" },
                   new SelectListItem { Text = "Open", Value = "1" },
                  new SelectListItem { Text = "Close", Value = "3" },
+                 new SelectListItem { Text = "Rejected", Value = "7" }
 
             };
             var selectedStatus = Status.FirstOrDefault(d => d.Value == objMDeposit.CurrentStatus.ToString());
@@ -163,6 +173,23 @@ namespace eConnect.Application.Controllers
                 selectedStatus.Selected = true;
             ViewBag.EditedStatus = Status;
             return View(objMDeposit);
+        }
+        
+        
+        [HttpPost]
+        //*******************For Deposit/Withdraw/Techsupport Status Update**************************************//
+        public JsonResult UpdateRequestStatus(string RequestId,string status,string Comments,string RequestType)
+        {
+            RaiseRequestLogic requestLogic = new RaiseRequestLogic();
+            try
+            {
+                requestLogic.UpdateRequestDetailsStatus(RequestId, status, Comments, RequestType);
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
