@@ -20,11 +20,14 @@ namespace eConnect.Application.Controllers
     {
         string RootFilePath = System.Web.HttpContext.Current.Server.MapPath(Convert.ToString(ConfigurationManager.AppSettings["RootFilePath"]));
         private eConnectAppEntities db = new eConnectAppEntities();
+        string CSPFilePath = System.Web.HttpContext.Current.Server.MapPath(Convert.ToString(ConfigurationManager.AppSettings["CSPFilePath"]));
+        string NoImagePath = System.Web.HttpContext.Current.Server.MapPath(Convert.ToString(ConfigurationManager.AppSettings["NoPicPath"]));
+        string UserFilePath = System.Web.HttpContext.Current.Server.MapPath(Convert.ToString(ConfigurationManager.AppSettings["UserFilePath"]));
 
 
         /// <summary-eConect-code >
         /// started 
-     
+
         public ActionResult Index()
         {
             return View();
@@ -209,28 +212,70 @@ namespace eConnect.Application.Controllers
             {
                 UserLogic objUserLogic = new UserLogic();
                 var userData = objUserLogic.ValidateUserLogin(user.UserName, user.Password);
-                if ( userData== null)
+                if (userData == null)
                 {
                     ModelState.AddModelError("", "Invalid login attempt , your username and password are incorrect - please try again..");
-                  
-                }           
+
+                }
                 else
                 {
+                    string picpath = string.Empty;
                     UserLoginLogLogic objUserLoginLogLogic = new UserLoginLogLogic();
                     objUserLoginLogLogic.GetLastLoginDetailsByUserID(userData.UserId);
                     RoleMasterLogic objRoleMasterLogic = new RoleMasterLogic();
-                    var roleMasterData =objRoleMasterLogic.GetRoleMasterByID((int)userData.UserType);
-                   Session["LastLoginDetails"] = objUserLoginLogLogic.GetLastLoginDetailsByUserID(userData.UserId);              
-                   Session["UserTypeId"] = userData.UserType;
+                    var roleMasterData = objRoleMasterLogic.GetRoleMasterByID((int)userData.UserType);
+                    Session["LastLoginDetails"] = objUserLoginLogLogic.GetLastLoginDetailsByUserID(userData.UserId);
+                    Session["UserTypeId"] = userData.UserType;
                     if (userData.UserType == 3)
                     {
                         UserCSPDetailLogic cl = new UserCSPDetailLogic();
-                        Session["CSPID"] = cl.GetCSPDetailByUSourceId(Convert.ToInt32(userData.UserSourceId));
+                        //  Session["CSPID"] = cl.GetCSPDetailByUSourceId(Convert.ToInt32(userData.UserSourceId));
+                        var CSPDetails = cl.GetUserCSPDetailByID(Convert.ToInt32(userData.UserSourceId));
+                        Session["CSPID"] = CSPDetails.CSPId;
+                        if (!String.IsNullOrEmpty(CSPDetails.PassportSizePhotoName))
+                        {
+
+
+                            picpath = "CSP" + "\\" + userData.UserSourceId.ToString() + "\\" + "PassportSizePhoto" + "\\" + CSPDetails.PassportSizePhotoName;
+                            //    picpath = CSPFilePath + "\\" + userData.UserSourceId.ToString() + "\\" + "PassportSizePhoto" + "\\" + CSPDetails.PassportSizePhotoName;
+                        }
+                        else
+                        {
+                            picpath = "NoImage";
+                        }
+                        Session["ProfileImage"] = picpath;
+                    }
+                    else
+                    {
+                        UserLogic ulogic = new UserLogic();
+                        if (userData.UserSourceId > 0)
+                        {
+                            var userdetails = ulogic.GetUserDetailsById(Convert.ToInt32(userData.UserSourceId));
+                            if (!String.IsNullOrEmpty(userdetails.PassportSizePic))
+                            {
+
+                                picpath = "Users" + "\\" + userData.UserType + "\\" + userData.UserSourceId.ToString() + "\\" + "UserPassportSizePhoto" + "\\" + userdetails.PassportSizePic;
+                                // picpath = UserFilePath + "\\" + userData.UserId.ToString() + "\\" + "PassportSizePhoto" + "\\" + userdetails.PassportSizePic;
+                            }
+                            else
+                            {
+                                picpath = "NoImage";
+                            }
+                            Session["ProfileImage"] = picpath;
+                        }
+                        else
+                        {
+                            picpath = "NoImage";
+                            Session["ProfileImage"] = picpath;
+                        }
+
                     }
                     Session["UserName"] = userData.UserName;
                     Session["UserId"] = userData.UserId;
                     Session["UserSourceId"] = userData.UserSourceId;
                     Session["UserRoleName"] = roleMasterData.Name;
+
+
                     tblUserLoginLog objtblUserLoginLog = new tblUserLoginLog();
                     //objtblUserLoginLog.UserId = userData.UserId;
                     objtblUserLoginLog.UserId = userData.UserSourceId;
@@ -238,23 +283,23 @@ namespace eConnect.Application.Controllers
                     objtblUserLoginLog.UserType = userData.UserType;
                     objtblUserLoginLog.LoginTimeStamp = DateTime.Now;
                     objtblUserLoginLog.HostName = Dns.GetHostName();
-                    objtblUserLoginLog.IpAddress= Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString();                  
+                    objtblUserLoginLog.IpAddress = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString();
                     objUserLoginLogLogic.InsertUserLoginLog(objtblUserLoginLog);
 
-                    if (!userData.IsPasswordReset ==true || userData.IsPasswordReset is null )
+                    if (!userData.IsPasswordReset == true || userData.IsPasswordReset is null)
                     {
                         return RedirectToAction("ResetPassword");
                     }
 
                     //Admin and Super Admin
-                    if (userData.UserType == 2 || userData.UserType==1)
+                    if (userData.UserType == 2 || userData.UserType == 1)
                     {
-                        return RedirectToAction("Dashboard","Admin");
+                        return RedirectToAction("Dashboard", "Admin");
                     }
                     //CSP
                     else if (userData.UserType == 3)
                     {
-                        return RedirectToAction("Dashboard","CSP");
+                        return RedirectToAction("Dashboard", "CSP");
                     }
                     //User
                     else if (userData.UserType == 4)
@@ -263,6 +308,8 @@ namespace eConnect.Application.Controllers
 
                         return RedirectToAction("Dashboard", "Admin");
                     }
+
+
                     else
                     {
                         return RedirectToAction("Dashboard", "CSP");
