@@ -113,7 +113,7 @@
                     <thead>
                         <tr>
                             <!--<th>
-        RequestedID-->
+                            RequestedID-->
                             @*@Html.DisplayNameFor(model => model.RequestId)*@
                             <!--</th>-->
                             <th>
@@ -132,8 +132,8 @@
                             </th>
                             <th>Remarks</th>
                             @*<th>
-            @Html.DisplayNameFor(model => model.CompletionDate)
-        </th>*@
+                                    @Html.DisplayNameFor(model => model.CompletionDate)
+                                </th>*@
                             <th>
                                 @Html.DisplayNameFor(model => model.Status)
                             </th>
@@ -144,55 +144,65 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            @*<td>
-            @Html.DisplayFor(modelItem => item.WithdrawalRequestId)
-        </td>*@
+                            <tr>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.WithdrawalRequestId)
+                                    </td>*@
 
-                            @*@Html.DisplayFor(modelItem => item.RequestType)*@
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CSPName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CSPCode)
-                            </td>
+                                @*@Html.DisplayFor(modelItem => item.RequestType)*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CSPName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CSPCode)
+                                </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Amount)
-                            </td>
-                            <td>
-                                @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
-                                @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
-                            </td>
-                            <td style="min-width:100px;word-break:break-word">@item.Comment</td>
-                            <!--<td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                                <td>
+                                    @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
+                                    @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
+                                </td>
+                                <td style="min-width:100px;word-break:break-word">@item.Comment</td>
+                                <!--<td>
 
-        @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
-    <!--</td>-->
-                            @if (item.Status.Equals(1))
-                            {
-                                <td>Open</td>
+                                    @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
+                                <!--</td>-->
+                                @if (item.Status.Equals(1))
+                                {
+                                    <td>Open</td>
 
-                            }
-                            else if (item.Status.Equals(3))
-                            {
-                                <td>Close</td>
-                            }
-                            else if (item.Status.Equals(7))
-                            {
-                                <td>Rejected</td>
-                            }
-                            @*<td>
-            @Html.DisplayFor(modelItem => item.Account)
-        </td>*@
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.WithdrawalRequestId })
-                                |
-                                @Html.ActionLink("View", "Details", new { id = item.WithdrawalRequestId }) @*|
-            @Html.ActionLink("Delete", "Delete", new { id = item.WithdrawalRequestId })*@
-                            </td>
+                                }
+                                else if (item.Status.Equals(3))
+                                {
+                                    <td>Close</td>
+                                }
+                                else if (item.Status.Equals(7))
+                                {
+                                    <td>Rejected</td>
+                                }
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.Account)
+                                    </td>*@
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.WithdrawalRequestId })
+                                    |
+                                    @Html.ActionLink("View", "Details", new { id = item.WithdrawalRequestId })
+                                    @if (item.Status == 1)
+                                    {
+                                        <a href="#" onclick="showEdit(@item.WithdrawalRequestId )">| Reject</a>
+                                        var did = "div" + item.WithdrawalRequestId;
+                                        var textareaId = "text" + item.WithdrawalRequestId;
+                                        <div style="display:none;" id=@did>
+                                            <textarea id="@textareaId"></textarea>
+                                            <button onclick="ClickSave(@item.WithdrawalRequestId)" style="vertical-align :middle;">Save</button>
+                                            <button onclick="ClickCancel(@item.WithdrawalRequestId)" style="vertical-align: middle;">Cancel</button>
+                                        </div>
+                                    }
+                                </td>
 
-                        </tr>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -205,9 +215,46 @@
 
 <script>
 
-    debugger;
-    /*  $(document).ready(function () {*/
+   $(document).ready(function () {
 
+    });
+
+    function ClickSave(id) {
+        var txtclear = "text" + id;
+        var textareaval = document.getElementById(txtclear).value;
+        if (textareaval == '') {
+            alert('Please enter rejection comment.')
+
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateRequestStatus","ManageDepositRequest")',
+                data: { RequestId: id, status: '7', Comments: textareaval, RequestType: '2' },
+                dataType: 'html',
+                beforeSend: function () {
+                    $('.ajax-loader').css("visibility", "visible");
+                },
+                complete: function () {
+                    $('.ajax-loader').css("visibility", "hidden");
+                },
+                success: function (data) {
+                    location.reload(true);
+                    alert('Record Updated successfully');
+                }
+            });
+        }
+    }
+
+    function showEdit(id) {
+        $('#div' + id).show();
+    }
+    function ClickCancel(id) {
+        var txtclear = "text" + id;
+        document.getElementById(txtclear).value = "";
+        $('#div' + id).hide();
+        /*  $(document).ready(function () {*/
+    }
     function bindCity() {
         var sid = $("#State").val();
         $("#City").empty();

@@ -4,7 +4,23 @@
 
 @{ ViewBag.Title = "Manage Deposit";
     Layout = "~/Views/Shared/_LayoutMain.cshtml"; }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<style type="text/css">
+    .ajax-loader {
+        visibility: hidden;
+        background-color: rgba(255,255,255,0.7);
+        position: absolute;
+        z-index: +100 !important;
+        width: 100%;
+        height: 100%;
+    }
 
+        .ajax-loader img {
+            position: relative;
+            top: 50%;
+            left: 50%;
+        }
+</style>
 <section class="section">
 
 
@@ -112,7 +128,7 @@
                     <thead>
                         <tr>
                             <!--<th>
-        RequestedID-->
+                            RequestedID-->
                             @*@Html.DisplayNameFor(model => model.RequestId)*@
                             <!--</th>-->
                             <th>
@@ -143,72 +159,118 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            @*<td>
-            @Html.DisplayFor(modelItem => item.DepositeRequestId)
-        </td>*@
+                            <tr>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.DepositeRequestId)
+                                    </td>*@
 
-                            @*@Html.DisplayFor(modelItem => item.RequestType)*@
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CSPName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CSPCode)
-                            </td>
+                                @*@Html.DisplayFor(modelItem => item.RequestType)*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CSPName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CSPCode)
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Amount)
-                            </td>
-                            <td>
-                                @*@(item.RequestedDate?.ToString("MM/dd/yyyy"))*@
-                                @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
-                                @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
-                            </td>
-                            <td style="min-width:100px;word-break:break-word">@item.Comment</td>
-                            <td><a href="@item.ReceiptSource" target="_blank">ViewReciept</a></td>
-                            @if (item.Status.Equals(1))
-                            {
-                                <td>Open</td>
+                                </td>
 
-                            }
-                            else if (item.Status.Equals(3))
-                            {
-                                <td>Close</td>
-                            }
-                            else if (item.Status.Equals(7))
-                            {
-                                <td>Rejected</td>
-                            }s
-                            @*<td>
-            @Html.DisplayFor(modelItem => item.Account)
-        </td>*@
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.DepositeRequestId })
-                                |
-                                @Html.ActionLink("View", "Details", new { id = item.DepositeRequestId }) @*|
-            @Html.ActionLink("Delete", "Delete", new { id = item.WithdrawalRequestId })*@
-                            </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                                <td>
+                                    @*@(item.RequestedDate?.ToString("MM/dd/yyyy"))*@
+                                    @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
+                                    @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
+                                </td>
+                                <td style="min-width:100px;word-break:break-word">@item.Comment</td>
+                                <td><a href="@item.ReceiptSource" target="_blank">ViewReciept</a></td>
+                                @if (item.Status.Equals(1))
+                                {
+                                    <td>Open</td>
 
-                        </tr>
+                                }
+                                else if (item.Status.Equals(3))
+                                {
+                                    <td>Close</td>
+                                }
+                                else if (item.Status.Equals(7))
+                                {
+                                    <td>Rejected</td>
+                                }s
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.Account)
+                                    </td>*@
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.DepositeRequestId })
+                                    |
+                                    @Html.ActionLink("View", "Details", new { id = item.DepositeRequestId })
+                                    @if (item.Status == 1)
+                                    {
+                                        <a href="#" onclick="showEdit(@item.DepositeRequestId)">| Reject</a>
+                                        var did = "div" + item.DepositeRequestId;
+                                        var textareaId = "text" + item.DepositeRequestId;
+                                        <div style="display:none;" id=@did>
+                                            <textarea id="@textareaId"></textarea>
+                                            <button onclick="ClickSave(@item.DepositeRequestId)" style="vertical-align :middle;">Save</button>
+                                            <button onclick="ClickCancel(@item.DepositeRequestId)" style="vertical-align: middle;">Cancel</button>
+                                        </div>
+                                    }
+                                </td>
+
+                            </tr>
                         }
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
-
 </section>
-
 <script>
 
-    debugger;
-    /*  $(document).ready(function () {*/
+    $(document).ready(function () {
+
+    });
+
+    function ClickSave(id) {
+        var txtclear = "text" + id;
+        var textareaval = document.getElementById(txtclear).value;
+        if (textareaval == '') {
+            alert('Please enter rejection comment.')
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateRequestStatus","ManageDepositRequest")',
+                data: { RequestId: id, status: '7', Comments: textareaval, RequestType: '1' },
+                dataType: 'html',
+                beforeSend: function () {
+                    $('.ajax-loader').css("visibility", "visible");
+                },
+                complete: function () {
+                    $('.ajax-loader').css("visibility", "hidden");
+                },
+                success: function (data) {
+                    location.reload(true);
+                    alert('Record Updated successfully');
+                }
+
+            });
+    }
+    }
+
+
+    function showEdit(id) {
+        $('#div' + id).show();
+    }
+    function ClickCancel(id) {
+        var txtclear = "text" + id;
+        document.getElementById(txtclear).value = "";
+        $('#div' + id).hide();
+        /*  $(document).ready(function () {*/
+    }
 
     function bindCity() {
         var sid = $("#State").val();
         $("#City").empty();
-
         $.ajax({
             url: '@Url.Action("BindCity", "ManageWithdrawalRequest")',
             data: { state_id: sid },

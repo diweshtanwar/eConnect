@@ -302,6 +302,7 @@
     <Content Include="Content\HTML\scss\rtl.css" />
     <Content Include="Content\HTML\scss\style.css" />
     <Content Include="Content\Image\ajax-loader.gif" />
+    <Content Include="Content\Image\ProfileImage.jfif" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

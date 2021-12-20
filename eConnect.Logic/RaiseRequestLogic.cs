@@ -718,14 +718,14 @@ namespace eConnect.Logic
             return Account;
         }
 
-        public void UpdateRequestDetailsStatus(string RequestId, string status, string Comments, string RequestType)
+        public void UpdateRequestDetailsStatus(int RequestId, string status, string Comments, string RequestType)
         {
 
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
                 if (RequestType == "1")// For Deposit Request
                 {
-                    var tblDepositDetail = unitOfWork.DepositRequests.Find(x => x.DepositeRequestId == Convert.ToInt32(RequestId)).FirstOrDefault();
+                    var tblDepositDetail = unitOfWork.DepositRequests.Find(x => x.DepositeRequestId == (RequestId)).FirstOrDefault();
                     tblDepositDetail.Comment = Comments;
                     tblDepositDetail.Status = Convert.ToInt32(status);
                     tblDepositDetail.UpdatedDate = DateTime.Now;

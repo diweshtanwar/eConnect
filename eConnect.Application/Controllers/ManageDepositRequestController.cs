@@ -175,10 +175,12 @@ namespace eConnect.Application.Controllers
             return View(objMDeposit);
         }
         
+
+       
         
         [HttpPost]
         //*******************For Deposit/Withdraw/Techsupport Status Update**************************************//
-        public JsonResult UpdateRequestStatus(string RequestId,string status,string Comments,string RequestType)
+        public JsonResult UpdateRequestStatus(int RequestId,string status,string Comments,string RequestType)
         {
             RaiseRequestLogic requestLogic = new RaiseRequestLogic();
             try
