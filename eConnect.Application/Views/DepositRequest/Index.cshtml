@@ -66,10 +66,10 @@
                 <table class="table table-striped" id="table-2">
                     <thead>
                         <tr>
-                            <th>
-                                RequestedID
+                            <!--<th>
+                                RequestedID-->
                                 @*@Html.DisplayNameFor(model => model.RequestId)*@
-                            </th>
+                            <!--</th>-->
                             <th>
                                 RequestedType
                                 @*@Html.DisplayNameFor(model => model.RequestId)*@
@@ -93,9 +93,9 @@
                         @foreach (var item in Model)
                         {
                         <tr>
-                            <td>
+                            @*<td>
                                 @Html.DisplayFor(modelItem => item.DepositeRequestId)
-                            </td>
+                            </td>*@
 
                             @if (item.RequestType.Equals(1))
                             {
@@ -112,11 +112,16 @@
                                 @Html.DisplayFor(modelItem => item.Amount)
                             </td>
                             <td>
-                                @(item.RequestedDate?.ToString("MM/dd/yyyy"))
+                                @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
+
                                 @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
                             </td>
                             <td>
-                                @(item.CompletionDate?.ToString("MM/dd/yyyy"))
+
+                                @if (item.CompletionDate != null)
+                                {
+                                    @Html.Label(@item.CompletionDate.Value.ToString("dd MMM yyyy"))
+                                }
                                 @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
                             </td>
                             @if (item.Status.Equals(1))
@@ -128,11 +133,14 @@
                             {
                                 <td>Close</td>
                             }
-
+                            else if (item.Status.Equals(7))
+                            {
+                             <td>Rejected</td>
+                            }
                             <td>
                                 @*@Html.ActionLink("Edit", "Edit", new { id = item.DepositeRequestId }) |*@
                                 @Html.ActionLink("Details", "Details", new { id = item.DepositeRequestId }) @*|
-                                @Html.ActionLink("Delete", "Delete", new { id = item.DepositeRequestId })*@
+            @Html.ActionLink("Delete", "Delete", new { id = item.DepositeRequestId })*@
                             </td>
 
                         </tr>

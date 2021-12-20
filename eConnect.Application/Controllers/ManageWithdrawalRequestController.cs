@@ -22,7 +22,8 @@ namespace eConnect.Application.Controllers
                 new SelectListItem { Text = "Select Status", Value = "" },
                 new SelectListItem { Text = "Open", Value = "1" },
                  new SelectListItem { Text = "Close", Value = "3" },
-               
+                 new SelectListItem { Text = "Rejected", Value = "7" }
+
             };
         List<SelectListItem> City = new List<SelectListItem>()
             {
@@ -49,7 +50,11 @@ namespace eConnect.Application.Controllers
             {
                 tblWithdrawDetails = TempData["searchdataManage"] as List<sp_GetManageWithdrawalRequestDetails_Result>;
             }
-            return View(tblWithdrawDetails.ToList());
+            ViewBag.Opencount = tblWithdrawDetails.Count(x => x.Status == 1);//Open
+           // ViewBag.InProgresscount = tblWithdrawDetails.Count(x => x.Status == 2);//In-Progress
+            ViewBag.Closecount = tblWithdrawDetails.Count(x => x.Status == 3);//Close
+            ViewBag.Rejectcount = tblWithdrawDetails.Count(x => x.Status == 7);//Reject
+            return View(tblWithdrawDetails.ToList().OrderByDescending(x => x.WithdrawalRequestId));
         }
         public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City,string Status,string Requesteddte, string Completiondte ,string BranchCode,string Category)
         {
@@ -138,6 +143,7 @@ namespace eConnect.Application.Controllers
                  new SelectListItem { Text = "Select Status", Value = "" },
                   new SelectListItem { Text = "Open", Value = "1" },
                  new SelectListItem { Text = "Close", Value = "3" },
+                 new SelectListItem { Text = "Rejected", Value = "7" }
 
             };
             var selectedStatus = Status.FirstOrDefault(d => d.Value == objMWithdraw.CurrentStatus.ToString());
@@ -168,6 +174,7 @@ namespace eConnect.Application.Controllers
                  new SelectListItem { Text = "Select Status", Value = "" },
                   new SelectListItem { Text = "Open", Value = "1" },
                  new SelectListItem { Text = "Close", Value = "3" },
+                 new SelectListItem { Text = "Rejected", Value = "7" }
 
             };
             var selectedStatus = Status.FirstOrDefault(d => d.Value == objMWithdraw.CurrentStatus.ToString());

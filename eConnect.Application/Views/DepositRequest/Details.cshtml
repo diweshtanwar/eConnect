@@ -92,7 +92,7 @@
     </div>
     <div class="col-md-4">
         <div class="form-group">
-            @Html.LabelFor(model => model.Reciept, htmlAttributes: new { @class = "" })
+            @Html.LabelFor(model => model.BankDepositReceipt, htmlAttributes: new { @class = "" })
             @Html.EditorFor(model => model.Recieptpic, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             @*<input type="file" id="Reciept" name="Reciept" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />*@
             @if (!string.IsNullOrEmpty(Model.Recieptpic))

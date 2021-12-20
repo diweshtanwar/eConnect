@@ -32,6 +32,7 @@ namespace eConnect.DataAccess
         public Nullable<int> RequestType { get; set; }
         public string EmailAddress { get; set; }
         public string Comment { get; set; }
+        public Nullable<decimal> AuthorizedAmount { get; set; }
     
         public virtual tblUser tblUser { get; set; }
         public virtual tblUser tblUser1 { get; set; }

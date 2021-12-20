@@ -467,6 +467,7 @@ namespace eConnect.Logic
                     withdraw.RequestId = x.WithdrawalRequestId.ToString();
                     withdraw.CSPName = x.CSPName.ToString();
                     withdraw.Amount = Convert.ToInt32(x.Amount);
+                    withdraw.AuthorizedAmount = Convert.ToInt32(tblMWithdrawDetail.AuthorizedAmount);
                     withdraw.AccountDetail = x.Account.ToString();
                     withdraw.RequestedDate = Convert.ToDateTime(x.RequestedDate).ToString("dd/MMM/yyyy");
                     withdraw.CurrentStatus = x.Status.ToString();
@@ -560,25 +561,26 @@ namespace eConnect.Logic
                 var tblWithdrawDetail = unitOfWork.WithdrawRequests.Find(x => x.WithdrawalRequestId == withdraw.Id).FirstOrDefault();
                 tblWithdrawDetail.Comment = withdraw.Comment;
                 tblWithdrawDetail.EmailAddress = withdraw.EmailAddress;
-                if (withdraw.Make == true && withdraw.Authorize == true && withdraw.Configure == true)
+                if (withdraw.CurrentStatus == "3")
                 {
                     tblWithdrawDetail.Status = 3;
                     tblWithdrawDetail.CompletionDate = date;
-                    tblWithdrawDetail.IsMake = true;
-                    tblWithdrawDetail.IsAuthorized = true;
-                    tblWithdrawDetail.IsConfigured = true;
+                    tblWithdrawDetail.IsMake = withdraw.Make;
+                    tblWithdrawDetail.IsAuthorized = withdraw.Authorize;
+                    tblWithdrawDetail.IsConfigured = withdraw.Configure;
                 }
                 else
                 {
                     tblWithdrawDetail.IsMake = withdraw.Make;
                     tblWithdrawDetail.IsAuthorized = withdraw.Authorize;
                     tblWithdrawDetail.IsConfigured = withdraw.Configure;
-                    tblWithdrawDetail.Status = 1;
+                    tblWithdrawDetail.Status = Convert.ToInt32(withdraw.CurrentStatus);
                     tblWithdrawDetail.CompletionDate = null;
 
                 }
                 tblWithdrawDetail.UpdatedDate = DateTime.Now;
                 tblWithdrawDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
+                tblWithdrawDetail.AuthorizedAmount = withdraw.AuthorizedAmount;
                 unitOfWork.WithdrawRequests.Update(tblWithdrawDetail);
                 //unitOfWork.UserCSPDetail.Save();
 
@@ -593,17 +595,17 @@ namespace eConnect.Logic
                 var tblDepositDetail = unitOfWork.DepositRequests.Find(x => x.DepositeRequestId == deposit.Id).FirstOrDefault();
                 tblDepositDetail.Comment = deposit.Comment;
 
-                if (deposit.VerifyReciept == true)
+                if (deposit.CurrentStatus == "3")
                 {
                     tblDepositDetail.Status = 3;
                     tblDepositDetail.CompletionDate = date;
-                    tblDepositDetail.IsVerified = true;
+                    tblDepositDetail.IsVerified = deposit.VerifyReciept;
                 }
                 else
                 {
-                    tblDepositDetail.Status = 1;
+                    tblDepositDetail.Status = Convert.ToInt32(deposit.CurrentStatus);
                     tblDepositDetail.CompletionDate = null;
-                    tblDepositDetail.IsVerified = false;
+                    tblDepositDetail.IsVerified = deposit.VerifyReciept;
                 }
                 tblDepositDetail.UpdatedDate = DateTime.Now;
                 tblDepositDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
@@ -715,6 +717,43 @@ namespace eConnect.Logic
             }
             return Account;
         }
-    }
 
+        public void UpdateRequestDetailsStatus(int RequestId, string status, string Comments, string RequestType)
+        {
+
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                if (RequestType == "1")// For Deposit Request
+                {
+                    var tblDepositDetail = unitOfWork.DepositRequests.Find(x => x.DepositeRequestId == (RequestId)).FirstOrDefault();
+                    tblDepositDetail.Comment = Comments;
+                    tblDepositDetail.Status = Convert.ToInt32(status);
+                    tblDepositDetail.UpdatedDate = DateTime.Now;
+                    tblDepositDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
+                    unitOfWork.DepositRequests.Update(tblDepositDetail);
+                }
+                if (RequestType == "2")// For Withdraw Request
+                {
+
+                    var tblWithdrawDetail = unitOfWork.WithdrawRequests.Find(x => x.WithdrawalRequestId == Convert.ToInt32(RequestId)).FirstOrDefault();
+                    tblWithdrawDetail.Comment = Comments;
+                    tblWithdrawDetail.Status = Convert.ToInt32(status);
+                    tblWithdrawDetail.UpdatedDate = DateTime.Now;
+                    tblWithdrawDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
+                    unitOfWork.WithdrawRequests.Update(tblWithdrawDetail);
+                }
+                if (RequestType == "3")// For Technical Support
+                {
+                    var tblTechDetail = unitOfWork.TechSupportRequestss.Find(x => x.TechRequestId == Convert.ToInt32(RequestId)).FirstOrDefault();
+                    tblTechDetail.Status = Convert.ToInt32(status);
+                    tblTechDetail.Comment = Comments;
+                    tblTechDetail.UpdatedDate = DateTime.Now;
+                    tblTechDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
+                    unitOfWork.TechSupportRequestss.Update(tblTechDetail);
+
+                }
+            }
+        }
+
+    }
 }

@@ -47,7 +47,7 @@ namespace eConnect.Application.Controllers
             {
                 tblDepositDetails = TempData["searchdata"] as List<tblDepositRequest>;
             }
-            return View(tblDepositDetails.ToList());
+            return View(tblDepositDetails.ToList().OrderByDescending(x => x.DepositeRequestId));
         }
         public ActionResult IndexSearch(string Requestid, string RequestType, string Requesteddte, string Completiondte)
         {
@@ -217,6 +217,7 @@ namespace eConnect.Application.Controllers
                  new SelectListItem { Text = "Select Status", Value = "" },
                   new SelectListItem { Text = "Open", Value = "1" },
                  new SelectListItem { Text = "Close", Value = "3" },
+                   new SelectListItem { Text = "Rejected", Value = "7" },
 
             };
             var selectedStatus = Status.FirstOrDefault(d => d.Value == objDeposit.CurrentStatus.ToString());

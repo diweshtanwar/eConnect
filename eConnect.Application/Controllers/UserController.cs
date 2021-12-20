@@ -121,7 +121,9 @@ namespace eConnect.Application.Controllers
                 string fpath = string.Empty;
                 UserLogic objUserDetailLogic = new UserLogic();
                 long UserID = objUserDetailLogic.InsertUserDetail(objUser);
-                string path = Path.Combine(UserFilePath, UserID.ToString());
+               // string path = Path.Combine(UserFilePath, UserID.ToString());
+                string picpath = objUser.UserType.ToString() + "\\" + UserID.ToString();
+                string path = Path.Combine(UserFilePath, picpath);
                 if (objUser.PassportSizePhoto != null)
                 {
                     fpath = CheckDirectory(path, "UserPassportSizePhoto", objUser.PassportSizePhoto);
@@ -211,7 +213,10 @@ namespace eConnect.Application.Controllers
                 string fpath = string.Empty;
                 UserLogic objUserDetailLogic = new UserLogic();
                 objUserDetailLogic.UpdateUserDetail(objUser);
-                string path = Path.Combine(UserFilePath, objUser.Id.ToString());
+             //   string path = Path.Combine(UserFilePath, objUser.Id.ToString());
+                string picpath = objUser.UserType.ToString() + "\\" + objUser.Id.ToString();
+                string path = Path.Combine(UserFilePath, picpath);
+
                 if (objUser.PassportSizePhoto != null)
                 {
                     fpath = CheckDirectory(path, "UserPassportSizePhoto", objUser.PassportSizePhoto);

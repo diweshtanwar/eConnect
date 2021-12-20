@@ -4,7 +4,23 @@
 
 @{ ViewBag.Title = "Manage Deposit";
     Layout = "~/Views/Shared/_LayoutMain.cshtml"; }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<style type="text/css">
+    .ajax-loader {
+        visibility: hidden;
+        background-color: rgba(255,255,255,0.7);
+        position: absolute;
+        z-index: +100 !important;
+        width: 100%;
+        height: 100%;
+    }
 
+        .ajax-loader img {
+            position: relative;
+            top: 50%;
+            left: 50%;
+        }
+</style>
 <section class="section">
 
 
@@ -73,16 +89,16 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Requested Date</label>
-                        <input type="date" id="Requesteddte" name="Requesteddte" class="form-control" value="@Request["Requesteddte"]">
+                        <input type="date" id="Requesteddte" name="Requesteddte" class="form-control" placeholder="MM/DD/YYYY" value="@Request["Requesteddte"]">
                     </div>
                 </div>
-             <div class="col-md-3">
-            <div class="form-group">
-                <label>Completion Date</label>
-                <input type="date" id="Completiondte" name="Completiondte" class="form-control" value="@Request["Completiondte"]">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Completion Date</label>
+                        <input type="date" id="Completiondte" name="Completiondte" class="form-control" value="@Request["Completiondte"]">
 
-            </div>
-        </div>
+                    </div>
+                </div>
 
 
                 <div class="col-md-3 mt-md-4 pt-1">
@@ -93,6 +109,12 @@
             </div>
         </div>
     </div>}
+    <div style="margin-left:4px">
+        <span class="label info">Open - @ViewBag.Opencount</span>
+        <span class="label success">Closed - @ViewBag.Closecount</span>
+        @*<span class="label warning">In-Progress - @ViewBag.InProgresscount</span>*@
+        <span class="label danger">Rejected - @ViewBag.Rejectcount</span>
+    </div>
     <div class="card">
 
         <div class="card-body">
@@ -105,26 +127,28 @@
                 <table class="table table-striped" id="table-2">
                     <thead>
                         <tr>
+                            <!--<th>
+                            RequestedID-->
+                            @*@Html.DisplayNameFor(model => model.RequestId)*@
+                            <!--</th>-->
                             <th>
-                                RequestedID
-                                @*@Html.DisplayNameFor(model => model.RequestId)*@
+                                Name
                             </th>
                             <th>
                                 CSPId
                                 @*@Html.DisplayNameFor(model => model.RequestId)*@
                             </th>
-                            <th>
-                                Name
-                            </th>
+
                             <th>
                                 @Html.DisplayNameFor(model => model.Amount)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.RequestedDate)
                             </th>
-                            @*<th>
-                                    @Html.DisplayNameFor(model => model.CompletionDate)
-                                </th>*@
+                            <th>Remarks</th>
+                            <th>
+                                Reciept
+                            </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Status)
                             </th>
@@ -136,29 +160,29 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DepositeRequestId)
-                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.DepositeRequestId)
+                                    </td>*@
 
                                 @*@Html.DisplayFor(modelItem => item.RequestType)*@
-
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CSPCode)
-                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.CSPName)
                                 </td>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.CSPCode)
+
+                                </td>
+
+                                <td>
                                     @Html.DisplayFor(modelItem => item.Amount)
                                 </td>
                                 <td>
-                                    @(item.RequestedDate?.ToString("MM/dd/yyyy"))
+                                    @*@(item.RequestedDate?.ToString("MM/dd/yyyy"))*@
+                                    @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
                                     @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
                                 </td>
-                                <!--<td>
-                                    @(item.CompletionDate?.ToString("MM/dd/yyyy"))-->
-                                @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
-                                <!--</td>-->
+                                <td style="min-width:100px;word-break:break-word">@item.Comment</td>
+                                <td><a href="@item.ReceiptSource" target="_blank">ViewReciept</a></td>
                                 @if (item.Status.Equals(1))
                                 {
                                     <td>Open</td>
@@ -168,14 +192,28 @@
                                 {
                                     <td>Close</td>
                                 }
+                                else if (item.Status.Equals(7))
+                                {
+                                    <td>Rejected</td>
+                                }s
                                 @*<td>
                                         @Html.DisplayFor(modelItem => item.Account)
                                     </td>*@
                                 <td>
                                     @Html.ActionLink("Edit", "Edit", new { id = item.DepositeRequestId })
                                     |
-                                    @Html.ActionLink("View Detail", "Details", new { id = item.DepositeRequestId }) @*|
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.WithdrawalRequestId })*@
+                                    @Html.ActionLink("View", "Details", new { id = item.DepositeRequestId })
+                                    @if (item.Status == 1)
+                                    {
+                                        <a href="#" onclick="showEdit(@item.DepositeRequestId)">| Reject</a>
+                                        var did = "div" + item.DepositeRequestId;
+                                        var textareaId = "text" + item.DepositeRequestId;
+                                        <div style="display:none;" id=@did>
+                                            <textarea id="@textareaId"></textarea>
+                                            <button onclick="ClickSave(@item.DepositeRequestId)" style="vertical-align :middle;">Save</button>
+                                            <button onclick="ClickCancel(@item.DepositeRequestId)" style="vertical-align: middle;">Cancel</button>
+                                        </div>
+                                    }
                                 </td>
 
                             </tr>
@@ -185,19 +223,54 @@
             </div>
         </div>
     </div>
-
-
 </section>
-
 <script>
 
-    debugger;
-    /*  $(document).ready(function () {*/
+    $(document).ready(function () {
+
+    });
+
+    function ClickSave(id) {
+        var txtclear = "text" + id;
+        var textareaval = document.getElementById(txtclear).value;
+        if (textareaval == '') {
+            alert('Please enter rejection comment.')
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateRequestStatus","ManageDepositRequest")',
+                data: { RequestId: id, status: '7', Comments: textareaval, RequestType: '1' },
+                dataType: 'html',
+                beforeSend: function () {
+                    $('.ajax-loader').css("visibility", "visible");
+                },
+                complete: function () {
+                    $('.ajax-loader').css("visibility", "hidden");
+                },
+                success: function (data) {
+                    location.reload(true);
+                    alert('Record Updated successfully');
+                }
+
+            });
+    }
+    }
+
+
+    function showEdit(id) {
+        $('#div' + id).show();
+    }
+    function ClickCancel(id) {
+        var txtclear = "text" + id;
+        document.getElementById(txtclear).value = "";
+        $('#div' + id).hide();
+        /*  $(document).ready(function () {*/
+    }
 
     function bindCity() {
         var sid = $("#State").val();
         $("#City").empty();
-
         $.ajax({
             url: '@Url.Action("BindCity", "ManageWithdrawalRequest")',
             data: { state_id: sid },
@@ -214,3 +287,32 @@
     }
     /*    });*/
 </script>
+<style>
+    .label {
+        color: white;
+        padding: 8px;
+        font-family: Arial;
+    }
+
+    .success {
+        background-color: #04AA6D;
+    }
+    /* Green */
+    .info {
+        background-color: #2196F3;
+    }
+    /* Blue */
+    .warning {
+        background-color: #ff9800;
+    }
+    /* Orange */
+    .danger {
+        background-color: #f44336;
+    }
+    /* Red */
+    .other {
+        background-color: #e7e7e7;
+        color: black;
+    }
+    /* Gray */
+</style>

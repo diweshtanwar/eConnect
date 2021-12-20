@@ -44,7 +44,8 @@ namespace eConnect.Application.Controllers
             {
                 tblWithdrawDetails = TempData["searchdata"] as List<tblWithdrawalRequest>;
             }
-            return View(tblWithdrawDetails.ToList());
+            return View(tblWithdrawDetails.ToList().OrderByDescending(x => x.WithdrawalRequestId));
+
            
         }
 
@@ -200,6 +201,7 @@ namespace eConnect.Application.Controllers
                  new SelectListItem { Text = "Select Status", Value = "" },
                   new SelectListItem { Text = "Open", Value = "1" },
                  new SelectListItem { Text = "Close", Value = "3" },
+                 new SelectListItem { Text = "Rejected", Value = "7" },
 
             };
             var selectedStatus = Status.FirstOrDefault(d => d.Value == withdraw.CurrentStatus.ToString());

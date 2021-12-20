@@ -489,6 +489,8 @@ namespace eConnect.Logic
                 UserDetail.Designation = tblUserDetail.DesignationId.ToString();
                 UserDetail.Qualification = tblUserDetail.Qualification;
                 UserDetail.PassportSizePic = tblUserDetail.ProfilePicSource;
+                UserDetail.RoleName = tblUserDetail.RoleName;
+
                 return UserDetail;
 
             }
