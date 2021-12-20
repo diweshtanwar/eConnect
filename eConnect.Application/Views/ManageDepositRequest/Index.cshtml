@@ -116,27 +116,22 @@
         <span class="label danger">Rejected - @ViewBag.Rejectcount</span>
     </div>
     <div class="card">
-
         <div class="card-body">
-
-
             <div class="table-responsive">
                 <div class="table-actions">
                     @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
                 </div>
+              
                 <table class="table table-striped" id="table-2">
                     <thead>
                         <tr>
-                            <!--<th>
-                            RequestedID-->
-                            @*@Html.DisplayNameFor(model => model.RequestId)*@
-                            <!--</th>-->
+                            
                             <th>
                                 Name
                             </th>
                             <th>
                                 CSPId
-                                @*@Html.DisplayNameFor(model => model.RequestId)*@
+                             
                             </th>
 
                             <th>
@@ -195,11 +190,7 @@
                                 else if (item.Status.Equals(7))
                                 {
                                     <td>Rejected</td>
-                                }s
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.Account)
-                                    </td>*@
-                                <td>
+                                } <td>
                                     @Html.ActionLink("Edit", "Edit", new { id = item.DepositeRequestId })
                                     |
                                     @Html.ActionLink("View", "Details", new { id = item.DepositeRequestId })
