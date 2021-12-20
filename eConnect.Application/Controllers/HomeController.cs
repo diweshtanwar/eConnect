@@ -256,16 +256,16 @@ namespace eConnect.Application.Controllers
                     {
                         return RedirectToAction("Dashboard","CSP");
                     }
-                    //User
-                    else if (userData.UserType == 4)
-                    {
-                        //return RedirectToAction("About");
+                    ////User
+                    //else if (userData.UserType == 4)
+                    //{
+                    //    //return RedirectToAction("About");
 
-                        return RedirectToAction("Dashboard", "Admin");
-                    }
+                    //    return RedirectToAction("Dashboard", "Admin");
+                    //}
                     else
                     {
-                        return RedirectToAction("Dashboard", "CSP");
+                        return RedirectToAction("Dashboard", "Admin");
                     }
 
                 
