@@ -222,7 +222,7 @@
                                     @Html.ActionLink("Edit", "Edit", new { id = item.TechRequestId })
                                     |
                                     @Html.ActionLink("View", "Details", new { id = item.TechRequestId })
-                                    @if (item.Status == 1)
+                                    @if (item.Status == 1 || item.Status==2)
                                     {
                                         <a href="#" onclick="showEdit(@item.TechRequestId)">| Reject</a>
                                         var did = "div" + item.TechRequestId;
