@@ -720,40 +720,45 @@ namespace eConnect.Logic
 
         public void UpdateRequestDetailsStatus(int RequestId, string status, string Comments, string RequestType)
         {
-
-            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            try
             {
-                if (RequestType == "1")// For Deposit Request
+                using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
                 {
-                    var tblDepositDetail = unitOfWork.DepositRequests.Find(x => x.DepositeRequestId == (RequestId)).FirstOrDefault();
-                    tblDepositDetail.Comment = Comments;
-                    tblDepositDetail.Status = Convert.ToInt32(status);
-                    tblDepositDetail.UpdatedDate = DateTime.Now;
-                    tblDepositDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
-                    unitOfWork.DepositRequests.Update(tblDepositDetail);
-                }
-                if (RequestType == "2")// For Withdraw Request
-                {
+                    if (RequestType == "1")// For Deposit Request
+                    {
+                        var tblDepositDetail = unitOfWork.DepositRequests.Find(x => x.DepositeRequestId == (RequestId)).FirstOrDefault();
+                        tblDepositDetail.Comment = Comments;
+                        tblDepositDetail.Status = Convert.ToInt32(status);
+                        tblDepositDetail.UpdatedDate = DateTime.Now;
+                        tblDepositDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
+                        unitOfWork.DepositRequests.Update(tblDepositDetail);
+                    }
+                    if (RequestType == "2")// For Withdraw Request
+                    {
 
-                    var tblWithdrawDetail = unitOfWork.WithdrawRequests.Find(x => x.WithdrawalRequestId == Convert.ToInt32(RequestId)).FirstOrDefault();
-                    tblWithdrawDetail.Comment = Comments;
-                    tblWithdrawDetail.Status = Convert.ToInt32(status);
-                    tblWithdrawDetail.UpdatedDate = DateTime.Now;
-                    tblWithdrawDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
-                    unitOfWork.WithdrawRequests.Update(tblWithdrawDetail);
+                        var tblWithdrawDetail = unitOfWork.WithdrawRequests.Find(x => x.WithdrawalRequestId == (RequestId)).FirstOrDefault();
+                        tblWithdrawDetail.Comment = Comments;
+                        tblWithdrawDetail.Status = Convert.ToInt32(status);
+                        tblWithdrawDetail.UpdatedDate = DateTime.Now;
+                        tblWithdrawDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
+                        unitOfWork.WithdrawRequests.Update(tblWithdrawDetail);
+                    }
+                    if (RequestType == "3")// For Technical Support
+                    {
+                        var tblTechDetail = unitOfWork.TechSupportRequestss.Find(x => x.TechRequestId == (RequestId)).FirstOrDefault();
+                        tblTechDetail.Status = Convert.ToInt32(status);
+                        tblTechDetail.Comment = Comments;
+                        tblTechDetail.UpdatedDate = DateTime.Now;
+                        tblTechDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
+                        unitOfWork.TechSupportRequestss.Update(tblTechDetail);
+                    }
                 }
-                if (RequestType == "3")// For Technical Support
-                {
-                    var tblTechDetail = unitOfWork.TechSupportRequestss.Find(x => x.TechRequestId == Convert.ToInt32(RequestId)).FirstOrDefault();
-                    tblTechDetail.Status = Convert.ToInt32(status);
-                    tblTechDetail.Comment = Comments;
-                    tblTechDetail.UpdatedDate = DateTime.Now;
-                    tblTechDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
-                    unitOfWork.TechSupportRequestss.Update(tblTechDetail);
 
-                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
-
     }
 }
