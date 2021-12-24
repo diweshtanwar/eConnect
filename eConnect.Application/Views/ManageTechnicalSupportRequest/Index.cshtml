@@ -33,11 +33,12 @@
 
     @using (@Html.BeginForm("IndexSearch", "ManageTechnicalSupportRequest", FormMethod.Get))
     {@Html.AntiForgeryToken()
+
     <div class="card">
         <div class="card-header">
             <h4><span class="toggle-collapse" id="toggle" data-toggle="collapse" href="#filter" role="button" aria-expanded="true" aria-controls="filter"></span> Filter</h4>
         </div>
-        <div class="card-body collapse show" id="filter">
+        <div class="card-body collapse" id="filter">
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
