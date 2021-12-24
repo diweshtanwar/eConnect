@@ -32,54 +32,54 @@
     {@Html.AntiForgeryToken()
     <div class="card">
         <div class="card-header">
-            <h4><span class="toggle-collapse" id="toggle" data-toggle="collapse" href="#filter" role="button" aria-expanded="true" aria-controls="filter"></span> Filter</h4>
+            <h4><span class="toggle-collapse" data-toggle="collapse" href="#filter" role="button" aria-expanded="false" aria-controls="filter"></span> Filter</h4>
         </div>
-        <div class="card-body collapse show" id="filter">
+        <div class="card-body collapse" id="filter">
             <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Request Id</label>
-                        <input type="text" id="Requestid" name="Requestid" class="form-control" value="@Request["Requestid"]">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>CSP Name</label>
-                        <input type="text" id="CspName" name="CspName" class="form-control" value="@Request["CspName"]">
-                    </div>
-                </div>
+                @*<div class="col-md-3">
+                        <div class="form-group">
+                            <label>Request Id</label>
+                            <input type="text" id="Requestid" name="Requestid" class="form-control" value="@Request["Requestid"]">
+                        </div>
+                    </div>*@
+                @*<div class="col-md-3">
+                        <div class="form-group">
+                            <label>CSP Name</label>
+                            <input type="text" id="CspName" name="CspName" class="form-control" value="@Request["CspName"]">
+                        </div>
+                    </div>*@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>CSP ID</label>
                         <input type="text" id="CspID" name="CspID" class="form-control" value="@Request["CspID"]">
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>State</label>
-                        @Html.DropDownList("State", null, "Select State", htmlAttributes: new { @class = "form-control", @onchange = "return bindCity();" })
+                @*<div class="col-md-3">
+                        <div class="form-group">
+                            <label>State</label>
+                            @Html.DropDownList("State", null, "Select State", htmlAttributes: new { @class = "form-control", @onchange = "return bindCity();" })
+                        </div>
+                    </div>*@
+                @*<div class="col-md-3">
+                        <div class="form-group">
+                            <label>City</label>
+                            @Html.DropDownList("City", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>City</label>
-                        @Html.DropDownList("City", null, htmlAttributes: new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>BranchCode</label>
-                        @Html.DropDownList("BranchCode", null, "Select BranchCode", htmlAttributes: new { @class = "form-control" })
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>BranchCode</label>
+                            @Html.DropDownList("BranchCode", null, "Select BranchCode", htmlAttributes: new { @class = "form-control" })
 
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Category</label>
-                        @Html.DropDownList("Category", null, "Select Category", htmlAttributes: new { @class = "form-control" })
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Category</label>
+                            @Html.DropDownList("Category", null, "Select Category", htmlAttributes: new { @class = "form-control" })
 
-                    </div>
-                </div>
+                        </div>
+                    </div>*@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Status</label>
@@ -105,10 +105,10 @@
                     @*<button class="btn btn-dark px-4 mr-2">Cancel</button>*@
                     <button type="submit" class="btn btn-primary px-4">Search</button>
                 </div>
-
             </div>
         </div>
-    </div>}
+    </div>
+}
     <div style="margin-left:4px">
         <span class="label info">Open - @ViewBag.Opencount</span>
         <span class="label success">Closed - @ViewBag.Closecount</span>
@@ -121,17 +121,17 @@
                 <div class="table-actions">
                     @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
                 </div>
-              
+
                 <table class="table table-striped" id="table-2">
                     <thead>
                         <tr>
-                            
+
                             <th>
                                 Name
                             </th>
                             <th>
                                 CSPId
-                             
+
                             </th>
 
                             <th>
@@ -190,7 +190,8 @@
                                 else if (item.Status.Equals(7))
                                 {
                                     <td>Rejected</td>
-                                } <td>
+                                }
+                                <td>
                                     @Html.ActionLink("Edit", "Edit", new { id = item.DepositeRequestId })
                                     |
                                     @Html.ActionLink("View", "Details", new { id = item.DepositeRequestId })

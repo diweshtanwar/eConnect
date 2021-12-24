@@ -33,6 +33,7 @@ namespace eConnect.Application.Controllers
             new SelectListItem { Text = "Select City", Value = "" },
         };
         RaiseRequestLogic raiseRequest = new RaiseRequestLogic();
+
         public ActionResult Index()
         {
             BranchCodeLogic objBranchCodeLogic = new BranchCodeLogic();
@@ -46,6 +47,9 @@ namespace eConnect.Application.Controllers
             ViewBag.Status = Status;
             ViewBag.BranchCode = new SelectList(objBranchCodeLogic.GetAllBranchCode(), "BranchCode", "BranchCode");
             ViewBag.Category = new SelectList(objCategoryLogic.GetAllCategory(), "Category", "Category");
+            TechSupportProblemLogic techSupport = new TechSupportProblemLogic();
+            var ProblemList = techSupport.GetAllTechSupportProblems();
+            ViewBag.ProblemList = ProblemList;
             var tblTechDetails = raiseRequest.GetManageTechDetails();
             bool flag = Convert.ToBoolean(TempData["flag"]);
             if (flag == true)
@@ -53,7 +57,7 @@ namespace eConnect.Application.Controllers
                 tblTechDetails = TempData["searchdataManageTech"] as List<sp_GetManageTechSupportRequestDetails_Result>;
             }
 
-            tblTechDetails = tblTechDetails.Where(w => w.TechRequestId == w.TechRequestId).Select(w => { w.Attachment = TechSupportPath.Replace("~", "")+w.TechRequestId+"\\TechSupportScreenshort\\"+w.AttachmentSource; return w; }).ToList();
+            tblTechDetails = tblTechDetails.Where(w => w.TechRequestId == w.TechRequestId).Select(w => { w.Attachment = TechSupportPath.Replace("~", "") + w.TechRequestId + "\\TechSupportScreenshort\\" + w.AttachmentSource; return w; }).ToList();
 
             ViewBag.Opencount = tblTechDetails.Count(x => x.Status == 1);//Open
             ViewBag.InProgresscount = tblTechDetails.Count(x => x.Status == 2);//In-Progress
@@ -62,9 +66,25 @@ namespace eConnect.Application.Controllers
             return View(tblTechDetails.ToList().OrderByDescending(x => x.TechRequestId));
         }
 
-        public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City, string Status, string Requesteddte, string Completiondte, string BranchCode, string Category)
+        public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City, string Status, string Requesteddte, string Completiondte, string BranchCode, string Category, string TechProblemType)
         {
-            int Reqid = 0, Cid = 0, Sid = 0, Cityid = 0, Statusid = 0, Bcode = 0, CategoryId = 0;
+            int Reqid = 0, Cid = 0, Sid = 0, Cityid = 0, Statusid = 0, Bcode = 0, CategoryId = 0, ProblemType = 0;
+            if (TechProblemType == "")
+            {
+                ProblemType = 0;
+            }
+            else
+            {
+                ProblemType = Convert.ToInt32(TechProblemType);
+            }
+            if (Requestid == "")
+            {
+                Reqid = 0;
+            }
+            else
+            {
+                Reqid = Convert.ToInt32(Requestid);
+            }
             if (Requestid == "")
             {
                 Reqid = 0;
@@ -121,11 +141,12 @@ namespace eConnect.Application.Controllers
             {
                 Statusid = Convert.ToInt32(Status);
             }
-            var tblManageTechDetails = raiseRequest.GetManageTechDetailsSearch(Reqid, CspName, Cid, Sid, Cityid, Statusid, Requesteddte, Completiondte, BranchCode, Category);
+            var tblManageTechDetails = raiseRequest.GetManageTechDetailsSearch(Reqid, CspName, Cid, Sid, Cityid, Statusid, Requesteddte, Completiondte, BranchCode, Category, ProblemType);
             TempData["searchdataManageTech"] = tblManageTechDetails.ToList();
             TempData["flag"] = true;
             return RedirectToAction("Index");
         }
+
 
         public ActionResult Edit(int? id)
 

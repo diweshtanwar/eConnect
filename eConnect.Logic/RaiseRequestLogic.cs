@@ -652,7 +652,7 @@ namespace eConnect.Logic
             }
         }
 
-        public IList<sp_GetManageTechSupportRequestDetails_Result> GetManageTechDetailsSearch(int Requestid, string CspName, int CspID, int State, int City, int Status, string Requesteddte, string Completionedte, string BranchCode, string Category)
+        public IList<sp_GetManageTechSupportRequestDetails_Result> GetManageTechDetailsSearch(int Requestid, string CspName, int CspID, int State, int City, int Status, string Requesteddte, string Completionedte, string BranchCode, string Category, int ProblemType)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
@@ -696,6 +696,10 @@ namespace eConnect.Logic
                 if (!string.IsNullOrEmpty(BranchCode))
                 {
                     result = result.Where(d => d.BranchCode.Contains(BranchCode.ToString())).ToList();
+                }
+                if (ProblemType != 0)
+                {
+                    result = result.Where(d => d.ProblemType == ProblemType).ToList();
                 }
                 return result;
             }
