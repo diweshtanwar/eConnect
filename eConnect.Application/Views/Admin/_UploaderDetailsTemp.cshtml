@@ -148,10 +148,11 @@
     });
 
     function DeleteUploadRecord(uploaderId, reporttype, status) {
+        alert(uploaderId); alert(reporttype); alert(status);
          if (confirm('Are you sure to delete this record ?')) {
             $.ajax({
                 type: "POST",
-                url: '@Url.Action("DeleteUploaderRecord", "Admin")',
+                url: '@Url.Action("ReportDeleteUploaderRecord", "Admin")',
                 data: { uploaderid: uploaderId, ReportType: reporttype, Status: status },
                 dataType: 'html',
                 success: function (data) {

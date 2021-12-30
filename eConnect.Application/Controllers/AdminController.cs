@@ -1228,5 +1228,19 @@ namespace eConnect.Application.Controllers
                 return Json("Record not Deleted successfully", JsonRequestBehavior.AllowGet);
             }
         }
+        public JsonResult ReportDeleteUploaderRecord(int uploaderid, int ReportType, int Status)
+        {
+            try
+            {
+                ReportsLogic rl = new ReportsLogic();
+                rl.DeleteUploadedRecordsByRTypeandStatus(uploaderid, Status, ReportType);
+                return Json("Record Deleted successfully", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("DeleteUploaderRecord:-" + " " + ex.Message + " ");
+                return Json("Record not Deleted successfully", JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
