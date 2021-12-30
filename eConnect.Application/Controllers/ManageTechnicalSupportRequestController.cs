@@ -68,7 +68,8 @@ namespace eConnect.Application.Controllers
 
         public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City, string Status, string Requesteddte, string Completiondte, string BranchCode, string Category, string TechProblemType)
         {
-            int Reqid = 0, Cid = 0, Sid = 0, Cityid = 0, Statusid = 0, Bcode = 0, CategoryId = 0, ProblemType = 0;
+            int  Cid = 0, Sid = 0, Cityid = 0, Statusid = 0, Bcode = 0, CategoryId = 0, ProblemType = 0;
+            string Reqid = "";
             if (TechProblemType == "")
             {
                 ProblemType = 0;
@@ -77,22 +78,22 @@ namespace eConnect.Application.Controllers
             {
                 ProblemType = Convert.ToInt32(TechProblemType);
             }
-            if (Requestid == "")
+            if (CspID == "")
             {
-                Reqid = 0;
+                Reqid = "0";
             }
             else
             {
-                Reqid = Convert.ToInt32(Requestid);
+                Reqid = CspID;
             }
-            if (Requestid == "")
-            {
-                Reqid = 0;
-            }
-            else
-            {
-                Reqid = Convert.ToInt32(Requestid);
-            }
+            //if (Requestid == "")
+            //{
+            //    Reqid = 0;
+            //}
+            //else
+            //{
+            //    Reqid = Convert.ToInt32(Requestid);
+            //}
             //if (BranchCode == "" || BranchCode == "Select BranchCode")
             //{
             //    Bcode = 0;
@@ -109,14 +110,14 @@ namespace eConnect.Application.Controllers
             //{
             //    CategoryId = Convert.ToInt32(Category);
             //}
-            if (CspID == "")
-            {
-                Cid = 0;
-            }
-            else
-            {
-                Cid = Convert.ToInt32(CspID);
-            }
+            //if (CspID == "")
+            //{
+            //    Cid = 0;
+            //}
+            //else
+            //{
+            //    Cid = Convert.ToInt32(CspID);
+            //}
             if (State == "")
             {
                 Sid = 0;

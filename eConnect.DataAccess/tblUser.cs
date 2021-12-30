@@ -17,8 +17,6 @@ namespace eConnect.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblUser()
         {
-            this.tblDepositRequests = new HashSet<tblDepositRequest>();
-            this.tblDepositRequests1 = new HashSet<tblDepositRequest>();
             this.tblTechRequests = new HashSet<tblTechRequest>();
             this.tblTechRequests1 = new HashSet<tblTechRequest>();
             this.tblTechRequests2 = new HashSet<tblTechRequest>();
@@ -26,6 +24,8 @@ namespace eConnect.DataAccess
             this.tblUploaders1 = new HashSet<tblUploader>();
             this.tblWithdrawalRequests = new HashSet<tblWithdrawalRequest>();
             this.tblWithdrawalRequests1 = new HashSet<tblWithdrawalRequest>();
+            this.tblDepositRequests = new HashSet<tblDepositRequest>();
+            this.tblDepositRequests1 = new HashSet<tblDepositRequest>();
         }
     
         public int UserId { get; set; }
@@ -40,10 +40,6 @@ namespace eConnect.DataAccess
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblDepositRequest> tblDepositRequests { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblDepositRequest> tblDepositRequests1 { get; set; }
         public virtual tblRoleMaster tblRoleMaster { get; set; }
         public virtual tblStatu tblStatu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -60,5 +56,9 @@ namespace eConnect.DataAccess
         public virtual ICollection<tblWithdrawalRequest> tblWithdrawalRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblWithdrawalRequest> tblWithdrawalRequests1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblDepositRequest> tblDepositRequests { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblDepositRequest> tblDepositRequests1 { get; set; }
     }
 }

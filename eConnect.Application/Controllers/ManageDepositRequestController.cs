@@ -60,16 +60,17 @@ namespace eConnect.Application.Controllers
             ViewBag.Rejectcount = tblDepositDetails.Count(x => x.Status == 7);//Reject
             return View(tblDepositDetails.ToList().OrderByDescending(x => x.DepositeRequestId));
         }
-        public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City, string Status, string Requesteddte,string Completiondte,string BranchCode, string Category)
+        public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City, string Status, string Requesteddte,string Completiondte,string BranchCode, string Category,string Depositdte)
         {
-            int Reqid = 0, Cid = 0, Sid = 0, Cityid = 0, Statusid = 0, Bcode = 0, CategoryId = 0;
-            if (Requestid == "")
+            int  Cid = 0, Sid = 0, Cityid = 0, Statusid = 0, Bcode = 0, CategoryId = 0;
+            string Reqid = "";
+            if (CspID == "")
             {
-                Reqid = 0;
+                Reqid = "0";
             }
             else
             {
-                Reqid = Convert.ToInt32(Requestid);
+                Reqid = CspID;
             }
             //if (BranchCode == "" || BranchCode == "Select BranchCode")
             //{
@@ -87,14 +88,14 @@ namespace eConnect.Application.Controllers
             //{
             //    CategoryId = Convert.ToInt32(Category);
             //}
-            if (CspID == "")
-            {
-                Cid = 0;
-            }
-            else
-            {
-                Cid = Convert.ToInt32(CspID);
-            }
+            //if (CspID == "")
+            //{
+            //    Cid = 0;
+            //}
+            //else
+            //{
+            //    Cid = Convert.ToInt32(CspID);
+            //}
             if (State == "")
             {
                 Sid = 0;
@@ -119,7 +120,7 @@ namespace eConnect.Application.Controllers
             {
                 Statusid = Convert.ToInt32(Status);
             }
-            var tblManageDepositDetails = raiseRequest.GetManageDepositDetailsSearch(Reqid, CspName, Cid, Sid, Cityid, Statusid, Requesteddte,Completiondte, BranchCode, Category);
+            var tblManageDepositDetails = raiseRequest.GetManageDepositDetailsSearch(Reqid, CspName, Cid, Sid, Cityid, Statusid, Requesteddte,Completiondte, BranchCode, Category, Depositdte);
             TempData["searchdataManagedeposit"] = tblManageDepositDetails.ToList();
             TempData["flag"] = true;
             return RedirectToAction("Index");
@@ -189,6 +190,21 @@ namespace eConnect.Application.Controllers
                 return Json("", JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        //*******************For Configure/Make/Authorize Status Update**************************************//
+        public JsonResult UpdateConfigure_Make_Authorize(int RequestId, string Configure,string Make,string Authorize)
+        {
+            RaiseRequestLogic requestLogic = new RaiseRequestLogic();
+            try
+            {
+                requestLogic.UpdateConfigure_Make_AuthorizeStatus(RequestId, Configure,Make,Authorize);
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
             {
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }

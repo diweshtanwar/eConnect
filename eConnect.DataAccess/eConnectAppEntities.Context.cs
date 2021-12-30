@@ -43,7 +43,6 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblConfiguration> tblConfigurations { get; set; }
         public virtual DbSet<tblCountry> tblCountries { get; set; }
         public virtual DbSet<tblDepartment> tblDepartments { get; set; }
-        public virtual DbSet<tblDepositRequest> tblDepositRequests { get; set; }
         public virtual DbSet<tblDesignation> tblDesignations { get; set; }
         public virtual DbSet<tblDocument> tblDocuments { get; set; }
         public virtual DbSet<tblDownloadDetail> tblDownloadDetails { get; set; }
@@ -78,6 +77,7 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblUserStatu> tblUserStatus { get; set; }
         public virtual DbSet<tblWebFeedback> tblWebFeedbacks { get; set; }
         public virtual DbSet<tblWithdrawalRequest> tblWithdrawalRequests { get; set; }
+        public virtual DbSet<tblDepositRequest> tblDepositRequests { get; set; }
     
         public virtual int sp_DeleteRequest(Nullable<int> id, Nullable<int> type)
         {
@@ -210,19 +210,9 @@ namespace eConnect.DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetCommissionReportByYearMonthandCSPName_Test_Result>("sp_GetCommissionReportByYearMonthandCSPName_Test", yearParameter, monthParameter, cSPCodeParameter);
         }
     
-        public virtual ObjectResult<sp_GetManageDepositRequestDetails_Result> sp_GetManageDepositRequestDetails()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageDepositRequestDetails_Result>("sp_GetManageDepositRequestDetails");
-        }
-    
         public virtual ObjectResult<sp_GetManageTechSupportRequestDetails_Result> sp_GetManageTechSupportRequestDetails()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageTechSupportRequestDetails_Result>("sp_GetManageTechSupportRequestDetails");
-        }
-    
-        public virtual ObjectResult<sp_GetManageWithdrawalRequestDetails_Result> sp_GetManageWithdrawalRequestDetails()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageWithdrawalRequestDetails_Result>("sp_GetManageWithdrawalRequestDetails");
         }
     
         public virtual ObjectResult<sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result> sp_GetMonthlyCommissionReportByYearMonthandCSPCode(Nullable<int> year, Nullable<int> month, string cSPCode)
@@ -249,6 +239,16 @@ namespace eConnect.DataAccess
                 new ObjectParameter("UploaderId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_PublishCommissionReport", uploaderIdParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetManageDepositRequestDetails_Result> sp_GetManageDepositRequestDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageDepositRequestDetails_Result>("sp_GetManageDepositRequestDetails");
+        }
+    
+        public virtual ObjectResult<sp_GetManageWithdrawalRequestDetails_Result> sp_GetManageWithdrawalRequestDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageWithdrawalRequestDetails_Result>("sp_GetManageWithdrawalRequestDetails");
         }
     }
 }

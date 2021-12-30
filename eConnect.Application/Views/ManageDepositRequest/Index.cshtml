@@ -37,17 +37,17 @@
         <div class="card-body collapse" id="filter">
             <div class="row">
                 @*<div class="col-md-3">
-                        <div class="form-group">
-                            <label>Request Id</label>
-                            <input type="text" id="Requestid" name="Requestid" class="form-control" value="@Request["Requestid"]">
-                        </div>
-                    </div>*@
+            <div class="form-group">
+                <label>Request Id</label>
+                <input type="text" id="Requestid" name="Requestid" class="form-control" value="@Request["Requestid"]">
+            </div>
+        </div>*@
                 @*<div class="col-md-3">
-                        <div class="form-group">
-                            <label>CSP Name</label>
-                            <input type="text" id="CspName" name="CspName" class="form-control" value="@Request["CspName"]">
-                        </div>
-                    </div>*@
+            <div class="form-group">
+                <label>CSP Name</label>
+                <input type="text" id="CspName" name="CspName" class="form-control" value="@Request["CspName"]">
+            </div>
+        </div>*@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>CSP ID</label>
@@ -55,31 +55,31 @@
                     </div>
                 </div>
                 @*<div class="col-md-3">
-                        <div class="form-group">
-                            <label>State</label>
-                            @Html.DropDownList("State", null, "Select State", htmlAttributes: new { @class = "form-control", @onchange = "return bindCity();" })
-                        </div>
-                    </div>*@
+            <div class="form-group">
+                <label>State</label>
+                @Html.DropDownList("State", null, "Select State", htmlAttributes: new { @class = "form-control", @onchange = "return bindCity();" })
+            </div>
+        </div>*@
                 @*<div class="col-md-3">
-                        <div class="form-group">
-                            <label>City</label>
-                            @Html.DropDownList("City", null, htmlAttributes: new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>BranchCode</label>
-                            @Html.DropDownList("BranchCode", null, "Select BranchCode", htmlAttributes: new { @class = "form-control" })
+            <div class="form-group">
+                <label>City</label>
+                @Html.DropDownList("City", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>BranchCode</label>
+                @Html.DropDownList("BranchCode", null, "Select BranchCode", htmlAttributes: new { @class = "form-control" })
 
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Category</label>
-                            @Html.DropDownList("Category", null, "Select Category", htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Category</label>
+                @Html.DropDownList("Category", null, "Select Category", htmlAttributes: new { @class = "form-control" })
 
-                        </div>
-                    </div>*@
+            </div>
+        </div>*@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Status</label>
@@ -99,7 +99,13 @@
 
                     </div>
                 </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Deposit Date</label>
+                        <input type="date" id="Depositdte" name="Depositdte" class="form-control" value="@Request["Depositdte"]">
 
+                    </div>
+                </div>
 
                 <div class="col-md-3 mt-md-4 pt-1">
                     @*<button class="btn btn-dark px-4 mr-2">Cancel</button>*@
@@ -140,43 +146,50 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.RequestedDate)
                             </th>
-                            <th>Remarks</th>
+                            <th>BankDepositDate</th>
                             <th>
                                 Reciept
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Status)
                             </th>
-
+                            <th>Remarks</th>
                             <th> Action </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.DepositeRequestId)
-                                    </td>*@
+                        <tr>
+                            @*<td>
+            @Html.DisplayFor(modelItem => item.DepositeRequestId)
+        </td>*@
 
-                                @*@Html.DisplayFor(modelItem => item.RequestType)*@
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CSPName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CSPCode)
+                            @*@Html.DisplayFor(modelItem => item.RequestType)*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CSPName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CSPCode)
 
-                                </td>
+                            </td>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Amount)
-                                </td>
-                                <td>
-                                    @*@(item.RequestedDate?.ToString("MM/dd/yyyy"))*@
-                                    @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
-                                    @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
-                                </td>
-                                <td style="min-width:100px;word-break:break-word">@item.Comment</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>
+                                @*@(item.RequestedDate?.ToString("MM/dd/yyyy"))*@
+                                @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
+                                @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
+                            </td>
+                            <td>
+                                @if (item.DepositDate != null)
+                                {
+
+                                    @Html.Label(@item.DepositDate.Value.ToString("dd MMM yyyy"))
+
+                                }
+                            </td>
                                 <td><a href="@item.ReceiptSource" target="_blank">ViewReciept</a></td>
                                 @if (item.Status.Equals(1))
                                 {
@@ -191,10 +204,31 @@
                                 {
                                     <td>Rejected</td>
                                 }
+                                <td>@item.Comment</td>
                                 <td>
                                     @Html.ActionLink("Edit", "Edit", new { id = item.DepositeRequestId })
                                     |
                                     @Html.ActionLink("View", "Details", new { id = item.DepositeRequestId })
+                                    @if (item.Status != 0)
+                                    {
+                                        <a href="#" onclick="showStatus(@item.DepositeRequestId)">| Status</a>
+
+                                        var did = "divstatus" + item.DepositeRequestId;
+                                        var drpId = "drpStatus" + item.DepositeRequestId;
+                                        <div style="display:none;" id=@did class="divstyle">
+
+                                            @Html.DropDownList("Skills", new List<SelectListItem>
+                                            {
+
+                                             new SelectListItem{ Text = "Open", Value = "1"},
+                                             new SelectListItem{ Text = "Close", Value = "3" },
+
+                                            }, new { id = drpId, @class = "dropdownlist" })
+                                            <br />
+                                            <button onclick="ClickSaveStatus(@item.DepositeRequestId)" style="vertical-align :middle;">Save</button>
+                                            <button onclick="Cancel(@item.DepositeRequestId)" style="vertical-align: middle;">Cancel</button>
+                                        </div>
+                                    }
                                     @if (item.Status == 1)
                                     {
                                         <a href="#" onclick="showEdit(@item.DepositeRequestId)">| Reject</a>
@@ -248,8 +282,39 @@
             });
     }
     }
+     function ClickSaveStatus(id) {
+         var txtclear = "text" + id;
+         var drpId = "drpStatus" + id;
+         var drpStatus = document.getElementById(drpId).value;
 
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateRequestStatus","ManageDepositRequest")',
+                data: { RequestId: id, status: drpStatus, Comments: "", RequestType: '1' },
+                dataType: 'html',
+                beforeSend: function () {
+                    $('.ajax-loader').css("visibility", "visible");
+                },
+                complete: function () {
+                    $('.ajax-loader').css("visibility", "hidden");
+                },
+                success: function (data) {
+                    location.reload(true);
+                    alert('Record Updated successfully');
+                }
 
+            });
+
+    }
+    function showStatus(id) {
+        $('#divstatus' + id).show();
+    }
+    debugger;
+    function Cancel(id) {
+
+        $('#divstatus' + id).hide();
+        /*  $(document).ready(function () {*/
+    }
     function showEdit(id) {
         $('#div' + id).show();
     }
@@ -306,5 +371,44 @@
         background-color: #e7e7e7;
         color: black;
     }
+    .dropdownlist {
+        color: #fff;
+        font-size: 10px;
+        padding: 5px 10px;
+        border-radius: 3px;
+        background-color: #cc2a41;
+        width: 102px
+        /*font-weight: bold;*/
+    }
+    .divstyle {
+        border: 2px solid red;
+        padding: 5px;
+        border-radius: 5px;
+        width: 115px;
+    }
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black;
+    }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+            top: -5px;
+            left: 105%;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
     /* Gray */
 </style>

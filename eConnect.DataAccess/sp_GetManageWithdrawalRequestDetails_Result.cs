@@ -30,5 +30,6 @@ namespace eConnect.DataAccess
         public string Comment { get; set; }
         public string BranchCode { get; set; }
         public string Category { get; set; }
+        public Nullable<decimal> AuthorizedAmount { get; set; }
     }
 }

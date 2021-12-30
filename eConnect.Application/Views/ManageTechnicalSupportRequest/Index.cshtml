@@ -169,79 +169,132 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.TechRequestId)
-                                    </td>*@
+                        <tr>
+                            @*<td>
+            @Html.DisplayFor(modelItem => item.TechRequestId)
+        </td>*@
 
-                                @*@Html.DisplayFor(modelItem => item.RequestType)*@
-                                @if (item.ProblemType.Equals(1))
-                                {
-                                    <td>Technical</td>
+                            @*@Html.DisplayFor(modelItem => item.RequestType)*@
+                            @if (item.ProblemType.Equals(1))
+                            {
+                                <td>Technical</td>
 
-                                }
-                                else if (item.ProblemType.Equals(2))
-                                {
-                                    <td>Support</td>
-                                }
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CSPCode)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.MobileNo)
-                                </td>
-                                @*<td>
-                                     @Html.DisplayFor(modelItem => item.MobileNo)
-                                    </td>*@
-                                <td>
-                                    @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
+                            }
+                            else if (item.ProblemType.Equals(2))
+                            {
+                                <td>Support</td>
+                            }
+                            else if (item.ProblemType.Equals(3))
+                            {
+                            <td>Software Installation</td>
+                            }
+                            else if (item.ProblemType.Equals(4))
+                            {
+                              <td>Micro ATM</td>
+                            }
+                            else if (item.ProblemType.Equals(5))
+                            {
+                               <td>RD Service</td>
+                            }
+                            else if (item.ProblemType.Equals(6))
+                            {
+                              <td>Morpho Fingerprint Device</td>
+                            }
+                            else if (item.ProblemType.Equals(7))
+                            {
+                             <td>AEPS Service</td>
+                            }
+                            else if (item.ProblemType.Equals(8))
+                            {
+                             <td>Passbook Printe</td>
+                            }
+                            else if (item.ProblemType.Equals(9))
+                            {
+                             <td>User Locked</td>
+                            }
+                            else if (item.ProblemType.Equals(10))
+                            {
+                             <td>Transaction Password Locked</td>
+                            }
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CSPCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MobileNo)
+                            </td>
+                            @*<td>
+         @Html.DisplayFor(modelItem => item.MobileNo)
+        </td>*@
+                            <td>
+                                @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
 
-                                    @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
-                                </td>
-                                <td> @Html.DisplayFor(modelItem => item.AnyDeskDetail)</td>
-                                <td> <a href="@item.Attachment" target="_blank">ViewScreenShot</a> </td>
-                                <!--<td>
+                                @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
+                            </td>
+                            <td> @Html.DisplayFor(modelItem => item.AnyDeskDetail)</td>
+                            <td> <a href="@item.Attachment" target="_blank">ViewScreenShot</a> </td>
+                            <!--<td>
 
-                                @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
-                                <!--</td>-->
-                                @if (item.Status.Equals(1))
-                                {
-                                    <td>Open</td>
+    @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
+    <!--</td>-->
+                            @if (item.Status.Equals(1))
+                            {
+                                <td>Open</td>
 
-                                }
-                                else if (item.Status.Equals(3))
+                            }
+                            else if (item.Status.Equals(3))
+                            {
+                                <td>Close</td>
+                            }
+                            else if (item.Status.Equals(2))
+                            {
+                                <td>In-Progress</td>
+                            }
+                            else if (item.Status.Equals(7))
+                            {
+                                <td>Rejected</td>
+                            }
+                            @*<td>
+            @Html.DisplayFor(modelItem => item.Account)
+        </td>*@
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.TechRequestId })
+                                |
+                                @Html.ActionLink("View", "Details", new { id = item.TechRequestId })
+                                @if (item.Status != 0)
                                 {
-                                    <td>Close</td>
-                                }
-                                else if (item.Status.Equals(2))
-                                {
-                                    <td>In-Progress</td>
-                                }
-                                else if (item.Status.Equals(7))
-                                {
-                                    <td>Rejected</td>
-                                }
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.Account)
-                                    </td>*@
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.TechRequestId })
-                                    |
-                                    @Html.ActionLink("View", "Details", new { id = item.TechRequestId })
-                                    @if (item.Status == 1 || item.Status == 2)
-                                    {
-                                        <a href="#" onclick="showEdit(@item.TechRequestId)">| Reject</a>
-                                        var did = "div" + item.TechRequestId;
-                                        var textareaId = "text" + item.TechRequestId;
-                                        <div style="display:none;" id=@did>
-                                            <textarea id="@textareaId"></textarea>
-                                            <button onclick="ClickSave(@item.TechRequestId)" style="vertical-align :middle;">Save</button>
-                                            <button onclick="ClickCancel(@item.TechRequestId)" style="vertical-align: middle;">Cancel</button>
-                                        </div>
-                                    }
-                                </td>
+                                    <a href="#" onclick="showStatus(@item.TechRequestId)">| Status</a>
+                                    var did = "divstatus" + item.TechRequestId;
+                                    var drpId = "drpStatus" + item.TechRequestId;
+                                    <div style="display:none;" id=@did class="divstyle">
 
-                            </tr>
+                                        @Html.DropDownList("Skills", new List<SelectListItem>
+                                        {
+
+                                         new SelectListItem{ Text = "Open", Value = "1"},
+                                         new SelectListItem{ Text = "Close", Value = "3" },
+                                         new SelectListItem{ Text = "In-Progress", Value = "2"  },
+                                        }, new { id = drpId, @class = "dropdownlist" })
+                                        <br />
+                                        <button onclick="ClickSaveStatus(@item.TechRequestId)" style="vertical-align :middle;">Save</button>
+                                        <button onclick="Cancel(@item.TechRequestId)" style="vertical-align: middle;">Cancel</button>
+                                    </div>
+                                }
+                                @if (item.Status == 1 || item.Status == 2)
+                                {
+                                    <a href="#" onclick="showEdit(@item.TechRequestId)">| Reject</a>
+                                    var did = "div" + item.TechRequestId;
+                                    var textareaId = "text" + item.TechRequestId;
+                                    <div style="display:none;" id=@did>
+                                        <textarea id="@textareaId"></textarea>
+                                        <br />
+                                        <button onclick="ClickSave(@item.TechRequestId)" style="vertical-align :middle;">Save</button>
+                                        <button onclick="ClickCancel(@item.TechRequestId)" style="vertical-align: middle;">Cancel</button>
+                                    </div>
+                                }
+
+                            </td>
+
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -278,8 +331,23 @@
         background-color: #e7e7e7;
         color: black;
     }
+    .dropdownlist {
+        color: #fff;
+        font-size: 10px;
+        padding: 5px 10px;
+        border-radius: 3px;
+        background-color: #cc2a41;
+        width: 102px;
+        /*font-weight: bold;*/
+    }
+    .divstyle {
+        border: 2px solid red;
+        padding: 5px;
+        border-radius: 5px;
+        width: 115px;
+    }
     /* Gray */
-</style>
+</style>s
 <script>
 
   $(document).ready(function () {
@@ -312,7 +380,30 @@
             });
     }
     }
+     function ClickSaveStatus(id) {
+         var txtclear = "text" + id;
+         var drpId = "drpStatus" + id;
+         var drpStatus = document.getElementById(drpId).value;
+        
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateRequestStatus","ManageDepositRequest")',
+                data: { RequestId: id, status: drpStatus, Comments: "", RequestType: '3' },
+                dataType: 'html',
+                beforeSend: function () {
+                    $('.ajax-loader').css("visibility", "visible");
+                },
+                complete: function () {
+                    $('.ajax-loader').css("visibility", "hidden");
+                },
+                success: function (data) {
+                    location.reload(true);
+                    alert('Record Updated successfully');
+                }
 
+            });
+    
+    }
 
     function showEdit(id) {
         $('#div' + id).show();
@@ -323,7 +414,15 @@
         $('#div' + id).hide();
         /*  $(document).ready(function () {*/
     }
+    function showStatus(id) {
+        $('#divstatus' + id).show();
+    }
+    debugger;
+    function Cancel(id) {
 
+        $('#divstatus' + id).hide();
+        /*  $(document).ready(function () {*/
+    }
     function bindCity() {
         var sid = $("#State").val();
         $("#City").empty();

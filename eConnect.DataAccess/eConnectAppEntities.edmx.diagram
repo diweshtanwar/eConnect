@@ -21,7 +21,6 @@
         <EntityTypeShape EntityType="eConnectAppModel.tblConfiguration" Width="1.5" PointX="10" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblCountry" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblDepartment" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eConnectAppModel.tblDepositRequest" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblDesignation" Width="1.5" PointX="12.75" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblDocument" Width="1.5" PointX="14.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="eConnectAppModel.tblDownloadDetail" Width="1.5" PointX="14.75" PointY="14.75" IsExpanded="true" />
@@ -67,8 +66,6 @@
         <AssociationConnector Association="eConnectAppModel.FK_tblCommissionReportNew_tblUploader" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblState_tblCountry" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblUserCSPDetail_tblCountry" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblDepositRequest_tblUsers" ManuallyRouted="false" />
-        <AssociationConnector Association="eConnectAppModel.FK_tblDepositRequest_tblUsers1" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblFolderImageDetails_tblFolderDetails" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblMenuSub_tblMenuMain" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblMenuSub_tblRoleMaster" ManuallyRouted="false" />
@@ -86,6 +83,9 @@
         <AssociationConnector Association="eConnectAppModel.FK_tblUploader_tblUsers1" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers" ManuallyRouted="false" />
         <AssociationConnector Association="eConnectAppModel.FK_tblWithdrawalRequest_tblUsers1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="eConnectAppModel.tblDepositRequest" Width="1.5" PointX="5.25" PointY="12.375" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblDepositRequest_tblUsers" />
+        <AssociationConnector Association="eConnectAppModel.FK_tblDepositRequest_tblUsers1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

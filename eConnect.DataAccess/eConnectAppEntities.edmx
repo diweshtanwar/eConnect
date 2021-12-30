@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="eConnectAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="eConnectAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblAbsentismReport">
           <Key>
             <PropertyRef Name="ID" />
@@ -235,6 +235,7 @@
           <Property Name="DepositeRequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RequestType" Type="int" />
           <Property Name="Comment" Type="varchar(max)" />
+          <Property Name="DepositDate" Type="date" />
         </EntityType>
         <EntityType Name="tblDesignation">
           <Key>
@@ -1279,8 +1280,7 @@
             <End Role="tblTechRequest" EntitySet="tblTechRequest" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="eConnectAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1507,29 +1507,6 @@
           </Key>
           <Property Name="DepartmentId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="tblDepositRequest">
-          <Key>
-            <PropertyRef Name="DepositeRequestId" />
-          </Key>
-          <Property Name="Amount" Type="Decimal" Precision="19" Scale="6" />
-          <Property Name="RaisedBy" Type="Int32" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="RequestedDate" Type="DateTime" Precision="3" />
-          <Property Name="CompletionDate" Type="DateTime" Precision="3" />
-          <Property Name="HasReceipt" Type="Boolean" />
-          <Property Name="ReceiptSource" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="IsVerified" Type="Boolean" />
-          <Property Name="ResolutionDetail" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="DepositeRequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RequestType" Type="Int32" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblUser" Relationship="Self.FK_tblDepositRequest_tblUsers" FromRole="tblDepositRequest" ToRole="tblUsers" />
-          <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblDepositRequest_tblUsers1" FromRole="tblDepositRequest" ToRole="tblUsers" />
         </EntityType>
         <EntityType Name="tblDesignation">
           <Key>
@@ -1978,8 +1955,6 @@
           <Property Name="CreatedBy" Type="Int32" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
-          <NavigationProperty Name="tblDepositRequests" Relationship="Self.FK_tblDepositRequest_tblUsers" FromRole="tblUsers" ToRole="tblDepositRequest" />
-          <NavigationProperty Name="tblDepositRequests1" Relationship="Self.FK_tblDepositRequest_tblUsers1" FromRole="tblUsers" ToRole="tblDepositRequest" />
           <NavigationProperty Name="tblRoleMaster" Relationship="Self.FK_tblUsers_tblRoleMaster" FromRole="tblUsers" ToRole="tblRoleMaster" />
           <NavigationProperty Name="tblStatu" Relationship="Self.FK_tblUsers_tblStatus" FromRole="tblUsers" ToRole="tblStatus" />
           <NavigationProperty Name="tblTechRequests" Relationship="Self.FK_tblTechRequest_tblUsers1" FromRole="tblUsers" ToRole="tblTechRequest" />
@@ -1989,6 +1964,8 @@
           <NavigationProperty Name="tblUploaders1" Relationship="Self.FK_tblUploader_tblUsers1" FromRole="tblUsers" ToRole="tblUploader" />
           <NavigationProperty Name="tblWithdrawalRequests" Relationship="Self.FK_tblWithdrawalRequest_tblUsers" FromRole="tblUsers" ToRole="tblWithdrawalRequest" />
           <NavigationProperty Name="tblWithdrawalRequests1" Relationship="Self.FK_tblWithdrawalRequest_tblUsers1" FromRole="tblUsers" ToRole="tblWithdrawalRequest" />
+          <NavigationProperty Name="tblDepositRequests" Relationship="eConnectAppModel.FK_tblDepositRequest_tblUsers" FromRole="tblUser" ToRole="tblDepositRequest" />
+          <NavigationProperty Name="tblDepositRequests1" Relationship="eConnectAppModel.FK_tblDepositRequest_tblUsers1" FromRole="tblUser" ToRole="tblDepositRequest" />
         </EntityType>
         <EntityType Name="tblUserStatu">
           <Key>
@@ -2165,30 +2142,6 @@
             </Principal>
             <Dependent Role="tblUserCSPDetail">
               <PropertyRef Name="Country" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblDepositRequest_tblUsers">
-          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="0..1" />
-          <End Role="tblDepositRequest" Type="Self.tblDepositRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUsers">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblDepositRequest">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblDepositRequest_tblUsers1">
-          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="0..1" />
-          <End Role="tblDepositRequest" Type="Self.tblDepositRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUsers">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="tblDepositRequest">
-              <PropertyRef Name="UpdatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2413,7 +2366,6 @@
           <EntitySet Name="tblConfigurations" EntityType="Self.tblConfiguration" />
           <EntitySet Name="tblCountries" EntityType="Self.tblCountry" />
           <EntitySet Name="tblDepartments" EntityType="Self.tblDepartment" />
-          <EntitySet Name="tblDepositRequests" EntityType="Self.tblDepositRequest" />
           <EntitySet Name="tblDesignations" EntityType="Self.tblDesignation" />
           <EntitySet Name="tblDocuments" EntityType="Self.tblDocument" />
           <EntitySet Name="tblDownloadDetails" EntityType="Self.tblDownloadDetail" />
@@ -2491,14 +2443,6 @@
           <AssociationSet Name="FK_tblUserCSPDetail_tblCountry" Association="Self.FK_tblUserCSPDetail_tblCountry">
             <End Role="tblCountry" EntitySet="tblCountries" />
             <End Role="tblUserCSPDetail" EntitySet="tblUserCSPDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblDepositRequest_tblUsers" Association="Self.FK_tblDepositRequest_tblUsers">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblDepositRequest" EntitySet="tblDepositRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblDepositRequest_tblUsers1" Association="Self.FK_tblDepositRequest_tblUsers1">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblDepositRequest" EntitySet="tblDepositRequests" />
           </AssociationSet>
           <AssociationSet Name="FK_tblFolderImageDetails_tblFolderDetails" Association="Self.FK_tblFolderImageDetails_tblFolderDetails">
             <End Role="tblFolderDetails" EntitySet="tblFolderDetails" />
@@ -2588,7 +2532,7 @@
             <Parameter Name="FilterType" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetAppMenuWithSubMenu" ReturnType="Collection(eConnectAppModel.sp_GetAppMenuWithSubMenu_Result)">
-            <Parameter Name="RoleId" Mode="In" Type="Int32" />
+          <Parameter Name="RoleId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_GetBusinessReportByYearMonthandCSPCode" ReturnType="Collection(eConnectAppModel.sp_GetBusinessReportByYearMonthandCSPCode_Result)">
             <Parameter Name="Year" Mode="In" Type="Int32" />
@@ -2606,17 +2550,26 @@
             <Parameter Name="Month" Mode="In" Type="Int32" />
             <Parameter Name="CSPCode" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_GetManageDepositRequestDetails" ReturnType="Collection(eConnectAppModel.sp_GetManageDepositRequestDetails_Result)" />
           <FunctionImport Name="sp_GetManageTechSupportRequestDetails" ReturnType="Collection(eConnectAppModel.sp_GetManageTechSupportRequestDetails_Result)" />
-          <FunctionImport Name="sp_GetManageWithdrawalRequestDetails" ReturnType="Collection(eConnectAppModel.sp_GetManageWithdrawalRequestDetails_Result)" />
           <FunctionImport Name="sp_GetMonthlyCommissionReportByYearMonthandCSPCode" ReturnType="Collection(eConnectAppModel.sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result)">
             <Parameter Name="Year" Mode="In" Type="Int32" />
             <Parameter Name="Month" Mode="In" Type="Int32" />
             <Parameter Name="CSPCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_PublishCommissionReport">
-            <Parameter Name="UploaderId" Mode="In" Type="Int32" />
+          <Parameter Name="UploaderId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="tblDepositRequests" EntityType="eConnectAppModel.tblDepositRequest" />
+          <AssociationSet Name="FK_tblDepositRequest_tblUsers" Association="eConnectAppModel.FK_tblDepositRequest_tblUsers">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblDepositRequest" EntitySet="tblDepositRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDepositRequest_tblUsers1" Association="eConnectAppModel.FK_tblDepositRequest_tblUsers1">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblDepositRequest" EntitySet="tblDepositRequests" />
+          </AssociationSet>
+          <FunctionImport Name="sp_GetManageDepositRequestDetails" ReturnType="Collection(eConnectAppModel.sp_GetManageDepositRequestDetails_Result)" />
+          <FunctionImport Name="sp_GetManageWithdrawalRequestDetails" ReturnType="Collection(eConnectAppModel.sp_GetManageWithdrawalRequestDetails_Result)" />
         </EntityContainer>
         <ComplexType Name="sp_GetAppMenuWithSubMenu_Result">
           <Property Type="String" Name="Tittle" Nullable="true" MaxLength="20" />
@@ -2711,29 +2664,6 @@
           <Property Type="Decimal" Name="Total" Nullable="true" Precision="38" Scale="11" />
           <Property Type="Decimal" Name="ApplyTDS" Nullable="true" Precision="18" Scale="4" />
         </ComplexType>
-        <ComplexType Name="sp_GetManageDepositRequestDetails_Result">
-          <Property Type="Int32" Name="RaisedBy" Nullable="true" />
-          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" Scale="6" />
-          <Property Type="Int32" Name="Status" Nullable="true" />
-          <Property Type="DateTime" Name="RequestedDate" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="CompletionDate" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="HasReceipt" Nullable="true" />
-          <Property Type="String" Name="ReceiptSource" Nullable="true" MaxLength="200" />
-          <Property Type="Int32" Name="DepositeRequestId" Nullable="false" />
-          <Property Type="String" Name="Comment" Nullable="true" />
-          <Property Type="Int32" Name="CSPId" Nullable="false" />
-          <Property Type="String" Name="CSPName" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="CSPCode" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="Country" Nullable="true" />
-          <Property Type="Int32" Name="State" Nullable="true" />
-          <Property Type="Int32" Name="City" Nullable="true" />
-          <Property Type="String" Name="Location" Nullable="true" MaxLength="50" />
-          <Property Type="Boolean" Name="IsVerified" Nullable="true" />
-          <Property Type="String" Name="CSPAccount" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Comment1" Nullable="true" />
-          <Property Type="String" Name="BranchCode" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
-        </ComplexType>
         <ComplexType Name="sp_GetManageTechSupportRequestDetails_Result">
           <Property Type="Int64" Name="TechRequestId" Nullable="false" />
           <Property Type="Int32" Name="RaisedBy" Nullable="true" />
@@ -2766,6 +2696,94 @@
           <Property Type="String" Name="BranchCode" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result">
+          <Property Type="Int64" Name="MonthlyCommissionReportID" Nullable="false" />
+          <Property Type="String" Name="CSPCode" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="CSPName" Nullable="true" MaxLength="200" />
+          <Property Type="Decimal" Name="Transation" Nullable="true" Precision="19" Scale="6" />
+          <Property Type="Decimal" Name="Incentive" Nullable="true" Precision="19" Scale="6" />
+          <Property Type="Decimal" Name="Rural" Nullable="true" Precision="19" Scale="6" />
+          <Property Type="Decimal" Name="Total" Nullable="true" Precision="19" Scale="6" />
+          <Property Type="Decimal" Name="TDS" Nullable="true" Precision="19" Scale="6" />
+          <Property Type="Decimal" Name="PayableToCSP" Nullable="true" Precision="19" Scale="6" />
+          <Property Type="Decimal" Name="NetPayable" Nullable="true" Precision="19" Scale="6" />
+          <Property Type="Int32" Name="Month" Nullable="true" />
+          <Property Type="Int32" Name="Year" Nullable="true" />
+          <Property Type="Int32" Name="UploaderId" Nullable="false" />
+          <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="tblDepositRequest">
+          <Key>
+            <PropertyRef Name="DepositeRequestId" />
+          </Key>
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="RaisedBy" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="RequestedDate" Type="DateTime" Precision="3" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="3" />
+          <Property Name="HasReceipt" Type="Boolean" />
+          <Property Name="ReceiptSource" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IsVerified" Type="Boolean" />
+          <Property Name="ResolutionDetail" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="DepositeRequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestType" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DepositDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tblUser" Relationship="eConnectAppModel.FK_tblDepositRequest_tblUsers" FromRole="tblDepositRequest" ToRole="tblUser" />
+          <NavigationProperty Name="tblUser1" Relationship="eConnectAppModel.FK_tblDepositRequest_tblUsers1" FromRole="tblDepositRequest" ToRole="tblUser" />
+        </EntityType>
+        <Association Name="FK_tblDepositRequest_tblUsers">
+          <End Type="eConnectAppModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+          <End Type="eConnectAppModel.tblDepositRequest" Role="tblDepositRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblDepositRequest">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDepositRequest_tblUsers1">
+          <End Type="eConnectAppModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+          <End Type="eConnectAppModel.tblDepositRequest" Role="tblDepositRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblDepositRequest">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_GetManageDepositRequestDetails_Result">
+          <Property Type="Int32" Name="RaisedBy" Nullable="true" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" Scale="6" />
+          <Property Type="Int32" Name="Status" Nullable="true" />
+          <Property Type="DateTime" Name="RequestedDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CompletionDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="HasReceipt" Nullable="true" />
+          <Property Type="String" Name="ReceiptSource" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="DepositeRequestId" Nullable="false" />
+          <Property Type="String" Name="Comment" Nullable="true" />
+          <Property Type="Int32" Name="CSPId" Nullable="false" />
+          <Property Type="String" Name="CSPName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="CSPCode" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Country" Nullable="true" />
+          <Property Type="Int32" Name="State" Nullable="true" />
+          <Property Type="Int32" Name="City" Nullable="true" />
+          <Property Type="String" Name="Location" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsVerified" Nullable="true" />
+          <Property Type="String" Name="CSPAccount" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Comment1" Nullable="true" />
+          <Property Type="String" Name="BranchCode" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DepositDate" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="sp_GetManageWithdrawalRequestDetails_Result">
           <Property Type="Int32" Name="WithdrawalRequestId" Nullable="false" />
           <Property Type="Int32" Name="RaisedBy" Nullable="true" />
@@ -2784,22 +2802,7 @@
           <Property Type="String" Name="Comment" Nullable="true" />
           <Property Type="String" Name="BranchCode" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
-        </ComplexType>
-        <ComplexType Name="sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result">
-          <Property Type="Int64" Name="MonthlyCommissionReportID" Nullable="false" />
-          <Property Type="String" Name="CSPCode" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="CSPName" Nullable="true" MaxLength="200" />
-          <Property Type="Decimal" Name="Transation" Nullable="true" Precision="19" Scale="6" />
-          <Property Type="Decimal" Name="Incentive" Nullable="true" Precision="19" Scale="6" />
-          <Property Type="Decimal" Name="Rural" Nullable="true" Precision="19" Scale="6" />
-          <Property Type="Decimal" Name="Total" Nullable="true" Precision="19" Scale="6" />
-          <Property Type="Decimal" Name="TDS" Nullable="true" Precision="19" Scale="6" />
-          <Property Type="Decimal" Name="PayableToCSP" Nullable="true" Precision="19" Scale="6" />
-          <Property Type="Decimal" Name="NetPayable" Nullable="true" Precision="19" Scale="6" />
-          <Property Type="Int32" Name="Month" Nullable="true" />
-          <Property Type="Int32" Name="Year" Nullable="true" />
-          <Property Type="Int32" Name="UploaderId" Nullable="false" />
-          <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="AuthorizedAmount" Nullable="true" Precision="19" Scale="6" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3030,28 +3033,6 @@
               <MappingFragment StoreEntitySet="tblDepartment">
                 <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblDepositRequests">
-            <EntityTypeMapping TypeName="eConnectAppModel.tblDepositRequest">
-              <MappingFragment StoreEntitySet="tblDepositRequest">
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="RaisedBy" ColumnName="RaisedBy" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
-                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
-                <ScalarProperty Name="HasReceipt" ColumnName="HasReceipt" />
-                <ScalarProperty Name="ReceiptSource" ColumnName="ReceiptSource" />
-                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
-                <ScalarProperty Name="ResolutionDetail" ColumnName="ResolutionDetail" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="DepositeRequestId" ColumnName="DepositeRequestId" />
-                <ScalarProperty Name="RequestType" ColumnName="RequestType" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3661,33 +3642,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_GetManageDepositRequestDetails" FunctionName="eConnectAppModel.Store.sp_GetManageDepositRequestDetails">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetManageDepositRequestDetails_Result">
-                <ScalarProperty Name="RaisedBy" ColumnName="RaisedBy" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
-                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
-                <ScalarProperty Name="HasReceipt" ColumnName="HasReceipt" />
-                <ScalarProperty Name="ReceiptSource" ColumnName="ReceiptSource" />
-                <ScalarProperty Name="DepositeRequestId" ColumnName="DepositeRequestId" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="CSPId" ColumnName="CSPId" />
-                <ScalarProperty Name="CSPName" ColumnName="CSPName" />
-                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
-                <ScalarProperty Name="CSPAccount" ColumnName="CSPAccount" />
-                <ScalarProperty Name="Comment1" ColumnName="Comment1" />
-                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_GetManageTechSupportRequestDetails" FunctionName="eConnectAppModel.Store.sp_GetManageTechSupportRequestDetails">
             <ResultMapping>
               <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetManageTechSupportRequestDetails_Result">
@@ -3724,29 +3678,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_GetManageWithdrawalRequestDetails" FunctionName="eConnectAppModel.Store.sp_GetManageWithdrawalRequestDetails">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetManageWithdrawalRequestDetails_Result">
-                <ScalarProperty Name="WithdrawalRequestId" ColumnName="WithdrawalRequestId" />
-                <ScalarProperty Name="RaisedBy" ColumnName="RaisedBy" />
-                <ScalarProperty Name="CSPName" ColumnName="CSPName" />
-                <ScalarProperty Name="CSPId" ColumnName="CSPId" />
-                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
-                <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
-                <ScalarProperty Name="Account" ColumnName="Account" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="CSPAccount" ColumnName="CSPAccount" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_GetMonthlyCommissionReportByYearMonthandCSPCode" FunctionName="eConnectAppModel.Store.sp_GetMonthlyCommissionReportByYearMonthandCSPCode">
             <ResultMapping>
               <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result">
@@ -3768,6 +3699,81 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_PublishCommissionReport" FunctionName="eConnectAppModel.Store.sp_PublishCommissionReport" />
+          <EntitySetMapping Name="tblDepositRequests">
+            <EntityTypeMapping TypeName="eConnectAppModel.tblDepositRequest">
+              <MappingFragment StoreEntitySet="tblDepositRequest">
+                <ScalarProperty Name="DepositDate" ColumnName="DepositDate" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="RequestType" ColumnName="RequestType" />
+                <ScalarProperty Name="DepositeRequestId" ColumnName="DepositeRequestId" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ResolutionDetail" ColumnName="ResolutionDetail" />
+                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+                <ScalarProperty Name="ReceiptSource" ColumnName="ReceiptSource" />
+                <ScalarProperty Name="HasReceipt" ColumnName="HasReceipt" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="RaisedBy" ColumnName="RaisedBy" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetManageDepositRequestDetails" FunctionName="eConnectAppModel.Store.sp_GetManageDepositRequestDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetManageDepositRequestDetails_Result">
+                <ScalarProperty Name="RaisedBy" ColumnName="RaisedBy" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="HasReceipt" ColumnName="HasReceipt" />
+                <ScalarProperty Name="ReceiptSource" ColumnName="ReceiptSource" />
+                <ScalarProperty Name="DepositeRequestId" ColumnName="DepositeRequestId" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="CSPId" ColumnName="CSPId" />
+                <ScalarProperty Name="CSPName" ColumnName="CSPName" />
+                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+                <ScalarProperty Name="CSPAccount" ColumnName="CSPAccount" />
+                <ScalarProperty Name="Comment1" ColumnName="Comment1" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="DepositDate" ColumnName="DepositDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetManageWithdrawalRequestDetails" FunctionName="eConnectAppModel.Store.sp_GetManageWithdrawalRequestDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="eConnectAppModel.sp_GetManageWithdrawalRequestDetails_Result">
+                <ScalarProperty Name="WithdrawalRequestId" ColumnName="WithdrawalRequestId" />
+                <ScalarProperty Name="RaisedBy" ColumnName="RaisedBy" />
+                <ScalarProperty Name="CSPName" ColumnName="CSPName" />
+                <ScalarProperty Name="CSPId" ColumnName="CSPId" />
+                <ScalarProperty Name="CSPCode" ColumnName="CSPCode" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="CSPAccount" ColumnName="CSPAccount" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="AuthorizedAmount" ColumnName="AuthorizedAmount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

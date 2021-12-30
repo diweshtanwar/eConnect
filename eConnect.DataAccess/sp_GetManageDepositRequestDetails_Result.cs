@@ -34,5 +34,6 @@ namespace eConnect.DataAccess
         public string Comment1 { get; set; }
         public string BranchCode { get; set; }
         public string Category { get; set; }
+        public Nullable<System.DateTime> DepositDate { get; set; }
     }
 }

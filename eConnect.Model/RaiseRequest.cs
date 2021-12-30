@@ -34,6 +34,8 @@ namespace eConnect.Model
         public string CurrentStatus { get; set; }
         public string Comment { get; set; }
         public string BankDepositReceipt { get; set; }
+        [Required(ErrorMessage = "BankDeposit Date is required.")]
+        public string BankDepositDate { get; set; }
     }
     public class Withdraw
     {
