@@ -148,7 +148,6 @@
     });
 
     function DeleteUploadRecord(uploaderId, reporttype, status) {
-        alert(uploaderId); alert(reporttype); alert(status);
          if (confirm('Are you sure to delete this record ?')) {
             $.ajax({
                 type: "POST",
