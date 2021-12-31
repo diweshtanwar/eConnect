@@ -113,7 +113,7 @@
                     <thead>
                         <tr>
                             <!--<th>
-    RequestedID-->
+                            RequestedID-->
                             @*@Html.DisplayNameFor(model => model.RequestId)*@
                             <!--</th>-->
                             <th>
@@ -133,8 +133,8 @@
                             </th>
 
                             @*<th>
-            @Html.DisplayNameFor(model => model.CompletionDate)
-        </th>*@
+                                    @Html.DisplayNameFor(model => model.CompletionDate)
+                                </th>*@
                             <th>
                                 @Html.DisplayNameFor(model => model.Status)
                             </th>
@@ -145,106 +145,106 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            @*<td>
-            @Html.DisplayFor(modelItem => item.WithdrawalRequestId)
-        </td>*@
+                            <tr>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.WithdrawalRequestId)
+                                    </td>*@
 
-                            @*@Html.DisplayFor(modelItem => item.RequestType)*@
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CSPName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CSPCode)
-                            </td>
+                                @*@Html.DisplayFor(modelItem => item.RequestType)*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CSPName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CSPCode)
+                                </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Amount)
-                            </td>
-                            <td>@Html.DisplayFor(modelItem => item.AuthorizedAmount)</td>
-                            <td>
-                                @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
-                                @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
-                            </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.AuthorizedAmount)</td>
+                                <td>
+                                    @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
+                                    @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
+                                </td>
 
-                            <!--<td>
+                                <!--<td>
 
-        @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
-    <!--</td>-->
-                            @if (item.Status.Equals(1))
-                            {
-                                <td>Open</td>
-
-                            }
-                            else if (item.Status.Equals(3))
-                            {
-                                <td>Close</td>
-                            }
-                            else if (item.Status.Equals(7))
-                            {
-                                <td>Rejected</td>
-                            }
-                            <td style="min-width:100px;word-break:break-word">@item.Comment</td>
-                            @*<td>
-            @Html.DisplayFor(modelItem => item.Account)
-        </td>*@
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.WithdrawalRequestId })
-                                |
-                                @Html.ActionLink("View", "Details", new { id = item.WithdrawalRequestId })
-                                @if (item.Status != 0)
+                                    @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
+                                <!--</td>-->
+                                @if (item.Status.Equals(1))
                                 {
-                                    <a href="#" onclick="showCMA(@item.WithdrawalRequestId)">| CMA</a>
-                                    var did = "divcheck" + item.WithdrawalRequestId;
-                                    var Configure = "Configure" + item.WithdrawalRequestId;
-                                    var Make = "Make" + item.WithdrawalRequestId;
-                                    var Authorize = "Authorize" + item.WithdrawalRequestId;
-                                    <div style="display:none;" id=@did class="divstyle">
+                                    <td>Open</td>
 
-                                        <b>Configure</b>
-                                        <input type="checkbox" id="@Configure" name="@Configure" value="true"><br />
-                                        <b style="font-size:12px">Make</b>
-                                        <input type="checkbox" id="@Make" name="@Make" value="true"><br />
-                                        <b>Authorize</b>
-                                        <input type="checkbox" id="@Authorize" name="@Authorize" value="true">
-                                        <br />
-                                        <button onclick="ClickSaveCMA(@item.WithdrawalRequestId)" style="vertical-align :middle;">Save</button>
-                                        <button onclick="Cancelcheck(@item.WithdrawalRequestId)" style="vertical-align: middle;">Cancel</button>
-                                    </div>
                                 }
-                                @if (item.Status != 0)
+                                else if (item.Status.Equals(3))
                                 {
-                                    <a href="#" onclick="showStatus(@item.WithdrawalRequestId)">| Status</a>
-                                    var did = "divstatus" + item.WithdrawalRequestId;
-                                    var drpId = "drpStatus" + item.WithdrawalRequestId;
-                                    <div style="display:none;" id=@did class="divstyle">
-
-                                        @Html.DropDownList("Skills", new List<SelectListItem>
-                                        {
-
-                                         new SelectListItem{ Text = "Open", Value = "1"},
-                                         new SelectListItem{ Text = "Close", Value = "3" },
-
-                                        }, new { id = drpId, @class = "dropdownlist" })
-                                        <br />
-                                        <button onclick="ClickSaveStatus(@item.WithdrawalRequestId)" style="vertical-align :middle;">Save</button>
-                                        <button onclick="Cancel(@item.WithdrawalRequestId)" style="vertical-align: middle;">Cancel</button>
-                                    </div>
+                                    <td>Close</td>
                                 }
-                                @if (item.Status == 1)
+                                else if (item.Status.Equals(7))
                                 {
-                                    <a href="#" onclick="showEdit(@item.WithdrawalRequestId )">| Reject</a>
-                                    var did = "div" + item.WithdrawalRequestId;
-                                    var textareaId = "text" + item.WithdrawalRequestId;
-                                    <div style="display:none;" id=@did>
-                                        <textarea id="@textareaId"></textarea>
-                                        <button onclick="ClickSave(@item.WithdrawalRequestId)" style="vertical-align :middle;">Save</button>
-                                        <button onclick="ClickCancel(@item.WithdrawalRequestId)" style="vertical-align: middle;">Cancel</button>
-                                    </div>
+                                    <td>Rejected</td>
                                 }
-                            </td>
+                                <td style="min-width:100px;word-break:break-word">@item.Comment</td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.Account)
+                                    </td>*@
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.WithdrawalRequestId })
+                                    |
+                                    @Html.ActionLink("View", "Details", new { id = item.WithdrawalRequestId })
+                                    @if (item.Status != 0)
+                                    {
+                                        <a href="#" onclick="showCMA(@item.WithdrawalRequestId)">| Limit</a>
+                                        var did = "divcheck" + item.WithdrawalRequestId;
+                                        var Configure = "Configure" + item.WithdrawalRequestId;
+                                        var Make = "Make" + item.WithdrawalRequestId;
+                                        var Authorize = "Authorize" + item.WithdrawalRequestId;
+                                        <div style="display:none;" id=@did class="divstyle">
+                                            <nobr>
+                                                &nbsp;  <b>C</b>     &nbsp;<input type="checkbox" id="@Configure" name="@Configure" value="true">
+                                                <b style="font-size:12px">M</b>
+                                                <input type="checkbox" id="@Make" name="@Make" value="true">
+                                                &nbsp;  <b>A</b>
+                                                <input type="checkbox" id="@Authorize" name="@Authorize" value="true">
+                                                <br />
+                                            </nobr>
+                                            <button onclick="ClickSaveCMA(@item.WithdrawalRequestId)" style="vertical-align :middle;">Save</button>
+                                            <button onclick="Cancelcheck(@item.WithdrawalRequestId)" style="vertical-align: middle;">Cancel</button>
+                                        </div>
+                                    }
+                                    @if (item.Status != 0)
+                                    {
+                                        <a href="#" onclick="showStatus(@item.WithdrawalRequestId)">| Status</a>
+                                        var did = "divstatus" + item.WithdrawalRequestId;
+                                        var drpId = "drpStatus" + item.WithdrawalRequestId;
+                                        <div style="display:none;" id=@did class="divstyle">
 
-                        </tr>
+                                            @Html.DropDownList("Skills", new List<SelectListItem>
+                                            {
+
+                                             new SelectListItem{ Text = "Open", Value = "1"},
+                                             new SelectListItem{ Text = "Close", Value = "3" },
+
+                                            }, new { id = drpId, @class = "dropdownlist" })
+                                            <br />
+                                            <button onclick="ClickSaveStatus(@item.WithdrawalRequestId)" style="vertical-align :middle;">Save</button>
+                                            <button onclick="Cancel(@item.WithdrawalRequestId)" style="vertical-align: middle;">Cancel</button>
+                                        </div>
+                                    }
+                                    @if (item.Status == 1)
+                                    {
+                                        <a href="#" onclick="showEdit(@item.WithdrawalRequestId )">| Reject</a>
+                                        var did = "div" + item.WithdrawalRequestId;
+                                        var textareaId = "text" + item.WithdrawalRequestId;
+                                        <div style="display:none;" id=@did>
+                                            <textarea id="@textareaId"></textarea>
+                                            <button onclick="ClickSave(@item.WithdrawalRequestId)" style="vertical-align :middle;">Save</button>
+                                            <button onclick="ClickCancel(@item.WithdrawalRequestId)" style="vertical-align: middle;">Cancel</button>
+                                        </div>
+                                    }
+                                </td>
+
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -308,7 +308,7 @@
         document.getElementById(Make).checked = false;
         document.getElementById(Authorize).checked = false;
         $('#divcheck' + id).hide();
-        
+
     }
     function ClickSaveStatus(id) {
          var txtclear = "text" + id;
@@ -418,6 +418,7 @@
         background-color: #e7e7e7;
         color: black;
     }
+
     .dropdownlist {
         color: #fff;
         font-size: 10px;
@@ -427,11 +428,12 @@
         width: 102px;
         /*font-weight: bold;*/
     }
+
     .divstyle {
         border: 2px solid red;
         padding: 5px;
         border-radius: 5px;
-        width:115px;
+        width: 115px;
     }
     /* Gray */
 </style>
