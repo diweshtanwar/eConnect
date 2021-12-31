@@ -199,17 +199,58 @@
                                         var Configure = "Configure" + item.WithdrawalRequestId;
                                         var Make = "Make" + item.WithdrawalRequestId;
                                         var Authorize = "Authorize" + item.WithdrawalRequestId;
+                                        var AuAmount = "AuAmount" + item.WithdrawalRequestId;
                                         <div style="display:none;" id=@did class="divstyle">
                                             <nobr>
-                                                &nbsp;  <b>C</b>     &nbsp;<input type="checkbox" id="@Configure" name="@Configure" value="true">
+                                                &nbsp;  <b>C</b>&nbsp;
+
+                                                @if (item.IsConfigured == true)
+                                                {
+
+                                                    <input type="checkbox" id="@Configure" name="@Configure" value="true" checked readonly onclick="return false" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox" id="@Configure" name="@Configure" value="true">
+                                                }
+
                                                 <b style="font-size:12px">M</b>
-                                                <input type="checkbox" id="@Make" name="@Make" value="true">
-                                                &nbsp;  <b>A</b>
-                                                <input type="checkbox" id="@Authorize" name="@Authorize" value="true">
+                                                @if (item.IsMake == true)
+                                                {
+                                                    <input type="checkbox" id="@Make" name="@Make" value="true" checked readonly onclick="return false" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox" id="@Make" name="@Make" value="true">
+                                                }
+                                                &nbsp; <b>A</b>
+                                                @if (item.IsAuthorized == true)
+                                                {
+                                                    <input type="checkbox" id="@Authorize" name="@Authorize" value="true" checked readonly onclick="return false" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox" id="@Authorize" name="@Authorize" value="true" />
+                                                }
                                                 <br />
                                             </nobr>
-                                            <button onclick="ClickSaveCMA(@item.WithdrawalRequestId)" style="vertical-align :middle;">Save</button>
-                                            <button onclick="Cancelcheck(@item.WithdrawalRequestId)" style="vertical-align: middle;">Cancel</button>
+                                            <div>
+                                                <b>AutAmt: </b>&nbsp;<input type="text" value="@item.AuthorizedAmount" style="width: 68px;" id="@AuAmount" required />
+                                            </div>
+                                            <center>
+                                                @{bool check = false;
+                                                    if ((item.IsConfigured == true) && (item.IsMake == true) && (item.IsAuthorized == true))
+                                                    {
+                                                        check = true;
+                                                    }
+
+                                                    if (check == false)
+                                                    {
+                                                        <button onclick="ClickSaveCMAAuAmt(@item.WithdrawalRequestId)" style="vertical-align :middle;margin-top:2.5px;">Save</button>
+                                                    }
+                                                }
+                                                <button onclick="Cancelcheck(@item.WithdrawalRequestId)" style="vertical-align: middle;margin-top:2.5px;">Cancel</button>
+                                            </center>
                                         </div>
                                     }
                                     @if (item.Status != 0)
@@ -330,15 +371,13 @@
                     location.reload(true);
                     alert('Record Updated successfully');
                 }
-
             });
-
     }
      function ClickSaveCMA(id) {
          var Configure = "Configure" + id;
          var Make = "Make" + id;
          var Authorize = "Authorize" + id;
-         var drpId = "drpStatus" + id;
+          var drpId = "drpStatus" + id;
          var chkConfigure = document.getElementById(Configure).value;
          var chkConfigure = $('input[name=' + Configure + ']:checked').val()
          var chkMake = $('input[name=' + Make + ']:checked').val();
@@ -362,6 +401,42 @@
             });
 
     }
+
+
+
+     function ClickSaveCMAAuAmt(id) {
+         var Configure = "Configure" + id;
+         var Make = "Make" + id;
+         var Authorize = "Authorize" + id;
+         var AuAmount = "AuAmount" + id;
+        var drpId = "drpStatus" + id;
+         var chkConfigure = document.getElementById(Configure).value;
+         var chkConfigure = $('input[name=' + Configure + ']:checked').val()
+         var chkMake = $('input[name=' + Make + ']:checked').val();
+          var AutAmount = document.getElementById(AuAmount).value;
+         var chkAuthorize = $('input[name=' + Authorize + ']:checked').val();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateConfigure_Make_Authorize_AutAmount", "ManageDepositRequest")',
+                data: { RequestId: id, Configure: chkConfigure, Make: chkMake, Authorize: chkAuthorize, AutAmount: AutAmount },
+                dataType: 'html',
+                beforeSend: function () {
+                    $('.ajax-loader').css("visibility", "visible");
+                },
+                complete: function () {
+                    $('.ajax-loader').css("visibility", "hidden");
+                },
+                success: function (data) {
+                    location.reload(true);
+                    alert('Record Updated successfully');
+                }
+
+            });
+
+    }
+
+
+
     function showEdit(id) {
         $('#div' + id).show();
     }
@@ -433,7 +508,7 @@
         border: 2px solid red;
         padding: 5px;
         border-radius: 5px;
-        width: 115px;
+        width: 135px;
     }
     /* Gray */
 </style>

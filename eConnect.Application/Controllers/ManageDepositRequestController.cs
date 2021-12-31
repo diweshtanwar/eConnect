@@ -209,5 +209,21 @@ namespace eConnect.Application.Controllers
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpPost]
+        //*******************For Configure/Make/Authorize Status Update**************************************//
+        public JsonResult UpdateConfigure_Make_Authorize_AutAmount(int RequestId, string Configure, string Make, string Authorize,decimal AutAmount)
+        {
+            RaiseRequestLogic requestLogic = new RaiseRequestLogic();
+            try
+            {
+                requestLogic.UpdateConfigure_Make_AuthorizeStatus_AutAmount(RequestId, Configure, Make, Authorize, AutAmount);
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

@@ -31,5 +31,8 @@ namespace eConnect.DataAccess
         public string BranchCode { get; set; }
         public string Category { get; set; }
         public Nullable<decimal> AuthorizedAmount { get; set; }
+        public Nullable<bool> IsConfigured { get; set; }
+        public Nullable<bool> IsMake { get; set; }
+        public Nullable<bool> IsAuthorized { get; set; }
     }
 }

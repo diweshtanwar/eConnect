@@ -801,5 +801,29 @@ namespace eConnect.Logic
 
             }
         }
+        public void UpdateConfigure_Make_AuthorizeStatus_AutAmount(int RequestId, string Configure, string Make, string Authorize,decimal AutAmt)
+        {
+            try
+            {
+                using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+                {
+
+                    var tblWithdrawDetail = unitOfWork.WithdrawRequests.Find(x => x.WithdrawalRequestId == (RequestId)).FirstOrDefault();
+                    tblWithdrawDetail.IsMake = Make == "true" ? true : false;
+                    tblWithdrawDetail.IsAuthorized = Authorize == "true" ? true : false;
+                    tblWithdrawDetail.IsConfigured = Configure == "true" ? true : false;
+                    tblWithdrawDetail.AuthorizedAmount = AutAmt;
+                    tblWithdrawDetail.UpdatedDate = DateTime.Now;
+                    tblWithdrawDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
+                    unitOfWork.WithdrawRequests.Update(tblWithdrawDetail);
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
     }
 }

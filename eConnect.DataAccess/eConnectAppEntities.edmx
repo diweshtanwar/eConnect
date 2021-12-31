@@ -2803,6 +2803,9 @@
           <Property Type="String" Name="BranchCode" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="AuthorizedAmount" Nullable="true" Precision="19" Scale="6" />
+          <Property Type="Boolean" Name="IsConfigured" Nullable="true" />
+          <Property Type="Boolean" Name="IsMake" Nullable="true" />
+          <Property Type="Boolean" Name="IsAuthorized" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3771,6 +3774,9 @@
                 <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="AuthorizedAmount" ColumnName="AuthorizedAmount" />
+                <ScalarProperty Name="IsConfigured" ColumnName="IsConfigured" />
+                <ScalarProperty Name="IsMake" ColumnName="IsMake" />
+                <ScalarProperty Name="IsAuthorized" ColumnName="IsAuthorized" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
