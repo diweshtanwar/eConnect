@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_LayoutMain.cshtml"; }
 
 <section class="section">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     @*<p>
             @Html.ActionLink("Create New", "Create")
@@ -109,21 +109,15 @@
                 <div class="table-actions">
                     @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
                 </div>
-                <table class="table table-striped" id="table-2">
+                <table id="example" class="table table-striped">
                     <thead>
                         <tr>
-                            <!--<th>
-                            RequestedID-->
-                            @*@Html.DisplayNameFor(model => model.RequestId)*@
-                            <!--</th>-->
                             <th>
                                 Name
                             </th>
                             <th>
                                 CSPId
-                                @*@Html.DisplayNameFor(model => model.RequestId)*@
                             </th>
-
                             <th>
                                 @Html.DisplayNameFor(model => model.Amount)
                             </th>
@@ -131,10 +125,6 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.RequestedDate)
                             </th>
-
-                            @*<th>
-                                    @Html.DisplayNameFor(model => model.CompletionDate)
-                                </th>*@
                             <th>
                                 @Html.DisplayNameFor(model => model.Status)
                             </th>
@@ -146,11 +136,7 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.WithdrawalRequestId)
-                                    </td>*@
 
-                                @*@Html.DisplayFor(modelItem => item.RequestType)*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.CSPName)
                                 </td>
@@ -166,28 +152,21 @@
                                     @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
                                     @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
                                 </td>
-
-                                <!--<td>
-
-                                    @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
-                                <!--</td>-->
-                                @if (item.Status.Equals(1))
-                                {
-                                    <td>Open</td>
-
-                                }
-                                else if (item.Status.Equals(3))
-                                {
-                                    <td>Close</td>
-                                }
-                                else if (item.Status.Equals(7))
-                                {
-                                    <td>Rejected</td>
-                                }
+                              
+                                    @if (item.Status.Equals(1))
+                                    {
+                                        <td>Open</td>
+                                    }
+                                    else if (item.Status.Equals(3))
+                                    {
+                                        <td>Close</td>
+                                    }
+                                    else if (item.Status.Equals(7))
+                                    {
+                                        <td>Rejected</td>
+                                    }
+                              
                                 <td style="min-width:100px;word-break:break-word">@item.Comment</td>
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.Account)
-                                    </td>*@
                                 <td>
                                     @Html.ActionLink("Edit", "Edit", new { id = item.WithdrawalRequestId })
                                     |
@@ -202,7 +181,7 @@
                                         var AuAmount = "AuAmount" + item.WithdrawalRequestId;
                                         <div style="display:none;" id=@did class="divstyle">
                                             <nobr>
-                                                &nbsp;  <b>C</b>&nbsp;
+                                                &nbsp;<b>C</b>&nbsp;
 
                                                 @if (item.IsConfigured == true)
                                                 {
@@ -284,22 +263,26 @@
                                         </div>
                                     }
                                 </td>
-
                             </tr>
                         }
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="8"></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
     </div>
-
-
 </section>
-
 <script>
-
    $(document).ready(function () {
-
+       $('#example').DataTable({
+           // "pageLength": 30,
+           "ordering": false,
+           //  dom: 'Bfrtip',
+       });
     });
 
     function ClickSave(id) {
@@ -349,7 +332,7 @@
         //document.getElementById(Make).checked = false;
         //document.getElementById(Authorize).checked = false;
         $('#divcheck' + id).hide();
-       
+
 
     }
     function ClickSaveStatus(id) {
@@ -467,6 +450,7 @@
     }
     /*    });*/
 </script>
+
 <style>
     .label {
         color: white;

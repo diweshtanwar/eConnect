@@ -134,45 +134,46 @@
                 <div class="table-actions">
                     @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
                 </div>
-                <table class="table table-striped" id="table-2">
-                    <thead>
-                        <tr>
-                            <!--<th>
-                                RequestedID-->
+                @*<table class="table table-striped" id="table-2">*@
+            <table id="example" class="table table-striped">
+                <thead>
+                    <tr>
+                        <!--<th>
+            RequestedID-->
+                        @*@Html.DisplayNameFor(model => model.RequestId)*@
+                        <!--</th>-->
+                        <th>
+                            ProblemType
                             @*@Html.DisplayNameFor(model => model.RequestId)*@
-                            <!--</th>-->
-                            <th>
-                                ProblemType
-                                @*@Html.DisplayNameFor(model => model.RequestId)*@
-                            </th>
-                            <th>
-                                CSP
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.MobileNo)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.RequestedDate)
-                            </th>
-                            @*<th>
-                                    @Html.DisplayNameFor(model => model.CompletionDate)
-                                </th>*@
-                            <th> AnyDesk</th>
-                            <th>ScreenShot</th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Status)
-                            </th>
+                        </th>
+                        <th>
+                            CSP
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MobileNo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RequestedDate)
+                        </th>
+                        @*<th>
+                    @Html.DisplayNameFor(model => model.CompletionDate)
+                </th>*@
+                        <th> AnyDesk</th>
+                        <th>ScreenShot</th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
 
-                            <th> Action </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
+                        <th> Action </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
                         <tr>
                             @*<td>
-            @Html.DisplayFor(modelItem => item.TechRequestId)
-        </td>*@
+                        @Html.DisplayFor(modelItem => item.TechRequestId)
+                    </td>*@
 
                             @*@Html.DisplayFor(modelItem => item.RequestType)*@
                             @if (item.ProblemType.Equals(1))
@@ -186,35 +187,35 @@
                             }
                             else if (item.ProblemType.Equals(3))
                             {
-                            <td>Software Installation</td>
+                                <td>Software Installation</td>
                             }
                             else if (item.ProblemType.Equals(4))
                             {
-                              <td>Micro ATM</td>
+                                <td>Micro ATM</td>
                             }
                             else if (item.ProblemType.Equals(5))
                             {
-                               <td>RD Service</td>
+                                <td>RD Service</td>
                             }
                             else if (item.ProblemType.Equals(6))
                             {
-                              <td>Morpho Fingerprint Device</td>
+                                <td>Morpho Fingerprint Device</td>
                             }
                             else if (item.ProblemType.Equals(7))
                             {
-                             <td>AEPS Service</td>
+                                <td>AEPS Service</td>
                             }
                             else if (item.ProblemType.Equals(8))
                             {
-                             <td>Passbook Printe</td>
+                                <td>Passbook Printe</td>
                             }
                             else if (item.ProblemType.Equals(9))
                             {
-                             <td>User Locked</td>
+                                <td>User Locked</td>
                             }
                             else if (item.ProblemType.Equals(10))
                             {
-                             <td>Transaction Password Locked</td>
+                                <td>Transaction Password Locked</td>
                             }
                             <td>
                                 @Html.DisplayFor(modelItem => item.CSPCode)
@@ -223,8 +224,8 @@
                                 @Html.DisplayFor(modelItem => item.MobileNo)
                             </td>
                             @*<td>
-         @Html.DisplayFor(modelItem => item.MobileNo)
-        </td>*@
+                     @Html.DisplayFor(modelItem => item.MobileNo)
+                    </td>*@
                             <td>
                                 @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
 
@@ -232,10 +233,11 @@
                             </td>
                             <td> @Html.DisplayFor(modelItem => item.AnyDeskDetail)</td>
                             <td> <a href="@item.Attachment" target="_blank">ViewScreenShot</a> </td>
+
                             <!--<td>
 
-    @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
-    <!--</td>-->
+                @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
+                <!--</td>-->
                             @if (item.Status.Equals(1))
                             {
                                 <td>Open</td>
@@ -254,8 +256,8 @@
                                 <td>Rejected</td>
                             }
                             @*<td>
-            @Html.DisplayFor(modelItem => item.Account)
-        </td>*@
+                        @Html.DisplayFor(modelItem => item.Account)
+                    </td>*@
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id = item.TechRequestId })
                                 |
@@ -295,9 +297,14 @@
                             </td>
 
                         </tr>
-                        }
-                    </tbody>
-                </table>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="8"></th>
+                    </tr>
+                </tfoot>
+            </table>
             </div>
         </div>
     </div>
@@ -331,6 +338,7 @@
         background-color: #e7e7e7;
         color: black;
     }
+
     .dropdownlist {
         color: #fff;
         font-size: 10px;
@@ -340,6 +348,7 @@
         width: 102px;
         /*font-weight: bold;*/
     }
+
     .divstyle {
         border: 2px solid red;
         padding: 5px;
@@ -347,10 +356,15 @@
         width: 115px;
     }
     /* Gray */
-</style>s
+</style>
 <script>
 
-  $(document).ready(function () {
+    $(document).ready(function () {
+        $('#example').DataTable({
+            // "pageLength": 30,
+            "ordering": false,
+            //  dom: 'Bfrtip',
+        });
 
     });
 
@@ -384,7 +398,7 @@
          var txtclear = "text" + id;
          var drpId = "drpStatus" + id;
          var drpStatus = document.getElementById(drpId).value;
-        
+
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("UpdateRequestStatus","ManageDepositRequest")',
@@ -402,7 +416,7 @@
                 }
 
             });
-    
+
     }
 
     function showEdit(id) {
@@ -417,7 +431,7 @@
     function showStatus(id) {
         $('#divstatus' + id).show();
     }
-    debugger;
+
     function Cancel(id) {
 
         $('#divstatus' + id).hide();
@@ -441,5 +455,7 @@
             }
         });
     }
+
+
     /*    });*/
 </script>
