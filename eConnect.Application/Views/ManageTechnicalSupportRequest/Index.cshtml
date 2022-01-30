@@ -226,11 +226,12 @@
                             @*<td>
                      @Html.DisplayFor(modelItem => item.MobileNo)
                     </td>*@
-                            <td>
-                                @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
+                        <td>
+                            @item.RequestedDate
+                            @*@Html.Label(@item.RequestedDate.ToString())*@
 
-                                @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
-                            </td>
+                            @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
+                        </td>
                             <td> @Html.DisplayFor(modelItem => item.AnyDeskDetail)</td>
                             <td> <a href="@item.Attachment" target="_blank">ViewScreenShot</a> </td>
 

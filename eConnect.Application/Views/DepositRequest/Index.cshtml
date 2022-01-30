@@ -112,15 +112,17 @@
                                 @Html.DisplayFor(modelItem => item.Amount)
                             </td>
                             <td>
-                                @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
+                                @*@Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))*@
 
-                                @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
+                                @Html.DisplayFor(modelItem => item.RequestedDate)
                             </td>
                             <td>
 
                                 @if (item.CompletionDate != null)
                                 {
-                                    @Html.Label(@item.CompletionDate.Value.ToString("dd MMM yyyy"))
+                                    @*@Html.Label(@item.CompletionDate.Value.ToString("dd MMM yyyy"))*@
+
+                                    @Html.DisplayFor(modelItem => item.CompletionDate)
                                 }
                                 @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
                             </td>

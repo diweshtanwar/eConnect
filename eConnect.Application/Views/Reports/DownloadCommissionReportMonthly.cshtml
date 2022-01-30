@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Download";
+    ViewBag.Title = "Summary Report";
     Layout = "~/Views/Shared/_LayoutReport.cshtml";
 }
 
@@ -31,13 +31,13 @@
                 <h6 class="text-primary mb-3"> Download Summary Report </h6>
                 <div class="row">
 
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             @Html.Label(" Year")
                             @Html.DropDownList("Year", new SelectList(ViewBag.Years, "Text", "Text"), new { id = "Year", @class = "form-control" })
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             @Html.Label("Month")
                             @*   @Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text"), new { id = "Month", @class = "form-control" })*@
@@ -45,7 +45,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             @Html.Label("CSP Code")
                             <div class="input-group ">
@@ -53,12 +53,16 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="my-4 text-right">
-                    <button class="btn btn-primary px-4" type="button" onclick="LoadData()">Search</button>
+                    <div class="col-md-3">
+                        <div class="my-4 text-left">
+                            <button class="btn btn-primary px-4" type="button" onclick="LoadData()">Search</button>
 
+                        </div>
+
+                    </div>
+                    </div>
+                    
                 </div>
-            </div>
         </div>
 
 

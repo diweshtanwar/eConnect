@@ -171,7 +171,7 @@ namespace eConnect.Logic
                     objWithdrawal.Amount = withdraw.Amount;
                     objWithdrawal.RaisedBy = UserId;//Passing Csp id in Raised by from session
                     objWithdrawal.RequestedDate = date;
-                    // objWithdrawal.Account = Convert.ToInt64(withdraw.Account);
+                    objWithdrawal.Account = Convert.ToInt64(withdraw.Account);
                     objWithdrawal.CreatedBy = UserId;
                     objWithdrawal.CreatedDate = DateTime.Now;
                     objWithdrawal.Status = 1;
@@ -569,10 +569,19 @@ namespace eConnect.Logic
                 if (withdraw.CurrentStatus == "3")
                 {
                     tblWithdrawDetail.Status = 3;
-                    tblWithdrawDetail.CompletionDate = date;
+                    tblWithdrawDetail.CompletionDate = dateAndTime;
                     tblWithdrawDetail.IsMake = withdraw.Make;
                     tblWithdrawDetail.IsAuthorized = withdraw.Authorize;
                     tblWithdrawDetail.IsConfigured = withdraw.Configure;
+                }
+                else if (withdraw.CurrentStatus == "7")
+                {
+                    tblWithdrawDetail.Status = 7;
+                    tblWithdrawDetail.CompletionDate = dateAndTime;
+                    tblWithdrawDetail.IsMake = withdraw.Make;
+                    tblWithdrawDetail.IsAuthorized = withdraw.Authorize;
+                    tblWithdrawDetail.IsConfigured = withdraw.Configure;
+
                 }
                 else
                 {
@@ -815,6 +824,13 @@ namespace eConnect.Logic
                     tblWithdrawDetail.AuthorizedAmount = AutAmt;
                     tblWithdrawDetail.UpdatedDate = DateTime.Now;
                     tblWithdrawDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
+
+                    if (tblWithdrawDetail.IsMake == true && tblWithdrawDetail.IsAuthorized == true && tblWithdrawDetail.IsConfigured == true)
+                    {
+                        tblWithdrawDetail.Status = 3;
+                        tblWithdrawDetail.CompletionDate = DateTime.Now;
+
+                    }
                     unitOfWork.WithdrawRequests.Update(tblWithdrawDetail);
 
                 }

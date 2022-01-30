@@ -122,14 +122,17 @@
                                 @Html.DisplayFor(modelItem => item.Amount)
                             </td>
                             <td>
-                                @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
+                                @*@Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))*@
 
-                                @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
+                                @Html.DisplayFor(modelItem => item.RequestedDate)
+                                
                             </td>
                             <td>
                                 @if (item.CompletionDate != null)
                                 {
-                                    @Html.Label(@item.CompletionDate.Value.ToString("dd MMM yyyy"))
+                                    @*@Html.Label(@item.CompletionDate.Value.ToString("dd MMM yyyy"))*@
+                                    @Html.DisplayFor(modelItem => item.CompletionDate)
+
                                 }
                             </td>
                             @if (item.Status.Equals(1))
@@ -148,7 +151,7 @@
                             @*<td>
             @Html.DisplayFor(modelItem => item.Account)
         </td>*@
-                            <td>
+<td>
                                 @*@Html.ActionLink("Edit", "Edit", new { id = item.WithdrawalRequestId }) |*@
                                 @Html.ActionLink("Details", "Details", new { id = item.WithdrawalRequestId }) @*|
             @Html.ActionLink("Delete", "Delete", new { id = item.WithdrawalRequestId })*@

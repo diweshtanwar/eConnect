@@ -31,7 +31,7 @@ namespace eConnect.Application.Controllers
         {
 
             TechSupportProblemLogic techSupport = new TechSupportProblemLogic();
-           
+
             var ProblemList = techSupport.GetAllTechSupportProblems();
             ViewBag.ProblemList = ProblemList;
             ViewBag.Status = Status;
@@ -43,7 +43,8 @@ namespace eConnect.Application.Controllers
             {
                 tblTechDetails = TempData["searchdata"] as List<tblTechRequest>;
             }
-            return View(tblTechDetails.ToList().OrderByDescending(x =>x.TechRequestId));
+              return View(tblTechDetails.ToList().OrderByDescending(x => x.TechRequestId));
+    
         }
         public ActionResult IndexSearch(string TechRequestid, string TechProblemType, string Requesteddte, string Completiondte)
         {

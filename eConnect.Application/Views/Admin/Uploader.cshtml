@@ -59,7 +59,7 @@
                             @Html.ValidationMessageFor(model => model.fileupload, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-4" id="trTDS" style="display:none;">
+                    <div class="col-md-4" id="trTDS">
                         <div class="form-group">
                             @Html.LabelFor(model => model.ApplyTDS, htmlAttributes: new { @class = "required-field" })
                             <div class="input-group ">
@@ -70,11 +70,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="my-4 text-right">
-                    <button class="btn btn-primary px-4" type="Submit">Upload</button>
-                    <button class="btn btn-dark px-4 mr-2" type="button" onclick="location.href='@Url.Action("Uploader", "Admin")'" name="Cancel">Cancel</button>
 
+                    <div class="my-4 text-right">
+                        <button class="btn btn-primary px-4" type="Submit">Upload</button>
+                        <button class="btn btn-dark px-4 mr-2" type="button" onclick="location.href='@Url.Action("Uploader", "Admin")'" name="Cancel">Cancel</button>
+
+                    </div>
                 </div>
             </div>
         </div>

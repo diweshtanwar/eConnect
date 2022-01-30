@@ -149,23 +149,23 @@
                                 </td>
                                 <td>@Html.DisplayFor(modelItem => item.AuthorizedAmount)</td>
                                 <td>
-                                    @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
-                                    @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
+                                    @*@Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))*@
+                                    @Html.DisplayFor(modelItem => item.RequestedDate)
                                 </td>
-                              
-                                    @if (item.Status.Equals(1))
-                                    {
-                                        <td>Open</td>
-                                    }
-                                    else if (item.Status.Equals(3))
-                                    {
-                                        <td>Close</td>
-                                    }
-                                    else if (item.Status.Equals(7))
-                                    {
-                                        <td>Rejected</td>
-                                    }
-                              
+
+                                @if (item.Status.Equals(1))
+                                {
+                                    <td>Open</td>
+                                }
+                                else if (item.Status.Equals(3))
+                                {
+                                    <td>Close</td>
+                                }
+                                else if (item.Status.Equals(7))
+                                {
+                                    <td>Rejected</td>
+                                }
+
                                 <td style="min-width:100px;word-break:break-word">@item.Comment</td>
                                 <td>
                                     @Html.ActionLink("Edit", "Edit", new { id = item.WithdrawalRequestId })
@@ -218,6 +218,10 @@
                                             </div>
                                             <center>
                                                 @{bool check = false;
+                                                    if (item.Status == 3 || item.Status == 7)
+                                                    {
+                                                        check = true;
+                                                    }
                                                     if ((item.IsConfigured == true) && (item.IsMake == true) && (item.IsAuthorized == true))
                                                     {
                                                         check = true;
@@ -399,23 +403,28 @@
          var chkMake = $('input[name=' + Make + ']:checked').val();
           var AutAmount = document.getElementById(AuAmount).value;
          var chkAuthorize = $('input[name=' + Authorize + ']:checked').val();
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("UpdateConfigure_Make_Authorize_AutAmount", "ManageDepositRequest")',
-                data: { RequestId: id, Configure: chkConfigure, Make: chkMake, Authorize: chkAuthorize, AutAmount: AutAmount },
-                dataType: 'html',
-                beforeSend: function () {
-                    $('.ajax-loader').css("visibility", "visible");
-                },
-                complete: function () {
-                    $('.ajax-loader').css("visibility", "hidden");
-                },
-                success: function (data) {
-                    location.reload(true);
-                    alert('Record Updated successfully');
-                }
+         if (AutAmount != '') {
+             $.ajax({
+                 type: "POST",
+                 url: '@Url.Action("UpdateConfigure_Make_Authorize_AutAmount", "ManageDepositRequest")',
+                 data: { RequestId: id, Configure: chkConfigure, Make: chkMake, Authorize: chkAuthorize, AutAmount: AutAmount },
+                 dataType: 'html',
+                 beforeSend: function () {
+                     $('.ajax-loader').css("visibility", "visible");
+                 },
+                 complete: function () {
+                     $('.ajax-loader').css("visibility", "hidden");
+                 },
+                 success: function (data) {
+                     location.reload(true);
+                     alert('Record Updated successfully');
+                 }
 
-            });
+             });
+         }
+         else {
+             alert("Please enter Authorize Amount");
+         }
 
     }
 

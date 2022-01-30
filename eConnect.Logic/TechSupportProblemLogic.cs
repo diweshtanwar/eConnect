@@ -103,7 +103,7 @@ namespace eConnect.Logic
                 sr.AnyDeskDetail = model.AnyDeskDetail;
                 sr.Status =1;
                 sr.CreatedBy = UserId;
-                sr.RequestedDate = date;
+                sr.RequestedDate = dateAndTime;
                 sr.CreatedDate= DateTime.Now;
                 sr.CompletionDate = null;
                 sr.RaisedBy = UserId;
