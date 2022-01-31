@@ -180,14 +180,15 @@
                             </td>
                             <td>
                                 @*@(item.RequestedDate?.ToString("MM/dd/yyyy"))*@
-                                @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
-                                @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
+                                @*@Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))*@
+                                @Html.DisplayFor(modelItem => item.RequestedDate)
                             </td>
                             <td>
                                 @if (item.DepositDate != null)
                                 {
 
-                                    @Html.Label(@item.DepositDate.Value.ToString("dd MMM yyyy"))
+                                    @*@Html.Label(@item.DepositDate.Value.ToString("dd MMM yyyy"))*@
+                                    @Html.DisplayFor(modelItem => item.DepositDate)
 
                                 }
                             </td>
