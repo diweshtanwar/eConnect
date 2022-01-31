@@ -27,7 +27,7 @@ namespace eConnect.Logic
                     // objDeposit.DepositeRequestId = Convert.ToInt64(deposit.Receipt);
                     objDeposit.Amount = deposit.Amount;
                     objDeposit.RaisedBy = UserId;
-                    objDeposit.RequestedDate = date;
+                    objDeposit.RequestedDate = dateAndTime;
                     objDeposit.DepositDate = Convert.ToDateTime(deposit.BankDepositDate);
                     objDeposit.ReceiptSource = deposit.Reciept != null
                                 ? Path.GetFileName(deposit.Reciept.FileName).ToString() : null;
@@ -170,7 +170,7 @@ namespace eConnect.Logic
                     // objDeposit.DepositeRequestId = Convert.ToInt64(deposit.Receipt);
                     objWithdrawal.Amount = withdraw.Amount;
                     objWithdrawal.RaisedBy = UserId;//Passing Csp id in Raised by from session
-                    objWithdrawal.RequestedDate = date;
+                    objWithdrawal.RequestedDate = dateAndTime;
                     objWithdrawal.Account = Convert.ToInt64(withdraw.Account);
                     objWithdrawal.CreatedBy = UserId;
                     objWithdrawal.CreatedDate = DateTime.Now;
@@ -612,7 +612,7 @@ namespace eConnect.Logic
                 if (deposit.CurrentStatus == "3")
                 {
                     tblDepositDetail.Status = 3;
-                    tblDepositDetail.CompletionDate = date;
+                    tblDepositDetail.CompletionDate = dateAndTime;
                     tblDepositDetail.IsVerified = deposit.VerifyReciept;
                 }
                 else
@@ -640,7 +640,7 @@ namespace eConnect.Logic
                 if (tech.CurrentStatus == "3")
                 {
                     tblTechDetail.Status = 3;
-                    tblTechDetail.CompletionDate = date;
+                    tblTechDetail.CompletionDate = dateAndTime;
                     tblTechDetail.ResolutionDetail = tech.ResolutionDetail;
                 }
                 else
