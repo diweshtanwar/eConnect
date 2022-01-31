@@ -20,6 +20,7 @@ namespace eConnect.Application.Controllers
             {
 
                 new SelectListItem { Text = "Select Status", Value = "" },
+                       new SelectListItem { Text = "All", Value = "" },
                 new SelectListItem { Text = "Open", Value = "1" },
                  new SelectListItem { Text = "Close", Value = "3" },
                  new SelectListItem { Text = "Rejected", Value = "7" }
@@ -44,21 +45,20 @@ namespace eConnect.Application.Controllers
             ViewBag.Status = Status;
             ViewBag.BranchCode = new SelectList(objBranchCodeLogic.GetAllBranchCode(), "BranchCode", "BranchCode");
             ViewBag.Category = new SelectList(objCategoryLogic.GetAllCategory(), "Category", "Category");
-            var tblWithdrawDetails = raiseRequest.GetManageWithdrawDetails();
+            var tblWithdrawDetails = raiseRequest.GetManageWithdrawDetails().Where(x => x.Status == 1);
             bool flag = Convert.ToBoolean(TempData["flag"]);
             if (flag == true)
             {
                 tblWithdrawDetails = TempData["searchdataManage"] as List<sp_GetManageWithdrawalRequestDetails_Result>;
             }
-            ViewBag.Opencount = tblWithdrawDetails.Count(x => x.Status == 1);//Open
-           // ViewBag.InProgresscount = tblWithdrawDetails.Count(x => x.Status == 2);//In-Progress
-            ViewBag.Closecount = tblWithdrawDetails.Count(x => x.Status == 3);//Close
-            ViewBag.Rejectcount = tblWithdrawDetails.Count(x => x.Status == 7);//Reject
+            ViewBag.Opencount = raiseRequest.GetManageWithdrawDetails().Count(x => x.Status == 1);//Open
+            ViewBag.Closecount = raiseRequest.GetManageWithdrawDetails().Count(x => x.Status == 3);//Close
+            ViewBag.Rejectcount = raiseRequest.GetManageWithdrawDetails().Count(x => x.Status == 7);//Rejec
             return View(tblWithdrawDetails.ToList().OrderByDescending(x => x.WithdrawalRequestId));
         }
         public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City,string Status,string Requesteddte, string Completiondte ,string BranchCode,string Category)
         {
-            int  Cid = 0, Sid = 0, Cityid = 0, Statusid = 0, Bcode = 0, CategoryId = 0;
+            int Cid = 0, Sid = 0, Cityid = 0, Statusid = 0;
             string Reqid = "";
             if (CspID == "")
             {

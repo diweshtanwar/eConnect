@@ -615,6 +615,12 @@ namespace eConnect.Logic
                     tblDepositDetail.CompletionDate = dateAndTime;
                     tblDepositDetail.IsVerified = deposit.VerifyReciept;
                 }
+                if (deposit.CurrentStatus == "7")
+                {
+                    tblDepositDetail.Status = 7;
+                    tblDepositDetail.CompletionDate = dateAndTime;
+                    tblDepositDetail.IsVerified = deposit.VerifyReciept;
+                }
                 else
                 {
                     tblDepositDetail.Status = Convert.ToInt32(deposit.CurrentStatus);
@@ -640,6 +646,12 @@ namespace eConnect.Logic
                 if (tech.CurrentStatus == "3")
                 {
                     tblTechDetail.Status = 3;
+                    tblTechDetail.CompletionDate = dateAndTime;
+                    tblTechDetail.ResolutionDetail = tech.ResolutionDetail;
+                }
+                if (tech.CurrentStatus == "7")
+                {
+                    tblTechDetail.Status = 7;
                     tblTechDetail.CompletionDate = dateAndTime;
                     tblTechDetail.ResolutionDetail = tech.ResolutionDetail;
                 }
@@ -747,8 +759,9 @@ namespace eConnect.Logic
                         var tblDepositDetail = unitOfWork.DepositRequests.Find(x => x.DepositeRequestId == (RequestId)).FirstOrDefault();
                         if(!string.IsNullOrEmpty(Comments))
                         {
-                            tblDepositDetail.Comment = Comments;
+                            tblDepositDetail.ResolutionDetail = Comments;
                         }
+                        tblDepositDetail.CompletionDate = DateTime.Now;
                         tblDepositDetail.Status = Convert.ToInt32(status);
                         tblDepositDetail.UpdatedDate = DateTime.Now;
                         tblDepositDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
@@ -760,8 +773,9 @@ namespace eConnect.Logic
                         var tblWithdrawDetail = unitOfWork.WithdrawRequests.Find(x => x.WithdrawalRequestId == (RequestId)).FirstOrDefault();
                         if (!string.IsNullOrEmpty(Comments))
                         {
-                          tblWithdrawDetail.Comment = Comments;
+                          tblWithdrawDetail.ResolutionDetail = Comments;
                         }
+                        tblWithdrawDetail.CompletionDate = DateTime.Now;
                         tblWithdrawDetail.Status = Convert.ToInt32(status);
                         tblWithdrawDetail.UpdatedDate = DateTime.Now;
                         tblWithdrawDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
@@ -773,8 +787,9 @@ namespace eConnect.Logic
                         tblTechDetail.Status = Convert.ToInt32(status);
                         if (!string.IsNullOrEmpty(Comments))
                         {
-                            tblTechDetail.Comment = Comments;
+                            tblTechDetail.ResolutionDetail = Comments;
                         }
+                        tblTechDetail.CompletionDate = DateTime.Now;
                         tblTechDetail.UpdatedDate = DateTime.Now;
                         tblTechDetail.UpdatedBy = (int)HttpContext.Current.Session["UserId"];
                         unitOfWork.TechSupportRequestss.Update(tblTechDetail);

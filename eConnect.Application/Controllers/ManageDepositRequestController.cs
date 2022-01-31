@@ -22,6 +22,7 @@ namespace eConnect.Application.Controllers
             {
 
                 new SelectListItem { Text = "Select Status", Value = "" },
+                       new SelectListItem { Text = "All", Value = "" },
                 new SelectListItem { Text = "Open", Value = "1" },
                  new SelectListItem { Text = "Close", Value = "3" },
                  new SelectListItem { Text = "Rejected", Value = "7" }
@@ -45,7 +46,8 @@ namespace eConnect.Application.Controllers
             ViewBag.Status = Status;
             ViewBag.BranchCode = new SelectList(objBranchCodeLogic.GetAllBranchCode(), "BranchCode", "BranchCode");
             ViewBag.Category = new SelectList(objCategoryLogic.GetAllCategory(), "Category", "Category");
-            var tblDepositDetails = raiseRequest.GetManageDepositDetails();
+
+            var tblDepositDetails = raiseRequest.GetManageDepositDetails().Where(x => x.Status == 1);
             bool flag = Convert.ToBoolean(TempData["flag"]);
             if (flag == true)
             {
@@ -53,11 +55,11 @@ namespace eConnect.Application.Controllers
             }
 
             tblDepositDetails = tblDepositDetails.Where(w => w.DepositeRequestId == w.DepositeRequestId).Select(w => { w.ReceiptSource = ReceiptPath.Replace("~", "") + w.DepositeRequestId + "\\DepositReceipt\\" + w.ReceiptSource; return w; }).ToList();
-            
-            ViewBag.Opencount = tblDepositDetails.Count(x => x.Status == 1);//Open
+
+            ViewBag.Opencount = raiseRequest.GetManageDepositDetails().Count(x => x.Status == 1);//Open
             //ViewBag.InProgresscount = tblDepositDetails.Count(x => x.Status == 2);//In-Progres
-            ViewBag.Closecount = tblDepositDetails.Count(x => x.Status == 3);//Close
-            ViewBag.Rejectcount = tblDepositDetails.Count(x => x.Status == 7);//Reject
+            ViewBag.Closecount = raiseRequest.GetManageDepositDetails().Count(x => x.Status == 3);//Close
+            ViewBag.Rejectcount = raiseRequest.GetManageDepositDetails().Count(x => x.Status == 7);//Reject
             return View(tblDepositDetails.ToList().OrderByDescending(x => x.DepositeRequestId));
         }
         public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City, string Status, string Requesteddte,string Completiondte,string BranchCode, string Category,string Depositdte)

@@ -20,6 +20,7 @@ namespace eConnect.Application.Controllers
         {
 
             new SelectListItem { Text = "Select Status", Value = "" },
+                     new SelectListItem { Text = "All", Value = "" },
             new SelectListItem { Text = "Open", Value = "1" },
             new SelectListItem { Text = "In-Progress", Value = "2" },
             new SelectListItem { Text = "Close", Value = "3" },
@@ -50,7 +51,7 @@ namespace eConnect.Application.Controllers
             TechSupportProblemLogic techSupport = new TechSupportProblemLogic();
             var ProblemList = techSupport.GetAllTechSupportProblems();
             ViewBag.ProblemList = ProblemList;
-            var tblTechDetails = raiseRequest.GetManageTechDetails();
+            var tblTechDetails = raiseRequest.GetManageTechDetails().Where(x => x.Status == 1);
             bool flag = Convert.ToBoolean(TempData["flag"]);
             if (flag == true)
             {
@@ -59,16 +60,16 @@ namespace eConnect.Application.Controllers
 
             tblTechDetails = tblTechDetails.Where(w => w.TechRequestId == w.TechRequestId).Select(w => { w.Attachment = TechSupportPath.Replace("~", "") + w.TechRequestId + "\\TechSupportScreenshort\\" + w.AttachmentSource; return w; }).ToList();
 
-            ViewBag.Opencount = tblTechDetails.Count(x => x.Status == 1);//Open
-            ViewBag.InProgresscount = tblTechDetails.Count(x => x.Status == 2);//In-Progress
-            ViewBag.Closecount = tblTechDetails.Count(x => x.Status == 3);//Close
-            ViewBag.Rejectcount = tblTechDetails.Count(x => x.Status == 7);//Reject
+            ViewBag.Opencount = raiseRequest.GetManageTechDetails().Count(x => x.Status == 1);//Open
+            ViewBag.InProgresscount = raiseRequest.GetManageTechDetails().Count(x => x.Status == 2);//tblTechDetails.Count(x => x.Status == 2);//In-Progress
+            ViewBag.Closecount = raiseRequest.GetManageTechDetails().Count(x => x.Status == 3);//tblTechDetails.Count(x => x.Status == 3);//Close
+            ViewBag.Rejectcount = raiseRequest.GetManageTechDetails().Count(x => x.Status == 7);//tblTechDetails.Count(x => x.Status == 7);//Reject
             return View(tblTechDetails.ToList().OrderByDescending(x => x.TechRequestId));
         }
 
         public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City, string Status, string Requesteddte, string Completiondte, string BranchCode, string Category, string TechProblemType)
         {
-            int  Cid = 0, Sid = 0, Cityid = 0, Statusid = 0, Bcode = 0, CategoryId = 0, ProblemType = 0;
+            int  Cid = 0, Sid = 0, Cityid = 0, Statusid = 0, ProblemType = 0;
             string Reqid = "";
             if (TechProblemType == "")
             {
