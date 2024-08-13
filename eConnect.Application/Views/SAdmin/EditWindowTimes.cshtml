@@ -1,0 +1,64 @@
+﻿@model eConnect.Model.WindowTimes
+
+@{
+    ViewBag.Title = "EditWindowTimes";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>EditWindowTimes</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <script type="text/javascript">
+        (function ($) {
+            $(function () {
+                $('input.timepicker').timepicker();
+            });
+        })(jQuery);
+    </script>
+    <section>
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="">Start Time</label>
+                            <input type="text" class="timepicker" name="StartTime" id="StartTime" required value="@Model.StartTime" />
+                            @Html.ValidationMessageFor(model => model.StartTime, "")
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="">End Time</label>
+                            <input type="text" class="timepicker" name="EndTime" id="EndTime" required value="@Model.EndTime" />
+                            @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="">InActive</label>
+                            @Html.EditorFor(model => model.InActive, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.HiddenFor(model => model.Id)
+                            @Html.ValidationMessageFor(model => model.InActive, "")
+                        </div>
+                    </div>
+                    <div class="my-4 text-left">
+                        <button class="btn btn-primary px-4" type="submit">Update</button> |
+                        @Html.ActionLink("Cancel", "CreateActiveWindow", "SAdmin", new { @class = "btn btn-dark px-4 mr-2" })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+}
+
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

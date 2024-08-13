@@ -70,7 +70,24 @@
                             </div>
                         </div>
                     </div>
+                    @*<div class="col-md-4">
+                            <div class="form-group">
+                                @Html.Label("Cycle", new { @class = "required-field" })
+                                <div class="input-group ">
+                                    @Html.DropDownList("CycleID", new SelectList(ViewBag.CycleID, "CycleID", "CycleName"), "Select Cycle", new { id = "CycleID", @class = "form-control", required = (string)null })
+                                </div>
+                            </div>
+                        </div>*@
+                    <!--<div class="col-md-4">
+                        <div class="form-group">
+                             @*    @Html.Label("Category", new { @class = "required-field" })
+                            <div class="input-group ">
+                              @Html.DropDownList("AreaID", new SelectList(ViewBag.AreaID, "Value", "Text"), "Select Category", new { id = "AreaID", @class = "form-control", required = (string)null })-->
 
+                             @Html.DropDownList("AreaID", (IEnumerable<SelectListItem>)ViewBag.AreaTypes, " ", new { id = "AreaID", @class = "form-control", required = (string)null }) })*@
+                            <!--</div>
+                        </div>
+                    </div>-->
                     <div class="my-4 text-right">
                         <button class="btn btn-primary px-4" type="Submit">Upload</button>
                         <button class="btn btn-dark px-4 mr-2" type="button" onclick="location.href='@Url.Action("Uploader", "Admin")'" name="Cancel">Cancel</button>

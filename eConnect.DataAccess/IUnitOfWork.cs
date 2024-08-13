@@ -26,7 +26,11 @@ namespace eConnect.DataAccess
         IRoleMasterRepository RoleMasters { get; }
         ICommissionReportMonthlyRepository CommissionReportMonthly { get; }
         ICommissionReportTransactionTypeRepository TransactionTypes { get; }
-
+        
+        //****************************************** 10 July**********************************************************
+        ICommissionReportTransactionTypeRuralRepository TransactionTypesRural { get; }
         int Complete();
+        ITransactionTypeCycleRepository TransactionTypeCycle { get; }
+        IWindowTimingRepository WindowTimings { get; }
     }
 }

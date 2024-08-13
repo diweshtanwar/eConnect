@@ -35,5 +35,10 @@ namespace eConnect.Model
         public bool InActive { get; set; }
 
         public int UnPublishedCount { get; set; }
+
+        [Required(ErrorMessage = "Select Cycle")]
+        public int CycleID { get; set; }
+        [Required(ErrorMessage = "Select Area Type")]
+        public int AreaID { get; set; }
     }
 }

@@ -16,21 +16,19 @@
                     <thead>
                         <tr>
                             <th>SNo</th>
+                            <th>Cycle</th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Name)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.HOCommission)
                             </th>
-
-
                             <th>
                                 @Html.DisplayNameFor(model => model.CSPCommission)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Status)
                             </th>
-
                             <th>
                                 Action
                             </th>
@@ -43,6 +41,22 @@
                             <tr>
                                 <td>  @count</td>
                                 <td>
+
+                                    @if (item.CycleID == 2)
+                                    {
+                                        @Html.DisplayName("From May 2022 to Aug 2022")
+                                    }
+                                    else if (item.CycleID == 3)
+                                    {
+                                        @Html.DisplayName("From Sept 2022")
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayName("Before May 2022")
+                                    }
+
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.Name)
                                 </td>
                                 <td>
@@ -54,12 +68,10 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Status)
                                 </td>
-
                                 <td>
                                     @Html.ActionLink("Edit | ", "EditTransactionType", new { id = @item.CommissionReportTransactionTypeId }, null)
                                     <a class="details" href="javascript:;" onclick="DeleteRecord(@item.CommissionReportTransactionTypeId)">Delete</a>
                                     @Html.HiddenFor(odelItem => item.CommissionReportTransactionTypeId)
-
                                 </td>
                             </tr>
                             count++;
@@ -69,15 +81,14 @@
             </div>
         </div>
     </div>
-
-
 </section>
-
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $('#example').append('<caption style="caption-side: top;color:red;"> Transactions Types for Urban:</caption>');
         $('#example').DataTable({
-            // "pageLength": 30,
-            // "ordering": false,
+           "pageLength": 50,
+             "ordering": false,
             //  dom: 'Bfrtip',
         });
     });

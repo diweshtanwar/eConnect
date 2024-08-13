@@ -117,6 +117,24 @@
     <Compile Include="Repository\UserLoginLogRepository.cs" />
     <Compile Include="Repository\TechSupportProblemRepository.cs" />
     <Compile Include="Repository\TransactionsRequest.cs" />
+    <Compile Include="sp_count_GetManageDepositRequestDetails1_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_count_GetManageDepositRequestDetails_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_count_GetManageTechSupportRequestDetails1_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_count_GetManageTechSupportRequestDetails_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_count_ManageWithdrawalRequestDetails1_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_count_ManageWithdrawalRequestDetails_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_GetAppMenuWithSubMenu_Result.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
@@ -127,6 +145,18 @@
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_GetCommissionReportByYearMonthandCSPName_Test_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetCommissionReportRuralByYearMonthandCSPName_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetEDITDepositRequestDetails_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetEditTechSupportRequestDetails_Result.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetEDITWithdrawalRequestDetails_Result.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_GetManageDepositRequestDetails_Result.cs">
@@ -178,6 +208,9 @@
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblCommissionReportTransactionType.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCommissionReportTransactionTypeRural.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblConfiguration.cs">
@@ -270,6 +303,9 @@
     <Compile Include="tblTechRequest.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblTransactionTypeCycle.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblUploader.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
@@ -289,6 +325,9 @@
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblWebFeedback.cs">
+      <DependentUpon>eConnectAppEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblWindowTime.cs">
       <DependentUpon>eConnectAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tblWithdrawalRequest.cs">

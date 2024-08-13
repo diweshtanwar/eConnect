@@ -19,7 +19,7 @@ namespace eConnect.Model
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public bool Status { get; set; }
         public string CategoryStatus { get; set; }
-        public HttpPostedFileBase CategoryImage { get; set; }
+        public List<HttpPostedFileBase> CategoryImage { get; set; }
         public string CategoryImageName { get; set; }
      
     }

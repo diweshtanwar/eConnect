@@ -39,6 +39,7 @@
       <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -73,6 +74,8 @@
     <Compile Include="CountryModel.cs" />
     <Compile Include="DashboardAdminModel.cs" />
     <Compile Include="DashboardCSPModel.cs" />
+    <Compile Include="EmailNotification.cs" />
+    <Compile Include="EncryptionDecryption.cs" />
     <Compile Include="GalleryCategoryModel.cs" />
     <Compile Include="EnquiryViewModels.cs" />
     <Compile Include="DownloadDocumentDetailModel.cs" />

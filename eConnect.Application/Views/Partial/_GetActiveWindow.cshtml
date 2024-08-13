@@ -1,0 +1,11 @@
+﻿@{
+    /**/
+
+    Layout = null;
+}
+
+@if (ViewBag.ActiveWindow.Count > 0)
+{
+@Html.Raw("<b>Note:</b> Request Opening Time:: <b>" + @ViewBag.ActiveWindow[0].StartTime + "</b> and Closing Time:: <b> " + @ViewBag.ActiveWindow[0].EndTime + "</b>.")
+
+        }

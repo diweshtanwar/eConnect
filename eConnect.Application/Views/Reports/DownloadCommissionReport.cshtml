@@ -45,21 +45,36 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            @Html.Label("CSP Code")
+                            @Html.Label("CSP Code", new { @class = "required-field" })
                             <div class="input-group ">
-                                <input type="text" id="CSPCode" name="CSPCode" class="form-control" />
+                                <input type="text" id="CSPCode" name="CSPCode" class="form-control" required=required />
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="my-4 text-left">
                             <button class="btn btn-primary px-4" type="button" onclick="LoadData()">Search</button>
-
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="display:none;">
+                        <div class="form-group">
+                            @Html.Label("Area", new { @class = "required-field" })
+                            <div class="input-group ">
+                                @Html.DropDownList("AreaID", new SelectList(ViewBag.AreaID, "Value", "Text"), new { id = "AreaID", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="display:none;">
+                        <div class="form-group">
+                            @Html.Label("Cycle")
+                            <div class="input-group ">
+                                @Html.DropDownList("CycleID", new SelectList(ViewBag.CycleID, "CycleID", "CycleName"), new { id = "CycleID", @class = "form-control" })
+                            </div>
                         </div>
                     </div>
                 </div>
-                  
-                </div>
+
+            </div>
         </div> <div class="ajax-loader">
             <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
         </div>
@@ -88,24 +103,37 @@
         var year = Selyear.options[Selyear.selectedIndex].value;
         var Selmonth = document.getElementById("Month");
         var month = Selmonth.options[Selmonth.selectedIndex].value;
-         var SelStatus = document.getElementById("Status");
+        var SelStatus = document.getElementById("Status");
+
+        var Selcycle = document.getElementById("CycleID");
+        var cycle = Selcycle.options[Selcycle.selectedIndex].value;
+
+
+        var SelArea = document.getElementById("AreaID");
+        var Areadid = SelArea.options[SelArea.selectedIndex].value;
         var Status = "1";//SelStatus.options[SelStatus.selectedIndex].value;
         var CSPCode = $('#CSPCode').val();
-         $.ajax({
+       
+        if (CSPCode.length === 0) {
+            alert("Please Enter CSP Code.");
+        }
+        else {
+            $.ajax({
                 type: "POST",
                 url: '@Url.Action("DownloadCommissionReport","Reports")',
-            data: { year: year, month: month, cspcode: CSPCode, status: Status },
-             dataType: 'html',
-             beforeSend: function () {
-                 $('.ajax-loader').css("visibility", "visible");
-             },
-             complete: function () {
-                 $('.ajax-loader').css("visibility", "hidden");
-             },
+                data: { year: year, month: month, cspcode: CSPCode, status: Status, cycleid: cycle, areaid: Areadid },
+                dataType: 'html',
+                beforeSend: function () {
+                    $('.ajax-loader').css("visibility", "visible");
+                },
+                complete: function () {
+                    $('.ajax-loader').css("visibility", "hidden");
+                },
                 success: function (data) {
                     $('#RequestDetailsList').html(data);
                 }
             });
+        }
     }
 
     function BindDefaultMonths() {

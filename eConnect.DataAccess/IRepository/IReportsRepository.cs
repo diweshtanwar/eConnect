@@ -15,7 +15,7 @@ namespace eConnect.DataAccess
         //  IList<DownloadTransactionCommissionModel> CalculateCommission(int year, int month, string cspcode, string status);
         // IList<GetCommissionReportByYearMonthandCSPName_Result> CalculateCommission(int year, int month, string cspcode, string status);
         // IList<tblUploader> CalculateCommission(int year, int month, string cspcode, string status);
-        IList<sp_GetCommissionReportByYearMonthandCSPName_Result> CommissionReport(int year, int month, string cspcode);
+     
         IList<tblCommissionReportNew> GetAllCommissionReportByUploaderId(int id);
         void DeleteRecord(int id);
         void UpdateCommissionReport(tblCommissionReportNew model);
@@ -23,6 +23,12 @@ namespace eConnect.DataAccess
          IList<sp_GetBusinessReportByYearMonthandCSPCode_Result> BusinessReport(int year, int month, string cspcode, string category);
          void DeleteUploadedRecords(int UploadedId, int StatusID, int ReportType);
 
+
+        //*************************************************10July ***********************
+
+       // IList<sp_GetCommissionReportByYearMonthandCSPName_Result> CommissionReport(int year, int month, string cspcode);
+        IList<sp_GetCommissionReportByYearMonthandCSPName_Result> CommissionReport(int year, int month, int cycleid, string cspcode);
+        IList<sp_GetCommissionReportRuralByYearMonthandCSPName_Result> CommissionReportRural(int year, int month, int cycleid, string cspcode);
 
     }
 }

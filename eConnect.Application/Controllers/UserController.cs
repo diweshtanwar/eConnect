@@ -180,6 +180,7 @@ namespace eConnect.Application.Controllers
             RoleMasterLogic objRoleLogic = new RoleMasterLogic();
         
             ViewBag.UserType = new SelectList(objRoleLogic.GetAllRolesForHO(),"RoleId", "Name", UserType);
+            UserDetail.UserType = Convert.ToInt32(UserType);
             return View(UserDetail);
         }
 
@@ -213,7 +214,7 @@ namespace eConnect.Application.Controllers
                 string fpath = string.Empty;
                 UserLogic objUserDetailLogic = new UserLogic();
                 objUserDetailLogic.UpdateUserDetail(objUser);
-             //   string path = Path.Combine(UserFilePath, objUser.Id.ToString());
+             // string path = Path.Combine(UserFilePath, objUser.Id.ToString());
                 string picpath = objUser.UserType.ToString() + "\\" + objUser.Id.ToString();
                 string path = Path.Combine(UserFilePath, picpath);
 
@@ -264,6 +265,7 @@ namespace eConnect.Application.Controllers
             ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", UserDetail.City);
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", UserDetail.Country);
             ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", UserDetail.State);
+            UserDetail.UserType = Convert.ToInt32(UserType);
             return View(UserDetail);
            
         }

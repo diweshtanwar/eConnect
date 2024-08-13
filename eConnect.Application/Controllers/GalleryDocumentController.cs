@@ -10,11 +10,12 @@ using System.Web.Mvc;
 using eConnect.DataAccess;
 using eConnect.Logic;
 using eConnect.Model;
-
+using NLog;
 namespace eConnect.Application.Controllers
 {
     public class GalleryDocumentController : Controller
     {
+        private static Logger logger = LogManager.GetLogger("EConnectLogRules");
         List<SelectListItem> DocumenStatusList = new List<SelectListItem>()
             {
                 new SelectListItem { Text = "Enable", Value = "True" },
@@ -60,18 +61,32 @@ namespace eConnect.Application.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(GalleryCategoryModel GalleryCategoryModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                GalleryDocumentLogic objGalleryDocumentLogic = new GalleryDocumentLogic();
-                GalleryCategoryModel.CategoryImagesPath = Path.Combine("~\\Content\\EgraminAssets\\assets\\images\\gallery-images", GalleryCategoryModel.CategoryTittle);
-               
-                if (!Directory.Exists(Server.MapPath(GalleryCategoryModel.CategoryImagesPath)))
-                    Directory.CreateDirectory(Server.MapPath(GalleryCategoryModel.CategoryImagesPath));
-                objGalleryDocumentLogic.InsertGalleryDocument(GalleryCategoryModel);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    GalleryDocumentLogic objGalleryDocumentLogic = new GalleryDocumentLogic();
+                    GalleryCategoryModel.CategoryImagesPath = Path.Combine("~\\Content\\EgraminAssets\\assets\\images\\gallery-images", GalleryCategoryModel.CategoryTittle);
+
+                    if (!Directory.Exists(Server.MapPath(GalleryCategoryModel.CategoryImagesPath)))
+                        Directory.CreateDirectory(Server.MapPath(GalleryCategoryModel.CategoryImagesPath));
+
+
+                    objGalleryDocumentLogic.InsertGalleryDocument(GalleryCategoryModel);
+                   // return RedirectToAction("Index");
+                    return RedirectToAction("Index", "GalleryDocument");
+                }
+                ViewBag.Status = new SelectList(DocumenStatusList, "Value", "Text", GalleryCategoryModel.Status);
+                return View(GalleryCategoryModel);
+
             }
-            ViewBag.Status = new SelectList(DocumenStatusList, "Value", "Text", GalleryCategoryModel.Status);
-            return View(GalleryCategoryModel);
+            catch (Exception ex)
+            {
+                logger.Info("Create-" + ex.Message);
+                ViewBag.Status = new SelectList(DocumenStatusList, "Value", "Text", GalleryCategoryModel.Status);
+                return View(GalleryCategoryModel);
+
+            }
         }
 
         // GET: GalleryDocument/Edit/5
@@ -131,20 +146,36 @@ namespace eConnect.Application.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UploadImage(GalleryCategoryModel GalleryCategoryModel)
         {
+           
             if (ModelState.IsValid)
             {
-                if (GalleryCategoryModel.CategoryImage != null)
-                {                   
-                    string path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/" + GalleryCategoryModel.CategoryImagesPath), Path.GetFileName(GalleryCategoryModel.CategoryImage.FileName));
+                try
+                {
 
-                    GalleryCategoryModel.CategoryImage.SaveAs(path);
-                  
+                    foreach (HttpPostedFileBase CategoryImage in GalleryCategoryModel.CategoryImage)
+                    {
+                        if (GalleryCategoryModel.CategoryImage != null)
+                        {
+                            string path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/" + GalleryCategoryModel.CategoryImagesPath), Path.GetFileName(CategoryImage.FileName));
+
+                            CategoryImage.SaveAs(path);
+
+                        }
+                    }
                 }
-                    return RedirectToAction("Index");
+                catch(Exception ex)
+                {
+                    logger.Info("upload file-" + ex.Message);
+
+                }
+                return RedirectToAction("Index");
+
+
             }
             ViewBag.Status = new SelectList(DocumenStatusList, "Value", "Text", GalleryCategoryModel.Status);
             return View(GalleryCategoryModel);
         }
+
         // GET: GalleryDocument/Delete/5
         public ActionResult Delete(byte? id)
         {

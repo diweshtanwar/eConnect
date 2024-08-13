@@ -3,83 +3,93 @@
 @{ ViewBag.Title = "";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 
-    string TechPath = @System.Web.Configuration.WebConfigurationManager.AppSettings["TechFilePath"] + Model.ID + "\\TechSupportScreenshort\\" + Model.Screenpic; }
+    string TechPath =  Model.ID + "/TechSupportScreenshort/" + Model.Screenpic; }
 <h2>Edit</h2>
 
 @using (Html.BeginForm("Edit", "TechSupportRequest", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-@Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                @Html.HiddenFor(model => model.ID)
-                                                <section class="section">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            @*<h6 class="text-primary mb-3"> Personal Details</h6>*@
-                                                            <div class="row">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ID)
+    <section class="section">
+        <div class="card">
+            <div class="card-body">
+                @*<h6 class="text-primary mb-3"> Personal Details</h6>*@
+                <div class="row">
 
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        @Html.LabelFor(model => model.ProblemType, htmlAttributes: new { @class = "required-field" })
-                                                                        @Html.DropDownList("TechProblemType", new SelectList(ViewBag.ProblemList, "ProblemTypeId", "Name"), "Select Problem", new { id = "TechProblemType", @class = "form-control" })
-                                                                        @Html.ValidationMessageFor(model => model.TechProblemType, "", new { @class = "text-danger" })
-                                                                    </div>
-                                                                </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ProblemType, htmlAttributes: new { @class = "required-field" })
+                            @Html.DropDownList("TechProblemType", new SelectList(ViewBag.ProblemList, "ProblemTypeId", "Name"), "Select Problem", new { id = "TechProblemType", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.TechProblemType, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "required-field" })
-                                                                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
-                                                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "required-field" })
-                                                                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
-                                                                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
-                                                                    </div>
-                                                                </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
+                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        @Html.LabelFor(model => model.AnyDeskDetail, htmlAttributes: new { @class = "required-field" })
-                                                                        @Html.EditorFor(model => model.AnyDeskDetail, new { htmlAttributes = new { @class = "form-control" } })
-                                                                        @Html.ValidationMessageFor(model => model.AnyDeskDetail, "", new { @class = "text-danger" })
-                                                                    </div>
-                                                                </div>
-                                                                @*<div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "required-field" })
-                                                                        @Html.DropDownList("Status", (SelectListItem[])ViewBag.EditStatus, htmlAttributes: new { @class = "form-control" })
-                                                                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                                                                    </div>
-                                                                </div>*@
-                                                                @*<div class="row">*@
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        @Html.LabelFor(model => model.Screenshot, htmlAttributes: new { @class = "required-field" })
-                                                                        <input type="file" id="Screenshot" name="Screenshot" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
-                                                                        @Html.ValidationMessageFor(model => model.Screenshot, "", new { @class = "text-danger" })
-                                                                        @if (!string.IsNullOrEmpty(Model.Screenpic))
-                                                                        {
-                                                                    <a href="@Url.Content(TechPath)" target="_blank">PreviewImage</a> }
-                                                                else
-                                                                {
-                                                                    <span style="color:red;">No image uploaded.</span>}
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AnyDeskDetail, htmlAttributes: new { @class = "required-field" })
+                            @Html.EditorFor(model => model.AnyDeskDetail, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.AnyDeskDetail, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    @*<div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "required-field" })
+                                @Html.DropDownList("Status", (SelectListItem[])ViewBag.EditStatus, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+                    @*<div class="row">*@
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Screenshot, htmlAttributes: new { @class = "required-field" })
+                            <input type="file" id="Screenshot" name="Screenshot" class="btn btn-outline-primary btn-block fileup-btn" onchange="show(this)" />
+                            @Html.ValidationMessageFor(model => model.Screenshot, "", new { @class = "text-danger" })
+                            @if (!string.IsNullOrEmpty(Model.Screenpic))
+                            {
+                                //<a href="javascript:PreviewImage('@Model.Screenpic');">PreviewImage</a> 
+                                <a href="~/ImageViewer/Getimage/?Type=Tech+&File=+@TechPath" target="_blank">PreviewImage</a>
+                             }
+                            else
+                            {
+                                <span style="color:red;">No image uploaded.</span>}
 
-                                                                    </div>
-                                                                </div>
+                        </div>
+                    </div>
 
-                                                                @*</div>*@
+                    @*</div>*@
 
-                                                            </div>
+                </div>
 
-                                                            <div class="my-4 text-right">
-                                                                <button class="btn btn-primary px-4" type="submit">Save</button>
-                                                            </div>
-                                                            <div class="text-left">
-                                                                @Html.ActionLink("Cancel", "Index", "Menu", new { @class = "btn btn-dark px-4 mr-2" })
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </section>}
+                <div class="my-4 text-right">
+                    <button class="btn btn-primary px-4" type="submit">Save</button>
+                </div>
+                <div class="text-left">
+                    @Html.ActionLink("Cancel", "Index", "Menu", new { @class = "btn btn-dark px-4 mr-2" })
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<script>
+    debugger;
+    function PreviewImage(url) {
+        var win = window.open();
+        win.document.write("<iframe width='100%' height='100%' scrolling='no' src='" + url + "'></iframe>");
+    }
+</script>

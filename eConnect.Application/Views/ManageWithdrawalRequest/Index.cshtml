@@ -21,17 +21,17 @@
         <div class="card-body collapse" id="filter">
             <div class="row">
                 @*<div class="col-md-3">
-                        <div class="form-group">
-                            <label>Request Id</label>
-                            <input type="text" id="Requestid" name="Requestid" class="form-control" value="@Request["Requestid"]">
-                        </div>
-                    </div>*@
+            <div class="form-group">
+                <label>Request Id</label>
+                <input type="text" id="Requestid" name="Requestid" class="form-control" value="@Request["Requestid"]">
+            </div>
+        </div>*@
                 @*<div class="col-md-3">
-                        <div class="form-group">
-                            <label>CSP Name</label>
-                            <input type="text" id="CspName" name="CspName" class="form-control" value="@Request["CspName"]">
-                        </div>
-                    </div>*@
+            <div class="form-group">
+                <label>CSP Name</label>
+                <input type="text" id="CspName" name="CspName" class="form-control" value="@Request["CspName"]">
+            </div>
+        </div>*@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>CSP ID</label>
@@ -39,31 +39,31 @@
                     </div>
                 </div>
                 @*<div class="col-md-3">
-                        <div class="form-group">
-                            <label>State</label>
-                            @Html.DropDownList("State", null, "Select State", htmlAttributes: new { @class = "form-control", @onchange = "return bindCity();" })
-                        </div>
-                    </div>*@
+            <div class="form-group">
+                <label>State</label>
+                @Html.DropDownList("State", null, "Select State", htmlAttributes: new { @class = "form-control", @onchange = "return bindCity();" })
+            </div>
+        </div>*@
                 @*<div class="col-md-3">
-                        <div class="form-group">
-                            <label>City</label>
-                            @Html.DropDownList("City", null, htmlAttributes: new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">s
-                            <label>BranchCode</label>
-                            @Html.DropDownList("BranchCode", null, "Select BranchCode", htmlAttributes: new { @class = "form-control" })
+            <div class="form-group">
+                <label>City</label>
+                @Html.DropDownList("City", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">s
+                <label>BranchCode</label>
+                @Html.DropDownList("BranchCode", null, "Select BranchCode", htmlAttributes: new { @class = "form-control" })
 
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Category</label>
-                            @Html.DropDownList("Category", null, "Select Category", htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Category</label>
+                @Html.DropDownList("Category", null, "Select Category", htmlAttributes: new { @class = "form-control" })
 
-                        </div>
-                    </div>*@
+            </div>
+        </div>*@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Status</label>
@@ -84,7 +84,13 @@
 
                     </div>
                 </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Show Record</label>
+                        <input type="number" id="Depositdte" name="Record" class="form-control" value="@ViewBag.Record">
 
+                    </div>
+                </div>
 
                 <div class="col-md-3 mt-md-4 pt-1">
                     @*<button class="btn btn-dark px-4 mr-2">Cancel</button>*@
@@ -94,12 +100,12 @@
             </div>
         </div>
     </div>}
-    <div style="margin-left:4px">
+    <!--<div style="margin-left:4px">
         <span class="label info">Open - @ViewBag.Opencount</span>
-        <span class="label success">Closed - @ViewBag.Closecount</span>
+        <span class="label success">Closed - @ViewBag.Closecount</span>-->
         @*<span class="label warning">In-Progress - @ViewBag.InProgresscount</span>*@
-        <span class="label danger">Rejected - @ViewBag.Rejectcount</span>
-    </div>
+        <!--<span class="label danger">Rejected - @ViewBag.Rejectcount</span>
+    </div>-->
     <div class="card">
 
         <div class="card-body">
@@ -282,11 +288,22 @@
 </section>
 <script>
    $(document).ready(function () {
-       $('#example').DataTable({
-            "pageLength": 25,
-           "ordering": false,
-           //  dom: 'Bfrtip',
-       });
+       $('#example').append('<caption style="caption-side: top;color:red;display:none;"><b>Withdraw Requests Details</b>'+'</caption>');
+           $('#example').DataTable( {
+		 "pageLength": 25,
+            "ordering": true,
+		 title: 'Withdraw Request Report',
+                    filename: 'Withdraw Request Report',
+        dom: 'Bfrtip',
+		buttons: [
+        {
+           extend: 'excel',
+           exportOptions: {
+                columns: [0,1,2,3,4,5,6] 
+            }
+       }  ,
+]	   
+    } );
     });
 
     function ClickSave(id) {

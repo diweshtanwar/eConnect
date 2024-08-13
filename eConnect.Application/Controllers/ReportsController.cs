@@ -18,67 +18,7 @@ namespace eConnect.Application.Controllers
     {
         List<SelectListItem> ddlMonths = new List<SelectListItem>();
         List<SelectListItem> ddlYears = new List<SelectListItem>();
-        public ActionResult DownloadCommissionReport()
-        {
-            //string FilePath = @"C:\Users\dilpr\OneDrive\Desktop\Proj Docs\EGRAMIN TRANSCATION WISE COMISSION MAY-202.xlsx";
 
-            //InsertExcelRecords(FilePath);
-            StatusLogic sl = new StatusLogic();
-            var Statuslist = sl.GetAllStatus();
-            ViewBag.Statuslist = Statuslist;
-            ViewBag.Years = GetYears().OrderByDescending(x => x.Value);
-            ViewBag.Months = GetMonths().OrderByDescending(x => x.Value);
-            return View();
-
-
-        }
-        [HttpPost]
-        public ActionResult DownloadCommissionReport(int year, int month, string cspcode, string status)
-        {
-            try
-            {
-                ReportsLogic cl = new ReportsLogic();
-                List<DownloadTransactionCommissionModel> products = new List<DownloadTransactionCommissionModel>();
-                var Reqlist = cl.DownloadCommissionReport(year, month, cspcode, status).ToList();
-                string monthname = CommonLogic.GetMonthName(Convert.ToInt32(month));
-
-                if (Reqlist.Count > 0)
-                {
-                    foreach (var item in Reqlist)
-                    {
-                        products.Add(
-                                      new DownloadTransactionCommissionModel
-                                      {
-                                          CSPCode = item.CSPCode,
-                                          // NoOfTransaction = (decimal)item.NoOfTransactions,
-                                          NoOfTransaction = item.NoOfTransactions,
-                                          TransactionType = item.TransactionType,
-                                          Commission = (decimal)item.ActualCommission,
-                                          CommissionIncludingTDS = (decimal)item.IncludingTDS,
-                                          Commissionpercentage = (decimal)item.CSPCommission,
-                                          TotalCommission = (decimal)item.Total,
-                                          Message = "Commission For" + monthname + " ," + year,
-
-                                      });
-                    }
-                }
-                else
-                {
-                    products.Add(
-                                        new DownloadTransactionCommissionModel
-                                        {
-                                            Message = "Commission Report For" + " " + "Year: " + year + " , Month: " + monthname
-                                        });
-                }
-
-                return PartialView("_CommissionReport", products);
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return null;
-        }
         private SelectList GetYears()
         {
             int CurrentYear = DateTime.Now.Year;
@@ -147,7 +87,7 @@ namespace eConnect.Application.Controllers
                                       {
                                           CSPCode = item.CSPCode,
                                           CSPName = item.CSPName,
-                                          CSPCategory=item.Category,
+                                          CSPCategory = item.Category,
                                           MonthlyCommissionReportID = item.MonthlyCommissionReportID,
                                           Transation = Convert.ToDecimal(item.Transation),
                                           Incentive = item.Incentive,
@@ -168,7 +108,7 @@ namespace eConnect.Application.Controllers
                     products.Add(
                                         new CommissionReportMonthlyModel
                                         {
-                                            Message = "Commission for " + " " + monthname +  ", " + year
+                                            Message = "Commission for " + " " + monthname + ", " + year
                                         });
                 }
 
@@ -183,75 +123,7 @@ namespace eConnect.Application.Controllers
 
 
 
-        public ActionResult DownloadCSPCommissionReport()
-        {
-            StatusLogic sl = new StatusLogic();
-            var Statuslist = sl.GetAllStatus();
-            int cspid = Convert.ToInt32(Session["UserSourceId"]);
-            UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
-            UserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID((int)cspid);
-            ViewBag.CSPcode = UserCSPDetail.CSPCode;
 
-            ViewBag.Statuslist = Statuslist;
-            ViewBag.Years = GetYears().OrderByDescending(x => x.Value);
-            ViewBag.Months = GetMonths().OrderByDescending(x => x.Value);
-            return View();
-        }
-        [HttpPost]
-        public ActionResult DownloadCSPCommissionReport(int year, int month, string status)
-        {
-            try
-            {
-                int cspid = Convert.ToInt32(Session["UserSourceId"]);
-                UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
-                UserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID((int)cspid);
-                string cspcode = UserCSPDetail.CSPCode;
-
-                ReportsLogic cl = new ReportsLogic();
-                List<DownloadTransactionCommissionModel> products = new List<DownloadTransactionCommissionModel>();
-                var Reqlist = cl.DownloadCommissionReport(year, month, cspcode, status).ToList();
-                string monthname = CommonLogic.GetMonthName(Convert.ToInt32(month));
-
-                if (Reqlist.Count > 0)
-                {
-                    foreach (var item in Reqlist)
-                    {
-                        products.Add(
-                                      new DownloadTransactionCommissionModel
-                                      {
-                                          CSPCode = item.CSPCode,
-                                          CSPName=item.CSPName,
-                                          // NoOfTransaction = (decimal)item.NoOfTransactions,
-                                          NoOfTransaction = item.NoOfTransactions,
-                                          TransactionType = item.TransactionType,
-                                          Commission = (decimal)item.ActualCommission,
-                                          CommissionIncludingTDS = (decimal)item.IncludingTDS,
-                                          Commissionpercentage = (decimal)item.CSPCommission,
-                                          TotalCommission = (decimal)item.Total,
-                                          Message = "Commission For " + monthname + " ," + year,
-
-                                      });
-                    }
-                }
-                else
-                {
-                    products.Add(
-                                        new DownloadTransactionCommissionModel
-                                        {
-                                            CSPCode = UserCSPDetail.CSPCode,
-                                            CSPName = UserCSPDetail.CSPName,
-                                            Message = "Commission For " + " " + "Year: " + year + " , Month: " + monthname
-                                        });
-                }
-
-                return PartialView("_CSPCommissionReport", products);
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return null;
-        }
 
         public ActionResult DownloadCSPCommissionReportMonthly()
         {
@@ -433,5 +305,329 @@ namespace eConnect.Application.Controllers
             }
             return null;
         }
+
+
+        //********************************************************************* 10 July Changes ***************************************************
+
+        List<SelectListItem> AreaType = new List<SelectListItem>()
+            {
+                new SelectListItem { Text = "Urban", Value = "1" },
+                new SelectListItem { Text = "Rural", Value = "2" },
+
+            };
+
+
+
+        public ActionResult DownloadCSPCommissionReport()
+        {
+            StatusLogic sl = new StatusLogic();
+            var Statuslist = sl.GetAllStatus();
+            int cspid = Convert.ToInt32(Session["UserSourceId"]);
+            UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+            UserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID((int)cspid);
+            ViewBag.CSPcode = UserCSPDetail.CSPCode;
+
+            ViewBag.Statuslist = Statuslist;
+            ViewBag.Years = GetYears().OrderByDescending(x => x.Value);
+            ViewBag.Months = GetMonths().OrderByDescending(x => x.Value);
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult DownloadCSPCommissionReport(int year, int month, string status)
+        {
+            try
+            {
+                int cspid = Convert.ToInt32(Session["UserSourceId"]);
+                UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+                UserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID((int)cspid);
+                //Code Start.............
+                int areaid, circleid;
+                if (UserCSPDetail.Category.Contains("Urban"))
+                {
+                    areaid = 1;
+                }
+                else
+                {
+                    areaid = 2;
+                }
+                string cspcode = UserCSPDetail.CSPCode;
+                //before may 2022 1 --else 2
+                //old 
+                if (year <= 2022 && month < 5)
+                {
+                    circleid = 1;
+                }
+                else if ((year <= 2022 && month >= 9) || (year > 2022))
+                {
+                    circleid = 3;
+
+                }
+                else
+                {
+                    circleid = 2;
+                }
+                ReportsLogic cl = new ReportsLogic();
+                List<DownloadTransactionCommissionModel> products = new List<DownloadTransactionCommissionModel>();
+                //old code  var Reqlist = cl.DownloadCommissionReport(year, month, circleid, cspcode, status).ToList();
+
+
+                var Reqlist = (dynamic)null;
+                if (areaid == 1)
+                {
+                    Reqlist = cl.DownloadCommissionReport(year, month, circleid, cspcode, status).ToList();
+                }
+                else
+                {
+                    Reqlist = cl.DownloadCommissionReportRural(year, month, circleid, cspcode, status).ToList();
+                }
+                string monthname = CommonLogic.GetMonthName(Convert.ToInt32(month));
+
+                if (Reqlist.Count > 0)
+                {
+                    foreach (var item in Reqlist)
+                    {
+                        products.Add(
+                                      new DownloadTransactionCommissionModel
+                                      {
+                                          CSPCode = item.CSPCode,
+                                          CSPName = item.CSPName,
+                                          // NoOfTransaction = (decimal)item.NoOfTransactions,
+                                          NoOfTransaction = item.NoOfTransactions,
+                                          TransactionType = item.TransactionType,
+                                          Commission = (decimal)item.ActualCommission,
+                                          CommissionIncludingTDS = (decimal)item.IncludingTDS,
+                                          Commissionpercentage = (decimal)item.CSPCommission,
+                                          TotalCommission = (decimal)item.Total,
+                                          Message = "Commission For " + monthname + " ," + year,
+
+                                      });
+                    }
+                }
+                else
+                {
+                    products.Add(
+                                        new DownloadTransactionCommissionModel
+                                        {
+                                            CSPCode = UserCSPDetail.CSPCode,
+                                            CSPName = UserCSPDetail.CSPName,
+                                            Message = "Commission For " + " " + "Year: " + year + " , Month: " + monthname
+                                        });
+                }
+
+                return PartialView("_CSPCommissionReport", products);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
+        }
+
+
+
+
+        /*.............................................Code Changes Sept 2023.................................................................*/
+
+        public ActionResult DownloadCommissionReport()
+        {
+            StatusLogic sl = new StatusLogic();
+            var Statuslist = sl.GetAllStatus();
+            ViewBag.Statuslist = Statuslist;
+            ViewBag.Years = GetYears().OrderByDescending(x => x.Value);
+            ViewBag.Months = GetMonths().OrderByDescending(x => x.Value);
+            TransactionTypeCycleLogic TransactionTypeCycle = new TransactionTypeCycleLogic();
+            var TransactionCycle = TransactionTypeCycle.GetAllCommissionTransactionTypeCycle();
+            ViewBag.CycleID = TransactionCycle;
+            ViewBag.AreaID = AreaType;
+
+            return View();
+
+        }
+
+        [HttpPost]
+        public ActionResult DownloadCommissionReportOld(int year, int month, string cspcode, string status, int cycleid, int areaid)
+        {
+            try
+            {
+
+                dynamic Reqlist = null;
+                ReportsLogic cl = new ReportsLogic();
+
+                List<DownloadTransactionCommissionModel> products = new List<DownloadTransactionCommissionModel>();
+                int CspAreaId = 0;
+                if (!string.IsNullOrEmpty(cspcode))
+                {
+                    UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+                    UserCSPDetail CspArea = objUserCSPDetailLogic.GetUserCSPDetByCSPCode(cspcode);
+
+                    if (CspArea.CSPId > 0)
+                    {
+                        if (CspArea.Category.Contains("Urban"))
+                        {
+                            CspAreaId = 1;
+                        }
+                        else
+                        {
+                            CspAreaId = 2;
+                        }
+                    }
+                    if (areaid == 1 && CspAreaId == 1)
+                    {
+                        Reqlist = cl.DownloadCommissionReport(year, month, cycleid, cspcode, status).ToList();
+                    }
+                    else if (areaid == 2 && CspAreaId == 2)
+                    {
+                        Reqlist = cl.DownloadCommissionReportRural(year, month, cycleid, cspcode, status).ToList();
+
+                    }
+                }
+                else
+                {
+                    if (areaid == 1)
+                    {
+                        Reqlist = cl.DownloadCommissionReport(year, month, cycleid, cspcode, status).ToList();
+                    }
+                    else if (areaid == 2)
+                    {
+                        Reqlist = cl.DownloadCommissionReportRural(year, month, cycleid, cspcode, status).ToList();
+
+                    }
+
+                }
+
+                string monthname = CommonLogic.GetMonthName(Convert.ToInt32(month));
+                if (Reqlist != null && Reqlist.Count > 0)
+                {
+                    foreach (var item in Reqlist)
+                    {
+                        products.Add(
+                                      new DownloadTransactionCommissionModel
+                                      {
+                                          CSPCode = item.CSPCode,
+                                          // NoOfTransaction = (decimal)item.NoOfTransactions,
+                                          NoOfTransaction = item.NoOfTransactions,
+                                          TransactionType = item.TransactionType,
+
+                                          //Changedby Tushi Suggestion   Commission = (decimal)item.ActualCommission,
+                                          Commission = (decimal)item.Totalold,
+                                          CommissionIncludingTDS = (decimal)item.IncludingTDS,
+                                          Commissionpercentage = (decimal)item.CSPCommission,
+                                          TotalCommission = (decimal)item.Total,
+                                          Message = "CSP Code:-" + item.CSPCode + ",Commission For" + monthname + " ," + year,
+
+                                      }); ;
+                    }
+                }
+                else
+                {
+                    products.Add(
+                                        new DownloadTransactionCommissionModel
+                                        {
+                                            Message = "CSP Code:-" + cspcode + ",Commission Report For" + " " + "Year: " + year + " , Month: " + monthname
+                                        });
+                }
+
+                return PartialView("_CommissionReport", products);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
+        }
+
+        int newcycleid = 0;
+        [HttpPost]
+        public ActionResult DownloadCommissionReport(int year, int month, string cspcode, string status, int cycleid, int areaid)
+        {
+            try
+            {
+             
+                dynamic Reqlist = null;
+                ReportsLogic cl = new ReportsLogic();
+                List<DownloadTransactionCommissionModel> products = new List<DownloadTransactionCommissionModel>();
+                int CspAreaId = 0;
+                if (!string.IsNullOrEmpty(cspcode))
+                {
+                    UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+                    UserCSPDetail CspArea = objUserCSPDetailLogic.GetUserCSPDetByCSPCode(cspcode);
+                    if (CspArea.CSPId > 0)
+                    {
+                        if (CspArea.Category.Contains("Urban"))
+                        {
+                            CspAreaId = 1;
+                        }
+                        else
+                        {
+                            CspAreaId = 2;
+                        }
+
+                       
+                        if (year <= 2022 && month < 5)
+                        {
+                            newcycleid = 1;
+                        }
+                        else if ((year <= 2022 && month >= 9) || (year > 2022))
+                        {
+                            newcycleid = 3;
+
+                        }
+                        else
+                        {
+                            newcycleid = 2;
+                        }
+                    }
+                    if (CspAreaId == 1)
+                    {
+                        Reqlist = cl.DownloadCommissionReport(year, month, newcycleid, cspcode, status).ToList();
+                    }
+                    else if (CspAreaId == 2)
+                    {
+                        Reqlist = cl.DownloadCommissionReportRural(year, month, newcycleid, cspcode, status).ToList();
+
+                    }
+                }
+                string monthname = CommonLogic.GetMonthName(Convert.ToInt32(month));
+                if (Reqlist != null && Reqlist.Count > 0)
+                {
+                    foreach (var item in Reqlist)
+                    {
+                        products.Add(
+                                      new DownloadTransactionCommissionModel
+                                      {
+                                          CSPCode = item.CSPCode,
+                                          // NoOfTransaction = (decimal)item.NoOfTransactions,
+                                          NoOfTransaction = item.NoOfTransactions,
+                                          TransactionType = item.TransactionType,
+
+                                          //Changedby Tushi Suggestion   Commission = (decimal)item.ActualCommission,
+                                          Commission = (decimal)item.Totalold,
+                                          CommissionIncludingTDS = (decimal)item.IncludingTDS,
+                                          Commissionpercentage = (decimal)item.CSPCommission,
+                                          TotalCommission = (decimal)item.Total,
+                                          Message = "CSP Code:-" + item.CSPCode + ",Commission For" + monthname + " ," + year,
+
+                                      }); ;
+                    }
+                }
+                else
+                {
+                    products.Add(
+                                        new DownloadTransactionCommissionModel
+                                        {
+                                            Message = "CSP Code:-" + cspcode + ",Commission Report For" + " " + "Year: " + year + " , Month: " + monthname
+                                        });
+                }
+
+                return PartialView("_CommissionReport", products);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
+        }
     }
 }
+

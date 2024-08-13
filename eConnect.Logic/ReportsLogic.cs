@@ -22,14 +22,16 @@ namespace eConnect.Logic
 
         //    }
         //}
-        public IList<sp_GetCommissionReportByYearMonthandCSPName_Result> DownloadCommissionReport(int year, int month, string cspcode, string status)
-        {
-            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
-            {
-                IList<sp_GetCommissionReportByYearMonthandCSPName_Result> sp = unitOfWork.CommissionReportNews.CommissionReport(year, month, cspcode);
-                return sp;
-            }
-        }
+        //public IList<sp_GetCommissionReportByYearMonthandCSPName_Result> DownloadCommissionReport(int year, int month, string cspcode, string status)
+        //{
+        //    using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+        //    {
+        //        IList<sp_GetCommissionReportByYearMonthandCSPName_Result> sp = unitOfWork.CommissionReportNews.CommissionReport(year, month, cspcode);
+        //        return sp;
+        //    }
+        //}
+
+
 
 
         public IList<tblCommissionReportNew> GetAllCommissionReportByUploaderId(int id)
@@ -124,5 +126,26 @@ namespace eConnect.Logic
 
             }
         }
+
+        //************************************************************ 29 Aug ****************************************************
+
+        public IList<sp_GetCommissionReportByYearMonthandCSPName_Result> DownloadCommissionReport(int year, int month, int circleid, string cspcode, string status)
+        {
+             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                IList<sp_GetCommissionReportByYearMonthandCSPName_Result> sp = unitOfWork.CommissionReportNews.CommissionReport(year, month, circleid, cspcode);
+                return sp;
+            }
+        }
+        public IList<sp_GetCommissionReportRuralByYearMonthandCSPName_Result> DownloadCommissionReportRural(int year, int month, int circleid, string cspcode, string status)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                IList<sp_GetCommissionReportRuralByYearMonthandCSPName_Result> sp = unitOfWork.CommissionReportNews.CommissionReportRural(year, month, circleid, cspcode);
+
+                return sp;
+            }
+        }
+
     }
 }

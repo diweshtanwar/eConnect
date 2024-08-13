@@ -565,7 +565,7 @@ namespace eConnect.Logic
                 UserDetail.EmergencyContactNumber = tblUserDetail.EmergencyContactNumber;
                 UserDetail.Department = tblUserDetail.DepartmentId.ToString();
                 UserDetail.Designation = tblUserDetail.DesignationId.ToString();
-                UserDetail.RoleName  = tblUserDetail.RoleName.ToString();
+                UserDetail.RoleName = tblUserDetail.RoleName.ToString();
                 UserDetail.Qualification = tblUserDetail.Qualification;
                 UserDetail.PassportSizePic = tblUserDetail.ProfilePicSource;
                 UserDetail.Id = tblUserDetail.UserDetailId;
@@ -597,6 +597,7 @@ namespace eConnect.Logic
             return UserId;
         }
 
+       
     }
 }
 

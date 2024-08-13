@@ -2,7 +2,8 @@
 @{ ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 
-    string Receipt = @System.Web.Configuration.WebConfigurationManager.AppSettings["TechFilePath"] + Model.Id + "\\TechSupportScreenshort\\" + Model.Recieptpic; }
+    string Receipt =  Model.Id + "/TechSupportScreenshort/" + Model.Recieptpic;
+    }
 @*<h2></h2>*@
 <section class="section">
     <div class="card">
@@ -82,7 +83,10 @@
 
                         @if (!string.IsNullOrEmpty(Model.Recieptpic))
                         {
-                            <a href="@Url.Content(Receipt)" target="_blank">PreviewImage</a> }
+                        @*<a href="javascript:PreviewImage('@Model.Recieptpic');">PreviewImage</a>*@ 
+                        <a href="~/ImageViewer/Getimage/?Type=Tech+&File=+@Receipt" target="_blank">PreviewImage</a>
+                        
+                        }
                         else
                         {
                             <span style="color:red;">No image uploaded.</span>}
@@ -115,4 +119,10 @@
         @Html.ActionLink("Cancel", "Index", "Menu", new { @class = "btn btn-dark px-4 mr-2" })
     </div>
 </section>
-
+<script>
+    debugger;
+    function PreviewImage(url) {
+        var win = window.open();
+        win.document.write("<iframe width='100%' height='100%' scrolling='no' src='" + url + "'></iframe>");
+    }
+</script>

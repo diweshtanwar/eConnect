@@ -1,0 +1,90 @@
+﻿@model eConnect.Model.WindowTimes
+
+@{
+    ViewBag.Title = "CreateActiveWindow";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+@using (Html.BeginForm("CreateActiveWindow", "SAdmin", new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <script type="text/javascript">
+        (function ($) {
+            $(function () {
+                $('input.timepicker').timepicker();
+            });
+        })(jQuery);
+
+
+
+  $(document).ready(function () {
+      LoadData();
+    });
+    function LoadData() {
+                $.ajax({
+                type: "POST",
+                url: '@Url.Action("_WindowTimingDetails", "SAdmin")',
+              //  data: { cycleid: 4},
+                dataType: 'html',
+                beforeSend: function () {
+                    $('.ajax-loader').css("visibility", "visible");
+                },
+                complete: function () {
+                    $('.ajax-loader').css("visibility", "hidden");
+                },
+                success: function (data) {
+                    $('#TimingList').html(data);
+                }
+            });
+        };
+
+    </script>
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" class="timepicker" name="StartTime" id="StartTime" required />
+                @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" class="timepicker" name="EndTime" id="EndTime" required />
+                @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.InActive, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.InActive)
+                    @Html.ValidationMessageFor(model => model.InActive, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div>
+            <div>
+                <button class="btn btn-primary px-4" value="Submit" type="submit">Save</button>
+                @Html.ActionLink("Cancel", "CreateActiveWindow", "SAdmin", new { @class = "btn btn-dark px-4 mr-2" })
+            </div>
+        </div>
+    </div>
+
+    <div class="ajax-loader">
+        <img src="~/Content/Image/ajax-loader.gif" class="img-responsive" />
+    </div>
+    <div id="TimingList" class="card"></div>
+}
+
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+                $(function () {
+                    alert("@TempData["Message"]")
+                });
+    </script>
+}
+
+

@@ -2,95 +2,123 @@
 
 @{
     ViewBag.Title = "Manage CSP";
-    Layout = "~/Views/Shared/_LayoutMain.cshtml";
-}
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";}
 
-    <section class="section">
 
-        <p>
-            
-            @Html.ActionLink("Create New", "Create", "Menu", new { @class = "btn btn-primary px-4" })
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="~/Content/HTML/css/bootstrap.min.css" rel="stylesheet" />
+@*  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+@*<style>
+            .btn: after {
+            /* font - family: "Glyphicons Halflings";*/
+            content: "\e114";
+        }
+           .btn.collapsed: after {
+            content: "\e080";
+        }
+    </style>*@
 
-        </p>
-        @using (@Html.BeginForm("IndexSearch", "CSP", FormMethod.Get))
-        {@Html.AntiForgeryToken()
-  
-        <div class="card">
-            <div class="card-header">
-                <h4><span class="toggle-collapse" data-toggle="collapse" href="#filter" role="button" aria-expanded="false" aria-controls="filter"></span> Filter</h4>
-            </div>
-            <div class="card-body collapse" id="filter">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>CSP Code</label>
-                            <input type="text" id="CSPCode" name="CSPCode" class="form-control" value="@Request["CSPCode"]">
-                        </div>
+<script type="text/javascript">
+    //$(document).ready(function () {
+    //    $("#filter").on("hide.bs.collapse", function () {
+    //        $(".btn").html('<span class="toggle-collapse-down"></span> Open');
+
+    //    });
+    //    $("#filter").on("show.bs.collapse", function () {
+    //        $(".btn").html('<span class="toggle-collapse-up"></span> Close');
+    //    });
+    //});
+</script>
+<link href="~/Content/HTML/css/fileup.css" rel="stylesheet" />
+
+<section class="section">
+
+
+    @using (@Html.BeginForm("IndexSearch", "CSP", FormMethod.Get))
+    {@Html.AntiForgeryToken()
+
+
+    <div class="card">
+        <div class="card-header">
+            <h4><span class="toggle-collapse" data-toggle="collapse" href="#filter" role="button" aria-expanded="false" aria-controls=" filter"></span> Filter</h4>
+        </div>
+        <div class="card-body collapse" id="filter">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>CSP Code</label>
+                        <input type="text" id="CSPCode" name="CSPCode" class="form-control" value="@Request["CSPCode"]">
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" id="CSPName" name="CSPName" class="form-control" value="@Request["CSPName"]">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Branch Code</label>
-                            <input type="text" id="BranchCode" name="BranchCode" class="form-control" value="@Request["BranchCode"]">
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Status</label>
-                            @Html.DropDownList("Status", (IEnumerable<SelectListItem>)ViewBag.Status, " ", new { @class = "form-control" })
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Certificate Status</label>
-                            @Html.DropDownList("CertificateStatus", (IEnumerable<SelectListItem>)ViewBag.CertificateStatus, " ", new { @class = "form-control" })
-
-                        </div>
-                    </div>
-                    <div class="col-md-3 mt-md-4 pt-1">
-                        @*<button class="btn btn-dark px-4 mr-2">Cancel</button>*@
-                        <button type="submit" class="btn btn-primary px-4">Search</button>
-                    </div>
-
                 </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="CSPName" name="CSPName" class="form-control" value="@Request["CSPName"]">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Branch Code</label>
+                        <input type="text" id="BranchCode" name="BranchCode" class="form-control" value="@Request["BranchCode"]">
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Status</label>
+                        @Html.DropDownList("Status", (IEnumerable<SelectListItem>)ViewBag.Status, " ", new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Certificate Status</label>
+                        @Html.DropDownList("CertificateStatus", (IEnumerable<SelectListItem>)ViewBag.CertificateStatus, " ", new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <div class="col-md-3 mt-md-4 pt-1">
+                    @*<button class="btn btn-dark px-4 mr-2">Cancel</button>*@
+                    <button type="submit" class="btn btn-primary px-4">Search</button>
+                </div>
+
             </div>
         </div>
-    }
-        <div class="card">
+    </div>
+}
+    <p>
+        @Html.ActionLink("Create New", "Create", "Menu", new { @class = "btn btn-primary px-4" })
+    </p>
+    <div class="card">
 
-            <div class="card-body">
+        <div class="card-body">
 
 
-                <div class="table-responsive">
-                    <div class="table-actions">
-                        @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
-                    </div>
-                    <table class="table table-striped" id="table-2">
-                        <thead>
-                            <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.CSPName)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.CSPCode)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.BranchCode)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Category)
-                                </th>
-                                @*<th>
+            <div class="table-responsive">
+                <div class="table-actions">
+                    @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
+                </div>
+                <table class="table table-striped" id="table-2">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CSPName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CSPCode)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BranchCode)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Category)
+                            </th>
+                            @*<th>
                                     @Html.DisplayNameFor(model => model.Mobile)
                                 </th>*@
-                                @*<th>
+                            @*<th>
                                     @Html.DisplayNameFor(model => model.ExpiryDate)
                                 </th>
                                 <th>
@@ -124,29 +152,29 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Education)
                                 </th>*@
-                                <th> Action </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.CSPName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.CSPCode)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.BranchCode)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Category)
-                                    </td>
-                                    @*<td>
+                            <th> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CSPName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CSPCode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BranchCode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Category)
+                                </td>
+                                @*<td>
                                         @Html.DisplayFor(modelItem => item.Mobile)
                                     </td>*@
-                                    @*<td>
+                                @*<td>
                                         @Html.DisplayFor(modelItem => item.ExpiryDate)
                                     </td>
                                     <td>
@@ -180,23 +208,23 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Education)
                                     </td>*@
-                                    <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.CSPId }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.CSPId }) |
-                                        @Html.ActionLink("View", "View", new { id = item.CSPId }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.CSPId }) |
-                                        @Html.ActionLink("Account", "ResetPassword", new { CSPCode = item.CSPCode })
-                                    </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.CSPId }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.CSPId }) |
+                                    @Html.ActionLink("View", "View", new { id = item.CSPId }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.CSPId }) |
+                                    @Html.ActionLink("Account", "ResetPassword", new { CSPCode = item.CSPCode })
+                                </td>
 
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
 
 
-    </section>
+</section>
 
 

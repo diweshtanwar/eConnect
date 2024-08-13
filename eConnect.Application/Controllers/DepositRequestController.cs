@@ -11,13 +11,18 @@ using eConnect.Model;
 using eConnect.Logic;
 using System.IO;
 using System.Configuration;
-
+using eConnect.Application.Models;
+using NLog;
 namespace eConnect.Application.Controllers
 {
     public class DepositRequestController : Controller
     {
+
+        private static Logger logger = LogManager.GetLogger("EConnectLogRules");
+        string DepositStartTime, DepositEndTime = string.Empty;
         string UserFilePath = System.Web.HttpContext.Current.Server.MapPath(Convert.ToString(ConfigurationManager.AppSettings["DepositFilePath"]));
-         List<SelectListItem> RequestType = new List<SelectListItem>()
+        string Email = ConfigurationManager.AppSettings["ToEmailid"].ToString();
+        List<SelectListItem> RequestType = new List<SelectListItem>()
             {
                 new SelectListItem { Text = "Select RequestType", Value = "" },
                 new SelectListItem { Text = "Withdrawal", Value = "1" },
@@ -35,13 +40,13 @@ namespace eConnect.Application.Controllers
             };
         // GET: DepositRequest
         public ActionResult Index()
-        
+
         {
-            
+
             RaiseRequestLogic raiseRequest = new RaiseRequestLogic();
             ViewBag.RequestType = RequestType;
             var tblDepositDetails = raiseRequest.GetDepositDetailsByCSPID(Convert.ToInt32(Session["CSPID"].ToString()));
-           // var tblDepositDetails = raiseRequest.GetDepositDetails();
+            // var tblDepositDetails = raiseRequest.GetDepositDetails();
             bool flag = Convert.ToBoolean(TempData["flag"]);
             if (flag == true)
             {
@@ -51,10 +56,10 @@ namespace eConnect.Application.Controllers
         }
         public ActionResult IndexSearch(string Requestid, string RequestType, string Requesteddte, string Completiondte)
         {
-            int Reqid=0, ReqType=0;
+            int Reqid = 0, ReqType = 0;
             RaiseRequestLogic raiseRequest = new RaiseRequestLogic();
             ViewBag.RequestType = RequestType;
-            if(Requestid =="")
+            if (Requestid == "")
             {
                 Reqid = 0;
             }
@@ -66,9 +71,9 @@ namespace eConnect.Application.Controllers
             {
                 ReqType = 0;
             }
-            else 
+            else
             {
-                ReqType= Convert.ToInt32(RequestType);
+                ReqType = Convert.ToInt32(RequestType);
             }
             var tblDepositDetails = raiseRequest.GetDepositDetailsSearch(Reqid, ReqType, Requesteddte, Completiondte);
             TempData["searchdata"] = tblDepositDetails.ToList();
@@ -77,9 +82,44 @@ namespace eConnect.Application.Controllers
         }
         public ActionResult Create()
         {
-            ViewBag.RequestType = RequestType;
-            ViewBag.Status = Status;
+            try
+            {
+                ViewBag.RequestType = RequestType;
+                ViewBag.Status = Status;
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Create Deposit Request" +" " +ex.Message);
+
+            }
             return View();
+        }
+
+        public bool CheckWindow()
+        {
+            WindowTimingLogic OtrLogic = new WindowTimingLogic();
+            var dt = OtrLogic.GetCurrentActiveWindow();
+            if (dt.Count > 0)
+            {
+                DateTime dtStart = Convert.ToDateTime(dt[0].StartTime);
+                DateTime dtEnd = Convert.ToDateTime(dt[0].EndTime);
+                DateTime current = DateTime.Now;
+                DepositStartTime = dt[0].StartTime;
+                DepositEndTime = dt[0].EndTime;
+                if (current.Ticks > dtStart.Ticks && current.Ticks < dtEnd.Ticks)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return true;
+            }
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -91,13 +131,29 @@ namespace eConnect.Application.Controllers
             if (ModelState.IsValid)
             {
                 int UserId = Convert.ToInt32(Session["CSPID"]);
-                    //Convert.ToInt32(Session["UserID"]);
-                long UserID = raiseRequest.AddDepositDetails(deposit, UserId);
-                string path = Path.Combine(UserFilePath, UserID.ToString());
-                if (deposit.Reciept != null)
+                //Convert.ToInt32(Session["UserID"]);
+                bool chktiming = CheckWindow();
+
+                if (chktiming == true)
                 {
-                   string  fpath = CheckDirectory(path, "DepositReceipt", deposit.Reciept);
-                    deposit.Reciept.SaveAs(fpath);
+                    long UserID = raiseRequest.AddDepositDetails(deposit, UserId);
+                    string path = Path.Combine(UserFilePath, UserID.ToString());
+                    if (deposit.Reciept != null)
+                    {
+                        string fpath = CheckDirectory(path, "DepositReceipt", deposit.Reciept);
+                        deposit.Reciept.SaveAs(fpath);
+                    }
+                    //**EmailNotification**//
+                    UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+                    UserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID(Convert.ToInt32(UserId));
+                    EmailNotification emailNotification = new EmailNotification();
+                    emailNotification.SendEmail(Email, 2, UserCSPDetail, deposit.Amount.ToString(), deposit.BankDepositDate, "", "", "");
+                    //*******************//
+                }
+                else
+                {
+                    TempData["TimingWindowMessage"] = "Deposit Request Window has been closed.Please raise the request between " + DepositStartTime + " to " + DepositEndTime;
+                    return View(deposit);
                 }
                 return RedirectToAction("Index");
             }
@@ -122,12 +178,12 @@ namespace eConnect.Application.Controllers
                 return HttpNotFound();
             }
 
-             var ReqTypes = new[]
-              {
+            var ReqTypes = new[]
+             {
                 new SelectListItem(){Value = "1", Text= "Withdrawal"},
                 new SelectListItem(){Value = "2", Text= "Deposit"},
             };
-           
+
             var selectedRequestType = ReqTypes.FirstOrDefault(d => d.Value == objDeposit.RequestType.ToString());
             if (selectedRequestType != null)
                 selectedRequestType.Selected = true;
@@ -135,7 +191,7 @@ namespace eConnect.Application.Controllers
 
             var Status = new[]
             {
-           
+
                 new SelectListItem { Text = "In-Progress", Value = "2" },
                 new SelectListItem { Text = "Not Started", Value = "5" },
                 new SelectListItem { Text = "Completed", Value = "3" },

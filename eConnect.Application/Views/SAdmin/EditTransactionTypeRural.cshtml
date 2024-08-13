@@ -1,0 +1,83 @@
+﻿
+@model eConnect.Model.CommissionReportTransactionTypeRuralModel
+
+@{
+    ViewBag.Title = "Edit RuralTransaction Type ";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <section>
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="required-field">Transaction Name</label>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = (string)null } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="required-field">HO Commission</label>
+                            @Html.EditorFor(model => model.HOCommission, new { htmlAttributes = new { @class = "form-control", required = (string)null } })
+                            @*<input class="form-control" type="text" pattern="(^[0-9]{0,2}$)|(^[0-9]{0,2}\.[0-9]{0,3}$)" step="any" maxlength="7"
+                value="model.HOCommission" required validate="true" id="HOCommission" name="HOCommission" />*@
+                            @Html.ValidationMessageFor(model => model.HOCommission, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="required-field">CSP Commission</label>
+                            @Html.EditorFor(model => model.CSPCommission, new { htmlAttributes = new { @class = "form-control", required = (string)null } })
+                            @Html.HiddenFor(model => model.CommissionReportTransactionTypeId)
+                            @*<input class="form-control" type="text" pattern="(^[0-9]{0,2}$)|(^[0-9]{0,2}\.[0-9]{0,3}$)" step="any" maxlength="7"
+                required validate="true" id="CSPCommission" name="CSPCommission" />*@
+                            @Html.ValidationMessageFor(model => model.CSPCommission, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                   <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CycleID)
+                            <div class="col-md-10">
+                                <div class="checkbox">
+                                   @Html.DropDownList("CycleID", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                                
+                               </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Status)
+                            <div class="col-md-10">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.Status, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Status, "")
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="my-4 text-left">
+                        <button class="btn btn-primary px-4" type="submit">Update</button> |
+
+                        @Html.ActionLink("Cancel", "CreateTransactionTypeRural", "Menu", new { @class = "btn btn-dark px-4 mr-2" })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+}
+
+

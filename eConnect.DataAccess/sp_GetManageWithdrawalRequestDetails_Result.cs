@@ -20,7 +20,9 @@ namespace eConnect.DataAccess
         public string CSPCode { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public Nullable<System.DateTime> CompletionDate { get; set; }
+        public string Cdate { get; set; }
         public Nullable<System.DateTime> RequestedDate { get; set; }
+        public string Rdate { get; set; }
         public Nullable<long> Account { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<int> State { get; set; }

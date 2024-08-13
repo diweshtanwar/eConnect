@@ -184,6 +184,7 @@
     <Compile Include="Controllers\EnquiryController.cs" />
     <Compile Include="Controllers\GalleryDocumentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImageViewerController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManageDepositRequestController.cs" />
     <Compile Include="Controllers\ManageTechnicalSupportRequestController.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\UserRoleProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -277,6 +279,7 @@
     <Content Include="Content\EgraminAssets\assets\js\menumaker.js" />
     <Content Include="Content\EgraminAssets\assets\js\simple-lightbox.js" />
     <Content Include="Content\HTML\account-configuration.html" />
+    <Content Include="Content\HTML\css\bootstrap.min.css" />
     <Content Include="Content\HTML\css\fileup.css" />
     <Content Include="Content\HTML\css\jquery.growl.css" />
     <Content Include="Content\HTML\form.html" />
@@ -372,11 +375,14 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.timepicker.min.css" />
+    <Content Include="Scripts\jquery.timepicker.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\script-custom-timepicker.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -556,6 +562,15 @@
     <Content Include="Views\SAdmin\EditTransactionType.cshtml" />
     <Content Include="Views\Menu\CreateNew.cshtml" />
     <Content Include="Views\Menu\EditNew.cshtml" />
+    <Content Include="Views\SAdmin\CreateTransactionTypeRural.cshtml" />
+    <Content Include="Views\SAdmin\_TransactionTypesDetailsRural.cshtml" />
+    <Content Include="Views\SAdmin\EditTransactionTypeRural.cshtml" />
+    <Content Include="Views\Partial\_GetActiveWindow.cshtml" />
+    <Content Include="Views\Admin\CreateActiveWindow.cshtml" />
+    <Content Include="Views\Admin\CreateActiveWindo.cshtml" />
+    <Content Include="Views\SAdmin\CreateActiveWindow.cshtml" />
+    <Content Include="Views\SAdmin\_WindowTimingDetails.cshtml" />
+    <Content Include="Views\SAdmin\EditWindowTimes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -20,10 +20,9 @@ namespace eConnect.Application.Controllers
         string ReceiptPath = Convert.ToString(ConfigurationManager.AppSettings["DepositFilePath"]);
         List<SelectListItem> Status = new List<SelectListItem>()
             {
-
-                new SelectListItem { Text = "Select Status", Value = "" },
-                       new SelectListItem { Text = "All", Value = "" },
+                //new SelectListItem { Text = "Select Status", Value = "" },
                 new SelectListItem { Text = "Open", Value = "1" },
+                 new SelectListItem { Text = "All", Value = "" },
                  new SelectListItem { Text = "Close", Value = "3" },
                  new SelectListItem { Text = "Rejected", Value = "7" }
             };
@@ -47,24 +46,30 @@ namespace eConnect.Application.Controllers
             ViewBag.BranchCode = new SelectList(objBranchCodeLogic.GetAllBranchCode(), "BranchCode", "BranchCode");
             ViewBag.Category = new SelectList(objCategoryLogic.GetAllCategory(), "Category", "Category");
 
-            var tblDepositDetails = raiseRequest.GetManageDepositDetails().Where(x => x.Status == 1);
+            var tblDepositDetails = raiseRequest.GetManageDepositDetails(20, 1);
             bool flag = Convert.ToBoolean(TempData["flag"]);
             if (flag == true)
             {
+                ViewBag.Record = Convert.ToInt32(TempData["Record"]);
                 tblDepositDetails = TempData["searchdataManagedeposit"] as List<sp_GetManageDepositRequestDetails_Result>;
             }
-
+            else
+            {
+                ViewBag.Record = 20;
+            }
             tblDepositDetails = tblDepositDetails.Where(w => w.DepositeRequestId == w.DepositeRequestId).Select(w => { w.ReceiptSource = ReceiptPath.Replace("~", "") + w.DepositeRequestId + "\\DepositReceipt\\" + w.ReceiptSource; return w; }).ToList();
 
-            ViewBag.Opencount = raiseRequest.GetManageDepositDetails().Count(x => x.Status == 1);//Open
-            //ViewBag.InProgresscount = tblDepositDetails.Count(x => x.Status == 2);//In-Progres
-            ViewBag.Closecount = raiseRequest.GetManageDepositDetails().Count(x => x.Status == 3);//Close
-            ViewBag.Rejectcount = raiseRequest.GetManageDepositDetails().Count(x => x.Status == 7);//Reject
-            return View(tblDepositDetails.ToList().OrderByDescending(x => x.DepositeRequestId));
+            //ViewBag.Opencount = raiseRequest.GetManageDepositDetails().Count(x => x.Status == 1);//Open
+            ////ViewBag.InProgresscount = tblDepositDetails.Count(x => x.Status == 2);//In-Progres
+            //ViewBag.Closecount = raiseRequest.GetManageDepositDetails().Count(x => x.Status == 3);//Close
+            //ViewBag.Rejectcount = raiseRequest.GetManageDepositDetails().Count(x => x.Status == 7);//Reject
+
+            // return View(tblDepositDetails.ToList().OrderByDescending(x => x.DepositeRequestId));
+            return View(tblDepositDetails.ToList());
         }
-        public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City, string Status, string Requesteddte,string Completiondte,string BranchCode, string Category,string Depositdte)
+        public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City, string Status, string Requesteddte, string Completiondte, string BranchCode, string Category, string Depositdte, string Record)
         {
-            int  Cid = 0, Sid = 0, Cityid = 0, Statusid = 0, Bcode = 0, CategoryId = 0;
+            int Cid = 0, Sid = 0, Cityid = 0, Statusid = 0, Bcode = 0, CategoryId = 0;
             string Reqid = "";
             if (CspID == "")
             {
@@ -122,19 +127,21 @@ namespace eConnect.Application.Controllers
             {
                 Statusid = Convert.ToInt32(Status);
             }
-            var tblManageDepositDetails = raiseRequest.GetManageDepositDetailsSearch(Reqid, CspName, Cid, Sid, Cityid, Statusid, Requesteddte,Completiondte, BranchCode, Category, Depositdte);
+            var tblManageDepositDetails = raiseRequest.GetManageDepositDetailsSearch(Reqid, CspName, Cid, Sid, Cityid, Statusid, Requesteddte, Completiondte, BranchCode, Category, Depositdte, Convert.ToInt32(Record));
             TempData["searchdataManagedeposit"] = tblManageDepositDetails.ToList();
             TempData["flag"] = true;
+            Session["status"] = Statusid;
+            TempData["Record"] = Convert.ToInt32(Record);
             return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int? id)
         {
-           
+
             RaiseRequestLogic raiseRequestdetals = new RaiseRequestLogic();
-            ManageDeposit objMDeposit= raiseRequestdetals.GetManageDepositDetailByID((int)id);
-           var Status = new[]
-           {
+            ManageDeposit objMDeposit = raiseRequestdetals.GetManageDepositDetailByID((int)id);
+            var Status = new[]
+            {
 
                  new SelectListItem { Text = "Select Status", Value = "" },
                   new SelectListItem { Text = "Open", Value = "1" },
@@ -162,6 +169,7 @@ namespace eConnect.Application.Controllers
         {
             RaiseRequestLogic raiseRequestdetals = new RaiseRequestLogic();
             ManageDeposit objMDeposit = raiseRequestdetals.GetManageDepositDetailByID((int)id);
+            //raiseRequestdetals.GetManageDepositDetailByID((int)id);
             var Status = new[]
             {
 
@@ -177,13 +185,13 @@ namespace eConnect.Application.Controllers
             ViewBag.EditedStatus = Status;
             return View(objMDeposit);
         }
-        
 
-       
-        
+
+
+
         [HttpPost]
         //*******************For Deposit/Withdraw/Techsupport Status Update**************************************//
-        public JsonResult UpdateRequestStatus(int RequestId,string status,string Comments,string RequestType)
+        public JsonResult UpdateRequestStatus(int RequestId, string status, string Comments, string RequestType)
         {
             RaiseRequestLogic requestLogic = new RaiseRequestLogic();
             try
@@ -191,19 +199,19 @@ namespace eConnect.Application.Controllers
                 requestLogic.UpdateRequestDetailsStatus(RequestId, status, Comments, RequestType);
                 return Json("", JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
         }
         [HttpPost]
         //*******************For Configure/Make/Authorize Status Update**************************************//
-        public JsonResult UpdateConfigure_Make_Authorize(int RequestId, string Configure,string Make,string Authorize)
+        public JsonResult UpdateConfigure_Make_Authorize(int RequestId, string Configure, string Make, string Authorize)
         {
             RaiseRequestLogic requestLogic = new RaiseRequestLogic();
             try
             {
-                requestLogic.UpdateConfigure_Make_AuthorizeStatus(RequestId, Configure,Make,Authorize);
+                requestLogic.UpdateConfigure_Make_AuthorizeStatus(RequestId, Configure, Make, Authorize);
                 return Json("", JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -214,7 +222,7 @@ namespace eConnect.Application.Controllers
 
         [HttpPost]
         //*******************For Configure/Make/Authorize Status Update**************************************//
-        public JsonResult UpdateConfigure_Make_Authorize_AutAmount(int RequestId, string Configure, string Make, string Authorize,decimal AutAmount)
+        public JsonResult UpdateConfigure_Make_Authorize_AutAmount(int RequestId, string Configure, string Make, string Authorize, decimal AutAmount)
         {
             RaiseRequestLogic requestLogic = new RaiseRequestLogic();
             try

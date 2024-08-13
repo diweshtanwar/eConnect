@@ -11,11 +11,13 @@ using eConnect.Model;
 using eConnect.Logic;
 using System.IO;
 using System.Configuration;
+using eConnect.Application.Models;
 
 namespace eConnect.Application.Controllers
 {
     public class TechSupportRequestController : Controller
     {
+        string Email = ConfigurationManager.AppSettings["ToEmailid"].ToString();
         string TechSupportPath = System.Web.HttpContext.Current.Server.MapPath(Convert.ToString(ConfigurationManager.AppSettings["TechFilePath"]));
         List<SelectListItem> Status = new List<SelectListItem>()
             {
@@ -104,6 +106,18 @@ namespace eConnect.Application.Controllers
                     string fpath = CheckDirectory(path, "TechSupportScreenshort", supportRequest.Screenshot);
                     supportRequest.Screenshot.SaveAs(fpath);
                 }
+                //**EmailNotification**//
+                UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+                UserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID(Convert.ToInt32(UserId));
+                EmailNotification emailNotification = new EmailNotification();
+                var query = from x in techSupport.GetAllTechSupportProblems() where x.ProblemTypeId == Convert.ToInt32(supportRequest.TechProblemType) select x;
+                string problemtype = "";
+                foreach( var name in query)
+                {
+                    problemtype = name.Name;
+                }
+                 emailNotification.SendEmail(Email, 3, UserCSPDetail, "", "", supportRequest.PhoneNumber, problemtype,"");
+                //*******************//
                 return RedirectToAction("Index");
             }
 

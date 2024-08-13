@@ -20,10 +20,17 @@ namespace eConnect.DataAccess
         void DeleteWithdrawDetail(int Id);
         IList<tblTechRequest> GetTechDetail();
         void DeleteTechDetail(int Id);
-        IList<sp_GetManageWithdrawalRequestDetails_Result> GetManageWithdrawalRequestDetails();
+        IList<sp_GetManageWithdrawalRequestDetails_Result> GetManageWithdrawalRequestDetails(int records, int status);
         IList<tblDepositRequest> GetAllDeposiDetailbyCSPID(int id);
-        IList<sp_GetManageDepositRequestDetails_Result> GetManageDepositRequestDetails();
+        IList<sp_GetManageDepositRequestDetails_Result> GetManageDepositRequestDetails(int records, int status);
         IList<tblTechRequest> GetAllTechRequestbyCSPID(int id);
-        IList<sp_GetManageTechSupportRequestDetails_Result> GetManageTechRequestDetails();
+        IList<sp_GetManageTechSupportRequestDetails_Result> GetManageTechRequestDetails(int records, int status);
+
+        IList<sp_GetEDITDepositRequestDetails_Result> GeteditdepositRequestDetails(int id);
+        IList<sp_GetEDITWithdrawalRequestDetails_Result> GeteditwithdrawRequestDetails(int id);
+        IList<sp_GetEditTechSupportRequestDetails_Result> GetedittechRequestDetails(int id);
+        int GetManageWithdrawalRequestDetailsCount(int status);
+        int GetManageManageDepositDetailsCount(int status);
+        int GetManageTechSupportRequestRequestDetailsCount(int status);
     }
 }

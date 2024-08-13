@@ -39,11 +39,8 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblCommissionReportMain> tblCommissionReportMains { get; set; }
         public virtual DbSet<tblCommissionReportMonthly> tblCommissionReportMonthlies { get; set; }
         public virtual DbSet<tblCommissionReportNew> tblCommissionReportNews { get; set; }
-        public virtual DbSet<tblCommissionReportTransactionType> tblCommissionReportTransactionTypes { get; set; }
         public virtual DbSet<tblConfiguration> tblConfigurations { get; set; }
         public virtual DbSet<tblCountry> tblCountries { get; set; }
-        public virtual DbSet<tblDepartment> tblDepartments { get; set; }
-        public virtual DbSet<tblDesignation> tblDesignations { get; set; }
         public virtual DbSet<tblDocument> tblDocuments { get; set; }
         public virtual DbSet<tblDownloadDetail> tblDownloadDetails { get; set; }
         public virtual DbSet<tblEducation> tblEducations { get; set; }
@@ -69,7 +66,6 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblState> tblStates { get; set; }
         public virtual DbSet<tblStatu> tblStatus { get; set; }
         public virtual DbSet<tblTechRequest> tblTechRequests { get; set; }
-        public virtual DbSet<tblUploader> tblUploaders { get; set; }
         public virtual DbSet<tblUserCSPDetail> tblUserCSPDetails { get; set; }
         public virtual DbSet<tblUserDetail> tblUserDetails { get; set; }
         public virtual DbSet<tblUserLoginLog> tblUserLoginLogs { get; set; }
@@ -78,6 +74,13 @@ namespace eConnect.DataAccess
         public virtual DbSet<tblWebFeedback> tblWebFeedbacks { get; set; }
         public virtual DbSet<tblWithdrawalRequest> tblWithdrawalRequests { get; set; }
         public virtual DbSet<tblDepositRequest> tblDepositRequests { get; set; }
+        public virtual DbSet<tblCommissionReportTransactionTypeRural> tblCommissionReportTransactionTypeRurals { get; set; }
+        public virtual DbSet<tblTransactionTypeCycle> tblTransactionTypeCycles { get; set; }
+        public virtual DbSet<tblCommissionReportTransactionType> tblCommissionReportTransactionTypes { get; set; }
+        public virtual DbSet<tblUploader> tblUploaders { get; set; }
+        public virtual DbSet<tblDepartment> tblDepartments { get; set; }
+        public virtual DbSet<tblDesignation> tblDesignations { get; set; }
+        public virtual DbSet<tblWindowTime> tblWindowTimes { get; set; }
     
         public virtual int sp_DeleteRequest(Nullable<int> id, Nullable<int> type)
         {
@@ -176,23 +179,6 @@ namespace eConnect.DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetBusinessReportByYearMonthandCSPCode_Result>("sp_GetBusinessReportByYearMonthandCSPCode", yearParameter, monthParameter, cSPCodeParameter, cSPCategoryParameter);
         }
     
-        public virtual ObjectResult<sp_GetCommissionReportByYearMonthandCSPName_Result> sp_GetCommissionReportByYearMonthandCSPName(Nullable<int> year, Nullable<int> month, string cSPCode)
-        {
-            var yearParameter = year.HasValue ?
-                new ObjectParameter("Year", year) :
-                new ObjectParameter("Year", typeof(int));
-    
-            var monthParameter = month.HasValue ?
-                new ObjectParameter("Month", month) :
-                new ObjectParameter("Month", typeof(int));
-    
-            var cSPCodeParameter = cSPCode != null ?
-                new ObjectParameter("CSPCode", cSPCode) :
-                new ObjectParameter("CSPCode", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetCommissionReportByYearMonthandCSPName_Result>("sp_GetCommissionReportByYearMonthandCSPName", yearParameter, monthParameter, cSPCodeParameter);
-        }
-    
         public virtual ObjectResult<sp_GetCommissionReportByYearMonthandCSPName_Test_Result> sp_GetCommissionReportByYearMonthandCSPName_Test(Nullable<int> year, Nullable<int> month, string cSPCode)
         {
             var yearParameter = year.HasValue ?
@@ -208,11 +194,6 @@ namespace eConnect.DataAccess
                 new ObjectParameter("CSPCode", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetCommissionReportByYearMonthandCSPName_Test_Result>("sp_GetCommissionReportByYearMonthandCSPName_Test", yearParameter, monthParameter, cSPCodeParameter);
-        }
-    
-        public virtual ObjectResult<sp_GetManageTechSupportRequestDetails_Result> sp_GetManageTechSupportRequestDetails()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageTechSupportRequestDetails_Result>("sp_GetManageTechSupportRequestDetails");
         }
     
         public virtual ObjectResult<sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result> sp_GetMonthlyCommissionReportByYearMonthandCSPCode(Nullable<int> year, Nullable<int> month, string cSPCode)
@@ -232,23 +213,205 @@ namespace eConnect.DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetMonthlyCommissionReportByYearMonthandCSPCode_Result>("sp_GetMonthlyCommissionReportByYearMonthandCSPCode", yearParameter, monthParameter, cSPCodeParameter);
         }
     
-        public virtual int sp_PublishCommissionReport(Nullable<int> uploaderId)
+        public virtual int sp_PublishCommissionReport(Nullable<int> uploaderId, Nullable<int> cycleId)
         {
             var uploaderIdParameter = uploaderId.HasValue ?
                 new ObjectParameter("UploaderId", uploaderId) :
                 new ObjectParameter("UploaderId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_PublishCommissionReport", uploaderIdParameter);
+            var cycleIdParameter = cycleId.HasValue ?
+                new ObjectParameter("CycleId", cycleId) :
+                new ObjectParameter("CycleId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_PublishCommissionReport", uploaderIdParameter, cycleIdParameter);
         }
     
-        public virtual ObjectResult<sp_GetManageDepositRequestDetails_Result> sp_GetManageDepositRequestDetails()
+        public virtual int sp_PublishCommissionReport_Rural(Nullable<int> uploaderId, Nullable<int> cycleId)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageDepositRequestDetails_Result>("sp_GetManageDepositRequestDetails");
+            var uploaderIdParameter = uploaderId.HasValue ?
+                new ObjectParameter("UploaderId", uploaderId) :
+                new ObjectParameter("UploaderId", typeof(int));
+    
+            var cycleIdParameter = cycleId.HasValue ?
+                new ObjectParameter("CycleId", cycleId) :
+                new ObjectParameter("CycleId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_PublishCommissionReport_Rural", uploaderIdParameter, cycleIdParameter);
         }
     
-        public virtual ObjectResult<sp_GetManageWithdrawalRequestDetails_Result> sp_GetManageWithdrawalRequestDetails()
+        public virtual ObjectResult<sp_count_GetManageDepositRequestDetails_Result> sp_count_GetManageDepositRequestDetails(Nullable<int> status)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageWithdrawalRequestDetails_Result>("sp_GetManageWithdrawalRequestDetails");
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_count_GetManageDepositRequestDetails_Result>("sp_count_GetManageDepositRequestDetails", statusParameter);
+        }
+    
+        public virtual ObjectResult<sp_count_GetManageTechSupportRequestDetails_Result> sp_count_GetManageTechSupportRequestDetails(Nullable<int> status)
+        {
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_count_GetManageTechSupportRequestDetails_Result>("sp_count_GetManageTechSupportRequestDetails", statusParameter);
+        }
+    
+        public virtual ObjectResult<sp_count_ManageWithdrawalRequestDetails_Result> sp_count_ManageWithdrawalRequestDetails(Nullable<int> status)
+        {
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_count_ManageWithdrawalRequestDetails_Result>("sp_count_ManageWithdrawalRequestDetails", statusParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetManageDepositRequestDetails_Result> sp_GetManageDepositRequestDetails(Nullable<int> records, Nullable<int> status)
+        {
+            var recordsParameter = records.HasValue ?
+                new ObjectParameter("Records", records) :
+                new ObjectParameter("Records", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageDepositRequestDetails_Result>("sp_GetManageDepositRequestDetails", recordsParameter, statusParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetManageTechSupportRequestDetails_Result> sp_GetManageTechSupportRequestDetails(Nullable<int> records, Nullable<int> status)
+        {
+            var recordsParameter = records.HasValue ?
+                new ObjectParameter("Records", records) :
+                new ObjectParameter("Records", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageTechSupportRequestDetails_Result>("sp_GetManageTechSupportRequestDetails", recordsParameter, statusParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetCommissionReportRuralByYearMonthandCSPName_Result> sp_GetCommissionReportRuralByYearMonthandCSPName(Nullable<int> year, Nullable<int> month, Nullable<int> cycleID, string cSPCode)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            var cycleIDParameter = cycleID.HasValue ?
+                new ObjectParameter("CycleID", cycleID) :
+                new ObjectParameter("CycleID", typeof(int));
+    
+            var cSPCodeParameter = cSPCode != null ?
+                new ObjectParameter("CSPCode", cSPCode) :
+                new ObjectParameter("CSPCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetCommissionReportRuralByYearMonthandCSPName_Result>("sp_GetCommissionReportRuralByYearMonthandCSPName", yearParameter, monthParameter, cycleIDParameter, cSPCodeParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetCommissionReportByYearMonthandCSPName_Result> sp_GetCommissionReportByYearMonthandCSPName(Nullable<int> year, Nullable<int> month, Nullable<int> cycleID, string cSPCode)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            var cycleIDParameter = cycleID.HasValue ?
+                new ObjectParameter("CycleID", cycleID) :
+                new ObjectParameter("CycleID", typeof(int));
+    
+            var cSPCodeParameter = cSPCode != null ?
+                new ObjectParameter("CSPCode", cSPCode) :
+                new ObjectParameter("CSPCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetCommissionReportByYearMonthandCSPName_Result>("sp_GetCommissionReportByYearMonthandCSPName", yearParameter, monthParameter, cycleIDParameter, cSPCodeParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetManageWithdrawalRequestDetails_Result> sp_GetManageWithdrawalRequestDetails(Nullable<int> records, Nullable<int> status)
+        {
+            var recordsParameter = records.HasValue ?
+                new ObjectParameter("Records", records) :
+                new ObjectParameter("Records", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetManageWithdrawalRequestDetails_Result>("sp_GetManageWithdrawalRequestDetails", recordsParameter, statusParameter);
+        }
+    
+        public virtual ObjectResult<sp_count_GetManageDepositRequestDetails1_Result> sp_count_GetManageDepositRequestDetails1(Nullable<int> status)
+        {
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_count_GetManageDepositRequestDetails1_Result>("sp_count_GetManageDepositRequestDetails1", statusParameter);
+        }
+    
+        public virtual ObjectResult<sp_count_GetManageTechSupportRequestDetails1_Result> sp_count_GetManageTechSupportRequestDetails1(Nullable<int> status)
+        {
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_count_GetManageTechSupportRequestDetails1_Result>("sp_count_GetManageTechSupportRequestDetails1", statusParameter);
+        }
+    
+        public virtual ObjectResult<sp_count_ManageWithdrawalRequestDetails1_Result> sp_count_ManageWithdrawalRequestDetails1(Nullable<int> status)
+        {
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_count_ManageWithdrawalRequestDetails1_Result>("sp_count_ManageWithdrawalRequestDetails1", statusParameter);
+        }
+    
+        public virtual int sp_PublishCommissionReport_Rural1(Nullable<int> uploaderId, Nullable<int> cycleId)
+        {
+            var uploaderIdParameter = uploaderId.HasValue ?
+                new ObjectParameter("UploaderId", uploaderId) :
+                new ObjectParameter("UploaderId", typeof(int));
+    
+            var cycleIdParameter = cycleId.HasValue ?
+                new ObjectParameter("CycleId", cycleId) :
+                new ObjectParameter("CycleId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_PublishCommissionReport_Rural1", uploaderIdParameter, cycleIdParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetEditTechSupportRequestDetails_Result> sp_GetEditTechSupportRequestDetails(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetEditTechSupportRequestDetails_Result>("sp_GetEditTechSupportRequestDetails", idParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetEDITDepositRequestDetails_Result> sp_GetEDITDepositRequestDetails(Nullable<int> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetEDITDepositRequestDetails_Result>("sp_GetEDITDepositRequestDetails", iDParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetEDITWithdrawalRequestDetails_Result> sp_GetEDITWithdrawalRequestDetails(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetEDITWithdrawalRequestDetails_Result>("sp_GetEDITWithdrawalRequestDetails", idParameter);
         }
     }
 }

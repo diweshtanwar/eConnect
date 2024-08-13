@@ -56,78 +56,93 @@
                 @{ int count = 1; }
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @count
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Year)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MonthName)
-                        </td>
-                        <td>
-                            @if (item.ReportType == 1)
-                            {
-                                <span>Commission</span>
+                <tr>
+                    <td>
+                        @count
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Year)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MonthName)
+                    </td>
+                    <td>
+                        @if (item.ReportType == 1)
+                        {
+                            <span>Commission</span>
 
+                        }
+                        else
+                        {
+                            if (item.ReportType == 2)
+                            {
+                                <span> Business </span>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @if (item.AreaID == 0)
+                        {
+                            @Html.ActionLink(@item.FileName, "OpenFileUploader", new { id = @item.ReportType, year = @item.Year, month = @item.Month, filename = @item.FileName }, null)
+
+                        }
+                        else
+                        {
+
+                            @Html.ActionLink(@item.FileName, "OpenFileUploaderAreaCircle", new { id = @item.ReportType, year = @item.Year, month = @item.Month, filename = @item.FileName, area = @item.AreaID, circle = item.CycleID }, null)
+
+
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReportStatus)
+                    </td>
+                    <td>
+                        @if (item.StatusId == 6)
+                        {
+                            <span>Report  Published</span> }
+                        else if (item.StatusId == 5)
+                        {
+                            if (item.InActive == false)
+                            {
+                                @*<a class="details" href="javascript:;" onclick="PublishReport(@item.UploaderId)">Click to Publish Report</a>*@
+                                @*<a class="details" href="javascript:;" onclick="PublishReportAreaCircle(@item.UploaderId,@item.AreaID,@item.CycleID)">Click to Publish Report</a>*@
+                                <a class="details" href="javascript:;" onclick="PublishReportByCycleID(@item.UploaderId,@item.CycleID)">Click to Publish Report</a>
                             }
                             else
                             {
-                                if (item.ReportType == 2)
-                                {
-                                    <span> Business </span>
-                                }
-                            }
-                        </td>
-                        <td>
-                            @Html.ActionLink(@item.FileName, "OpenFileUploader", new { id = @item.ReportType, year = @item.Year, month = @item.Month, filename = @item.FileName }, null)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreatedDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReportStatus)
-                        </td>
-                        <td>
-                            @if (item.StatusId == 6)
+                                <span>Report In Active </span>}
+                        }
+                    </td>
+                    <td>
+                        @if (item.StatusId == 6)
+                        {
+                            if (item.UnPublishedCount > 0)
                             {
-                                <span>Report  Published</span> }
-                            else if (item.StatusId == 5)
-                            {
-                                if (item.InActive == false)
-                                {
-                                    <a class="details" href="javascript:;" onclick="PublishReport(@item.UploaderId)">Click to Publish Report</a> }
-                                else
-                                {
-                                    <span>Report In Active </span>}
+                                @Html.ActionLink("View Unpublished Records", "ViewUnPublishedRecords", new { id = item.UploaderId }, null)
+                                @*<a class="details" href="javascript:;" onclick="PublishReport(@item.UploaderId)">| Publish Again |</a>*@
+                                <a class="details" href="javascript:;" onclick="PublishReportByCycleID(@item.UploaderId,@item.CycleID)">| Publish Again |</a>
                             }
-                        </td>
-                        <td>
-                            @if (item.StatusId == 6)
+                            else
                             {
-                                if (item.UnPublishedCount > 0)
-                                {
-                                    @Html.ActionLink("View Unpublished Records", "ViewUnPublishedRecords", new { id = item.UploaderId }, null)
-                                    <a class="details" href="javascript:;" onclick="PublishReport(@item.UploaderId)">| Publish Again</a>
-                                }
-                                else
-                                {
-                                    <span style="color:forestgreen;"> @Html.ActionLink("View Report |", "DownloadCommissionReport", "Reports", new { }, new { target = "_blank" }) </span>
-                                }
+                                <span style="color:forestgreen;"> @Html.ActionLink("View Report |", "DownloadCommissionReport", "Reports", new { }, new { target = "_blank" }) </span>
                             }
-                            @*@if (item.StatusId == 5)
-                                {*@
-                            @if (item.InActive == false)
-                            {
-                                <a class="details" href="javascript:;" onclick="DeleteUploadRecord(@item.UploaderId,@item.ReportType,@item.StatusId)">Delete</a>
-                            }
-                            @*else
-                                    {
-                                        <span>Report In Active </span>}
-                                }*@
-                        </td>
-                    </tr>
+                        }
+                        @*@if (item.StatusId == 5)
+            {*@
+                        @if (item.InActive == false)
+                        {
+                            <a class="details" href="javascript:;" onclick="DeleteUploadRecord(@item.UploaderId,@item.ReportType,@item.StatusId)">Delete</a>
+                        }
+                        @*else
+                {
+                    <span>Report In Active </span>}
+            }*@
+                    </td>
+                </tr>
                     count++;
                 }
             </tbody>
@@ -141,9 +156,9 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#example').DataTable({
-           // "pageLength": 30,
+           "pageLength": 30,
            // "ordering": false,
-          //  dom: 'Bfrtip',
+          dom: 'Bfrtip',
              });
     });
 
@@ -175,6 +190,27 @@
                 type: "POST",
                 url: '@Url.Action("PublishCommissionReport", "Admin")',
              data: { uploaderid: uploaderId},
+             dataType: 'html',
+             beforeSend: function () {
+                 $('.ajax-loader').css("visibility", "visible");
+             },
+             complete: function () {
+                 $('.ajax-loader').css("visibility", "hidden");
+             },
+             success: function (data) {
+                 location.reload();
+
+                }
+            });
+    };
+
+
+    function PublishReportByCycleID(uploaderId,cycleid) {
+         $.ajax({
+                type: "POST",
+             @*url: '@Url.Action("PublishCommissionReportAreaCircle", "Admin")',*@
+              url: '@Url.Action("PublishCommissionReportByCycleID", "Admin")',
+             data: { uploaderid: uploaderId,cycle: cycleid},
              dataType: 'html',
              beforeSend: function () {
                  $('.ajax-loader').css("visibility", "visible");

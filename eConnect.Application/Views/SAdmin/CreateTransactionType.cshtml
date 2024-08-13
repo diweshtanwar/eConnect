@@ -1,10 +1,8 @@
 ﻿@model eConnect.Model.CommissionReportTransactionTypeModel
-
 @{
-    ViewBag.Title = "Create Transaction Type";
+    ViewBag.Title = "Create Urban Transaction Type";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
-
 @using (Html.BeginForm("CreateTransactionType", "SAdmin"))
 {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -55,18 +53,21 @@
                             @Html.ValidationMessageFor(model => model.CSPCommission, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
-                    @*<div class="col-md-11">
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
                         <div class="form-group">
-
+                            <label class="required-field">Select Cycle</label>
+                            @Html.DropDownList("CycleID", new SelectList(ViewBag.TransactionTypeCycle, "CycleID", "CycleName"), "Cycle", new { id = "CycleID", @class = "form-control", required = (string)null })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                         </div>
-                    </div>*@
+                    </div>
                     <div class="my-4 text-left" style="padding-top:5px;">
                         <button class="btn btn-primary px-4" type="submit">Save</button>
-
+                        <span style="float:right;"></span>
+                        @Html.ActionLink("Create RuralTransactionType ", "CreateTransactionTypeRural", "SAdmin", new { @class = "btn btn-dark px-4 mr-2" })
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="ajax-loader">
@@ -74,7 +75,6 @@
         </div>
         <div id="TransactionList" class="card"></div>
     </section>
-
 }
 @if (TempData["Message"] != null)
 {
@@ -87,15 +87,13 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-   
-        LoadData();
+      LoadData();
     });
     function LoadData() {
-
-            $.ajax({
+                $.ajax({
                 type: "POST",
                 url: '@Url.Action("_TransactionTypesDetails", "SAdmin")',
-                //data: { btnname: "load"},
+                data: { cycleid: 4},
                 dataType: 'html',
                 beforeSend: function () {
                     $('.ajax-loader').css("visibility", "visible");
@@ -108,5 +106,29 @@
                 }
             });
         };
+
+    $(document).ready(function () {
+                $("#CycleID").change(function () {
+            var id = $(this).val();
+            if (id > 0) {
+                 $.ajax({
+                type: "POST",
+                url: '@Url.Action("_TransactionTypesDetails", "SAdmin")',
+                     data: { cycleid: id},
+                dataType: 'html',
+                beforeSend: function () {
+                    $('.ajax-loader').css("visibility", "visible");
+                },
+                complete: function () {
+                    $('.ajax-loader').css("visibility", "hidden");
+                },
+                success: function (data) {
+                    $('#TransactionList').html(data);
+                }
+            });
+
+            };
+        });
+    });
     //});
 </script>

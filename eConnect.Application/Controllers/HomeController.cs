@@ -12,12 +12,13 @@ using System.Net;
 using eConnect.Application.Models;
 using System.Net.Mail;
 using ResetPasswordViewModel = eConnect.Model.ResetPasswordViewModel;
-
+using NLog;
 
 namespace eConnect.Application.Controllers
 {
     public class HomeController : Controller
     {
+        private static Logger logger = LogManager.GetLogger("EConnectLogRules");
         string RootFilePath = System.Web.HttpContext.Current.Server.MapPath(Convert.ToString(ConfigurationManager.AppSettings["RootFilePath"]));
         private eConnectAppEntities db = new eConnectAppEntities();
         string CSPFilePath = System.Web.HttpContext.Current.Server.MapPath(Convert.ToString(ConfigurationManager.AppSettings["CSPFilePath"]));
@@ -100,22 +101,32 @@ namespace eConnect.Application.Controllers
         }
         public ActionResult GalleryCategories()
         {
+
             return View(db.tblGalleryCategories.Where(d => d.Status == true).OrderBy(d => d.Priority).ToList());
         }
         public ActionResult GalleryImages(int? id)
         {
-            tblGalleryCategory tblGalleryCategory = db.tblGalleryCategories.Find(id);
-            List<string> getImgesList = new List<string>();
-            getImgesList = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + tblGalleryCategory.CategoryImagesPath.ToString(), "*.jpg", SearchOption.AllDirectories).ToList();
-            List<string> ImgesListWithPath = new List<string>();
-            foreach (string file in getImgesList)
+            try
             {
-                var fileName = Path.GetFileName(file);
-                ImgesListWithPath.Add("~\\" + tblGalleryCategory.CategoryImagesPath.ToString() + "\\" + fileName);
-            }
+                tblGalleryCategory tblGalleryCategory = db.tblGalleryCategories.Find(id);
+                List<string> getImgesList = new List<string>();
+                getImgesList = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + tblGalleryCategory.CategoryImagesPath.ToString(), "*.jpg", SearchOption.AllDirectories).ToList();
+                List<string> ImgesListWithPath = new List<string>();
+                foreach (string file in getImgesList)
+                {
+                    var fileName = Path.GetFileName(file);
+                    ImgesListWithPath.Add("~\\" + tblGalleryCategory.CategoryImagesPath.ToString() + "\\" + fileName);
+                }
 
-            ViewBag.ImgesListWithPath = ImgesListWithPath;
-            return View();
+                ViewBag.ImgesListWithPath = ImgesListWithPath;
+                return View();
+            }
+            catch(Exception ex)
+            {
+                logger.Info("Gallery Images View , Id" +id +"Error Message-"+ ex.Message);
+                return View();
+       
+            }
         }
         public ActionResult NewsAll()
         {

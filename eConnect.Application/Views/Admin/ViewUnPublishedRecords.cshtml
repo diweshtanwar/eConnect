@@ -10,7 +10,8 @@
     {
         @Html.AntiForgeryToken()
         <p>
-            @Html.ActionLink("Create New", "CreateTransactionType", "SAdmin", new { }, new { target = "_blank" })
+           @Html.ActionLink("Create New", "CreateTransactionType", "SAdmin", new { }, new { target = "_blank" })
+           @*@Html.ActionLink("Create New", "CreateTransactionType", "SAdmin", new { @class = "btn btn-primary px-4" , target = "_blank" })*@
         </p>
         <div class="card">
             <div class="card-body">
@@ -88,6 +89,7 @@
                                         <a class="details" href="javascript:;" onclick="DeleteUnRecord(@item.TransactionCommissionId,@item.UploaderId)">Delete</a>
                                     </td>
                                 </tr>
+                                count++;
                             }
                         </tbody>
                     </table>

@@ -19,5 +19,37 @@ namespace eConnect.Model
         public Nullable<decimal> CSPCommission { get; set; }
         public Nullable<bool> Status { get; set; }
 
+        [Required]
+        public int CycleID { get; set; }
+
+        public string CycleName { get; set; }
+
+    }
+
+    public class CommissionReportTransactionTypeRuralModel
+    {
+        public int CommissionReportTransactionTypeId { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public Nullable<decimal> HOCommission { get; set; }
+        [Required]
+        public Nullable<decimal> CSPCommission { get; set; }
+        public Nullable<bool> Status { get; set; }
+
+        [Required]
+        public int CycleID { get; set; }
+
+    }
+
+
+
+    public class TransactionTypeCycleModel
+    {
+        public int CycleID { get; set; }
+        [Required]
+        public string CycleName { get; set; }
+
+
     }
 }

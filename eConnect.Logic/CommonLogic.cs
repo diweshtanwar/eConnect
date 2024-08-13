@@ -122,7 +122,25 @@ namespace eConnect.Logic
         }
 
 
+        public static int GetCycleID(int year,int month)
+        {
+            int CycleID = 0;
+            if (year <= 2022 && month < 5)
+            {
+                CycleID = 1;
+            }
+            else if ((year <= 2022 && month >= 9) || (year > 2022))
+            {
+                CycleID = 3;
 
+            }
+            else
+            {
+                CycleID = 2;
+            }
+
+            return CycleID;
+        }
 
     }
 }

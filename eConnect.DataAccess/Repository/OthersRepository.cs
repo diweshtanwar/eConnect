@@ -56,7 +56,7 @@ namespace eConnect.DataAccess
         }
         public void DeleteRecord(int id)
         {
-           try
+            try
             {
                 var ReporNew = eConnectAppEntities.tblCommissionReportNews.Where(x => x.UploaderId == id);
                 foreach (var item in ReporNew)
@@ -150,4 +150,32 @@ namespace eConnect.DataAccess
     }
 
 
+
+    public class WindowTimingRepository : Repository<tblWindowTime>, IWindowTimingRepository
+    {
+        public WindowTimingRepository(eConnectAppEntities appcontext) : base(appcontext)
+        {
+        }
+        public eConnectAppEntities eConnectAppEntities
+        {
+            get { return Context as eConnectAppEntities; }
+        }
+
+        public IList<tblWindowTime> GetActiveTimeWindow()
+        {
+            return eConnectAppEntities.tblWindowTimes.ToList();
+        }
+        public void DeleteWindowTimes(int id)
+        {
+            var rec = eConnectAppEntities.tblWindowTimes.Where(x => x.Id == id).SingleOrDefault();
+            eConnectAppEntities.tblWindowTimes.Remove(rec);
+            eConnectAppEntities.SaveChanges();
+        }
+
+        public IEnumerable<tblWindowTime> GetWindowTimingByid(long id)
+        {
+            var WindowTiming = eConnectAppEntities.tblWindowTimes.Where(c => c.Id == id);
+            return WindowTiming;
+        }
+    }
 }

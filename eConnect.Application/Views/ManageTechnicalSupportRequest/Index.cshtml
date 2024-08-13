@@ -7,6 +7,13 @@
 
 }
 
+
+<link href="~/Content/HTML/css/bootstrap.min.css" rel="stylesheet" />
+@*  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <style type="text/css">
     .ajax-loader {
@@ -24,6 +31,7 @@
             left: 50%;
         }
 </style>
+
 <section class="section">
 
 
@@ -37,20 +45,20 @@
         <div class="card-header">
             <h4><span class="toggle-collapse" data-toggle="collapse" href="#filter" role="button" aria-expanded="false" aria-controls="filter"></span> Filter</h4>
         </div>
-        <div class="card-body collapse" id="filter">
+         <div class="card-body collapse" id="filter">
             <div class="row">
                 @*<div class="col-md-3">
-                        <div class="form-group">
-                            <label>Request Id</label>
-                            <input type="text" id="Requestid" name="Requestid" class="form-control" value="@Request["Requestid"]">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>CSP Name</label>
-                            <input type="text" id="CspName" name="CspName" class="form-control" value="@Request["CspName"]">
-                        </div>
-                    </div>*@
+            <div class="form-group">
+                <label>Request Id</label>
+                <input type="text" id="Requestid" name="Requestid" class="form-control" value="@Request["Requestid"]">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>CSP Name</label>
+                <input type="text" id="CspName" name="CspName" class="form-control" value="@Request["CspName"]">
+            </div>
+        </div>*@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>CSP ID</label>
@@ -58,31 +66,31 @@
                     </div>
                 </div>
                 @*<div class="col-md-3">
-                        <div class="form-group">
-                            <label>State</label>
-                            @Html.DropDownList("State", null, "Select State", htmlAttributes: new { @class = "form-control", @onchange = "return bindCity();" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>City</label>
-                            @Html.DropDownList("City", null, htmlAttributes: new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>BranchCode</label>
-                            @Html.DropDownList("BranchCode", null, "Select BranchCode", htmlAttributes: new { @class = "form-control" })
+            <div class="form-group">
+                <label>State</label>
+                @Html.DropDownList("State", null, "Select State", htmlAttributes: new { @class = "form-control", @onchange = "return bindCity();" })
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>City</label>
+                @Html.DropDownList("City", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>BranchCode</label>
+                @Html.DropDownList("BranchCode", null, "Select BranchCode", htmlAttributes: new { @class = "form-control" })
 
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Category</label>
-                            @Html.DropDownList("Category", null, "Select Category", htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Category</label>
+                @Html.DropDownList("Category", null, "Select Category", htmlAttributes: new { @class = "form-control" })
 
-                        </div>
-                    </div>*@
+            </div>
+        </div>*@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Status</label>
@@ -109,6 +117,13 @@
                     </div>
                 </div>
 
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Show Record</label>
+                        <input type="number" id="Depositdte" name="Record" class="form-control" value="@ViewBag.Record">
+
+                    </div>
+                </div>
 
                 <div class="col-md-3 mt-md-4 pt-1">
                     @*<button class="btn btn-dark px-4 mr-2">Cancel</button>*@
@@ -118,12 +133,12 @@
             </div>
         </div>
     </div>}
-    <div style="margin-left:4px">
+    @*<div style="margin-left:4px">
         <span class="label info">Open - @ViewBag.Opencount</span>
         <span class="label success">Closed - @ViewBag.Closecount</span>
         <span class="label warning">In-Progress - @ViewBag.InProgresscount</span>
         <span class="label danger">Rejected - @ViewBag.Rejectcount</span>
-    </div>
+    </div>*@
 
     <div class="card">
 
@@ -132,20 +147,15 @@
 
             <div class="table-responsive">
                 <div class="table-actions">
-                    @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
+                   
                 </div>
-                @*<table class="table table-striped" id="table-2">*@
-            <table id="example" class="table table-striped">
+                 <table id="example" class="table table-striped">
                 <thead>
                     <tr>
-                        <!--<th>
-            RequestedID-->
-                        @*@Html.DisplayNameFor(model => model.RequestId)*@
-                        <!--</th>-->
+                       
                         <th>
                             ProblemType
-                            @*@Html.DisplayNameFor(model => model.RequestId)*@
-                        </th>
+                                             </th>
                         <th>
                             CSP
                         </th>
@@ -155,9 +165,7 @@
                         <th>
                             @Html.DisplayNameFor(model => model.RequestedDate)
                         </th>
-                        @*<th>
-                    @Html.DisplayNameFor(model => model.CompletionDate)
-                </th>*@
+                      
                         <th> AnyDesk</th>
                         <th>ScreenShot</th>
                         <th>
@@ -171,12 +179,7 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            @*<td>
-                        @Html.DisplayFor(modelItem => item.TechRequestId)
-                    </td>*@
-
-                            @*@Html.DisplayFor(modelItem => item.RequestType)*@
-                            @if (item.ProblemType.Equals(1))
+                                                       @if (item.ProblemType.Equals(1))
                             {
                                 <td>Technical</td>
 
@@ -223,17 +226,17 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.MobileNo)
                             </td>
-                            @*<td>
-                     @Html.DisplayFor(modelItem => item.MobileNo)
-                    </td>*@
+                           
                         <td>
                             @item.RequestedDate
-                            @*@Html.Label(@item.RequestedDate.ToString())*@
+                           
 
-                            @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
                         </td>
                             <td> @Html.DisplayFor(modelItem => item.AnyDeskDetail)</td>
-                            <td> <a href="@item.Attachment" target="_blank">ViewScreenShot</a> </td>
+                            <td>
+                             
+                                <a href="~/ImageViewer/Getimage/?Type=TechIndex+&File=+@item.Attachment" target="_blank">ViewScreenShot</a>
+                            </td>
 
                             <!--<td>
 
@@ -361,11 +364,22 @@
 <script>
 
     $(document).ready(function () {
-        $('#example').DataTable({
-             "pageLength": 25,
-            "ordering": false,
-            //  dom: 'Bfrtip',
-        });
+      $('#example').append('<caption style="caption-side: top;color:red;display:none;"><b>Technical Support Requests Details</b>'+'</caption>');
+           $('#example').DataTable( {
+		 "pageLength": 25,
+            "ordering": true,
+		 title: 'Technical Support Report',
+                    filename: 'Technical Support Report',
+        dom: 'Bfrtip',
+		buttons: [
+        {
+           extend: 'excel',
+           exportOptions: {
+                columns: [0,1,2,3,4,6] 
+            }
+       }  ,
+]	   
+    } );
 
     });
 
@@ -457,6 +471,10 @@
         });
     }
 
-
+    debugger;
+    function PreviewImage(url) {
+        var win = window.open();
+        win.document.write("<iframe width='100%' height='100%' scrolling='no' src='" + url + "'></iframe>");
+    }
     /*    });*/
 </script>

@@ -18,10 +18,9 @@ namespace eConnect.Application.Controllers
         // GET: ManageWithdrawalRequest
         List<SelectListItem> Status = new List<SelectListItem>()
             {
-
-                new SelectListItem { Text = "Select Status", Value = "" },
-                       new SelectListItem { Text = "All", Value = "" },
-                new SelectListItem { Text = "Open", Value = "1" },
+                //new SelectListItem { Text = "Select Status", Value = "" },
+                 new SelectListItem { Text = "Open", Value = "1" },
+                 new SelectListItem { Text = "All", Value = "" },
                  new SelectListItem { Text = "Close", Value = "3" },
                  new SelectListItem { Text = "Rejected", Value = "7" }
 
@@ -45,18 +44,26 @@ namespace eConnect.Application.Controllers
             ViewBag.Status = Status;
             ViewBag.BranchCode = new SelectList(objBranchCodeLogic.GetAllBranchCode(), "BranchCode", "BranchCode");
             ViewBag.Category = new SelectList(objCategoryLogic.GetAllCategory(), "Category", "Category");
-            var tblWithdrawDetails = raiseRequest.GetManageWithdrawDetails().Where(x => x.Status == 1);
+
+            var tblWithdrawDetails = raiseRequest.GetManageWithdrawDetails(20, 1);
             bool flag = Convert.ToBoolean(TempData["flag"]);
             if (flag == true)
             {
+                ViewBag.Record = Convert.ToInt32(TempData["Record"]);
                 tblWithdrawDetails = TempData["searchdataManage"] as List<sp_GetManageWithdrawalRequestDetails_Result>;
             }
-            ViewBag.Opencount = raiseRequest.GetManageWithdrawDetails().Count(x => x.Status == 1);//Open
-            ViewBag.Closecount = raiseRequest.GetManageWithdrawDetails().Count(x => x.Status == 3);//Close
-            ViewBag.Rejectcount = raiseRequest.GetManageWithdrawDetails().Count(x => x.Status == 7);//Rejec
-            return View(tblWithdrawDetails.ToList().OrderByDescending(x => x.WithdrawalRequestId));
+            else
+            {
+                ViewBag.Record = 20;
+            }
+            //ViewBag.Opencount = raiseRequest.GetManageWithdrawDetails().Count(x => x.Status == 1);//Open
+            //ViewBag.Closecount = raiseRequest.GetManageWithdrawDetails().Count(x => x.Status == 3);//Close
+            //ViewBag.Rejectcount = raiseRequest.GetManageWithdrawDetails().Count(x => x.Status == 7);//Rejec
+            // return View(tblWithdrawDetails.ToList().OrderByDescending(x => x.WithdrawalRequestId));
+
+            return View(tblWithdrawDetails.ToList().OrderBy(x => x.RequestedDate));
         }
-        public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City,string Status,string Requesteddte, string Completiondte ,string BranchCode,string Category)
+        public ActionResult IndexSearch(string Requestid, string CspName, string CspID, string State, string City, string Status, string Requesteddte, string Completiondte, string BranchCode, string Category, string Record)
         {
             int Cid = 0, Sid = 0, Cityid = 0, Statusid = 0;
             string Reqid = "";
@@ -116,12 +123,14 @@ namespace eConnect.Application.Controllers
             {
                 Statusid = Convert.ToInt32(Status);
             }
-            var tblManageWithdrawDetails = raiseRequest.GetManageWithdrawDetailsSearch(Reqid,CspName,Cid,Sid,Cityid,Statusid,Requesteddte,Completiondte,BranchCode,Category);
+            var tblManageWithdrawDetails = raiseRequest.GetManageWithdrawDetailsSearch(Reqid, CspName, Cid, Sid, Cityid, Statusid, Requesteddte, Completiondte, BranchCode, Category, Convert.ToInt32(Record));
             TempData["searchdataManage"] = tblManageWithdrawDetails.ToList();
             TempData["flag"] = true;
+            Session["status"] = Statusid;
+            TempData["Record"] = Convert.ToInt32(Record);
             return RedirectToAction("Index");
         }
-         public JsonResult BindCity(long state_id)
+        public JsonResult BindCity(long state_id)
         {
             CityLogic sl = new CityLogic();
             IList<SelectListItem> citylist = new List<SelectListItem>();
@@ -135,11 +144,11 @@ namespace eConnect.Application.Controllers
 
         public ActionResult Edit(int? id)
         {
-           
+
             RaiseRequestLogic raiseRequestdetals = new RaiseRequestLogic();
             ManageWithdrawal objMWithdraw = raiseRequestdetals.GetManageWithdrawDetailByID((int)id);
-           var Status = new[]
-           {
+            var Status = new[]
+            {
 
                  new SelectListItem { Text = "Select Status", Value = "" },
                   new SelectListItem { Text = "Open", Value = "1" },
@@ -159,10 +168,10 @@ namespace eConnect.Application.Controllers
         public ActionResult Edit(ManageWithdrawal objMWithdraw)
         {
 
-                RaiseRequestLogic raiseRequestLogic = new RaiseRequestLogic();
-                raiseRequestLogic.UpdateManageWithdrawDetail(objMWithdraw);
-                TempData["Message"] = "Record submitted successfully";
-                return RedirectToAction("Index");
+            RaiseRequestLogic raiseRequestLogic = new RaiseRequestLogic();
+            raiseRequestLogic.UpdateManageWithdrawDetail(objMWithdraw);
+            TempData["Message"] = "Record submitted successfully";
+            return RedirectToAction("Index");
         }
 
         public ActionResult Details(int? id)

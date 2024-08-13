@@ -35,6 +35,8 @@ namespace eConnect.DataAccess
         public Nullable<int> UpdatedBy { get; set; }
         public bool InActive { get; set; }
         public Nullable<int> StatusID { get; set; }
+        public Nullable<int> CycleID { get; set; }
+        public Nullable<int> AreaID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCommissionReportMain> tblCommissionReportMains { get; set; }

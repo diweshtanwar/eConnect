@@ -52,13 +52,7 @@ namespace eConnect.DataAccess
             return eConnectAppEntities.tblCommissionReportNews.Where(x => x.UploaderId == id).ToList();
         }
 
-        public IList<sp_GetCommissionReportByYearMonthandCSPName_Result> CommissionReport(int year, int month, string cspcode)
-        {
-
-            var EE = eConnectAppEntities.sp_GetCommissionReportByYearMonthandCSPName(year, month, cspcode);
-            return EE.ToList();
-        }
-        public IList<sp_GetBusinessReportByYearMonthandCSPCode_Result> BusinessReport(int year, int month, string cspcode, string category)
+         public IList<sp_GetBusinessReportByYearMonthandCSPCode_Result> BusinessReport(int year, int month, string cspcode, string category)
         {
 
             var EE = eConnectAppEntities.sp_GetBusinessReportByYearMonthandCSPCode(year, month, cspcode, category);
@@ -91,6 +85,22 @@ namespace eConnect.DataAccess
         {
             eConnectAppEntities.sp_DeleteUploadedReport(UploadedId, StatusID, ReportType);
 
+        }
+
+        //***********************************810 July ************************************
+
+        public IList<sp_GetCommissionReportByYearMonthandCSPName_Result> CommissionReport(int year, int month, int cycleid, string cspcode)
+        {
+
+            var EE = eConnectAppEntities.sp_GetCommissionReportByYearMonthandCSPName(year, month, cycleid, cspcode);
+            return EE.ToList();
+        }
+
+        public IList<sp_GetCommissionReportRuralByYearMonthandCSPName_Result> CommissionReportRural(int year, int month, int cycleid, string cspcode)
+        {
+
+            var EE = eConnectAppEntities.sp_GetCommissionReportRuralByYearMonthandCSPName(year, month, cycleid, cspcode);
+            return EE.ToList();
         }
     }
 }

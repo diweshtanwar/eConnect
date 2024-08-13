@@ -34,7 +34,7 @@ namespace eConnect.DataAccess
         public IMenuRepository Menus { get; private set; }
         public IUserCSPDetailRepository UserCSPDetail { get; private set; }
         public ICommissionReportNewRepository CommissionReportNews { get; private set; }
-        public IAnnouncementRepository Announcement { get; private set; }     
+        public IAnnouncementRepository Announcement { get; private set; }
         public ICommissionReportMonthlyRepository CommissionReportMonthly { get; private set; }
         public IRaiseRequestRepository RaiseRequest { get; private set; }
         public UserDetail UserDetail { get; private set; }
@@ -48,7 +48,10 @@ namespace eConnect.DataAccess
         public IDownloadDocumentRepository DownloadDocument { get; private set; }
         public IEmailRepository Emails { get; private set; }
         public ICommissionReportTransactionTypeRepository TransactionTypes { get; set; }
-
+        public ICommissionReportTransactionTypeRuralRepository TransactionTypesRural { get; set; }
+        public ITransactionTypeCycleRepository TransactionTypeCycle { get; set; }
+        public IWindowTimingRepository WindowTimings { get; set; }
+        
         public UnitOfWork(eConnectAppEntities context)
         {
             _context = context;
@@ -86,6 +89,11 @@ namespace eConnect.DataAccess
             DownloadDocument = new DownloadDocumentRepository(_context);
             Emails = new EmailRepository(_context);
             TransactionTypes = new CommissionReportTransactionTypeRepository(_context);
+            TransactionTypesRural = new CommissionReportTransactionTypeRuralRepository(_context);
+
+            TransactionTypeCycle = new TransactionTypeCycleRepository(_context);
+
+            WindowTimings = new WindowTimingRepository(_context);
         }
 
         public int Complete()

@@ -106,7 +106,13 @@
 
                     </div>
                 </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Show Record</label>
+                        <input type="number" id="Depositdte" name="Record" class="form-control"  value="@ViewBag.Record">
 
+                    </div>
+                </div>
                 <div class="col-md-3 mt-md-4 pt-1">
                     @*<button class="btn btn-dark px-4 mr-2">Cancel</button>*@
                     <button type="submit" class="btn btn-primary px-4">Search</button>
@@ -115,12 +121,12 @@
         </div>
     </div>
 }
-    <div style="margin-left:4px">
+    <!--<div style="margin-left:4px">
         <span class="label info">Open - @ViewBag.Opencount</span>
-        <span class="label success">Closed - @ViewBag.Closecount</span>
+        <span class="label success">Closed - @ViewBag.Closecount</span>-->
         @*<span class="label warning">In-Progress - @ViewBag.InProgresscount</span>*@
-        <span class="label danger">Rejected - @ViewBag.Rejectcount</span>
-    </div>
+        <!--<span class="label danger">Rejected - @ViewBag.Rejectcount</span>
+    </div>-->
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
@@ -188,11 +194,15 @@
                                 {
 
                                     @Html.Label(@item.DepositDate.Value.ToString("dd MMM yyyy"))
-             //@Html.DisplayFor(modelItem => item.DepositDate)
+                                    //@Html.DisplayFor(modelItem => item.DepositDate)
 
                                 }
                             </td>
-                            <td><a href="@item.ReceiptSource" target="_blank">ViewReciept</a></td>
+                            <td>
+                                @*<a href="@item.ReceiptSource" target="_blank">ViewReciept</a>*@
+                                                        @*<a href="javascript:PreviewImage('@item.ReceiptSource');">ViewReciept</a>*@
+                                <a href="~/ImageViewer/Getimage/?Type=DepositIndex+&File=+@item.ReceiptSource" target="_blank">ViewReciept</a>
+                                                    </td>
                             @if (item.Status.Equals(1))
                             {
                                 <td>Open</td>
@@ -260,11 +270,22 @@
 <script>
 
     $(document).ready(function () {
-        $('#example').DataTable({
-            "pageLength": 25,
-            "ordering": false,
-            //  dom: 'Bfrtip',
-        });
+        $('#example').append('<caption style="caption-side: top;color:red;display:none;"><b>Deposite Requests Details</b>'+'</caption>');
+           $('#example').DataTable( {
+		 "pageLength": 25,
+            "ordering": true,
+		 title: 'Deposite Request Report',
+                    filename: 'Deposite Request Report',
+        dom: 'Bfrtip',
+		buttons: [
+        {
+           extend: 'excel',
+           exportOptions: {
+                columns: [0,1,2,3,4,6,7]
+            }
+       }  ,
+]
+    } );
     });
 
     function ClickSave(id) {
@@ -320,7 +341,7 @@
     function showStatus(id) {
         $('#divstatus' + id).show();
     }
-    
+
     function Cancel(id) {
 
         $('#divstatus' + id).hide();
@@ -353,6 +374,14 @@
             }
         });
     }
+
+    
+    debugger;
+    function PreviewImage(url) {
+        var win = window.open();
+        win.document.write("<iframe width='100%' height='100%' scrolling='no' src='" + url + "'></iframe>");
+    }
+
     /*    });*/
 </script>
 <style>

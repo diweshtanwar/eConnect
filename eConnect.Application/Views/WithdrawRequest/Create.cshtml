@@ -51,13 +51,32 @@
                     @*</div>*@
                     <div class="col-md-4">
                         <div class="my-4 text-right">
+
                             <button class="btn btn-primary px-4" type="submit">Save</button>
                             |
                             @Html.ActionLink("Cancel", "Index", "Menu", new { @class = "btn btn-dark px-4 mr-2" })
                         </div>
+
                     </div>
+
                 </div>
 
+                <div>
+                    <center>
+                        <span style="text-decoration: blink; ">
+                            @{ Html.RenderAction("_GetActiveWindow", "Partial"); }
+                        </span>
+                    </center>
+                </div>
+                <div>
+                    <center>
+                        <span style="color: blue;text-decoration: blink; ">
+                            @TempData["TimingWindowMessage"]
+
+
+                        </span>
+                    </center>
+                </div>
 
             </div>
         </div>
@@ -70,6 +89,12 @@
         });
     </script>
 }
-@*<div>
-        @Html.ActionLink("Cancel", "Index")
-    </div>*@
+@if (TempData["TimingWindowMessage"] != null)
+{
+    <script type="text/javascript">
+        $(function () {
+            alert("@TempData["TimingWindowMessage"]")
+        });
+    </script>
+}
+

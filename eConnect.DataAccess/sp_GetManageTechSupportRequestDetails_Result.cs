@@ -24,6 +24,8 @@ namespace eConnect.DataAccess
         public string MobileNo { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<System.DateTime> RequestedDate { get; set; }
+        public string Rdate { get; set; }
+        public string Cdate { get; set; }
         public Nullable<System.DateTime> CompletionDate { get; set; }
         public Nullable<int> ResolutionProvidedBy { get; set; }
         public string ResolutionDetail { get; set; }

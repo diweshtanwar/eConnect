@@ -5,132 +5,133 @@
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-<section class="section">
+    <section class="section">
 
-    <p>
-        @Html.ActionLink("Create New", "CreateNew", "Menu", new { @class = "btn btn-primary px-4" })
-        @*<a href='@Url.Action("CreateNew", "Menu")' class="btn btn-primary px-4">Create New</a>*@
-    </p>
-    @using (@Html.BeginForm("IndexSearch", "Menu", FormMethod.Get))
-    {@Html.AntiForgeryToken()
 
-    <div class="card">
-        <div class="card-header">
-            <h4><span class="toggle-collapse" data-toggle="collapse" href="#filter" role="button" aria-expanded="false" aria-controls="filter"></span> Filter</h4>
-        </div>
-        <div class="card-body collapse" id="filter">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Main Tittle</label>
-                        @*<input type="text" id="MainTittle" name="MainTittle" class="form-control" value="@Request["MainTittle"]">*@
-                        @Html.DropDownList("MenuMainId", (IEnumerable<SelectListItem>)ViewBag.MenuMainId, " ", new { @class = "form-control" })
+        @using (@Html.BeginForm("IndexSearch", "Menu", FormMethod.Get))
+        {@Html.AntiForgeryToken()
+
+        <div class="card">
+            <div class="card-header">
+                <h4><span class="toggle-collapse" data-toggle="collapse" href="#filter" role="button" aria-expanded="false" aria-controls="filter"></span> Filter</h4>
+            </div>
+            <div class="card-body collapse" id="filter">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Main Tittle</label>
+                            @*<input type="text" id="MainTittle" name="MainTittle" class="form-control" value="@Request["MainTittle"]">*@
+                            @Html.DropDownList("MenuMainId", (IEnumerable<SelectListItem>)ViewBag.MenuMainId, " ", new { @class = "form-control" })
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Screen Tittle</label>
-                        <input type="text" id="ScreenTittle" name="ScreenTittle" class="form-control" value="@Request["ScreenTittle"]">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Screen Tittle</label>
+                            <input type="text" id="ScreenTittle" name="ScreenTittle" class="form-control" value="@Request["ScreenTittle"]">
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Role</label>
-                        @Html.DropDownList("RoleId", (IEnumerable<SelectListItem>)ViewBag.RoleId, " ", new { @class = "form-control" })
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Role</label>
+                            @Html.DropDownList("RoleId", (IEnumerable<SelectListItem>)ViewBag.RoleId, " ", new { @class = "form-control" })
+                        </div>
                     </div>
-                </div>
 
 
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Status</label>
-                        @Html.DropDownList("Status", (IEnumerable<SelectListItem>)ViewBag.Status, " ", new { @class = "form-control" })
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Status</label>
+                            @Html.DropDownList("Status", (IEnumerable<SelectListItem>)ViewBag.Status, " ", new { @class = "form-control" })
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3 mt-md-4 pt-1">
-                    <button type="submit" class="btn btn-primary px-4">Search</button>
-                </div>
+                    <div class="col-md-3 mt-md-4 pt-1">
+                        <button type="submit" class="btn btn-primary px-4">Search</button>
+                    </div>
 
+                </div>
             </div>
         </div>
-    </div>
-}
-    <div class="card">
+    }
+        <p>
+            @Html.ActionLink("Create New", "CreateNew", "Menu", new { @class = "btn btn-primary px-4" })
+            @*<a href='@Url.Action("CreateNew", "Menu")' class="btn btn-primary px-4">Create New</a>*@
+        </p>
+        <div class="card">
 
-        <div class="card-body">
+            <div class="card-body">
 
-            <div class="table-responsive">
-                <div class="table-actions">
+                <div class="table-responsive">
+                    <div class="table-actions">
+                    </div>
+                    <table class="table table-striped" id="table-2">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("MenuMain")
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Tittle)
+                                </th>
+                                @*<th>
+                                    @Html.DisplayNameFor(model => model.Controller)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Action)
+                                </th>*@
+                                <th>
+                                    @Html.DisplayName("Role")
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Status)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Priority)
+                                </th>
+                                <th> Action </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.tblMenuMain.Tittle)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Tittle)
+                                    </td>
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.Controller)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Action)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.tblRoleMaster.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Priority)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "EditNew", new { id = item.MenuSubId }) |
+                                        @Html.ActionLink("View", "Details", new { id = item.MenuSubId })
+                                        @*@Html.ActionLink("View", "View", new { id = item.MenuSubId }) |*@
+                                        @*@Html.ActionLink("Delete", "Delete", new { id = item.MenuSubId }) |*@
+
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
-                <table class="table table-striped" id="table-2">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayName("MenuMain")
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Tittle)
-                            </th>
-                            @*<th>
-            @Html.DisplayNameFor(model => model.Controller)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Action)
-        </th>*@
-                            <th>
-                                @Html.DisplayName("Role")
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Status)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Priority)
-                            </th>
-                            <th> Action </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.tblMenuMain.Tittle)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Tittle)
-                            </td>
-                            @*<td>
-            @Html.DisplayFor(modelItem => item.Controller)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Action)
-        </td>*@
-                            <td>
-                                @Html.DisplayFor(modelItem => item.tblRoleMaster.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Status)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Priority)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "EditNew", new { id = item.MenuSubId }) |
-                                @Html.ActionLink("View", "Details", new { id = item.MenuSubId })
-                                @*@Html.ActionLink("View", "View", new { id = item.MenuSubId }) |*@
-                                @*@Html.ActionLink("Delete", "Delete", new { id = item.MenuSubId }) |*@
-
-                            </td>
-
-                        </tr>
-                        }
-                    </tbody>
-                </table>
             </div>
         </div>
-    </div>
 
 
-</section>
+    </section>
 
 

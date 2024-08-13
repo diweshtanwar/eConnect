@@ -41,4 +41,13 @@ namespace eConnect.DataAccess
         void DeleteRecord(int id);
     }
 
+
+    public interface IWindowTimingRepository : IRepository<tblWindowTime>
+    {
+        IList<tblWindowTime> GetActiveTimeWindow();
+        IEnumerable<tblWindowTime> GetWindowTimingByid(long id);
+        void DeleteWindowTimes(int id);
+
+    }
+
 }

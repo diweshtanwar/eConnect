@@ -16,7 +16,7 @@ namespace eConnect.Application.Controllers
 
 
         /// <summar-eGramin>
-  
+
         // GET: Partial
         [ChildActionOnly]
         public ActionResult GetNotification()
@@ -36,21 +36,32 @@ namespace eConnect.Application.Controllers
         [ChildActionOnly]
         public ActionResult GetGalleryImagesForTittle(int? id)
         {
-            tblGalleryCategory tblGalleryCategory = db.tblGalleryCategories.Find(id);
-            var fileCount = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory + tblGalleryCategory.CategoryImagesPath.ToString()).Count();
-            List<string> getImgesList = new List<string>();
-            if (fileCount>0)
-            {           
-            getImgesList = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + tblGalleryCategory.CategoryImagesPath.ToString(), "*.jpg", SearchOption.AllDirectories).Take(4).ToList();
-            List<string> ImgesListWithPath = new List<string>();
-            foreach (string file in getImgesList)
+            try
             {
-                var fileName = Path.GetFileName(file);
-                ImgesListWithPath.Add("~\\" + tblGalleryCategory.CategoryImagesPath.ToString() + "\\" + fileName);
+
+
+                tblGalleryCategory tblGalleryCategory = db.tblGalleryCategories.Find(id);
+                var fileCount = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory + tblGalleryCategory.CategoryImagesPath.ToString()).Count();
+                List<string> getImgesList = new List<string>();
+                if (fileCount > 0)
+                {
+                    getImgesList = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + tblGalleryCategory.CategoryImagesPath.ToString(), "*.jpg", SearchOption.AllDirectories).Take(4).ToList();
+                    List<string> ImgesListWithPath = new List<string>();
+                    foreach (string file in getImgesList)
+                    {
+                        var fileName = Path.GetFileName(file);
+                        ImgesListWithPath.Add("~\\" + tblGalleryCategory.CategoryImagesPath.ToString() + "\\" + fileName);
+                    }
+                    ViewBag.ImgesListWithPath = ImgesListWithPath;
+                }
+                return View();
             }
-                ViewBag.ImgesListWithPath = ImgesListWithPath;
-            }          
-            return View();
+            catch (Exception ex)
+            {
+
+                return View();
+            }
+
         }
         [ChildActionOnly]
         public ActionResult GetLatestNewsForHome()
@@ -84,8 +95,8 @@ namespace eConnect.Application.Controllers
         [ChildActionOnly]
         public ActionResult _GetAnnouncementMessage()
         {
-            AnnouncementLogic objAnnouncementLogic = new AnnouncementLogic();         
-           ViewBag.AnnouncementMessage = objAnnouncementLogic.GetAnnouncementMessage();
+            AnnouncementLogic objAnnouncementLogic = new AnnouncementLogic();
+            ViewBag.AnnouncementMessage = objAnnouncementLogic.GetAnnouncementMessage();
             return View();
         }
 
@@ -172,6 +183,29 @@ namespace eConnect.Application.Controllers
             {
                 return View();
             }
+        }
+
+
+        [ChildActionOnly]
+        public ActionResult _GetActiveWindow()
+        {
+            WindowTimingLogic wTiming = new WindowTimingLogic();
+            ViewBag.ActiveWindow = wTiming.GetCurrentActiveWindow();
+
+
+
+
+
+
+
+            //WindowTimingLogic OtrLogic = new WindowTimingLogic();
+            //var dt = OtrLogic.GetCurrentActiveWindow();
+            //DateTime dtStart = Convert.ToDateTime(dt[0].StartTime);
+            //DateTime dtEnd = Convert.ToDateTime(dt[0].EndTime);
+            //DateTime current = DateTime.Now;
+            //DepositStartTime = dt[0].StartTime;
+            //DepositEndTime = dt[0].EndTime;
+            return View();
         }
     }
 }

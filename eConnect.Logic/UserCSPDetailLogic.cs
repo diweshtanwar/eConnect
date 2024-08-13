@@ -108,6 +108,54 @@ namespace eConnect.Logic
 
             }
         }
+
+
+        public UserCSPDetail GetUserCSPDetByCSPCode(string id)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                UserCSPDetail UserCSPDetail = new UserCSPDetail();
+                var tblUserCSPDetail = unitOfWork.UserCSPDetail.GetUserCSPByCSPCode(id);
+                if (tblUserCSPDetail != null)
+                {
+                    UserCSPDetail.CSPId = tblUserCSPDetail.CSPId;
+                    UserCSPDetail.CSPName = tblUserCSPDetail.CSPName;
+                    UserCSPDetail.CSPCode = tblUserCSPDetail.CSPCode;
+                    UserCSPDetail.BranchCode = tblUserCSPDetail.BranchCode;
+                    UserCSPDetail.BankName = tblUserCSPDetail.BankName;
+                    UserCSPDetail.BankAccount = tblUserCSPDetail.BankAccount;
+                    UserCSPDetail.IFSC = tblUserCSPDetail.IFSC;
+                    UserCSPDetail.CertificateStatus = tblUserCSPDetail.CertificateStatus;
+                    UserCSPDetail.Status = tblUserCSPDetail.Status;
+                    UserCSPDetail.FatherName = tblUserCSPDetail.FatherName;
+                    UserCSPDetail.MotherName = tblUserCSPDetail.MotherName;
+                    UserCSPDetail.Country = tblUserCSPDetail.Country;
+                    UserCSPDetail.State = tblUserCSPDetail.State;
+                    UserCSPDetail.City = tblUserCSPDetail.City;
+                    UserCSPDetail.Location = tblUserCSPDetail.Location;
+                    UserCSPDetail.Category = tblUserCSPDetail.Category;
+                    UserCSPDetail.PAN = tblUserCSPDetail.PAN;
+                    UserCSPDetail.VoterId = tblUserCSPDetail.VoterId;
+                    UserCSPDetail.AadharNo = tblUserCSPDetail.AadharNo;
+                    UserCSPDetail.Education = tblUserCSPDetail.Education;
+                    UserCSPDetail.Email = tblUserCSPDetail.Email;
+                    UserCSPDetail.Mobile = tblUserCSPDetail.Mobile;
+                    UserCSPDetail.EmergencyContactNumber = tblUserCSPDetail.EmergencyContactNumber;
+                    UserCSPDetail.ExpiryDate = tblUserCSPDetail.ExpiryDate;
+                    UserCSPDetail.PassportSizePhotoName = tblUserCSPDetail.PassportSizePhoto;
+                    UserCSPDetail.VoterIdImageName = tblUserCSPDetail.VoterIdImage;
+                    UserCSPDetail.PANImageName = tblUserCSPDetail.PANImage;
+                    UserCSPDetail.AadharImageName = tblUserCSPDetail.AadharImage;
+                    UserCSPDetail.LatestEducationProofImageName = tblUserCSPDetail.LatestEducationProofImage;
+                    UserCSPDetail.IIBFCertificationImageName = tblUserCSPDetail.IIBFCertificationImage;
+                    UserCSPDetail.UpdatedDate = tblUserCSPDetail.UpdatedDate;
+                    UserCSPDetail.UpdatedBy = tblUserCSPDetail.UpdatedBy;
+                }
+                return UserCSPDetail;
+
+            }
+        }
+
         public IList<tblUserCSPDetail> GetUserCSPDetailByCSPCode(string CSPCode)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))

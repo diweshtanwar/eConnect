@@ -2,7 +2,10 @@
 
 @{ ViewBag.Title = "Edit Technical Support Request";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
-    string Receipt = @System.Web.Configuration.WebConfigurationManager.AppSettings["TechFilePath"] + Model.Id + "\\TechSupportScreenshort\\" + Model.Recieptpic; }
+    string Receipt =  Model.Id + "/TechSupportScreenshort/" + Model.Recieptpic;
+    //string Receipt = @System.Web.Configuration.WebConfigurationManager.AppSettings["TechFilePath"] + Model.Id + "\\TechSupportScreenshort\\" + Model.Recieptpic;
+
+    }
 
 @*<h2></h2>*@
 
@@ -89,7 +92,9 @@
 
                                                                         @if (!string.IsNullOrEmpty(Model.Recieptpic))
                                                                         {
-                                                                            <a href="@Url.Content(Receipt)" target="_blank">PreviewImage</a> }
+                                                                            @*<a href="javascript:PreviewImage('@Model.Recieptpic');">PreviewImage</a>*@
+                                                                            <a href="~/ImageViewer/Getimage/?Type=Tech+&File=+@Receipt" target="_blank">PreviewImage</a>
+                                                                        }
                                                                         else
                                                                         {
                                                                             <span style="color:red;">No image uploaded.</span>}
@@ -121,5 +126,12 @@
                                                         </div>
                                                     </div>
                                                 </section>}
+<script>
+    debugger;
+    function PreviewImage(url) {
+        var win = window.open();
+        win.document.write("<iframe width='100%' height='100%' scrolling='no' src='" + url + "'></iframe>");
+    }
+</script>
 
 

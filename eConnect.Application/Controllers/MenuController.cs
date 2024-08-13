@@ -8,11 +8,12 @@ using System.Web;
 using System.Web.Mvc;
 using eConnect.DataAccess;
 using eConnect.Logic;
-
+using NLog;
 namespace eConnect.Application.Controllers
 {
     public class MenuController : Controller
     {
+        private static Logger logger = LogManager.GetLogger("EConnectLogRules");
         private eConnectAppEntities db = new eConnectAppEntities();
          
         // GET: tblMenuSubs
@@ -68,11 +69,20 @@ namespace eConnect.Application.Controllers
         // GET: tblMenuSubs/Create
         public ActionResult Create()
         {
-            MenuLogic objMenuLogic = new MenuLogic();
-            RoleMasterLogic objRoleMasterLogic = new RoleMasterLogic();
-            ViewBag.MenuMainId = new SelectList(objMenuLogic.GetAllMainMenu(), "MenuMainId", "Tittle");
-            ViewBag.RoleId = new SelectList(objRoleMasterLogic.GetAllRoles(), "RoleId", "Name");
-            ViewBag.Status = new SelectList(menuStatus, "Value", "Text");
+            try
+            {
+                MenuLogic objMenuLogic = new MenuLogic();
+                RoleMasterLogic objRoleMasterLogic = new RoleMasterLogic();
+                ViewBag.MenuMainId = new SelectList(objMenuLogic.GetAllMainMenu(), "MenuMainId", "Tittle");
+                ViewBag.RoleId = new SelectList(objRoleMasterLogic.GetAllRoles(), "RoleId", "Name");
+                ViewBag.Status = new SelectList(menuStatus, "Value", "Text");
+            }
+            catch(Exception ex)
+            {
+                logger.Error("Create Menu Create" + " " + ex.Message);
+
+            }
+
             return View();
         }
 

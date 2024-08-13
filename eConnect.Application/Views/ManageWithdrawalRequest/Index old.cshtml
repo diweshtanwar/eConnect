@@ -1,0 +1,437 @@
+﻿
+
+@model IEnumerable<eConnect.DataAccess.sp_GetManageWithdrawalRequestDetails_Result>
+
+@{ ViewBag.Title = "Manage Withdrawal";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml"; }
+
+<section class="section">
+
+
+    @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+
+    @using (@Html.BeginForm("IndexSearch", "ManageWithdrawalRequest", FormMethod.Get))
+    {@Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <h4><span class="toggle-collapse" data-toggle="collapse" href="#filter" role="button" aria-expanded="false" aria-controls="filter"></span> Filter</h4>
+        </div>
+        <div class="card-body collapse" id="filter">
+            <div class="row">
+                @*<div class="col-md-3">
+                        <div class="form-group">
+                            <label>Request Id</label>
+                            <input type="text" id="Requestid" name="Requestid" class="form-control" value="@Request["Requestid"]">
+                        </div>
+                    </div>*@
+                @*<div class="col-md-3">
+                        <div class="form-group">
+                            <label>CSP Name</label>
+                            <input type="text" id="CspName" name="CspName" class="form-control" value="@Request["CspName"]">
+                        </div>
+                    </div>*@
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>CSP ID</label>
+                        <input type="text" id="CspID" name="CspID" class="form-control" value="@Request["CspID"]">
+                    </div>
+                </div>
+                @*<div class="col-md-3">
+                        <div class="form-group">
+                            <label>State</label>
+                            @Html.DropDownList("State", null, "Select State", htmlAttributes: new { @class = "form-control", @onchange = "return bindCity();" })
+                        </div>
+                    </div>*@
+                @*<div class="col-md-3">
+                        <div class="form-group">
+                            <label>City</label>
+                            @Html.DropDownList("City", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">s
+                            <label>BranchCode</label>
+                            @Html.DropDownList("BranchCode", null, "Select BranchCode", htmlAttributes: new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Category</label>
+                            @Html.DropDownList("Category", null, "Select Category", htmlAttributes: new { @class = "form-control" })
+
+                        </div>
+                    </div>*@
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Status</label>
+                        @Html.DropDownList("Status", (IEnumerable<SelectListItem>)ViewBag.Status, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Requested Date</label>
+                        <input type="date" id="Requesteddte" name="Requesteddte" class="form-control" value="@Request["Requesteddte"]">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Completion Date</label>
+                        <input type="date" id="Completiondte" name="Completiondte" class="form-control" value="@Request["Completiondte"]">
+
+                    </div>
+                </div>
+
+
+                <div class="col-md-3 mt-md-4 pt-1">
+                    @*<button class="btn btn-dark px-4 mr-2">Cancel</button>*@
+                    <button type="submit" class="btn btn-primary px-4">Search</button>
+                </div>
+
+            </div>
+        </div>
+    </div>}
+    <div style="margin-left:4px">
+        <span class="label info">Open - @ViewBag.Opencount</span>
+        <span class="label success">Closed - @ViewBag.Closecount</span>
+        @*<span class="label warning">In-Progress - @ViewBag.InProgresscount</span>*@
+        <span class="label danger">Rejected - @ViewBag.Rejectcount</span>
+    </div>
+    <div class="card">
+
+        <div class="card-body">
+
+
+            <div class="table-responsive">
+                <div class="table-actions">
+                    @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
+                </div>
+                <table class="table table-striped" id="table-2">
+                    <thead>
+                        <tr>
+                            <!--<th>
+    RequestedID-->
+                            @*@Html.DisplayNameFor(model => model.RequestId)*@
+                            <!--</th>-->
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                CSPId
+                                @*@Html.DisplayNameFor(model => model.RequestId)*@
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Amount)
+                            </th>
+                            <th>AuthorizedAmount</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.RequestedDate)
+                            </th>
+
+                            @*<th>
+            @Html.DisplayNameFor(model => model.CompletionDate)
+        </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th>Remarks</th>
+                            <th> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            @*<td>
+            @Html.DisplayFor(modelItem => item.WithdrawalRequestId)
+        </td>*@
+
+                            @*@Html.DisplayFor(modelItem => item.RequestType)*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CSPName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CSPCode)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.AuthorizedAmount)</td>
+                            <td>
+                                @Html.Label(@item.RequestedDate.Value.ToString("dd MMM yyyy"))
+                                @*@Html.DisplayFor(modelItem => item.RequestedDate)*@
+                            </td>
+
+                            <!--<td>
+
+        @*@Html.DisplayFor(modelItem => item.CompletionDate)*@
+    <!--</td>-->
+                            @if (item.Status.Equals(1))
+                            {
+                                <td>Open</td>
+
+                            }
+                            else if (item.Status.Equals(3))
+                            {
+                                <td>Close</td>
+                            }
+                            else if (item.Status.Equals(7))
+                            {
+                                <td>Rejected</td>
+                            }
+                            <td style="min-width:100px;word-break:break-word">@item.Comment</td>
+                            @*<td>
+            @Html.DisplayFor(modelItem => item.Account)
+        </td>*@
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.WithdrawalRequestId })
+                                |
+                                @Html.ActionLink("View", "Details", new { id = item.WithdrawalRequestId })
+                                @if (item.Status != 0)
+                                {
+                                    <a href="#" onclick="showCMA(@item.WithdrawalRequestId)">| CMA</a>
+                                    var did = "divcheck" + item.WithdrawalRequestId;
+                                    var Configure = "Configure" + item.WithdrawalRequestId;
+                                    var Make = "Make" + item.WithdrawalRequestId;
+                                    var Authorize = "Authorize" + item.WithdrawalRequestId;
+                                    <div style="display:none;" id=@did class="divstyle">
+
+                                        <b>Configure</b>
+                                        <input type="checkbox" id="@Configure" name="@Configure" value="true"><br />
+                                        <b style="font-size:12px">Make</b>
+                                        <input type="checkbox" id="@Make" name="@Make" value="true"><br />
+                                        <b>Authorize</b>
+                                        <input type="checkbox" id="@Authorize" name="@Authorize" value="true">
+                                        <br />
+                                        <button onclick="ClickSaveCMA(@item.WithdrawalRequestId)" style="vertical-align :middle;">Save</button>
+                                        <button onclick="Cancelcheck(@item.WithdrawalRequestId)" style="vertical-align: middle;">Cancel</button>
+                                    </div>
+                                }
+                                @if (item.Status != 0)
+                                {
+                                    <a href="#" onclick="showStatus(@item.WithdrawalRequestId)">| Status</a>
+                                    var did = "divstatus" + item.WithdrawalRequestId;
+                                    var drpId = "drpStatus" + item.WithdrawalRequestId;
+                                    <div style="display:none;" id=@did class="divstyle">
+
+                                        @Html.DropDownList("Skills", new List<SelectListItem>
+                                        {
+
+                                         new SelectListItem{ Text = "Open", Value = "1"},
+                                         new SelectListItem{ Text = "Close", Value = "3" },
+
+                                        }, new { id = drpId, @class = "dropdownlist" })
+                                        <br />
+                                        <button onclick="ClickSaveStatus(@item.WithdrawalRequestId)" style="vertical-align :middle;">Save</button>
+                                        <button onclick="Cancel(@item.WithdrawalRequestId)" style="vertical-align: middle;">Cancel</button>
+                                    </div>
+                                }
+                                @if (item.Status == 1)
+                                {
+                                    <a href="#" onclick="showEdit(@item.WithdrawalRequestId )">| Reject</a>
+                                    var did = "div" + item.WithdrawalRequestId;
+                                    var textareaId = "text" + item.WithdrawalRequestId;
+                                    <div style="display:none;" id=@did>
+                                        <textarea id="@textareaId"></textarea>
+                                        <button onclick="ClickSave(@item.WithdrawalRequestId)" style="vertical-align :middle;">Save</button>
+                                        <button onclick="ClickCancel(@item.WithdrawalRequestId)" style="vertical-align: middle;">Cancel</button>
+                                    </div>
+                                }
+                            </td>
+
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+<script>
+
+   $(document).ready(function () {
+
+    });
+
+    function ClickSave(id) {
+        var txtclear = "text" + id;
+        var textareaval = document.getElementById(txtclear).value;
+        if (textareaval == '') {
+            alert('Please enter rejection comment.')
+
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateRequestStatus","ManageDepositRequest")',
+                data: { RequestId: id, status: '7', Comments: textareaval, RequestType: '2' },
+                dataType: 'html',
+                beforeSend: function () {
+                    $('.ajax-loader').css("visibility", "visible");
+                },
+                complete: function () {
+                    $('.ajax-loader').css("visibility", "hidden");
+                },
+                success: function (data) {
+                    location.reload(true);
+                    alert('Record Updated successfully');
+                }
+            });
+        }
+    }
+     function showStatus(id) {
+        $('#divstatus' + id).show();
+    }
+    function showCMA(id) {
+        $('#divcheck' + id).show();
+    }
+    debugger;
+    function Cancel(id) {
+
+        $('#divstatus' + id).hide();
+        /*  $(document).ready(function () {*/
+    }
+    debugger;
+    function Cancelcheck(id) {
+        var Configure = "Configure" + id;
+        var Make = "Make" + id;
+        var Authorize = "Authorize" + id;
+        document.getElementById(Configure).checked = false;
+        document.getElementById(Make).checked = false;
+        document.getElementById(Authorize).checked = false;
+        $('#divcheck' + id).hide();
+        
+    }
+    function ClickSaveStatus(id) {
+         var txtclear = "text" + id;
+         var drpId = "drpStatus" + id;
+         var drpStatus = document.getElementById(drpId).value;
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateRequestStatus","ManageDepositRequest")',
+                data: { RequestId: id, status: drpStatus, Comments: "", RequestType: '2' },
+                dataType: 'html',
+                beforeSend: function () {
+                    $('.ajax-loader').css("visibility", "visible");
+                },
+                complete: function () {
+                    $('.ajax-loader').css("visibility", "hidden");
+                },
+                success: function (data) {
+                    location.reload(true);
+                    alert('Record Updated successfully');
+                }
+
+            });
+
+    }
+     function ClickSaveCMA(id) {
+         var Configure = "Configure" + id;
+         var Make = "Make" + id;
+         var Authorize = "Authorize" + id;
+         var drpId = "drpStatus" + id;
+         var chkConfigure = document.getElementById(Configure).value;
+         var chkConfigure = $('input[name=' + Configure + ']:checked').val()
+         var chkMake = $('input[name=' + Make + ']:checked').val();
+         var chkAuthorize = $('input[name=' + Authorize + ']:checked').val();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateConfigure_Make_Authorize", "ManageDepositRequest")',
+                data: { RequestId: id, Configure: chkConfigure, Make: chkMake, Authorize: chkAuthorize },
+                dataType: 'html',
+                beforeSend: function () {
+                    $('.ajax-loader').css("visibility", "visible");
+                },
+                complete: function () {
+                    $('.ajax-loader').css("visibility", "hidden");
+                },
+                success: function (data) {
+                    location.reload(true);
+                    alert('Record Updated successfully');
+                }
+
+            });
+
+    }
+    function showEdit(id) {
+        $('#div' + id).show();
+    }
+    function ClickCancel(id) {
+        var txtclear = "text" + id;
+        document.getElementById(txtclear).value = "";
+        $('#div' + id).hide();
+        /*  $(document).ready(function () {*/
+    }
+    function bindCity() {
+        var sid = $("#State").val();
+        $("#City").empty();
+
+        $.ajax({
+            url: '@Url.Action("BindCity", "ManageWithdrawalRequest")',
+            data: { state_id: sid },
+            type: 'GET',
+            success: function (data)
+            {
+                var v = "<option>---Select---</option>";
+                $.each(data, function (i, v1) {
+                    v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                });
+                $("#City").html(v);
+            }
+        });
+    }
+    /*    });*/
+</script>
+<style>
+    .label {
+        color: white;
+        padding: 8px;
+        font-family: Arial;
+    }
+
+    .success {
+        background-color: #04AA6D;
+    }
+    /* Green */
+    .info {
+        background-color: #2196F3;
+    }
+    /* Blue */
+    .warning {
+        background-color: #ff9800;
+    }
+    /* Orange */
+    .danger {
+        background-color: #f44336;
+    }
+    /* Red */
+    .other {
+        background-color: #e7e7e7;
+        color: black;
+    }
+    .dropdownlist {
+        color: #fff;
+        font-size: 10px;
+        padding: 5px 10px;
+        border-radius: 3px;
+        background-color: #cc2a41;
+        width: 102px;
+        /*font-weight: bold;*/
+    }
+    .divstyle {
+        border: 2px solid red;
+        padding: 5px;
+        border-radius: 5px;
+        width:115px;
+    }
+    /* Gray */
+</style>

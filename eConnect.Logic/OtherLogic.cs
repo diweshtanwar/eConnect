@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using eConnect.DataAccess;
 using eConnect.Model;
-
+using System.Data;
 
 namespace eConnect.Logic
 {
@@ -44,7 +44,7 @@ namespace eConnect.Logic
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                var Rtypes = unitOfWork.ReportTypess.GetAllReportType().Where(x=>x.Status==false).ToList();
+                var Rtypes = unitOfWork.ReportTypess.GetAllReportType().Where(x => x.Status == false).ToList();
                 return Rtypes;
             }
         }
@@ -86,18 +86,24 @@ namespace eConnect.Logic
                     sr.ReportStatus = model.tblStatu.Name;
                     sr.CreatedDate = model.CreatedDate;
                     sr.UnPublishedCount = model.tblCommissionReportNews.Count;
+                    if (model.CycleID != null)
+                        sr.CycleID = (int)model.CycleID;
+
+                    if (model.AreaID != null)
+                        sr.AreaID = (int)model.AreaID;
+
 
                 }
                 return uploaderdetails;
             }
         }
-        public tblUploader  GetAllUploaderDetailsById(int id)
+        public tblUploader GetAllUploaderDetailsById(int id)
         {
 
             UploaderModel sr = new UploaderModel();
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
-                var model = unitOfWork.Uploaders.Find(x => x.UploaderId==id).FirstOrDefault();
+                var model = unitOfWork.Uploaders.Find(x => x.UploaderId == id).FirstOrDefault();
                 {
                     sr.ReportType = (int)model.ReportType;
                     sr.Year = (int)model.Year;
@@ -154,6 +160,8 @@ namespace eConnect.Logic
         }
         public int InsertUploader(UploaderModel item)
         {
+
+            int Cycleid = CommonLogic.GetCycleID(item.Year, item.Month);
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
                 tblUploader uploader = new tblUploader();
@@ -169,12 +177,14 @@ namespace eConnect.Logic
                 uploader.StatusID = 5;
                 uploader.InActive = false;
                 uploader.CreatedDate = DateTime.Now;
+
+                uploader.AreaID = 0;
+                uploader.CycleID = Cycleid;
                 // uploader.UpdatedDate = @Session["UserId"];
                 unitOfWork.Uploaders.Add(uploader);
                 int id = uploader.UploaderId;
                 return id;
             }
-
         }
         public void UpdateUploader(int uploaderid)
         {
@@ -189,7 +199,7 @@ namespace eConnect.Logic
             }
         }
 
-        public void UpdateUploaderStatus(int uploaderid,int statusId)
+        public void UpdateUploaderStatus(int uploaderid, int statusId)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
             {
@@ -200,6 +210,7 @@ namespace eConnect.Logic
 
             }
         }
+
         public bool CheckExistingFile(int year, int month, int reporttype)
         {
             using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
@@ -207,6 +218,26 @@ namespace eConnect.Logic
                 var uploaderdetails = unitOfWork.Uploaders.Find(x => x.Year == year && x.Month == month && x.ReportType == reporttype && x.InActive == false);
 
 
+                if (uploaderdetails.Count() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+
+                }
+            }
+
+
+        }
+
+
+        public bool CheckExistingFileAreaCircle(int year, int month, int reporttype, int area, int cir)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                var uploaderdetails = unitOfWork.Uploaders.Find(x => x.Year == year && x.Month == month && x.ReportType == reporttype && x.AreaID == area && x.CycleID == cir && x.InActive == false);
                 if (uploaderdetails.Count() > 0)
                 {
                     return true;
@@ -283,7 +314,7 @@ public class AccountConfigurationLogic
                                    PasswordLength = (int)item.PasswordLength,
                                    NotifiedToCSP = (bool)item.NotifiedToCSP,
                                    BusinessName = item.tblBusiness.Name,
-                               }) ;
+                               });
             }
             return ConfiList;
         }
@@ -355,8 +386,110 @@ public class AccountConfigurationLogic
             unitOfWork.Configurations.Update(sr);
         }
     }
-
 }
+public class WindowTimingLogic
+{
+    public IList<tblWindowTime> GetAllActiveWindow()
+    {
+        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+        {
+            // var Rtypes = unitOfWork.WindowTimings.GetActiveTimeWindow().Where(x => x.InActive == false).ToList();
+            var Rtypes = unitOfWork.WindowTimings.GetActiveTimeWindow().ToList();
+            return Rtypes;
+        }
+    }
+    public IList<tblWindowTime> GetCurrentActiveWindow()
+    {
+        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+        {
+            var Rtypes = unitOfWork.WindowTimings.GetActiveTimeWindow().Where(x => x.InActive == false).OrderByDescending(x => x.Id).ToList();
+            return Rtypes;
+        }
+    }
+
+
+    public void InsertNewWindowTiming(WindowTimes model)
+    {
+        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+        {
+            tblWindowTime sr = new tblWindowTime();
+            sr.StartTime = model.StartTime;
+            sr.EndTime = model.EndTime;
+            sr.InActive = model.InActive;
+            unitOfWork.WindowTimings.Add(sr);
+        }
+    }
+
+
+    public void DeleteWindowTiming(int id)
+    {
+        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+        {
+            unitOfWork.WindowTimings.DeleteWindowTimes(id);
+
+        }
+    }
+    public WindowTimes GetWindowTimingById(long id)
+    {
+        WindowTimes sr = new WindowTimes();
+        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+        {
+            var model = unitOfWork.WindowTimings.Find(x => x.Id == id).FirstOrDefault();
+            if (model != null)
+            {
+                sr.Id = (int)model.Id;
+                sr.StartTime = model.StartTime;
+                sr.EndTime = model.EndTime;
+                sr.InActive = (bool)model.InActive;
+            }
+            return sr;
+        }
+    }
+
+    public void UpdateActiveWindowTiming(WindowTimes model)
+    {
+        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+        {
+            var sr = unitOfWork.WindowTimings.Find(x => x.Id == model.Id).FirstOrDefault();
+            sr.Id = (int)model.Id;
+            sr.StartTime = model.StartTime;
+            sr.EndTime = model.EndTime;
+            sr.InActive = (bool)model.InActive;
+            unitOfWork.WindowTimings.Update(sr);
+        }
+
+    }
+
+
+    public int InsertUploader(UploaderModel item)
+    {
+        using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+        {
+            tblUploader uploader = new tblUploader();
+            uploader.ReportType = item.ReportType;
+            uploader.Year = item.Year;
+            uploader.Month = item.Month;
+            if (item.ReportType == 1)
+            {
+                uploader.ApplyTDS = item.ApplyTDS;
+            }
+            uploader.FileName = item.fileupload.FileName;
+            uploader.UpdatedDate = DateTime.Now;
+            uploader.StatusID = 5;
+            uploader.InActive = false;
+            uploader.CreatedDate = DateTime.Now;
+
+            uploader.AreaID = item.AreaID;
+            uploader.CycleID = item.CycleID;
+            // uploader.UpdatedDate = @Session["UserId"];
+            unitOfWork.Uploaders.Add(uploader);
+            int id = uploader.UploaderId;
+            return id;
+        }
+
+    }
+}
+
 
 
 

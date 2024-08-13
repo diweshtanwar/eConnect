@@ -11,11 +11,14 @@ using eConnect.Model;
 using eConnect.Logic;
 using System.IO;
 using System.Configuration;
+using eConnect.Application.Models;
 
 namespace eConnect.Application.Controllers
 {
     public class WithdrawRequestController : Controller
     {
+        string DepositStartTime, DepositEndTime = string.Empty;
+        string Email = ConfigurationManager.AppSettings["ToEmailid"].ToString();
         List<SelectListItem> RequestType = new List<SelectListItem>()
             {
                 new SelectListItem { Text = "Select RequestType", Value = "" },
@@ -38,7 +41,7 @@ namespace eConnect.Application.Controllers
             ViewBag.RequestType = RequestType;
             // var tblWithdrawDetails = raiseRequest.GetWithdrawDetails();
             var tblWithdrawDetails = raiseRequest.GetWithdrawDetailsByCSPID(Convert.ToInt32(Session["CSPID"].ToString()));
-            
+
             bool flag = Convert.ToBoolean(TempData["flag"]);
             if (flag == true)
             {
@@ -46,12 +49,12 @@ namespace eConnect.Application.Controllers
             }
             return View(tblWithdrawDetails.ToList().OrderByDescending(x => x.WithdrawalRequestId));
 
-           
+
         }
 
-        public ActionResult IndexSearch(string Requestid, string RequestType, string Requesteddte, string Completiondte,string Account)
+        public ActionResult IndexSearch(string Requestid, string RequestType, string Requesteddte, string Completiondte, string Account)
         {
-            int Reqid = 0, ReqType = 0,Acc=0;
+            int Reqid = 0, ReqType = 0, Acc = 0;
             RaiseRequestLogic raiseRequest = new RaiseRequestLogic();
             ViewBag.RequestType = RequestType;
             if (Requestid == "")
@@ -78,7 +81,7 @@ namespace eConnect.Application.Controllers
             {
                 Acc = Convert.ToInt32(Account);
             }
-            var tblWithdrawDetails = raiseRequest.GetWithdrawDetailsSearch(Reqid, ReqType, Requesteddte, Completiondte,Acc);
+            var tblWithdrawDetails = raiseRequest.GetWithdrawDetailsSearch(Reqid, ReqType, Requesteddte, Completiondte, Acc);
             TempData["searchdata"] = tblWithdrawDetails.ToList();
             TempData["flag"] = true;
             return RedirectToAction("Index");
@@ -96,6 +99,32 @@ namespace eConnect.Application.Controllers
             ViewBag.Status = Status;
             return View(withdraw);
         }
+        public bool CheckWindow()
+        {
+            WindowTimingLogic OtrLogic = new WindowTimingLogic();
+            var dt = OtrLogic.GetCurrentActiveWindow();
+            if (dt.Count > 0)
+            {
+                DateTime dtStart = Convert.ToDateTime(dt[0].StartTime);
+                DateTime dtEnd = Convert.ToDateTime(dt[0].EndTime);
+                DateTime current = DateTime.Now;
+                DepositStartTime = dt[0].StartTime;
+                DepositEndTime = dt[0].EndTime;
+                if (current.Ticks > dtStart.Ticks && current.Ticks < dtEnd.Ticks)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return true;
+            }
+
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -106,10 +135,27 @@ namespace eConnect.Application.Controllers
             ViewBag.Status = Status;
             if (ModelState.IsValid)
             {
-                string UserId = Session["CSPID"].ToString();
-                long UserID = raiseRequest.AddWithdrawDetails(withdraw, Convert.ToInt32(UserId));
-               
-                return RedirectToAction("Index");
+                bool chktiming = CheckWindow();
+                if (chktiming == true)
+                {
+                    string UserId = Session["CSPID"].ToString();
+                    long UserID = raiseRequest.AddWithdrawDetails(withdraw, Convert.ToInt32(UserId));
+
+                    //**EmailNotification**//
+                    UserCSPDetailLogic objUserCSPDetailLogic = new UserCSPDetailLogic();
+                    UserCSPDetail UserCSPDetail = objUserCSPDetailLogic.GetUserCSPDetailByID(Convert.ToInt32(UserId));
+                    EmailNotification emailNotification = new EmailNotification();
+                    emailNotification.SendEmail(Email, 1, UserCSPDetail, withdraw.Amount.ToString(), "", "", "", "");
+                    //*******************//
+
+                    return RedirectToAction("Index");
+
+                }
+                else
+                {
+                    TempData["TimingWindowMessage"] = "Withdraw Request Window has been closed.Please raise the request between " + DepositStartTime + " to " + DepositEndTime;
+                    return View(withdraw);
+                }
             }
             return View(withdraw);
         }
@@ -124,7 +170,7 @@ namespace eConnect.Application.Controllers
             }
             RaiseRequestLogic raiseRequest = new RaiseRequestLogic();
             Withdraw objWithdraw = raiseRequest.GetWithdrawDetailByID((int)id);
-          
+
             if (objWithdraw == null)
             {
                 return HttpNotFound();
@@ -159,7 +205,7 @@ namespace eConnect.Application.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Withdraw withdraw)
         {
-           
+
             if (ModelState.IsValid)
             {
 

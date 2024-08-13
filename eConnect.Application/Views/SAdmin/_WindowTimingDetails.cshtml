@@ -1,0 +1,93 @@
+﻿@model IEnumerable<eConnect.Model.WindowTimes>
+
+@{
+
+    Layout = null;
+}
+
+<section class="section">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <div class="table-actions">
+                    @*<a href="#" data-toggle="tooltip" title="Download Excel"><i class="mdi mdi-file-excel mdi-24px"></i></a>*@
+                </div>
+                <h6 class="text-primary mb-3">Active Window Timing</h6>
+                <table id="example" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>SNo</th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.StartTime)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EndTime)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.InActive)
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int count = 1; }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>  @count</td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartTime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EndTime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.InActive)
+                                </td>
+
+                                <td>
+                                    @Html.ActionLink("Edit | ", "EditWindowTimes", new { id = @item.Id }, null)
+                                    <a class="details" href="javascript:;" onclick="DeleteRecord(@item.Id)">Delete</a>
+                                    @Html.HiddenFor(modelItem => item.Id)
+                                </td>
+                            </tr>
+                            count++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+   
+    function DeleteRecord(transtypeid) {
+        if (confirm('Are you sure to delete this record ?')) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DeleteWindowTiming", "SAdmin")',
+                data: { transid: transtypeid },
+                dataType: 'html',
+                success: function (data) {
+                    location.reload();
+                    alert("Record deleted successfully.")
+                }
+            });
+        };
+    };
+</script>
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+                $(function () {
+                    alert("@TempData["Message"]")
+                });
+    </script>
+}
+
+
+

@@ -15,6 +15,7 @@ using System.Data.SqlClient;
 using System.Data.OleDb;
 using NLog;
 
+
 namespace eConnect.Application.Controllers
 {
     public class AdminController : Controller
@@ -27,46 +28,64 @@ namespace eConnect.Application.Controllers
         List<SelectListItem> ddlYears = new List<SelectListItem>();
         private eConnectAppEntities db = new eConnectAppEntities();
 
+        List<SelectListItem> AreaType = new List<SelectListItem>()
+            {
+                new SelectListItem { Text = "Urban", Value = "1" },
+                new SelectListItem { Text = "Rural", Value = "2" },
+
+            };
+
+
+
         public ActionResult Dashboard()
         {
-            DashboardLogic objDashboardLogic = new DashboardLogic();
-            var data = objDashboardLogic.GetDashboardAdminData();
-            ViewBag.WithdrawOpenCount = data.WithdrawOpenCount;
-            ViewBag.WithdrawInProgressCount = data.WithdrawInProgressCount;
-            ViewBag.WithdrawCompletedCount = data.WithdrawCompletedCount;
+            try
+            {
+                DashboardLogic objDashboardLogic = new DashboardLogic();
+                var data = objDashboardLogic.GetDashboardAdminData();
+                ViewBag.WithdrawOpenCount = data.WithdrawOpenCount;
+                ViewBag.WithdrawInProgressCount = data.WithdrawInProgressCount;
+                ViewBag.WithdrawCompletedCount = data.WithdrawCompletedCount;
 
-            ViewBag.DepositOpenCount = data.DepositOpenCount;
-            ViewBag.DepositInProgressCount = data.DepositInProgressCount;
-            ViewBag.DepositCompletedCount = data.DepositCompletedCount;
+                ViewBag.DepositOpenCount = data.DepositOpenCount;
+                ViewBag.DepositInProgressCount = data.DepositInProgressCount;
+                ViewBag.DepositCompletedCount = data.DepositCompletedCount;
 
-            ViewBag.TechOpenCount = data.TechOpenCount;
-            ViewBag.TechInProgressCount = data.TechInProgressCount;
-            ViewBag.TechCompletedCount = data.TechCompletedCount;
+                ViewBag.TechOpenCount = data.TechOpenCount;
+                ViewBag.TechInProgressCount = data.TechInProgressCount;
+                ViewBag.TechCompletedCount = data.TechCompletedCount;
 
-            ViewBag.CSPActiveCount = data.CSPActiveCount;
-            ViewBag.CSPInActiveCount = data.CSPInActiveCount;
-            ViewBag.CSPBlockedCount = data.CSPBlockedCount;
-            ViewBag.CSPTotalCount = data.CSPTotalCount;
+                ViewBag.CSPActiveCount = data.CSPActiveCount;
+                ViewBag.CSPInActiveCount = data.CSPInActiveCount;
+                ViewBag.CSPBlockedCount = data.CSPBlockedCount;
+                ViewBag.CSPTotalCount = data.CSPTotalCount;
 
-            ViewBag.UserActiveCount = data.UserActiveCount;
-            ViewBag.UserInActiveCount = data.UserInActiveCount;
-            ViewBag.UserBlockedCount = data.UserBlockedCount;
-            ViewBag.UserTotalCount = data.UserTotalCount;
+                ViewBag.UserActiveCount = data.UserActiveCount;
+                ViewBag.UserInActiveCount = data.UserInActiveCount;
+                ViewBag.UserBlockedCount = data.UserBlockedCount;
+                ViewBag.UserTotalCount = data.UserTotalCount;
 
 
-            CountryLogic objCountryLogic = new CountryLogic();
-            StateLogic objStateLogic = new StateLogic();
-            CityLogic objCityLogic = new CityLogic();
+                CountryLogic objCountryLogic = new CountryLogic();
+                StateLogic objStateLogic = new StateLogic();
+                CityLogic objCityLogic = new CityLogic();
 
-            ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name");
-            ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
-            ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name");
+                ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name");
+                ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name");
+                ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name");
+            }
+            catch (Exception ex)
+            {
+
+            }
             return View();
         }
-        public ActionResult DashboardSearch(DateTime? StartDate, DateTime? EndDate, string CSPCode, string Country, string State, string City) 
+
+       
+        public ActionResult DashboardSearch(DateTime? StartDate, DateTime? EndDate, string CSPCode, string Country, string State, string City)
         {
             DashboardLogic objDashboardLogic = new DashboardLogic();
-            var data = objDashboardLogic.GetDashboardAdminDataSearch( StartDate,  EndDate,  CSPCode,  Country,  State,  City);
+            var data = objDashboardLogic.GetDashboardAdminDataSearch(StartDate, EndDate, CSPCode, Country, State, City);
             ViewBag.WithdrawOpenCount = data.WithdrawOpenCount;
             ViewBag.WithdrawInProgressCount = data.WithdrawInProgressCount;
             ViewBag.WithdrawCompletedCount = data.WithdrawCompletedCount;
@@ -92,14 +111,16 @@ namespace eConnect.Application.Controllers
             CountryLogic objCountryLogic = new CountryLogic();
             StateLogic objStateLogic = new StateLogic();
             CityLogic objCityLogic = new CityLogic();
-          
+
             ViewBag.Country = new SelectList(objCountryLogic.GetAllCountry(), "CountryId", "Name", Country);
-            ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name",State);
-            ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name",City);
-           
-           
+            ViewBag.State = new SelectList(objStateLogic.GetAllStates(), "StateId", "Name", State);
+            ViewBag.City = new SelectList(objCityLogic.GetAllCities(), "CityId", "Name", City);
+
+
             return View("Dashboard");
         }
+
+        [Authorize(Roles = "CSP")]
         public ActionResult ApproveCSP()
         {
             UserLogic ul = new UserLogic();
@@ -168,10 +189,7 @@ namespace eConnect.Application.Controllers
             }
 
         }
-
-
         string FolderImagesPath = System.Web.HttpContext.Current.Server.MapPath(Convert.ToString(ConfigurationManager.AppSettings["FolderImages"]));
-
         public ActionResult UploadFolderImages()
         {
             FolderDetailsLogic folderdetail = new FolderDetailsLogic();
@@ -179,8 +197,6 @@ namespace eConnect.Application.Controllers
             //ViewBag.Allfolderlist = folderlist;
             return View();
         }
-
-
         [HttpPost]
         public ActionResult UploadFolderImages(FolderDetailsModel model)
         {
@@ -215,8 +231,6 @@ namespace eConnect.Application.Controllers
             // var model = folderdetail.GetAllFolderDetailsById(id);
             return View();
         }
-
-
         private SelectList GetMonths()
         {
             var months = Enumerable.Range(1, 12).Select(i => new
@@ -252,8 +266,6 @@ namespace eConnect.Application.Controllers
             }
             return new SelectList(ddlYears, "Value", "Text");
         }
-
-
         public ActionResult ApplicationSetting(UploaderModel model)
         {
             BusinessLogic BusinessList = new BusinessLogic();
@@ -318,7 +330,6 @@ namespace eConnect.Application.Controllers
             }
 
         }
-
         public ActionResult AddAccountConfiguration()
         {
             BusinessLogic BusinessList = new BusinessLogic();
@@ -399,12 +410,10 @@ namespace eConnect.Application.Controllers
                 return PartialView("_AddApplicationSetting");
             }
         }
-
         public ActionResult _AddAccountConfiguration()
         {
             return PartialView("_AddAccountConfiguration");
         }
-
         [HttpPost]
         public ActionResult _AddAccountConfiguration(AccountConfigurationModel model)
         {
@@ -418,10 +427,8 @@ namespace eConnect.Application.Controllers
             }
             return PartialView("_AddAccountConfiguration");
         }
-
         public ActionResult EditAccountConfiguration(int id)
         {
-
             AccountConfigurationModel accm = new AccountConfigurationModel();
             AccountConfigurationLogic cl = new AccountConfigurationLogic();
             // ReportsLogic upmodel = new ReportsLogic();
@@ -483,15 +490,6 @@ namespace eConnect.Application.Controllers
             }
             return View(tblApplicationSetting);
         }
-        public bool CheckExistingUploadedFile(int year, int month, int reporttype)
-        {
-            UploaderLogic uploaderLogic = new UploaderLogic();
-            bool check = uploaderLogic.CheckExistingFile(year, month, reporttype);
-
-            return check;
-
-        }
-
 
         public JsonResult UpdateUploaderStatus(Int32 uploaderid)
         {
@@ -537,9 +535,6 @@ namespace eConnect.Application.Controllers
             }
             return PartialView("_UploaderList", reportsList);
         }
-
-
-
         public ActionResult ViewUnPublishedRecords(int id)
         {
             List<TransactionCommissionModel> reportsList = new List<TransactionCommissionModel>();
@@ -572,32 +567,6 @@ namespace eConnect.Application.Controllers
             TempData["Message"] = "Record Deleted successfully.";
             return Json("Record Deleted successfully", JsonRequestBehavior.AllowGet);
         }
-        public JsonResult PublishCommissionReport(int uploaderid)
-        {
-            try
-            {
-                logger.Info("PublishCommissionReport:Connection Start-");
-                connection();
-                logger.Info("PublishCommissionReport:Connection End-");
-                SqlCommand sqlcomm = new SqlCommand("[dbo].[sp_PublishCommissionReport]");
-                logger.Info("SqlCommand: Call");
-                con.Open();
-                sqlcomm.Connection = con;
-                sqlcomm.CommandType = CommandType.StoredProcedure;
-                sqlcomm.Parameters.AddWithValue("UploaderId", uploaderid);
-                SqlDataReader sdr = sqlcomm.ExecuteReader();
-                logger.Info("SqlCommand: End");
-                con.Close();
-                return Json("Record Updated successfully", JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                logger.Error("PublishCommissionReport:-" + " " + uploaderid + " ");
-
-                return null;
-            }
-        }
-
         public JsonResult DeleteUploaderRecord(int uploaderid)
         {
             UploaderLogic rl = new UploaderLogic();
@@ -631,7 +600,6 @@ namespace eConnect.Application.Controllers
             return RedirectToAction("ViewUnPublishedRecords", new { id = model.UploaderId });
 
         }
-
         OleDbConnection Econ;
         SqlConnection con;
         string constr, Query, sqlconn;
@@ -649,56 +617,6 @@ namespace eConnect.Application.Controllers
             sqlconn = ConfigurationManager.ConnectionStrings["eConnectAppEntitiesExcel"].ConnectionString;
             con = new SqlConnection(sqlconn);
             logger.Info("SQL connection created successfully");
-        }
-        private void InsertExcelRecords(string FilePath, int uploaderid)
-        {
-            logger.Info("InsertExcelRecords starts with parameters:- FilePath =" + FilePath + " " + "UploaderId-" + uploaderid);
-            ExcelConn(FilePath);
-            Query = string.Format("Select [Circle],[Circle Name],[BCBF_CODE],[CSP_CODE],[CSP Name],[Transaction Type],[Num Txns / Avg Bal],[Commission]," + uploaderid + " as [uploaderid] FROM [{0}]", "Sheet1$");
-            OleDbCommand Ecom = new OleDbCommand(Query, Econ);
-            Econ.Open();
-            //try
-            {
-                DataSet ds = new DataSet();
-                OleDbDataAdapter oda = new OleDbDataAdapter(Query, Econ);
-                Econ.Close();
-                oda.Fill(ds);
-                DataTable Exceldt = ds.Tables[0];
-                connection();
-                con.Open();
-                logger.Info("Start mapping Excel file");
-                using (var tran = con.BeginTransaction(IsolationLevel.ReadCommitted))
-                {
-                    using (var objbulk = new SqlBulkCopy(con, SqlBulkCopyOptions.Default, tran))
-                    {
-                        try
-                        {
-                            objbulk.DestinationTableName = "[dbo].[tblCommissionReportNew]";
-                            //Mapping Table column    
-                            objbulk.ColumnMappings.Add("Circle", "Circle");
-                            objbulk.ColumnMappings.Add("Circle Name", "CircleName");
-                            objbulk.ColumnMappings.Add("BCBF_CODE", "BCBF_Code");
-                            objbulk.ColumnMappings.Add("CSP_CODE", "CSPCode");
-                            objbulk.ColumnMappings.Add("CSP Name", "CSPName");
-                            objbulk.ColumnMappings.Add("Transaction Type", "TransactionType");
-                            objbulk.ColumnMappings.Add("Num Txns / Avg Bal", "NoOfTransactions");
-                            objbulk.ColumnMappings.Add("Commission", "Commission");
-                            objbulk.ColumnMappings.Add("UploaderId", "UploaderId");
-                            objbulk.WriteToServerAsync(Exceldt);
-                            tran.Commit();
-                            con.Close();
-
-                            logger.Info("Complete  Excel file mapping");
-                        }
-                        catch (Exception ex)
-                        {
-                            logger.Error("Error while uploading file :uploader id:-" + " " + uploaderid + " " + "and FilePath:- " + " " + FilePath);
-                            tran.Rollback();
-                            con.Close();
-                        }
-                    }
-                }
-            }
         }
 
         private void InsertCommissionRecordsMonthly(string FilePath, int uploaderid, int year, int month)
@@ -751,7 +669,6 @@ namespace eConnect.Application.Controllers
                 }
             }
         }
-
         public JsonResult DeleteAccountConfigRecord(int configid)
         {
             AccountConfigurationLogic rl = new AccountConfigurationLogic();
@@ -759,17 +676,12 @@ namespace eConnect.Application.Controllers
             TempData["Message"] = "Record Deleted successfully.";
             return Json("Record Deleted successfully", JsonRequestBehavior.AllowGet);
         }
-
-
-
-
         public ActionResult UploadCommissionReport()
         {
             ViewBag.Years = GetYears().OrderByDescending(x => x.Value);
             ViewBag.Months = GetMonths().OrderByDescending(x => x.Value);
             return View();
         }
-
         public bool CheckUploadedFileExist(int year, int month)
         {
             UploaderLogic uploaderLogic = new UploaderLogic();
@@ -806,7 +718,6 @@ namespace eConnect.Application.Controllers
             }
             return RedirectToAction("UploadCommissionReport");
         }
-
         public ActionResult _UploadCommissionReportMonthly()
         {
 
@@ -834,7 +745,6 @@ namespace eConnect.Application.Controllers
             return PartialView("_UploadCommissionReportMonthly", reportsList);
 
         }
-
         public JsonResult DeleteUploadedCommissionRecord(int uploaderid)
         {
             UploaderLogic rl = new UploaderLogic();
@@ -842,7 +752,6 @@ namespace eConnect.Application.Controllers
             TempData["Message"] = "Record Deleted successfully.";
             return Json("Record Deleted successfully", JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult PublishCommissionMonthlyReport(int uploaderid)
         {
             try
@@ -881,111 +790,7 @@ namespace eConnect.Application.Controllers
             }
         }
 
-        public string CheckUploaderDirectory(string path, UploaderModel model)
-        {
-            string fullpath = string.Empty;
-            fullpath = Path.Combine(path, model.ReportType.ToString(), model.Year.ToString(), model.Month.ToString());
-            if (!Directory.Exists(fullpath))
-            {
-                Directory.CreateDirectory(fullpath);
-            }
-            fullpath = fullpath + "\\" + Path.GetFileName(model.fileupload.FileName);
-            return fullpath;
-        }
-
-
-        public ActionResult _UploaderDetailsTemp()
-        {
-            List<UploaderModel> reportsList = new List<UploaderModel>();
-            UploaderLogic upmodel = new UploaderLogic();
-            var Reqlist = upmodel.GetAllUploaderDetails().ToList();
-            foreach (var item in Reqlist)
-            {
-                if (item.tblReportType.Status == false)
-                {
-                    reportsList.Add(
-                               new UploaderModel
-                               {
-                                   UploaderId = item.UploaderId,
-                                   Year = (int)item.Year,
-                                   Month = (int)item.Month,
-                                   ReportType = (int)item.ReportType,
-                                   ApplyTDS = item.ApplyTDS,
-                                   FileName = item.FileName,
-                                   UpdatedDate = (DateTime)item.UpdatedDate,
-                                   CreatedDate = (DateTime)item.CreatedDate,
-                                   ReportTypeName = item.tblReportType.Name,
-                                   InActive = item.InActive,
-                                   StatusId = (int)item.StatusID,
-                                   ReportStatus = item.tblStatu.Name,
-                                   MonthName = CommonLogic.GetMonthName(Convert.ToInt32(item.Month)),
-                                   UnPublishedCount = item.tblCommissionReportNews.Count
-                               });
-                }
-            }
-            return PartialView("_UploaderDetailsTemp", reportsList);
-        }
         /////26 July
-        ///
-        [HttpPost]
-        public ActionResult Uploader(UploaderModel model)
-        {
-            int uploaderid = 0;
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    if (model.ReportType == 1)
-                        if (model.ReportType == 1)
-                        {
-                            bool check = CheckExistingUploadedFile(model.Year, model.Month, model.ReportType);
-                            if (check == true)
-                            {
-                                string monthname = CommonLogic.GetMonthName(Convert.ToInt32(model.Month));
-                                TempData["Message"] = "Record for " + model.Year + "and month " + monthname + " has been already submitted.";
-                            }
-                            else
-                            {
-                                string path = UploaderFilePath;
-                                string fpath = string.Empty;
-                                UploaderLogic uploaderLogic = new UploaderLogic();
-                                uploaderid = uploaderLogic.InsertUploader(model);
-                                if (model.fileupload != null)
-                                {
-                                    fpath = CheckUploaderDirectory(path, model);
-                                    model.fileupload.SaveAs(fpath);
-                                }
-                                string FilePath = fpath;// @"C:\New folder\EGRAMIN TRANSCATION WISE COMISSION MAY-2021.xlsx";
-                                InsertExcelRecords(FilePath, uploaderid);
-                                TempData["Message"] = "Record submitted successfully.";
-                            }
-                        }
-                }
-            }
-            catch (Exception ex)
-            {
-                if (uploaderid > 0)
-                {
-                    UploaderLogic rl = new UploaderLogic();
-                    rl.DeleteUploaderRecord(uploaderid);
-                }
-                TempData["Message"] = "Record not submitted successfully.There is some problem in uploading file.";
-            }
-
-            return RedirectToAction("Uploader");
-        }
-
-        public ActionResult Uploader()
-        {
-            RequestTypeLogic Rtypes = new RequestTypeLogic();
-            var RtypesList = Rtypes.GetAllRequestTypes();
-            ViewBag.RequestTypes = RtypesList;
-            ViewBag.Years = GetYears().OrderByDescending(x => x.Value);
-            ViewBag.Months = GetMonths().OrderByDescending(x => x.Value);
-            ViewBag.AllMonths = GetAllMonths();//.OrderByDescending(x => x.Value);
-            return View();
-        }
-
         private SelectList GetAllMonths()
         {
             DateTimeFormatInfo df = DateTimeFormatInfo.GetInstance(null);
@@ -995,7 +800,6 @@ namespace eConnect.Application.Controllers
             }
             return new SelectList(ddlAllMonths, "Value", "Text");
         }
-
         public JsonResult BindMonths(int year)
         {
             int currentYear = DateTime.Now.Year;
@@ -1034,6 +838,34 @@ namespace eConnect.Application.Controllers
             }
 
         }
+
+        public int InsertUploader(UploaderModel item)
+        {
+            using (var unitOfWork = new UnitOfWork(new eConnectAppEntities()))
+            {
+                tblUploader uploader = new tblUploader();
+                uploader.ReportType = item.ReportType;
+                uploader.Year = item.Year;
+                uploader.Month = item.Month;
+                if (item.ReportType == 1)
+                {
+                    uploader.ApplyTDS = item.ApplyTDS;
+                }
+                uploader.FileName = item.fileupload.FileName;
+                uploader.UpdatedDate = DateTime.Now;
+                uploader.StatusID = 5;
+                uploader.InActive = false;
+                uploader.CreatedDate = DateTime.Now;
+
+                uploader.AreaID = item.AreaID;
+                uploader.CycleID = item.CycleID;
+                // uploader.UpdatedDate = @Session["UserId"];
+                unitOfWork.Uploaders.Add(uploader);
+                int id = uploader.UploaderId;
+                return id;
+            }
+
+        }
         public ActionResult UploadBReport()
         {
             RequestTypeLogic Rtypes = new RequestTypeLogic();
@@ -1044,8 +876,6 @@ namespace eConnect.Application.Controllers
             ViewBag.AllMonths = GetAllMonths();//.OrderByDescending(x => x.Value);
             return View();
         }
-
-
         [HttpPost]
         public ActionResult UploadBReport(UploaderModel model)
         {
@@ -1143,8 +973,6 @@ namespace eConnect.Application.Controllers
 
             }
         }
-
-
         private void InsertBusinessRecord(string FilePath, int uploaderid, int year, int month)
         {
             logger.Info("Insert BusinessReport with parameters:- FilePath =" + FilePath + " " + "UploaderId-" + uploaderid);
@@ -1242,5 +1070,315 @@ namespace eConnect.Application.Controllers
                 return Json("Record not Deleted successfully", JsonRequestBehavior.AllowGet);
             }
         }
+
+        public bool CheckExistingUploadedFilebyAreaAndCircle(int year, int month, int reporttype, int areadid, int cycleid)
+        {
+            UploaderLogic uploaderLogic = new UploaderLogic();
+            bool check = uploaderLogic.CheckExistingFileAreaCircle(year, month, reporttype, areadid, cycleid);
+            return check;
+        }
+        public string CheckUploaderDirectoryAreaCircle(string path, UploaderModel model)
+        {
+            string fullpath = string.Empty;
+            fullpath = Path.Combine(path, model.ReportType.ToString(), model.Year.ToString(), model.Month.ToString(), model.AreaID.ToString(), model.CycleID.ToString());
+            if (!Directory.Exists(fullpath))
+            {
+                Directory.CreateDirectory(fullpath);
+            }
+            fullpath = fullpath + "\\" + Path.GetFileName(model.fileupload.FileName);
+            return fullpath;
+        }
+
+        public FileResult OpenFileUploaderAreaCircle(int id, int year, int month, string filename, int area, int circle)
+        {
+            string path = UploaderFilePath;
+            string fullpath = string.Empty;
+            //fullpath = UploaderFilePath;
+            if (id > 0)
+            {
+                try
+                {
+                    fullpath = "~/UploaderFiles//" + id.ToString() + "//" + year + "//" + month + "//" + area + "//" + circle + "//" + filename;
+                    return File(new FileStream(Server.MapPath(fullpath), FileMode.Open), "application/octetstream", filename);
+                }
+                catch (Exception)
+                {
+                    return File(new FileStream(Server.MapPath(fullpath), FileMode.Open), "application/octetstream", filename);
+                }
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+         public ActionResult CreateActiveWindow()
+        {
+
+            return View();
+        }
+        //  ******************************Sept 2023*********************************************************
+        public ActionResult Uploader()
+        {
+            RequestTypeLogic Rtypes = new RequestTypeLogic();
+            var RtypesList = Rtypes.GetAllRequestTypes();
+            ViewBag.RequestTypes = RtypesList;
+            ViewBag.Years = GetYears().OrderByDescending(x => x.Value);
+            ViewBag.Months = GetMonths().OrderByDescending(x => x.Value);
+            ViewBag.AllMonths = GetAllMonths();//.OrderByDescending(x => x.Value);
+            ViewBag.AreaID = AreaType;
+            //TransactionTypeCycleLogic sl = new TransactionTypeCycleLogic();
+            //var TransactionCycle = sl.GetAllCommissionTransactionTypeCycle();
+            //ViewBag.CycleID = TransactionCycle;
+            return View();
+        }
+        public bool CheckExistingUploadedFile(int year, int month, int reporttype)
+        {
+            UploaderLogic uploaderLogic = new UploaderLogic();
+            bool check = uploaderLogic.CheckExistingFile(year, month, reporttype);
+            return check;
+        }
+        [HttpPost]
+        public ActionResult Uploader(UploaderModel model)
+        {
+            int uploaderid = 0;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (model.ReportType == 1)
+                        if (model.ReportType == 1)
+                        {
+                            //bool check = CheckExistingUploadedFilebyAreaAndCircle(model.Year, model.Month, model.ReportType, model.AreaID, model.CycleID);
+                            bool check = CheckExistingUploadedFile(model.Year, model.Month, model.ReportType);
+                            if (check == true)
+                            {
+                                string monthname = CommonLogic.GetMonthName(Convert.ToInt32(model.Month));
+                                TempData["Message"] = "Record for " + model.Year + "and month " + monthname + " has been already submitted.";
+                            }
+                            else
+                            {
+                                string path = UploaderFilePath;
+                                string fpath = string.Empty;
+                                UploaderLogic uploaderLogic = new UploaderLogic();
+                                uploaderid = uploaderLogic.InsertUploader(model);
+                                if (model.fileupload != null)
+                                {
+                                    fpath = CheckUploaderDirectoryAreaCircle(path, model);
+                                    model.fileupload.SaveAs(fpath);
+                                }
+                                string FilePath = fpath;// @"C:\New folder\EGRAMIN TRANSCATION WISE COMISSION MAY-2021.xlsx";
+                                InsertExcelRecords(FilePath, uploaderid);
+                                TempData["Message"] = "Record submitted successfully.";
+                            }
+                        }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (uploaderid > 0)
+                {
+                    UploaderLogic rl = new UploaderLogic();
+                    rl.DeleteUploaderRecord(uploaderid);
+                }
+                TempData["Message"] = "Record not submitted successfully.There is some problem in uploading file.";
+            }
+
+            return RedirectToAction("Uploader");
+        }
+        public string CheckUploaderDirectory(string path, UploaderModel model)
+        {
+            string fullpath = string.Empty;
+            fullpath = Path.Combine(path, model.ReportType.ToString(), model.Year.ToString(), model.Month.ToString());
+            if (!Directory.Exists(fullpath))
+            {
+                Directory.CreateDirectory(fullpath);
+            }
+            fullpath = fullpath + "\\" + Path.GetFileName(model.fileupload.FileName);
+            return fullpath;
+        }
+
+        private void InsertExcelRecords(string FilePath, int uploaderid)
+        {
+            logger.Info("InsertExcelRecords starts with parameters:- FilePath =" + FilePath + " " + "UploaderId-" + uploaderid);
+            ExcelConn(FilePath);
+            Query = string.Format("Select [Circle],[Circle Name],[BCBF_CODE],[CSP_CODE],[CSP Name],[Transaction Type],[Num Txns / Avg Bal],[Commission]," + uploaderid + " as [uploaderid] FROM [{0}]", "Sheet1$");
+            OleDbCommand Ecom = new OleDbCommand(Query, Econ);
+            Econ.Open();
+            //try
+            {
+                DataSet ds = new DataSet();
+                OleDbDataAdapter oda = new OleDbDataAdapter(Query, Econ);
+                Econ.Close();
+                oda.Fill(ds);
+                DataTable Exceldt = ds.Tables[0];
+                connection();
+                con.Open();
+                logger.Info("Start mapping Excel file");
+                using (var tran = con.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    using (var objbulk = new SqlBulkCopy(con, SqlBulkCopyOptions.Default, tran))
+                    {
+                        try
+                        {
+                            objbulk.DestinationTableName = "[dbo].[tblCommissionReportNew]";
+                            //Mapping Table column    
+                            objbulk.ColumnMappings.Add("Circle", "Circle");
+                            objbulk.ColumnMappings.Add("Circle Name", "CircleName");
+                            objbulk.ColumnMappings.Add("BCBF_CODE", "BCBF_Code");
+                            objbulk.ColumnMappings.Add("CSP_CODE", "CSPCode");
+                            objbulk.ColumnMappings.Add("CSP Name", "CSPName");
+                            objbulk.ColumnMappings.Add("Transaction Type", "TransactionType");
+                            objbulk.ColumnMappings.Add("Num Txns / Avg Bal", "NoOfTransactions");
+                            objbulk.ColumnMappings.Add("Commission", "Commission");
+                            objbulk.ColumnMappings.Add("UploaderId", "UploaderId");
+                            objbulk.WriteToServerAsync(Exceldt);
+                            tran.Commit();
+                            con.Close();
+
+                            logger.Info("Complete  Excel file mapping");
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error("Error while uploading file :uploader id:-" + " " + uploaderid + " " + "and FilePath:- " + " " + FilePath);
+                            tran.Rollback();
+                            con.Close();
+                        }
+                    }
+                }
+            }
+        }
+        public ActionResult _UploaderDetailsTemp()
+        {
+            List<UploaderModel> reportsList = new List<UploaderModel>();
+            UploaderLogic upmodel = new UploaderLogic();
+            var Reqlist = upmodel.GetAllUploaderDetails().ToList();
+            foreach (var item in Reqlist)
+            {
+                if (item.tblReportType.Status == false)
+                {
+                    reportsList.Add(
+                               new UploaderModel
+                               {
+                                   UploaderId = item.UploaderId,
+                                   Year = (int)item.Year,
+                                   Month = (int)item.Month,
+                                   ReportType = (int)item.ReportType,
+                                   ApplyTDS = item.ApplyTDS,
+                                   FileName = item.FileName,
+
+                                   UpdatedDate = (DateTime)item.UpdatedDate,
+                                   CreatedDate = (DateTime)item.CreatedDate,
+                                   ReportTypeName = item.tblReportType.Name,
+                                   InActive = item.InActive,
+                                   StatusId = (int)item.StatusID,
+                                   CycleID = (int)item.CycleID,
+                                   //AreaID = (int)item.AreaID,
+                                   ReportStatus = item.tblStatu.Name,
+                                   MonthName = CommonLogic.GetMonthName(Convert.ToInt32(item.Month)),
+                                   UnPublishedCount = item.tblCommissionReportNews.Count
+                               });
+                }
+            }
+            return PartialView("_UploaderDetailsTemp", reportsList);
+        }
+
+        public JsonResult PublishCommissionReport(int uploaderid)
+        {
+            try
+            {
+                logger.Info("PublishCommissionReport:Connection Start-");
+                connection();
+                logger.Info("PublishCommissionReport:Connection End-");
+                SqlCommand sqlcomm = new SqlCommand("[dbo].[sp_PublishCommissionReport]");
+                logger.Info("SqlCommand: Call");
+                con.Open();
+                sqlcomm.Connection = con;
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Parameters.AddWithValue("UploaderId", uploaderid);
+                SqlDataReader sdr = sqlcomm.ExecuteReader();
+                logger.Info("SqlCommand: End");
+                con.Close();
+                return Json("Record Updated successfully", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("PublishCommissionReport:-" + " " + uploaderid + " ");
+
+                return null;
+            }
+        }
+        public JsonResult PublishCommissionReportByCycleID(int uploaderid, int cycle)
+        {
+            try
+            {
+
+                logger.Info("PublishCommissionReport:Connection Start-");
+                connection();
+                logger.Info("PublishCommissionReport:Connection End-");
+                SqlCommand sqlcomm = new SqlCommand("[dbo].[sp_PublishCommissionReport]");
+                logger.Info("SqlCommand: Call");
+                con.Open();
+                sqlcomm.Connection = con;
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Parameters.AddWithValue("UploaderId", uploaderid);
+                sqlcomm.Parameters.AddWithValue("CycleId", cycle);
+                SqlDataReader sdr = sqlcomm.ExecuteReader();
+                logger.Info("SqlCommand: End");
+                con.Close();
+                return Json("Record Updated successfully", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("PublishCommissionReport:-" + " " + uploaderid + " ");
+
+                return null;
+            }
+        }
+
+        public JsonResult PublishCommissionReportAreaCircle(int uploaderid, int area, int cycle)
+        {
+            try
+            {
+                logger.Info("PublishCommissionReport:Connection Start-");
+                connection();
+                logger.Info("PublishCommissionReport:Connection End-");
+                if (area == 1)
+                {
+                    //fpr Urban area
+                    SqlCommand sqlcomm = new SqlCommand("[dbo].[sp_PublishCommissionReport]");
+                    logger.Info("SqlCommand: Call");
+                    con.Open();
+                    sqlcomm.Connection = con;
+                    sqlcomm.CommandType = CommandType.StoredProcedure;
+                    sqlcomm.Parameters.AddWithValue("UploaderId", uploaderid);
+                    sqlcomm.Parameters.AddWithValue("CycleId", cycle);
+                    SqlDataReader sdr = sqlcomm.ExecuteReader();
+                    logger.Info("SqlCommand: End");
+                    con.Close();
+                }
+                else
+                {
+                    //fpr Urban area
+                    SqlCommand sqlcomm = new SqlCommand("[dbo].[sp_PublishCommissionReport_Rural]");
+                    logger.Info("SqlCommand: Call");
+                    con.Open();
+                    sqlcomm.Connection = con;
+                    sqlcomm.CommandType = CommandType.StoredProcedure;
+                    sqlcomm.Parameters.AddWithValue("UploaderId", uploaderid);
+                    sqlcomm.Parameters.AddWithValue("CycleId", cycle);
+                    SqlDataReader sdr = sqlcomm.ExecuteReader();
+                    logger.Info("SqlCommand: End");
+                    con.Close();
+                }
+                return Json("Record Updated successfully", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("PublishCommissionReport:-" + " " + uploaderid + " ");
+                return null;
+            }
+        }
+
     }
 }

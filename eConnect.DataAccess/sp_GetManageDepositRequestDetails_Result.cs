@@ -17,7 +17,9 @@ namespace eConnect.DataAccess
         public Nullable<decimal> Amount { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<System.DateTime> RequestedDate { get; set; }
+        public string Rdate { get; set; }
         public Nullable<System.DateTime> CompletionDate { get; set; }
+        public string Cdate { get; set; }
         public Nullable<bool> HasReceipt { get; set; }
         public string ReceiptSource { get; set; }
         public int DepositeRequestId { get; set; }

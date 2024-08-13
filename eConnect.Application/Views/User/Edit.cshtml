@@ -3,7 +3,9 @@
 @{ ViewBag.Title = "Edit User";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 
-    string PassportSizePhotoPath = @System.Web.Configuration.WebConfigurationManager.AppSettings["UserFilePath"] + Model.Id + "\\UserPassportSizePhoto\\" + Model.PassportSizePic; }
+    //string PassportSizePhotoPath = @System.Web.Configuration.WebConfigurationManager.AppSettings["UserFilePath"] + Model.Id + "\\UserPassportSizePhoto\\" + Model.PassportSizePic;
+    string PassportSizePhotoPath = Model.UserType+"/"+Model.Id + "/UserPassportSizePhoto/"+Model.PassportSizePic;
+    }
 
 
 
@@ -138,7 +140,9 @@
 
                             @if (!string.IsNullOrEmpty(Model.PassportSizePic))
                             {
-                                <a href="@Url.Content(PassportSizePhotoPath)" target="_blank">PreviewImage</a> }
+                                @*<a href="javascript:PreviewImage('@Model.PassportSizePic');">PreviewImage</a>*@
+                                <a href="~/ImageViewer/Getimage/?Type=User+&File=+@PassportSizePhotoPath" target="_blank">PreviewImage</a>
+                            }
                             else
                             {
                                 <span style="color:red;">No image uploaded.</span>}
@@ -148,9 +152,9 @@
                 </div>
                 <div class="my-4 text-right">
                     <button class="btn btn-primary px-4" type="submit">Update</button>
-                   @if(Session["UserTypeId"].ToString() =="1" || Session["UserTypeId"].ToString()=="2")
-                   {
-                     @Html.ActionLink("Cancel", "Index", "Menu", new { @class = "btn btn-dark px-4 mr-2" })
+                    @if (Session["UserTypeId"].ToString() == "1" || Session["UserTypeId"].ToString() == "2")
+                    {
+                        @Html.ActionLink("Cancel", "Index", "Menu", new { @class = "btn btn-dark px-4 mr-2" })
                     }
                 </div>
                 @*<div class="text-left">
@@ -163,6 +167,7 @@
 
 <script>
     $(document).ready(function () {
+       
 
         $("#UserType").on("change", function () {
 
@@ -189,6 +194,11 @@
                 $("#City").html(v);
             }
         });
+    }
+    debugger;
+    function PreviewImage(url) {
+        var win = window.open();
+        win.document.write("<iframe width='100%' height='100%' scrolling='no' src='" + url + "'></iframe>");
     }
     /*    });*/
 </script>

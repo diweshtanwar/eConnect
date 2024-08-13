@@ -3,13 +3,18 @@
 @{
     ViewBag.Title = "CSP Profile Update";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
-
-    string PassportSizePhotoPath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\PassportSizePhoto\\" + Model.PassportSizePhotoName;
-    string VoterIdImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\VoterIdImage\\" + Model.VoterIdImageName;
-    string PANImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\PANImage\\" + Model.PANImageName;
-    string AadharImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\AadharImage\\" + Model.AadharImageName;
-    string LatestEducationProofImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\LatestEducationProofImage\\" + Model.LatestEducationProofImageName;
-    string IIBFCertificationImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\IIBFCertificationImage\\" + Model.IIBFCertificationImageName;
+    string PassportSizePhotoPath = Model.CSPId + "/PassportSizePhoto/" + Model.PassportSizePhotoName;
+    string VoterIdImagePath = Model.CSPId + "/VoterIdImage/" + Model.VoterIdImageName;
+    string PANImagePath = Model.CSPId + "/PANImage/" + Model.PANImageName;
+    string AadharImagePath = Model.CSPId + "/AadharImage/" + Model.AadharImageName;
+    string LatestEducationProofImagePath = Model.CSPId + "/LatestEducationProofImage/" + Model.LatestEducationProofImageName;
+    string IIBFCertificationImagePath = Model.CSPId + "/IIBFCertificationImage/" + Model.IIBFCertificationImageName;
+    //string PassportSizePhotoPath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\PassportSizePhoto\\" + Model.PassportSizePhotoName;
+    //string VoterIdImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\VoterIdImage\\" + Model.VoterIdImageName;
+    //string PANImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\PANImage\\" + Model.PANImageName;
+    //string AadharImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\AadharImage\\" + Model.AadharImageName;
+    //string LatestEducationProofImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\LatestEducationProofImage\\" + Model.LatestEducationProofImageName;
+    //string IIBFCertificationImagePath = @System.Web.Configuration.WebConfigurationManager.AppSettings["CSPFilePath"] + Model.CSPId + "\\IIBFCertificationImage\\" + Model.IIBFCertificationImageName;
 
 }
 @using (Html.BeginForm("EditCSPProfile", "CSP", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -238,7 +243,8 @@
                             @Html.ValidationMessageFor(model => model.PassportSizePhoto, "", new { @class = "text-danger" })
                             @if (!string.IsNullOrEmpty(Model.PassportSizePhotoName))
                             {
-                                <a href="@Url.Content(PassportSizePhotoPath)" target="_blank">PreviewImage</a>
+                                @*<a href="javascript:PreviewImage('@Model.PassportSizePhotoName');">PreviewImage</a>*@
+                                <a href="~/ImageViewer/Getimage/?Type=CSP+&File=+@PassportSizePhotoPath" target="_blank">PreviewImage</a>
                             }
                             else
                             { <span style="color:red;">No image uploaded.</span>
@@ -255,7 +261,8 @@
 
                             @if (!string.IsNullOrEmpty(Model.VoterIdImageName))
                             {
-                                <a href="@Url.Content(VoterIdImagePath)" target="_blank">PreviewImage</a>
+                                @*<a href="javascript:PreviewImage('@Model.VoterIdImageName');">PreviewImage</a>*@
+                                <a href="~/ImageViewer/Getimage/?Type=CSP+&File=+@VoterIdImagePath" target="_blank">PreviewImage</a>
                             }
                             else
                             { <span style="color:red;">No image uploaded.</span>
@@ -270,7 +277,8 @@
                             @Html.ValidationMessageFor(model => model.PANImage, "", new { @class = "text-danger" })
                             @if (!string.IsNullOrEmpty(Model.PANImageName))
                             {
-                                <a href="@Url.Content(PANImagePath)" target="_blank">PreviewImage</a>
+                                @*<a href="javascript:PreviewImage('@Model.PANImageName');">PreviewImage</a>*@
+                                <a href="~/ImageViewer/Getimage/?Type=CSP+&File=+@PANImagePath" target="_blank">PreviewImage</a>
                             }
                             else
                             { <span style="color:red;">No image uploaded.</span>
@@ -285,7 +293,8 @@
                             @Html.ValidationMessageFor(model => model.AadharImage, "", new { @class = "text-danger" })
                             @if (!string.IsNullOrEmpty(Model.AadharImageName))
                             {
-                                <a href="@Url.Content(AadharImagePath)" target="_blank">PreviewImage</a>
+                                @*<a href="javascript:PreviewImage('@Model.AadharImageName');">PreviewImage</a>*@
+                                <a href="~/ImageViewer/Getimage/?Type=CSP+&File=+@AadharImagePath" target="_blank">PreviewImage</a>
                             }
                             else
                             { <span style="color:red;">No image uploaded.</span>
@@ -299,7 +308,8 @@
                             @Html.ValidationMessageFor(model => model.LatestEducationProofImage, "", new { @class = "text-danger" })
                             @if (!string.IsNullOrEmpty(Model.LatestEducationProofImageName))
                             {
-                                <a href="@Url.Content(LatestEducationProofImagePath)" target="_blank">PreviewImage</a>
+                                @*<a href="javascript:PreviewImage('@Model.LatestEducationProofImageName');">PreviewImage</a>*@
+                                <a href="~/ImageViewer/Getimage/?Type=CSP+&File=+@LatestEducationProofImagePath" target="_blank">PreviewImage</a>
                             }
                             else
                             { <span style="color:red;">No image uploaded.</span>
@@ -316,7 +326,8 @@
                                 @Html.ValidationMessageFor(model => model.IIBFCertificationImage, "", new { @class = "text-danger" })
                                 @if (!string.IsNullOrEmpty(Model.IIBFCertificationImageName))
                                 {
-                                    <a href="@Url.Content(IIBFCertificationImagePath)" target="_blank">PreviewImage</a>
+                                    @*<a href="javascript:PreviewImage('@Model.IIBFCertificationImageName');">PreviewImage</a>*@
+                                   <a href="~/ImageViewer/Getimage/?Type=CSP+&File=+@IIBFCertificationImagePath" target="_blank">PreviewImage</a>
                                 }
                                 else
                                 { <span style="color:red;">No image uploaded.</span>
@@ -340,6 +351,14 @@
 }
 
 <script>
+
+    debugger;
+    function PreviewImage(url)
+    {
+        var win = window.open();
+         win.document.write("<iframe width='100%' height='100%' scrolling='no' src='" + url + "'></iframe>");
+    }
+
            function bindState() {
             var sid = $("#Country").val();
         $("#City").empty();

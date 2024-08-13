@@ -68,6 +68,7 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Commission)
+                                
                             </td>
                         </tr>
                         TotalCommission = @TotalCommission + Convert.ToDecimal(@item.Commission);
@@ -141,10 +142,11 @@
             var year = Selyear.options[Selyear.selectedIndex].value;
             var Selmonth = document.getElementById("Month");
             var month = Selmonth.options[Selmonth.selectedIndex].text;
-            $('#example').append('<caption style="caption-side: top;color:red;display:none;">Commission for the month of: <b> ' + month + ', ' + year + '&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;CSP Code:<b>' + CSPCode + '</b></caption>');
+            $('#example').append('<caption style="caption-side: top;color:red;display:none;">CSP Code:-' + CSPCode  +', Commission for the month of: <b> ' + month + ', ' + year + '&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;CSP Code:<b>' + CSPCode + '</b></caption>');
         }
         $('#example').DataTable({
             "pageLength": 30,
+            "ordering": false,
             dom: 'Bfrtip',
             buttons: [
                 'excel',

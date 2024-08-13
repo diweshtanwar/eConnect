@@ -25,8 +25,11 @@ namespace eConnect.DataAccess
         public Nullable<decimal> HOCommission { get; set; }
         public Nullable<decimal> CSPCommission { get; set; }
         public Nullable<bool> Status { get; set; }
+        public Nullable<int> CycleID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCommissionReport> tblCommissionReports { get; set; }
+        public virtual tblCommissionReportTransactionType tblCommissionReportTransactionType1 { get; set; }
+        public virtual tblCommissionReportTransactionType tblCommissionReportTransactionType2 { get; set; }
     }
 }

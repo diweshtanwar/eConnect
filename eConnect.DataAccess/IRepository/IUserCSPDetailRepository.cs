@@ -19,5 +19,6 @@ namespace eConnect.DataAccess
         IList<tblUserDetail> GetAllUserDetail();
         tblUserDetail GetUserDetailByID(int Id);
         void DeleteuserDetail(int id);
+        tblUserCSPDetail GetUserCSPByCSPCode(string CSPCode);
     }
 }

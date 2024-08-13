@@ -11,6 +11,17 @@ namespace eConnect.Model
     public class OtherModels
     {
     }
+
+    public class WindowTimes
+    {
+        public int Id { get; set; }
+
+
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
+        public bool InActive { get; set; }
+
+    }
     public class FolderDetailsModel
     {
         public int Id { get; set; }

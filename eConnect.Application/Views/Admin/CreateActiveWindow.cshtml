@@ -1,0 +1,46 @@
+﻿@model eConnect.Model.WindowTimes
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+
+@using (Html.BeginForm("CreateActiveWindow22", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    
+    <style>
+        html {
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            // create TimePicker from input HTML element
+            $("#timepicker").kendoTimePicker({
+                dateInput: true
+            });
+        });
+    </script>
+
+    <section>
+
+        <div class="k-d-flex k-justify-content-center" style="padding-top: 54px;">
+            <div class="k-w-300">
+                <label for="timepicker">Enter a date</label>
+                <input id="timepicker" value="10:00 AM" title="timepicker" />
+
+                <label for="textbox">Alarm description</label>
+                <span class="k-textbox k-input k-input-md k-rounded-md k-input-solid" style="width: 100%">
+                    <input id="textbox" type="text" value="Wake up" class="k-input-inner" />
+                </span>
+            </div>
+        </div>
+    </section>
+
+}
+
